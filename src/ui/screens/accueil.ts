@@ -147,7 +147,7 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
       h(
         'div',
         { class: 'diapo-progression' },
-        h('span', { class: 'diapo-jauge' }, h('span', { style: `width:${Math.max(pct, 2)}%` })),
+        h('span', { class: 'diapo-jauge' }, h('span', { style: `width:${pct}%` })),
         h('strong', null, `${pct} %`),
       ),
     );

@@ -151,7 +151,7 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
       h(
         'div',
         { class: 'progression', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(Math.round(fait * 100)) },
-        h('div', { class: 'progression-remplie', style: `width:${Math.max(fait * 100, 2)}%` }),
+        h('div', { class: 'progression-remplie', style: `width:${fait * 100}%` }),
       ),
       h('span', { class: 'compteur' }, cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `Question ${s.rang + 1}`),
       cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': `${s.vies} vie(s)` }, `❤️ ${Math.max(0, s.vies!)}`) : null,
