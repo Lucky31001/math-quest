@@ -25,13 +25,28 @@ beforeAll(async () => {
 });
 
 describe('écrans', () => {
-  it('accueil : carte des deux mondes', async () => {
+  it('accueil : onglets de matières issus du catalogue, chemin de la matière choisie', async () => {
     await aller('#/');
     const main = document.getElementById('contenu')!;
-    expect(main.textContent).toContain('Monde Algèbre');
-    expect(main.textContent).toContain('Monde Analyse');
-    expect(main.querySelectorAll('.zone').length).toBe(CONTENU.chapitres.length);
+    const niveau = CONTENU.catalogue.niveaux[0];
+    const onglets = main.querySelectorAll<HTMLButtonElement>('.matiere-onglet');
+    expect(onglets.length).toBe(niveau.matieres.length);
     expect(document.querySelector('.hud')!.textContent).toContain('Bachelier perdu');
+    // Chaque onglet affiche le chemin de sa matière.
+    niveau.matieres.forEach((m, i) => {
+      main.querySelectorAll<HTMLButtonElement>('.matiere-onglet')[i].click();
+      expect(main.querySelector('.monde-entete')!.textContent).toContain(m.nom);
+      expect(main.querySelectorAll('.zone').length).toBe(CONTENU.chapitres.filter((c) => c.monde === m.id).length);
+      expect(main.querySelectorAll('.matiere-onglet')[i].getAttribute('aria-selected')).toBe('true');
+    });
+    // Un seul niveau : pas de sélecteur de niveau.
+    expect(!!main.querySelector('.niveaux')).toBe(CONTENU.catalogue.niveaux.length > 1);
+  });
+
+  it('le décor de vagues est présent et ignoré par les lecteurs d’écran', () => {
+    const decor = document.querySelector('.decor')!;
+    expect(decor.getAttribute('aria-hidden')).toBe('true');
+    expect(decor.querySelectorAll('.vague')).toHaveLength(3);
   });
 
   it.each(['cours', 'flashcards', 'exercices'])('chapitre : onglet %s', async (onglet) => {

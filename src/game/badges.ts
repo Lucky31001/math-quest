@@ -2,7 +2,7 @@
  * Badges : chacun est une condition sur l'état de la progression.
  * `nouveauxBadges` est appelé après chaque événement et renvoie ceux qui viennent d'être débloqués.
  */
-import type { Chapitre } from '../core/schema';
+import type { Chapitre, Matiere } from '../core/schema';
 import type { Progression } from '../storage/progression';
 import { cle } from '../core/loader';
 import { niveauDepuisXp } from './xp';
@@ -21,9 +21,7 @@ const bossVaincus = (p: Progression, chapitres: readonly Chapitre[]) =>
 /** Nom court d'un chapitre pour le badge « 100 % sur … ». */
 const surLe = (c: Chapitre) => c.titre.charAt(0).toLowerCase() + c.titre.slice(1);
 
-export function listeBadges(chapitres: readonly Chapitre[]): Badge[] {
-  const algebre = chapitres.filter((c) => c.monde === 'algebre');
-  const analyse = chapitres.filter((c) => c.monde === 'analyse');
+export function listeBadges(chapitres: readonly Chapitre[], matieres: readonly Matiere[] = []): Badge[] {
   const fixes: Badge[] = [
     { id: 'premiers-pas', nom: 'Premiers pas', description: 'Réussir sa première question.', icone: '👣', test: (p) => p.compteurs.bonnes >= 1 },
     { id: 'centurion', nom: 'Centurion', description: 'Réussir 100 questions.', icone: '💯', test: (p) => p.compteurs.bonnes >= 100 },
@@ -33,8 +31,6 @@ export function listeBadges(chapitres: readonly Chapitre[]): Badge[] {
     { id: 'streak-7', nom: 'Semaine en feu', description: '7 jours d\'affilée.', icone: '🌋', test: (p) => p.streak.record >= 7 },
     { id: 'streak-30', nom: 'Inarrêtable', description: '30 jours d\'affilée.', icone: '☄️', test: (p) => p.streak.record >= 30 },
     { id: 'boss-1', nom: 'Tueur de boss', description: 'Vaincre un boss de chapitre.', icone: '⚔️', test: (p) => bossVaincus(p, chapitres) >= 1 },
-    { id: 'boss-algebre', nom: "Seigneur de l'algèbre", description: 'Vaincre tous les boss du monde Algèbre.', icone: '👑', test: (p) => algebre.length > 0 && bossVaincus(p, algebre) === algebre.length },
-    { id: 'boss-analyse', nom: "Seigneur de l'analyse", description: 'Vaincre tous les boss du monde Analyse.', icone: '🏆', test: (p) => analyse.length > 0 && bossVaincus(p, analyse) === analyse.length },
     { id: 'sans-indice', nom: 'Aucun indice utilisé', description: 'Vaincre un boss sans utiliser d\'indice.', icone: '🧠', test: (p) => Object.values(p.records.boss).some((b) => b.vaincu && b.sansIndice) },
     { id: 'survie-10', nom: 'Survivant', description: '10 bonnes réponses d\'affilée en mode Survie.', icone: '🛡️', test: (p) => p.records.survie >= 10 },
     { id: 'survie-25', nom: 'Immortel', description: '25 bonnes réponses d\'affilée en mode Survie.', icone: '🧬', test: (p) => p.records.survie >= 25 },
@@ -54,7 +50,18 @@ export function listeBadges(chapitres: readonly Chapitre[]): Badge[] {
     icone: c.icone,
     test: (p: Progression) => c.exercices.length > 0 && c.exercices.every((q) => (p.questions[cle(c.id, q.id)]?.reussites ?? 0) > 0),
   }));
-  return [...fixes, ...parfaits];
+  // « Conquérant » : tous les boss d'une matière (un badge par matière du catalogue).
+  const conquetes: Badge[] = matieres.map((m) => {
+    const chs = chapitres.filter((c) => c.monde === m.id);
+    return {
+      id: `boss-${m.id}`,
+      nom: `Conquérant : ${m.nom}`,
+      description: `Vaincre tous les boss de la matière « ${m.nom} ».`,
+      icone: m.embleme,
+      test: (p: Progression) => chs.length > 0 && bossVaincus(p, chs) === chs.length,
+    };
+  });
+  return [...fixes, ...conquetes, ...parfaits];
 }
 
 /** Débloque et renvoie les badges nouvellement obtenus. */

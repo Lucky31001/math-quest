@@ -2,14 +2,14 @@
  * État global de l'application : la progression (sauvegardée à chaque modification)
  * et les notifications de jeu (XP, niveau, badges).
  */
-import { CONTENU } from '../core/loader';
+import { CONTENU, toutesLesMatieres } from '../core/loader';
 import { charger, sauvegarder, type Progression } from '../storage/progression';
 import { listeBadges, nouveauxBadges, type Badge } from '../game/badges';
 import { niveauDepuisXp, titre } from '../game/xp';
 import { jour } from '../game/dates';
 import { toast, celebrer, jouerSon } from './effets';
 
-export const BADGES: Badge[] = listeBadges(CONTENU.chapitres);
+export const BADGES: Badge[] = listeBadges(CONTENU.chapitres, toutesLesMatieres());
 
 let progression: Progression = charger();
 const abonnes = new Set<() => void>();

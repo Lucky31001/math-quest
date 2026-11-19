@@ -1,7 +1,8 @@
 /** Écran d'un chapitre : onglets Cours / Flashcards / Exercices. */
 import type { Chapitre, Difficulte } from '../../core/schema';
 import { LIBELLES_TYPE } from '../../core/schema';
-import { chapitreParId, cle } from '../../core/loader';
+import { chapitreParId, cle, matiereParId, styleMatiere } from '../../core/loader';
+import { selectionnerMatiere } from '../selection';
 import { generateursDu } from '../../generators';
 import { h } from '../dom';
 import { riche } from '../texte';
@@ -32,6 +33,9 @@ export function ecranChapitre(main: HTMLElement, params: string[]): () => void {
   const onglet: Onglet = (['cours', 'flashcards', 'exercices'] as const).find((o) => o === params[1]) ?? 'cours';
   let nettoyer = () => {};
 
+  const matiere = matiereParId(ch.monde);
+  // Au retour sur la carte, on retrouve la matière de ce chapitre.
+  selectionnerMatiere(ch.monde);
   const p = etat.p;
   const maitrise = Math.round(maitriseChapitre(p, ch) * 100);
   const t = tauxChapitre(p, ch.id);
@@ -40,8 +44,8 @@ export function ecranChapitre(main: HTMLElement, params: string[]): () => void {
   main.append(
     h(
       'header',
-      { class: `chapitre-entete monde-${ch.monde}` },
-      h('a', { href: '#/', class: 'lien-retour' }, `← ${ch.monde === 'algebre' ? 'Monde Algèbre' : 'Monde Analyse'}`),
+      { class: 'chapitre-entete', style: styleMatiere(matiere) },
+      h('a', { href: '#/', class: 'lien-retour' }, `← ${matiere ? `${matiere.embleme} ${matiere.nom}` : 'Accueil'}`),
       h('h1', null, h('span', { class: 'icone' }, ch.icone), ` ${ch.titre}`),
       riche('p', ch.resume, 'resume'),
       h(

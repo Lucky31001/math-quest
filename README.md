@@ -212,10 +212,53 @@ L'élève clique sur la ligne fausse de la démonstration. `etapeFausse` est l'i
 }
 ```
 
+### Ajouter une matière ou un niveau
+
+Les niveaux (années) et leurs matières sont décrits dans `content/catalogue.json`. L'accueil s'en sert pour afficher :
+- un sélecteur de niveau, seulement s'il y en a plusieurs ;
+- des onglets de matières ;
+- le chemin de chapitres de la matière choisie.
+
+Aucun code n'est à modifier.
+
+```json
+{
+  "$schema": "./catalogue.schema.json",
+  "niveaux": [
+    {
+      "id": "pre-ing-1",
+      "nom": "Pré-ing 1",
+      "description": "Prépa intégrée, 1re année",
+      "matieres": [
+        { "id": "algebre", "nom": "Algèbre", "sousTitre": "Structures, calculs et raisonnements",
+          "embleme": "🏰", "couleur": "#ce82ff", "couleurFonce": "#a568cc" }
+      ]
+    },
+    {
+      "id": "pre-ing-2",
+      "nom": "Pré-ing 2",
+      "matieres": [
+        { "id": "physique", "nom": "Physique", "sousTitre": "Mécanique et électricité",
+          "embleme": "⚛️", "couleur": "#ff9600", "couleurFonce": "#e08500" }
+      ]
+    }
+  ]
+}
+```
+
+**Pour ajouter une matière :**
+1. Ajoute-la dans un niveau du catalogue. Son `id` doit être **unique dans tout le catalogue** : pour une « Algèbre » de 2e année, prends par exemple `algebre-2`.
+2. Crée le dossier `content/<id>/`.
+3. Mets-y les chapitres, avec `"monde": "<id>"`.
+
+Une matière sans chapitre s'affiche « Bientôt ».
+
+Le badge « Conquérant » (tous les boss de la matière vaincus) est créé automatiquement pour chaque matière.
+
 ### Ajouter un chapitre
 
-1. Crée `content/<monde>/<id>.json`. Le dossier doit correspondre au champ `monde`.
-2. Choisis un `ordre` pour sa place sur la carte.
+1. Crée `content/<matière>/<id>.json`. Le dossier doit correspondre au champ `monde` (l'identifiant de la matière dans le catalogue).
+2. Choisis un `ordre` pour sa place sur le chemin de la matière.
 3. Il apparaît automatiquement sur la carte et dans tous les modes.
 
 Après avoir ajouté du contenu, lance `npm test`, qui vérifie :

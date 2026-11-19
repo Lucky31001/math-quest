@@ -17,10 +17,10 @@
         },
         "monde": {
           "type": "string",
-          "enum": [
-            "algebre",
-            "analyse"
-          ]
+          "pattern": "^[a-z0-9-]+$",
+          "errorMessage": {
+            "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+          }
         },
         "ordre": {
           "type": "integer",

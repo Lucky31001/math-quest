@@ -1,0 +1,28 @@
+{
+  "$schema": "./catalogue.schema.json",
+  "niveaux": [
+    {
+      "id": "pre-ing-1",
+      "nom": "Pré-ing 1",
+      "description": "Prépa intégrée, 1re année",
+      "matieres": [
+        {
+          "id": "algebre",
+          "nom": "Algèbre",
+          "sousTitre": "Structures, calculs et raisonnements",
+          "embleme": "🏰",
+          "couleur": "#ce82ff",
+          "couleurFonce": "#a568cc"
+        },
+        {
+          "id": "analyse",
+          "nom": "Analyse",
+          "sousTitre": "Limites, fonctions et infini",
+          "embleme": "🌋",
+          "couleur": "#1cb0f6",
+          "couleurFonce": "#1899d6"
+        }
+      ]
+    }
+  ]
+}

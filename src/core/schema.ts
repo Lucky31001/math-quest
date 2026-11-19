@@ -175,7 +175,8 @@ export const ChapitreSchema = z
   .object({
     $schema: z.string().optional(),
     id,
-    monde: z.enum(['algebre', 'analyse']),
+    /** Matière du chapitre : identifiant déclaré dans content/catalogue.json (= nom du dossier). */
+    monde: id,
     /** Position du chapitre sur la carte (1 = premier). */
     ordre: z.number().int().positive(),
     titre: texte,
@@ -192,3 +193,48 @@ export type Chapitre = z.infer<typeof ChapitreSchema>;
 /** Forme « en entrée » (avant valeurs par défaut) — utile pour écrire du contenu en TS. */
 export type ChapitreInput = z.input<typeof ChapitreSchema>;
 export type Monde = Chapitre['monde'];
+
+/* ------------------------------------------------------------------ */
+/* Catalogue : niveaux (années) et matières                            */
+/* ------------------------------------------------------------------ */
+
+const couleur = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'couleur au format #rrggbb');
+
+export const MatiereSchema = z
+  .object({
+    /** Identifiant unique (= nom du dossier content/<id>/ et champ « monde » des chapitres). */
+    id,
+    nom: texte,
+    sousTitre: texte,
+    /** Emoji de la matière. */
+    embleme: z.string().min(1),
+    couleur,
+    /** Teinte plus sombre, pour le relief des boutons et bannières. */
+    couleurFonce: couleur,
+  })
+  .strict();
+
+export const NiveauSchema = z
+  .object({
+    id,
+    nom: texte,
+    description: z.string().optional(),
+    matieres: z.array(MatiereSchema).min(1),
+  })
+  .strict();
+
+export const CatalogueSchema = z
+  .object({
+    $schema: z.string().optional(),
+    niveaux: z.array(NiveauSchema).min(1),
+  })
+  .strict()
+  .superRefine((c, ctx) => {
+    const ids = c.niveaux.flatMap((n) => n.matieres.map((m) => m.id));
+    const doublons = ids.filter((x, i) => ids.indexOf(x) !== i);
+    if (doublons.length) ctx.addIssue({ code: 'custom', message: `matières en double : ${doublons.join(', ')}` });
+  });
+
+export type Matiere = z.infer<typeof MatiereSchema>;
+export type Niveau = z.infer<typeof NiveauSchema>;
+export type Catalogue = z.infer<typeof CatalogueSchema>;

@@ -1,5 +1,5 @@
 /** Tableau de bord : réussite par chapitre et par type de question, points faibles, activité. */
-import { CONTENU } from '../../core/loader';
+import { CONTENU, chapitresDe, styleMatiere } from '../../core/loader';
 import { TYPES_QUESTION, LIBELLES_TYPE } from '../../core/schema';
 import { h } from '../dom';
 import { etat } from '../etat';
@@ -92,17 +92,19 @@ export function ecranStats(main: HTMLElement): void {
       h('h2', null, 'Par type de question'),
       parType.map((x) => barre(LIBELLES_TYPE[x.t], x.taux, `${x.reussites}/${x.tentatives}`)),
     ),
-    ...(['algebre', 'analyse'] as const).map((monde) =>
+    ...CONTENU.catalogue.niveaux.flatMap((niveau) =>
+      niveau.matieres.map((m) =>
       h(
         'section',
-        { class: `carte-info monde-${monde}` },
-        h('h2', null, monde === 'algebre' ? '🏰 Algèbre' : '🌋 Analyse'),
-        CONTENU.chapitres
-          .filter((c) => c.monde === monde)
+        { class: 'carte-info carte-matiere', style: styleMatiere(m) },
+        h('h2', null, `${m.embleme} ${m.nom}`, CONTENU.catalogue.niveaux.length > 1 ? h('small', { class: 'etiquette-niveau' }, niveau.nom) : null),
+        chapitresDe(m.id).length === 0 ? h('p', { class: 'note' }, 'Pas encore de chapitre.') : null,
+        chapitresDe(m.id)
           .map((c) => {
             const t = tauxChapitre(p, c.id);
             return barre(`${c.icone} ${c.titre}`, t.taux, `${t.reussites}/${t.tentatives} · maîtrise ${Math.round(maitriseChapitre(p, c) * 100)} %`, `#/chapitre/${c.id}/exercices`);
           }),
+      ),
       ),
     ),
     h(

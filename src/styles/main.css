@@ -33,11 +33,11 @@
   --violet: #ce82ff;
   --violet-fonce: #a568cc;
 
-  /* Couleurs des deux mondes */
-  --algebre: var(--violet);
-  --algebre-fonce: var(--violet-fonce);
-  --analyse: var(--bleu);
-  --analyse-fonce: var(--bleu-fonce);
+  /* Décor de fond (vagues) */
+  --ciel: #eef9ff;
+  --vague-1: #f1e4ff;
+  --vague-2: #dcf2fd;
+  --vague-3: #e3f9d3;
 
   --rayon: 16px;
   --police: 'Nunito', 'Segoe UI Rounded', 'SF Pro Rounded', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -60,6 +60,10 @@
     --bleu-clair: #13394b;
     --bleu-bord: #1d6f94;
     --rouge-clair: #3f1d20;
+    --ciel: #10232b;
+    --vague-1: #1f2536;
+    --vague-2: #14303d;
+    --vague-3: #173225;
     color-scheme: dark;
   }
 }
@@ -171,10 +175,6 @@ main {
     box-shadow 0.06s,
     filter 0.15s;
   -webkit-tap-highlight-color: transparent;
-}
-
-.btn:hover {
-  filter: brightness(1.04);
 }
 
 .btn:active:not(:disabled) {
@@ -553,26 +553,11 @@ body[data-ecran='jouer'] .hud {
   background: #fff6cc;
 }
 
-.carte-mondes {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
-}
-
-@media (min-width: 820px) {
-  .carte-mondes {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 .monde {
-  --couleur: var(--algebre);
-  --couleur-fonce: var(--algebre-fonce);
-}
-
-.monde-analyse {
-  --couleur: var(--analyse);
-  --couleur-fonce: var(--analyse-fonce);
+  --couleur: var(--violet);
+  --couleur-fonce: var(--violet-fonce);
+  max-width: 620px;
+  margin: 0 auto;
 }
 
 .monde-entete {
@@ -581,6 +566,21 @@ body[data-ecran='jouer'] .hud {
   background: var(--couleur);
   box-shadow: 0 5px 0 var(--couleur-fonce);
   color: #fff;
+}
+
+.monde-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.monde-pct {
+  flex: none;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.25);
+  font-weight: 900;
 }
 
 .monde-entete h2 {
@@ -752,8 +752,8 @@ body[data-ecran='jouer'] .hud {
 /* ----------------------------- Chapitre ---------------------------- */
 
 .chapitre-entete {
-  --couleur: var(--algebre);
-  --couleur-fonce: var(--algebre-fonce);
+  --couleur: var(--violet);
+  --couleur-fonce: var(--violet-fonce);
   padding: 16px 18px;
   border-radius: 20px;
   background: var(--couleur);
@@ -761,10 +761,6 @@ body[data-ecran='jouer'] .hud {
   color: #fff;
 }
 
-.chapitre-entete.monde-analyse {
-  --couleur: var(--analyse);
-  --couleur-fonce: var(--analyse-fonce);
-}
 
 .chapitre-entete h1 {
   margin: 0.2em 0;
@@ -2148,4 +2144,330 @@ a.stat-ligne:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* =====================================================================
+   Parcours : niveaux et matières (piloté par content/catalogue.json)
+   ===================================================================== */
+
+.parcours {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.niveaux {
+  display: flex;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 14px;
+  padding: 5px;
+  border: 2px solid var(--bord);
+  border-radius: 999px;
+  background: var(--surface);
+  overflow-x: auto;
+}
+
+.niveau-onglet {
+  padding: 6px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--texte-doux);
+  font: 900 0.85rem var(--police);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.niveau-onglet.actif {
+  background: var(--texte);
+  color: var(--fond);
+}
+
+/* Onglets de matières : défilent horizontalement s'il y en a beaucoup */
+.matieres {
+  display: flex;
+  gap: 12px;
+  margin: 0 -16px 22px;
+  padding: 4px 16px 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.matiere-onglet {
+  --couleur: var(--violet);
+  --couleur-fonce: var(--violet-fonce);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 0 180px;
+  max-width: 280px;
+  padding: 12px 14px 16px;
+  border: 2px solid var(--bord);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--bord);
+  color: var(--texte);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    border-color 0.12s;
+}
+
+.matiere-onglet.actif {
+  border-color: var(--couleur);
+  box-shadow: 0 4px 0 var(--couleur-fonce);
+}
+
+.matiere-onglet:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.matiere-embleme {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--couleur) 18%, transparent);
+  font-size: 1.5rem;
+}
+
+.matiere-texte {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.matiere-texte strong {
+  font-weight: 900;
+}
+
+.matiere-texte small {
+  color: var(--texte-doux);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* Jauge de maîtrise au bas de l'onglet */
+.matiere-jauge {
+  --pct: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: calc(var(--pct) * 1%);
+  height: 5px;
+  background: var(--couleur);
+}
+
+.carte-matiere h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--couleur);
+}
+
+.etiquette-niveau {
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--texte-doux);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* =====================================================================
+   Fond : ciel doux + vagues en couches qui ondulent
+   ===================================================================== */
+
+body {
+  background: linear-gradient(180deg, var(--ciel) 0, var(--fond) 420px) fixed, var(--fond);
+}
+
+/* (Pas de backdrop-filter sur l'en-tête : il ferait de lui le conteneur des éléments
+   « position: fixed », et la barre d'onglets mobile ne serait plus collée en bas.) */
+.hud {
+  background: color-mix(in srgb, var(--fond) 94%, transparent);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.decor {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.vagues {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: min(34vh, 300px);
+}
+
+.vague {
+  animation: houle 48s linear infinite;
+}
+
+.vague-1 {
+  fill: var(--vague-1);
+  animation-duration: 70s;
+}
+
+.vague-2 {
+  fill: var(--vague-2);
+  animation-duration: 52s;
+  animation-direction: reverse;
+}
+
+.vague-3 {
+  fill: var(--vague-3);
+  animation-duration: 38s;
+}
+
+@keyframes houle {
+  to {
+    transform: translateX(-1440px);
+  }
+}
+
+.sans-animations .vague {
+  animation: none;
+}
+
+/* Pendant une leçon, des vagues plus basses pour ne rien gêner */
+body[data-ecran='jouer'] .vagues {
+  height: min(18vh, 160px);
+  opacity: 0.7;
+}
+
+/* =====================================================================
+   Survol (souris uniquement) : léger soulèvement
+   ===================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--relief);
+    filter: brightness(1.04);
+  }
+
+  .carte-action:hover,
+  .matiere-onglet:hover,
+  .exercice-ligne:hover,
+  .badge:hover {
+    transform: translateY(-3px);
+  }
+
+  .carte-action:hover,
+  .exercice-ligne:hover,
+  .badge:hover {
+    box-shadow: 0 7px 0 var(--bord);
+  }
+
+  .matiere-onglet:hover:not(.actif) {
+    border-color: color-mix(in srgb, var(--couleur) 55%, var(--bord));
+    box-shadow: 0 7px 0 var(--bord);
+  }
+
+  .matiere-onglet.actif:hover {
+    box-shadow: 0 7px 0 var(--couleur-fonce);
+  }
+
+  .zone-lien:hover .zone-noeud {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 11px 0 var(--couleur-fonce);
+  }
+
+  .zone.a-venir .zone-lien:hover .zone-noeud {
+    box-shadow: 0 11px 0 var(--bord-fonce);
+  }
+
+  .zone-lien:hover .zone-texte strong {
+    color: var(--couleur);
+  }
+
+  .choix-item:not(.juste):not(.faux):not(.neutre):not(.choisi):hover,
+  .etape:not(:disabled):not(.choisi):hover {
+    border-color: var(--bleu-bord);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--bord);
+  }
+
+  .touche:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--bord);
+  }
+
+  .onglets a:not(.actif):hover,
+  .hud-nav a:not(.actif):hover {
+    background: var(--surface-2);
+    color: var(--texte);
+  }
+
+  .niveau-onglet:not(.actif):hover {
+    background: var(--surface-2);
+    color: var(--texte);
+  }
+
+  .flashcard:hover .face {
+    box-shadow: 0 9px 0 var(--bord);
+  }
+
+  .flashcard:hover .verso {
+    box-shadow: 0 9px 0 var(--bleu-bord);
+  }
+
+  a.stat-ligne:hover {
+    transform: translateX(3px);
+  }
+
+  .quitter:hover,
+  .lien-retour:hover {
+    opacity: 0.75;
+  }
+
+  /* L'appui garde la priorité sur le survol */
+  .btn:active:not(:disabled),
+  .carte-action:active,
+  .matiere-onglet:active,
+  .exercice-ligne:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--bord);
+  }
+
+  .btn:active:not(:disabled) {
+    box-shadow: 0 0 0 var(--relief);
+  }
+}
+
+.etape,
+.badge,
+.exercice-ligne,
+.stat-ligne,
+.touche {
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    border-color 0.12s,
+    background 0.12s;
 }

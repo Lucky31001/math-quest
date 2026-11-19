@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU, validerContenu } from '../src/core/loader';
 import { verifierExpression, verifierNumerique } from '../src/core/checker';
 import type { Question } from '../src/core/schema';
 
@@ -43,6 +43,36 @@ function erreursLatex(texte: string): string[] {
 describe('fichiers de contenu', () => {
   it('sont tous valides', () => {
     expect(CONTENU.erreurs, JSON.stringify(CONTENU.erreurs, null, 2)).toEqual([]);
+  });
+  it('chaque chapitre appartient à une matière du catalogue', () => {
+    const matieres = CONTENU.catalogue.niveaux.flatMap((n) => n.matieres.map((m) => m.id));
+    for (const c of CONTENU.chapitres) expect(matieres, c.id).toContain(c.monde);
+  });
+});
+
+describe('catalogue (niveaux et matières)', () => {
+  const chapitre = (monde: string) => ({ id: 'c', monde, ordre: 1, titre: 'T', icone: '📘', resume: 'R', cours: [{ titre: 'S', blocs: [{ type: 'remarque', texte: 'x' }] }], flashcards: [], exercices: [] });
+  const cat = (ids: string[][]) => ({
+    niveaux: ids.map((ms, k) => ({ id: `n${k}`, nom: `N${k}`, matieres: ms.map((id) => ({ id, nom: id, sousTitre: 's', embleme: '📘', couleur: '#123456', couleurFonce: '#000000' })) })),
+  });
+  it('accepte une nouvelle matière et un nouveau niveau sans code', () => {
+    const r = validerContenu({ '/content/physique/c.json': chapitre('physique') }, cat([['algebre'], ['physique']]));
+    expect(r.erreurs).toEqual([]);
+    expect(r.chapitres.map((c) => c.monde)).toEqual(['physique']);
+  });
+  it('signale un chapitre dont la matière est absente du catalogue', () => {
+    const r = validerContenu({ '/content/chimie/c.json': chapitre('chimie') }, cat([['algebre']]));
+    expect(r.erreurs[0].messages.join()).toMatch(/absente de content\/catalogue.json/);
+  });
+  it('refuse une matière déclarée deux fois ou une couleur invalide', () => {
+    expect(validerContenu({}, cat([['algebre'], ['algebre']])).erreurs).toHaveLength(1);
+    const c = cat([['algebre']]);
+    c.niveaux[0].matieres[0].couleur = 'violet';
+    expect(validerContenu({}, c).erreurs).toHaveLength(1);
+  });
+  it('trie les chapitres selon l’ordre du catalogue', () => {
+    const r = validerContenu({ '/content/b/c.json': { ...chapitre('b'), id: 'cb' }, '/content/a/c.json': { ...chapitre('a'), id: 'ca' } }, cat([['b', 'a']]));
+    expect(r.chapitres.map((c) => c.id)).toEqual(['cb', 'ca']);
   });
 });
 

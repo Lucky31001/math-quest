@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Pastille verte en relief avec un Σ blanc (tracé vectoriel : pas de dépendance à une police) -->
+  <rect x="4" y="9" width="56" height="51" rx="16" fill="#58a700"/>
+  <rect x="4" y="4" width="56" height="51" rx="16" fill="#58cc02"/>
+  <rect x="9" y="8" width="46" height="6" rx="3" fill="#ffffff" opacity="0.25"/>
+  <path d="M19 15 H45 V22 H30.5 L38.5 30.5 L30.5 39 H45 V46 H19 V40.5 L28.5 30.5 L19 20.5 Z"
+        fill="#ffffff" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

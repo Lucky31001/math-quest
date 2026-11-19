@@ -1,14 +1,18 @@
-/** Accueil : carte des deux mondes (Algèbre, Analyse), révision du jour et modes de jeu. */
-import { CONTENU } from '../../core/loader';
-import type { Chapitre, Monde } from '../../core/schema';
-import { h } from '../dom';
+/**
+ * Accueil : révision du jour et modes de jeu, puis le parcours.
+ *
+ * Le parcours est piloté par content/catalogue.json : niveaux (années) → matières.
+ *   - sélecteur de niveau (affiché seulement s'il y a plusieurs niveaux) ;
+ *   - onglets de matières du niveau, avec progression ;
+ *   - chemin des chapitres de la matière choisie.
+ * Ajouter une matière ou un niveau ne demande donc aucun code.
+ */
+import { CONTENU, chapitresDe, matiereParId, niveauDeMatiere, styleMatiere } from '../../core/loader';
+import type { Chapitre, Matiere } from '../../core/schema';
+import { h, ajouter } from '../dom';
 import { etat } from '../etat';
 import { maitriseChapitre, questionsDues, flashcardsDues } from '../../game/modes';
-
-const MONDES: Record<Monde, { nom: string; sousTitre: string; embleme: string }> = {
-  algebre: { nom: 'Monde Algèbre', sousTitre: 'Structures, calculs et raisonnements', embleme: '🏰' },
-  analyse: { nom: 'Monde Analyse', sousTitre: 'Limites, fonctions et infini', embleme: '🌋' },
-};
+import { matiereSelectionnee, selectionnerMatiere } from '../selection';
 
 export function ecranAccueil(main: HTMLElement): void {
   const p = etat.p;
@@ -54,31 +58,104 @@ export function ecranAccueil(main: HTMLElement): void {
     ),
   );
 
-  const carte = h('section', { class: 'carte-mondes', 'aria-label': 'Carte de progression' });
-  (['algebre', 'analyse'] as const).forEach((monde, numero) => {
-    const chapitres = CONTENU.chapitres.filter((c) => c.monde === monde);
-    const recommande = chapitres.find((c) => maitriseChapitre(p, c) < 0.5);
-    const vaincus = chapitres.filter((c) => p.records.boss[c.id]?.vaincu).length;
-    carte.append(
+  const parcours = h('section', { class: 'parcours', 'aria-label': 'Parcours' });
+  main.append(parcours);
+  rendreParcours(parcours);
+}
+
+/** Maîtrise moyenne d'une matière (0..1). */
+function maitriseMatiere(m: Matiere): number {
+  const chs = chapitresDe(m.id);
+  return chs.length ? chs.reduce((s, c) => s + maitriseChapitre(etat.p, c), 0) / chs.length : 0;
+}
+
+function rendreParcours(conteneur: HTMLElement): void {
+  const niveaux = CONTENU.catalogue.niveaux;
+  const idMatiere = matiereSelectionnee();
+  const matiere = idMatiere ? matiereParId(idMatiere) : undefined;
+  if (!matiere) {
+    conteneur.replaceChildren(h('p', { class: 'note' }, 'Aucune matière dans content/catalogue.json.'));
+    return;
+  }
+  const niveau = niveauDeMatiere(matiere.id)!;
+  const choisir = (id: string) => {
+    selectionnerMatiere(id);
+    rendreParcours(conteneur);
+  };
+
+  // Sélecteur de niveau (années), seulement s'il y en a plusieurs.
+  const selecteurNiveau =
+    niveaux.length > 1
+      ? h(
+          'div',
+          { class: 'niveaux', role: 'tablist', 'aria-label': 'Niveau' },
+          niveaux.map((n) =>
+            h(
+              'button',
+              {
+                type: 'button',
+                role: 'tab',
+                class: `niveau-onglet ${n.id === niveau.id ? 'actif' : ''}`,
+                'aria-selected': String(n.id === niveau.id),
+                onclick: () => choisir(n.matieres[0].id),
+              },
+              n.nom,
+            ),
+          ),
+        )
+      : null;
+
+  // Onglets de matières du niveau.
+  const onglets = h(
+    'div',
+    { class: 'matieres', role: 'tablist', 'aria-label': 'Matières' },
+    niveau.matieres.map((m) => {
+      const chs = chapitresDe(m.id);
+      const vaincus = chs.filter((c) => etat.p.records.boss[c.id]?.vaincu).length;
+      const pct = Math.round(maitriseMatiere(m) * 100);
+      return h(
+        'button',
+        {
+          type: 'button',
+          role: 'tab',
+          class: `matiere-onglet ${m.id === matiere.id ? 'actif' : ''}`,
+          style: styleMatiere(m),
+          'aria-selected': String(m.id === matiere.id),
+          onclick: () => choisir(m.id),
+        },
+        h('span', { class: 'matiere-embleme', 'aria-hidden': 'true' }, m.embleme),
+        h('span', { class: 'matiere-texte' }, h('strong', null, m.nom), h('small', null, chs.length ? `${pct} % · 👑 ${vaincus}/${chs.length}` : 'Bientôt')),
+        h('span', { class: 'matiere-jauge', style: `--pct:${pct}` }),
+      );
+    }),
+  );
+
+  const chapitres = chapitresDe(matiere.id);
+  const recommande = chapitres.find((c) => maitriseChapitre(etat.p, c) < 0.5);
+  const vaincus = chapitres.filter((c) => etat.p.records.boss[c.id]?.vaincu).length;
+
+  const monde = h(
+    'div',
+    { class: 'monde', style: styleMatiere(matiere) },
+    h(
+      'header',
+      { class: 'monde-entete' },
       h(
         'div',
-        { class: `monde monde-${monde}` },
-        h(
-          'header',
-          { class: 'monde-entete' },
-          h(
-            'div',
-            null,
-            h('p', { class: 'monde-section' }, `Section ${numero + 1} · 👑 ${vaincus}/${chapitres.length} boss`),
-            h('h2', null, `${MONDES[monde].embleme} ${MONDES[monde].nom}`),
-            h('p', null, MONDES[monde].sousTitre),
-          ),
-        ),
-        h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande))),
+        null,
+        h('p', { class: 'monde-section' }, `${niveau.nom} · 👑 ${vaincus}/${chapitres.length} boss`),
+        h('h2', null, `${matiere.embleme} ${matiere.nom}`),
+        h('p', null, matiere.sousTitre),
       ),
-    );
-  });
-  main.append(carte);
+      h('span', { class: 'monde-pct', title: 'Maîtrise de la matière' }, `${Math.round(maitriseMatiere(matiere) * 100)} %`),
+    ),
+    chapitres.length
+      ? h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande)))
+      : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
+  );
+
+  conteneur.replaceChildren();
+  ajouter(conteneur, [selecteurNiveau, onglets, monde]);
 }
 
 /** Décalage horizontal des nœuds : le chemin serpente comme une rivière. */

@@ -6,7 +6,7 @@ import { ajouterJours, ecartJours } from '../src/game/dates';
 import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard } from '../src/game/progres';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU, toutesLesMatieres } from '../src/core/loader';
 import { serieBoss, serieEclair, serieEntrainement, questionsDues, itemSurvie } from '../src/game/modes';
 import { createRng } from '../src/core/random';
 
@@ -138,7 +138,7 @@ describe('sauvegarde', () => {
 });
 
 describe('badges', () => {
-  const badges = listeBadges(CONTENU.chapitres);
+  const badges = listeBadges(CONTENU.chapitres, toutesLesMatieres());
   it('ont des identifiants uniques', () => {
     expect(new Set(badges.map((b) => b.id)).size).toBe(badges.length);
   });

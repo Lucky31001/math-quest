@@ -17,7 +17,8 @@ Node 18 en local : ne pas passer à Vite 7 ou Vitest 4 (ils exigent Node ≥ 20)
 ## Architecture
 
 ```
-content/{algebre,analyse}/*.json   contenu (1 fichier = 1 chapitre), validé au chargement
+content/catalogue.json             niveaux (années) → matières (id, nom, emblème, couleurs)
+content/<matière>/*.json           1 fichier = 1 chapitre (« monde » = id de matière), validé au chargement
 src/core/
   schema.ts      SOURCE DE VÉRITÉ du format (Zod → types TS + validation + schema.json)
   loader.ts      import.meta.glob des JSON, validation, CONTENU global, clé « chapitre/id »
@@ -54,6 +55,19 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - Les éléments du DOM sont construits avec `h()` ; utiliser `ajouter()` quand des enfants peuvent être `null` (`append(null)` est refusé par TS).
 - Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX).
 - CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (sombre par défaut, clair via `prefers-color-scheme`). Mobile d'abord (360 px).
+
+## Niveaux et matières
+
+- **Rien n'est codé en dur** : l'accueil, les statistiques, les badges « Conquérant » et la couleur des en-têtes viennent de `content/catalogue.json`. On y accède via `toutesLesMatieres()`, `matiereParId()`, `chapitresDe()` et `styleMatiere()` dans `core/loader.ts`.
+- La couleur d'une matière passe par les variables CSS `--couleur` et `--couleur-fonce`, posées en style inline. Aucune classe CSS n'est propre à une matière.
+- La matière affichée sur la carte est mémorisée dans `localStorage` (`ui/selection.ts`), par simple confort.
+
+## Décor et effets
+
+- **Vagues de fond** : SVG en ligne créé dans `main.ts` (`.decor`, couleurs `--vague-1/2/3`, `--ciel`). Elles sont coupées par le réglage « animations » (classe `sans-animations` sur `<html>`) et par `prefers-reduced-motion`.
+- **Effets de survol** : uniquement sous `@media (hover: hover) and (pointer: fine)`. L'état `:active` (enfoncé) reste prioritaire.
+- **Ne pas mettre de `backdrop-filter` ni de `transform` sur `.hud`** : la barre d'onglets mobile (`position: fixed`) ne serait plus collée en bas.
+- **Icône d'onglet** : `public/favicon.svg`. Le Σ y est un tracé vectoriel, sans dépendance à une police.
 
 ## Ajouter du contenu
 
