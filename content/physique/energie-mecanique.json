@@ -1,0 +1,458 @@
+{
+  "$schema": "../schema.json",
+  "id": "energie-mecanique",
+  "monde": "physique",
+  "ordre": 4,
+  "titre": "Travail, puissance et énergie",
+  "icone": "🎢",
+  "resume": "Travail d'une force, théorème de l'énergie cinétique, énergie potentielle et énergie mécanique.",
+  "cours": [
+    {
+      "titre": "Travail et puissance",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Puissance et travail d'une force",
+          "texte": "Puissance d'une force : $\\mathcal P = \\vec F\\cdot\\vec v$ (en W). Travail entre A et B : $W_{AB} = \\int_A^B \\vec F\\cdot\\mathrm d\\vec\\ell$ (en J). Pour une force constante sur un déplacement rectiligne : $W = \\vec F\\cdot\\overrightarrow{AB} = F\\,AB\\cos\\theta$."
+        },
+        {
+          "type": "propriete",
+          "texte": "Une force perpendiculaire au déplacement ne travaille pas (réaction normale d'un support fixe, tension d'un pendule). Un travail **moteur** est positif, un travail **résistant** négatif (frottements)."
+        },
+        {
+          "type": "propriete",
+          "texte": "Travail du poids (axe $z$ vers le haut) : $W_{AB}(\\vec P) = mg\\,(z_A - z_B)$, indépendant du chemin suivi."
+        }
+      ]
+    },
+    {
+      "titre": "Énergies",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "Théorème de l'énergie cinétique (TEC)",
+          "texte": "Dans un référentiel galiléen : $\\Delta E_c = E_c(B) - E_c(A) = \\sum W_{AB}(\\vec F)$, avec $E_c = \\frac12 m v^2$."
+        },
+        {
+          "type": "definition",
+          "titre": "Énergie potentielle",
+          "texte": "Une force est **conservative** si son travail ne dépend pas du chemin ; on a alors $W_{AB} = -\\Delta E_p$. Pesanteur : $E_p = mgz$ (axe vers le haut). Ressort : $E_p = \\frac12 k\\,(\\ell - \\ell_0)^2$. Les frottements ne sont pas conservatifs."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Énergie mécanique",
+          "texte": "$E_m = E_c + E_p$. $\\Delta E_m = W(\\text{forces non conservatives})$. Si seules des forces conservatives travaillent, $E_m$ se **conserve**."
+        },
+        {
+          "type": "propriete",
+          "titre": "Équilibres",
+          "texte": "Mouvement à un degré de liberté : les positions d'équilibre vérifient $\\dfrac{\\mathrm dE_p}{\\mathrm dx} = 0$ ; un équilibre est **stable** si $E_p$ y est minimale ($E_p'' > 0$), instable si maximale."
+        },
+        {
+          "type": "methode",
+          "texte": "Si l'on cherche une **vitesse** en fonction d'une **position**, l'énergie est souvent plus rapide que le PFD (pas besoin du temps)."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-ec",
+      "recto": "Énergie cinétique ?",
+      "verso": "$E_c = \\frac12 mv^2$."
+    },
+    {
+      "id": "f-travail",
+      "recto": "Travail d'une force constante sur un déplacement rectiligne ?",
+      "verso": "$W = \\vec F\\cdot\\overrightarrow{AB} = F\\,AB\\cos\\theta$."
+    },
+    {
+      "id": "f-puissance",
+      "recto": "Puissance d'une force ?",
+      "verso": "$\\mathcal P = \\vec F\\cdot\\vec v$, en watts."
+    },
+    {
+      "id": "f-travail-poids",
+      "recto": "Travail du poids de A à B ($z$ vers le haut) ?",
+      "verso": "$mg\\,(z_A - z_B)$ : positif à la descente."
+    },
+    {
+      "id": "f-tec",
+      "recto": "Théorème de l'énergie cinétique ?",
+      "verso": "$\\Delta E_c = \\sum W(\\vec F)$ (référentiel galiléen)."
+    },
+    {
+      "id": "f-ep-pesanteur",
+      "recto": "Énergie potentielle de pesanteur ?",
+      "verso": "$E_p = mgz + \\text{cte}$, axe $z$ vers le haut."
+    },
+    {
+      "id": "f-ep-ressort",
+      "recto": "Énergie potentielle élastique ?",
+      "verso": "$E_p = \\frac12 k\\,(\\ell - \\ell_0)^2$."
+    },
+    {
+      "id": "f-em",
+      "recto": "Quand l'énergie mécanique se conserve-t-elle ?",
+      "verso": "Quand seules des forces conservatives travaillent."
+    },
+    {
+      "id": "f-dem",
+      "recto": "Variation d'énergie mécanique en général ?",
+      "verso": "$\\Delta E_m = W(\\text{forces non conservatives})$."
+    },
+    {
+      "id": "f-normale",
+      "recto": "Travail de la réaction normale d'un support fixe ?",
+      "verso": "Nul : elle est perpendiculaire au déplacement."
+    },
+    {
+      "id": "f-equilibre",
+      "recto": "Condition d'équilibre stable ?",
+      "verso": "$E_p'(x_0) = 0$ et $E_p$ minimale en $x_0$ ($E_p''(x_0) > 0$)."
+    },
+    {
+      "id": "f-vitesse-chute",
+      "recto": "Vitesse après une chute libre de hauteur $h$ ?",
+      "verso": "$v = \\sqrt{2gh}$ (conservation de $E_m$)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "energie-cinetique",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Énergie cinétique d'un objet de $2\\ \\mathrm{kg}$ à $3\\ \\mathrm{m/s}$ :",
+      "correction": [
+        "$E_c = \\frac12 mv^2 = 9\\ \\mathrm J$."
+      ],
+      "choix": [
+        {
+          "texte": "$9\\ \\mathrm J$",
+          "correct": true,
+          "explication": "$\\frac12 \\times 2 \\times 3^2 = 9$."
+        },
+        {
+          "texte": "$6\\ \\mathrm J$",
+          "correct": false,
+          "explication": "C'est $mv$ (quantité de mouvement, en kg·m/s)."
+        },
+        {
+          "texte": "$18\\ \\mathrm J$",
+          "correct": false,
+          "explication": "On a oublié le facteur $\\frac12$."
+        },
+        {
+          "texte": "$3\\ \\mathrm J$",
+          "correct": false,
+          "explication": "On a oublié le carré : $\\frac12 mv$."
+        }
+      ]
+    },
+    {
+      "id": "ep-monte",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Avec l'axe $z$ vers le haut, $E_p = mgz$. Quand un objet monte, son énergie potentielle de pesanteur :",
+      "correction": [
+        "$E_p = mgz$ croît avec $z$."
+      ],
+      "choix": [
+        {
+          "texte": "augmente",
+          "correct": true,
+          "explication": "$z$ augmente."
+        },
+        {
+          "texte": "diminue",
+          "correct": false,
+          "explication": "C'est à la descente que $E_p$ diminue."
+        },
+        {
+          "texte": "reste constante",
+          "correct": false,
+          "explication": "$E_p$ dépend de l'altitude."
+        },
+        {
+          "texte": "dépend du signe de sa vitesse",
+          "correct": false,
+          "explication": "$E_p$ ne dépend que de la position, pas de la vitesse."
+        }
+      ]
+    },
+    {
+      "id": "travail-poids",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Un objet de $3\\ \\mathrm{kg}$ descend de $5\\ \\mathrm m$ ($g = 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$). Travail de son poids, en J ?",
+      "correction": [
+        "$W = mg\\,(z_A - z_B) = 3 \\times 9{,}81 \\times 5 \\approx 147\\ \\mathrm J$.",
+        "Il est positif (moteur) puisque l'objet descend, et ne dépend pas du chemin."
+      ],
+      "reponse": "3*9.81*5",
+      "tolerance": 0.01
+    },
+    {
+      "id": "vitesse-chute",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un objet est lâché sans vitesse d'une hauteur de $45\\ \\mathrm m$ ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$, frottements négligés). Sa vitesse en arrivant au sol, en $\\mathrm{m/s}$ ?",
+      "correction": [
+        "Seul le poids travaille : $E_m$ se conserve.",
+        "$mgh = \\frac12 mv^2$ donc $v = \\sqrt{2gh} = \\sqrt{900} = 30\\ \\mathrm{m/s}$."
+      ],
+      "reponse": 30
+    },
+    {
+      "id": "vitesse-altitude",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Un skieur part sans vitesse d'une altitude de $10\\ \\mathrm m$ et descend une piste sans frottement ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$). Exprime sa vitesse $v$ en fonction de son altitude $z$ (SI).",
+      "indice": "La forme de la piste n'importe pas : la réaction normale ne travaille pas.",
+      "correction": [
+        "Conservation de $E_m$ : $mg \\times 10 = \\frac12 mv^2 + mgz$.",
+        "$v^2 = 2g\\,(10 - z) = 20\\,(10 - z)$, donc $v = \\sqrt{20\\,(10 - z)}$."
+      ],
+      "reponse": "sqrt(20*(10 - z))",
+      "variables": [
+        "z"
+      ],
+      "domaine": [
+        0,
+        9
+      ]
+    },
+    {
+      "id": "ep-ressort",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un ressort de raideur $k = 200\\ \\mathrm{N/m}$ est comprimé de $10\\ \\mathrm{cm}$. Son énergie potentielle élastique vaut :",
+      "correction": [
+        "$E_p = \\frac12 k\\,\\Delta\\ell^2 = 1\\ \\mathrm J$ (même formule en compression et en allongement)."
+      ],
+      "choix": [
+        {
+          "texte": "$1\\ \\mathrm J$",
+          "correct": true,
+          "explication": "$\\frac12 \\times 200 \\times 0{,}1^2 = 1$."
+        },
+        {
+          "texte": "$10\\ \\mathrm J$",
+          "correct": false,
+          "explication": "On a oublié le carré : $\\frac12 k\\,\\Delta\\ell$."
+        },
+        {
+          "texte": "$2\\ \\mathrm J$",
+          "correct": false,
+          "explication": "On a oublié le facteur $\\frac12$."
+        },
+        {
+          "texte": "$10\\,000\\ \\mathrm J$",
+          "correct": false,
+          "explication": "Les centimètres n'ont pas été convertis en mètres."
+        }
+      ]
+    },
+    {
+      "id": "vf-normale",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "La réaction normale d'un support fixe ne travaille pas.",
+      "correction": [
+        "$\\mathcal P = \\vec N\\cdot\\vec v = 0$ car $\\vec N \\perp \\vec v$ : $W = 0$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Elle est perpendiculaire au déplacement, donc $\\vec N\\cdot\\vec v = 0$.",
+          "correct": true,
+          "explication": "Puissance nulle à chaque instant, donc travail nul."
+        },
+        {
+          "texte": "Faux : elle compense le poids, donc elle travaille autant que lui.",
+          "correct": false,
+          "explication": "Sur un plan incliné, par exemple, elle ne compense pas le poids, et de toute façon elle reste perpendiculaire à la vitesse."
+        },
+        {
+          "texte": "Faux : toute force non nulle travaille.",
+          "correct": false,
+          "explication": "Une force perpendiculaire au mouvement ne travaille pas."
+        }
+      ]
+    },
+    {
+      "id": "puissance",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une voiture roule à $30\\ \\mathrm{m/s}$ ; la force motrice, dans le sens du mouvement, vaut $600\\ \\mathrm N$. Puissance de cette force :",
+      "correction": [
+        "$\\mathcal P = \\vec F\\cdot\\vec v = 18\\ \\mathrm{kW}$."
+      ],
+      "choix": [
+        {
+          "texte": "$18\\ \\mathrm{kW}$",
+          "correct": true,
+          "explication": "$\\mathcal P = Fv = 600 \\times 30 = 18\\,000\\ \\mathrm W$."
+        },
+        {
+          "texte": "$20\\ \\mathrm W$",
+          "correct": false,
+          "explication": "On a divisé $F$ par $v$."
+        },
+        {
+          "texte": "$600\\ \\mathrm W$",
+          "correct": false,
+          "explication": "La puissance dépend de la vitesse : $\\mathcal P = Fv$."
+        },
+        {
+          "texte": "$18\\ \\mathrm W$",
+          "correct": false,
+          "explication": "Erreur d'unité : $18\\,000\\ \\mathrm W = 18\\ \\mathrm{kW}$."
+        }
+      ]
+    },
+    {
+      "id": "travail-frottements",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Un bloc de $2\\ \\mathrm{kg}$ est lâché sans vitesse en haut d'une pente de dénivelé $5\\ \\mathrm m$ et arrive en bas à $8\\ \\mathrm{m/s}$ ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$). Travail des frottements sur la descente, en J ?",
+      "indice": "Applique le théorème de l'énergie cinétique : n'oublie pas le signe.",
+      "correction": [
+        "TEC : $\\frac12 mv^2 - 0 = W(\\vec P) + W(\\vec N) + W(\\vec f)$.",
+        "$\\frac12 \\times 2 \\times 64 = 64\\ \\mathrm J$ ; $W(\\vec P) = mgh = 100\\ \\mathrm J$ ; $W(\\vec N) = 0$.",
+        "$W(\\vec f) = 64 - 100 = -36\\ \\mathrm J$ (résistant, donc négatif)."
+      ],
+      "reponse": -36
+    },
+    {
+      "id": "forces-conservatives",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Lesquelles de ces forces sont **conservatives** ?",
+      "correction": [
+        "Les frottements dissipent de l'énergie : ils ne sont pas conservatifs."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "le poids",
+          "correct": true,
+          "explication": "Son travail $mg(z_A - z_B)$ ne dépend pas du chemin."
+        },
+        {
+          "texte": "la force de rappel d'un ressort",
+          "correct": true,
+          "explication": "Elle dérive de $\\frac12 k(\\ell - \\ell_0)^2$."
+        },
+        {
+          "texte": "la force électrostatique",
+          "correct": true,
+          "explication": "Elle dérive de l'énergie potentielle $qV$."
+        },
+        {
+          "texte": "le frottement solide",
+          "correct": false,
+          "explication": "Son travail est d'autant plus négatif que le chemin est long."
+        },
+        {
+          "texte": "le frottement fluide",
+          "correct": false,
+          "explication": "Il dissipe de l'énergie : son travail dépend du chemin et de la vitesse."
+        }
+      ]
+    },
+    {
+      "id": "equilibre-stable",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Une particule a pour énergie potentielle $E_p(x) = x^3 - 3x$ (SI). Quelle est sa position d'équilibre **stable** ?",
+      "correction": [
+        "$E_p'(x) = 3x^2 - 3 = 0$ pour $x = \\pm 1$.",
+        "$E_p''(x) = 6x$ : $x = 1$ est stable, $x = -1$ instable."
+      ],
+      "choix": [
+        {
+          "texte": "$x = 1$",
+          "correct": true,
+          "explication": "$E_p'(1) = 0$ et $E_p''(1) = 6 > 0$ : minimum local."
+        },
+        {
+          "texte": "$x = -1$",
+          "correct": false,
+          "explication": "$E_p''(-1) = -6 < 0$ : c'est un maximum, équilibre instable."
+        },
+        {
+          "texte": "$x = 0$",
+          "correct": false,
+          "explication": "$E_p'(0) = -3 \\neq 0$ : ce n'est pas un équilibre."
+        },
+        {
+          "texte": "$x = \\sqrt 3$",
+          "correct": false,
+          "explication": "$E_p(\\sqrt 3) = 0$ mais $E_p'(\\sqrt 3) = 6 \\neq 0$ : ce n'est pas un équilibre."
+        }
+      ]
+    },
+    {
+      "id": "vf-ec-pendule",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour un pendule simple sans frottement, l'énergie cinétique se conserve.",
+      "correction": [
+        "Faux : le poids travaille, donc $E_c$ varie ; seule $E_m$ est constante."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "C'est $E_m = E_c + E_p$ qui se conserve : $E_c$ est maximale en bas et nulle aux points extrêmes.",
+          "correct": true,
+          "explication": "Énergie cinétique et potentielle s'échangent."
+        },
+        {
+          "texte": "Vrai : sans frottement, aucune énergie n'est perdue.",
+          "correct": false,
+          "explication": "Aucune énergie **mécanique** n'est perdue, mais elle passe de cinétique à potentielle."
+        },
+        {
+          "texte": "Vrai : la tension du fil ne travaille pas.",
+          "correct": false,
+          "explication": "La tension ne travaille pas, mais le poids, lui, travaille."
+        }
+      ]
+    },
+    {
+      "id": "erreur-tec-signe",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Un bloc de $1\\ \\mathrm{kg}$ est lancé à $6\\ \\mathrm{m/s}$ sur un sol horizontal ; un frottement constant de $3\\ \\mathrm N$ s'oppose au mouvement. On cherche la distance d'arrêt $d$. Où est l'erreur ?",
+      "correction": [
+        "$-\\frac12 mv_0^2 = -f\\,d$ donc $d = \\dfrac{mv_0^2}{2f} = \\dfrac{36}{6} = 6\\ \\mathrm m$."
+      ],
+      "etapes": [
+        "TEC entre le lancer et l'arrêt : $0 - \\frac12 mv_0^2 = W(\\vec P) + W(\\vec N) + W(\\vec f)$.",
+        "$\\vec P$ et $\\vec N$ sont perpendiculaires au déplacement : leurs travaux sont nuls.",
+        "$W(\\vec f) = +f\\,d$.",
+        "Donc $d = -\\dfrac{mv_0^2}{2f} = -6\\ \\mathrm m$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Le frottement est opposé au déplacement : son travail est **résistant**, $W(\\vec f) = -f\\,d$."
+    },
+    {
+      "id": "erreur-looping",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Une bille glisse sans frottement depuis une hauteur $h$ (sans vitesse) et aborde un looping de rayon $R$. On cherche $h$ minimal pour qu'elle reste en contact au sommet. Où est l'erreur ?",
+      "correction": [
+        "$h_{\\min} = \\dfrac{5R}{2}$."
+      ],
+      "etapes": [
+        "Au sommet, PFD sur la normale (vers le centre) : $N + mg = \\dfrac{mv^2}{R}$.",
+        "Contact si $N \\ge 0$, soit $v^2 \\ge gR$.",
+        "Conservation de $E_m$ entre le départ et le sommet (altitude $2R$) : $mgh = mg\\,(2R) + \\frac12 mv^2$.",
+        "Donc $h = 2R + \\dfrac{v^2}{g}$, d'où $h \\ge 3R$."
+      ],
+      "etapeFausse": 3,
+      "explication": "En divisant $\\frac12 mv^2$ par $mg$, on obtient $\\dfrac{v^2}{2g}$ : $h = 2R + \\dfrac{v^2}{2g} \\ge 2R + \\dfrac R2$."
+    }
+  ]
+}

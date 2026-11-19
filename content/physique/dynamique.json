@@ -1,0 +1,470 @@
+{
+  "$schema": "../schema.json",
+  "id": "dynamique",
+  "monde": "physique",
+  "ordre": 3,
+  "titre": "Dynamique : lois de Newton",
+  "icone": "🍎",
+  "resume": "Principe d'inertie, principe fondamental de la dynamique, actions réciproques et forces usuelles.",
+  "cours": [
+    {
+      "titre": "Les trois lois de Newton",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "1re loi : principe d'inertie",
+          "texte": "Il existe des référentiels, dits **galiléens**, dans lesquels un point isolé (ou pseudo-isolé : forces qui se compensent) est immobile ou en mouvement rectiligne uniforme."
+        },
+        {
+          "type": "theoreme",
+          "titre": "2e loi : principe fondamental de la dynamique (PFD)",
+          "texte": "Dans un référentiel galiléen, pour un point de masse $m$ constante : $$m\\,\\vec a = \\sum \\vec F.$$ Plus généralement $\\dfrac{\\mathrm d\\vec p}{\\mathrm dt} = \\sum \\vec F$ avec $\\vec p = m\\vec v$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "3e loi : actions réciproques",
+          "texte": "Si A exerce $\\vec F_{A\\to B}$ sur B, alors B exerce sur A la force $\\vec F_{B\\to A} = -\\vec F_{A\\to B}$, de même droite d'action."
+        }
+      ]
+    },
+    {
+      "titre": "Forces usuelles",
+      "blocs": [
+        {
+          "type": "propriete",
+          "texte": "**Poids** $\\vec P = m\\vec g$. **Tension** d'un fil : selon le fil, dirigée vers le point d'attache. **Rappel d'un ressort** : $\\vec F = -k\\,(\\ell - \\ell_0)\\,\\vec u$ ($\\vec u$ orienté du point d'attache vers la masse). **Frottement fluide** : $\\vec f = -k\\vec v$ (faibles vitesses) ou de norme $kv^2$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Frottement solide (lois de Coulomb)",
+          "texte": "La réaction d'un support se décompose en $\\vec N$ (normale) et $\\vec T$ (tangentielle, frottement). Sans glissement : $\\|\\vec T\\| \\le \\mu\\,\\|\\vec N\\|$ (la valeur de $T$ est celle qui assure l'équilibre). Avec glissement : $\\|\\vec T\\| = \\mu\\,\\|\\vec N\\|$, opposée à la vitesse de glissement."
+        }
+      ]
+    },
+    {
+      "titre": "Méthode",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Résoudre un problème de dynamique",
+          "texte": "1. Définir le **système** et le **référentiel** (galiléen). 2. Faire le **bilan des forces** (schéma). 3. Écrire le **PFD**. 4. **Projeter** sur des axes bien choisis. 5. Résoudre, puis vérifier homogénéité et cas limites."
+        },
+        {
+          "type": "exemple",
+          "texte": "Plan incliné d'angle $\\alpha$ sans frottement : sur l'axe de la pente (vers le bas), $m a = m g \\sin\\alpha$, donc $a = g\\sin\\alpha$. Sur la normale : $N = m g\\cos\\alpha$."
+        },
+        {
+          "type": "exemple",
+          "texte": "Chute avec frottement $-k\\vec v$ : $m\\dot v = mg - kv$. La vitesse tend vers la **vitesse limite** $v_\\ell = mg / k$ avec le temps caractéristique $\\tau = m / k$ : $v(t) = v_\\ell\\,(1 - e^{-t/\\tau})$ si $v(0) = 0$."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-inertie",
+      "recto": "Principe d'inertie ?",
+      "verso": "Dans un référentiel galiléen, un point isolé ou pseudo-isolé est immobile ou en mouvement rectiligne uniforme."
+    },
+    {
+      "id": "f-pfd",
+      "recto": "Principe fondamental de la dynamique ?",
+      "verso": "Dans un référentiel galiléen : $m\\vec a = \\sum \\vec F$ (ou $\\dfrac{\\mathrm d\\vec p}{\\mathrm dt} = \\sum\\vec F$)."
+    },
+    {
+      "id": "f-reciproques",
+      "recto": "Principe des actions réciproques ?",
+      "verso": "$\\vec F_{B\\to A} = -\\vec F_{A\\to B}$, même droite d'action."
+    },
+    {
+      "id": "f-poids",
+      "recto": "Poids d'une masse $m$ ?",
+      "verso": "$\\vec P = m\\vec g$, avec $g \\approx 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$ à la surface de la Terre."
+    },
+    {
+      "id": "f-ressort",
+      "recto": "Force de rappel d'un ressort ?",
+      "verso": "$\\vec F = -k\\,(\\ell - \\ell_0)\\,\\vec u$ : proportionnelle à l'allongement, opposée à lui."
+    },
+    {
+      "id": "f-coulomb-statique",
+      "recto": "Frottement solide sans glissement ?",
+      "verso": "$\\|\\vec T\\| \\le \\mu\\|\\vec N\\|$ ; $T$ vaut ce qu'il faut pour l'équilibre."
+    },
+    {
+      "id": "f-coulomb-glissement",
+      "recto": "Frottement solide avec glissement ?",
+      "verso": "$\\|\\vec T\\| = \\mu\\|\\vec N\\|$, opposé à la vitesse de glissement."
+    },
+    {
+      "id": "f-plan-incline",
+      "recto": "Accélération sur un plan incliné d'angle $\\alpha$ sans frottement ?",
+      "verso": "$a = g\\sin\\alpha$."
+    },
+    {
+      "id": "f-vitesse-limite",
+      "recto": "Vitesse limite avec un frottement $-k\\vec v$ ?",
+      "verso": "$v_\\ell = mg / k$, atteinte en quelques $\\tau = m/k$."
+    },
+    {
+      "id": "f-vitesse-limite-2",
+      "recto": "Vitesse limite avec un frottement de norme $kv^2$ ?",
+      "verso": "$v_\\ell = \\sqrt{mg / k}$."
+    },
+    {
+      "id": "f-masse-poids",
+      "recto": "Masse ou poids : lequel change sur la Lune ?",
+      "verso": "Le poids ($g$ change) ; la masse est la même."
+    },
+    {
+      "id": "f-methode",
+      "recto": "Les étapes d'un problème de dynamique ?",
+      "verso": "Système, référentiel, bilan des forces, PFD, projection, résolution."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "poids",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quel est le poids d'un objet de masse $2\\ \\mathrm{kg}$ (avec $g = 9{,}8\\ \\mathrm{m\\cdot s^{-2}}$) ?",
+      "correction": [
+        "$P = mg = 19{,}6\\ \\mathrm N$."
+      ],
+      "choix": [
+        {
+          "texte": "$19{,}6\\ \\mathrm N$",
+          "correct": true,
+          "explication": "$P = mg = 2 \\times 9{,}8$."
+        },
+        {
+          "texte": "$2\\ \\mathrm N$",
+          "correct": false,
+          "explication": "On a confondu masse et poids."
+        },
+        {
+          "texte": "$0{,}2\\ \\mathrm N$",
+          "correct": false,
+          "explication": "On a divisé la masse par $g$ au lieu de multiplier."
+        },
+        {
+          "texte": "$19{,}6\\ \\mathrm{kg}$",
+          "correct": false,
+          "explication": "Le poids est une force : il s'exprime en newtons."
+        }
+      ]
+    },
+    {
+      "id": "inertie",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Dans un référentiel galiléen, un objet est en mouvement rectiligne uniforme. On peut affirmer que :",
+      "correction": [
+        "$\\vec v$ constant, donc $\\vec a = \\vec 0$ et $\\sum\\vec F = \\vec 0$."
+      ],
+      "choix": [
+        {
+          "texte": "la somme des forces qui s'exercent sur lui est nulle",
+          "correct": true,
+          "explication": "C'est le principe d'inertie (ou le PFD avec $\\vec a = \\vec 0$)."
+        },
+        {
+          "texte": "aucune force ne s'exerce sur lui",
+          "correct": false,
+          "explication": "Les forces peuvent exister et se compenser (objet pseudo-isolé)."
+        },
+        {
+          "texte": "une force s'exerce dans le sens du mouvement",
+          "correct": false,
+          "explication": "Idée aristotélicienne : aucune force n'est nécessaire pour entretenir un mouvement uniforme."
+        },
+        {
+          "texte": "son accélération est constante et non nulle",
+          "correct": false,
+          "explication": "Mouvement rectiligne uniforme : $\\vec v$ constant, donc $\\vec a = \\vec 0$."
+        }
+      ]
+    },
+    {
+      "id": "pfd-simple",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Un chariot de $4\\ \\mathrm{kg}$ roule sans frottement sur un sol horizontal, tiré par une force horizontale de $12\\ \\mathrm N$. Son accélération, en $\\mathrm{m/s^2}$ ?",
+      "correction": [
+        "Le poids et la réaction normale se compensent (verticales).",
+        "Sur l'horizontale : $ma = F$, donc $a = 12 / 4 = 3\\ \\mathrm{m/s^2}$."
+      ],
+      "reponse": 3
+    },
+    {
+      "id": "ressort",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un ressort de raideur $k = 50\\ \\mathrm{N/m}$ est allongé de $4\\ \\mathrm{cm}$. La norme de sa force de rappel vaut :",
+      "correction": [
+        "$F = k\\,|\\ell - \\ell_0| = 50 \\times 0{,}04 = 2\\ \\mathrm N$."
+      ],
+      "choix": [
+        {
+          "texte": "$2\\ \\mathrm N$",
+          "correct": true,
+          "explication": "$F = k\\,\\Delta\\ell = 50 \\times 0{,}04$."
+        },
+        {
+          "texte": "$200\\ \\mathrm N$",
+          "correct": false,
+          "explication": "Les centimètres n'ont pas été convertis en mètres."
+        },
+        {
+          "texte": "$1250\\ \\mathrm N$",
+          "correct": false,
+          "explication": "On a divisé $k$ par l'allongement au lieu de multiplier."
+        },
+        {
+          "texte": "$12{,}5\\ \\mathrm N$",
+          "correct": false,
+          "explication": "$50 / 4$ : division au lieu d'une multiplication."
+        }
+      ]
+    },
+    {
+      "id": "plan-incline",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un bloc glisse sans frottement sur un plan incliné de $30°$ par rapport à l'horizontale ($g = 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$). Son accélération, en $\\mathrm{m/s^2}$ ?",
+      "indice": "Seule la composante du poids parallèle à la pente fait accélérer le bloc.",
+      "correction": [
+        "Forces : poids et réaction normale (perpendiculaire à la pente).",
+        "PFD projeté sur l'axe de la pente, vers le bas : $ma = mg\\sin\\alpha$.",
+        "$a = 9{,}81 \\times \\sin 30° \\approx 4{,}91\\ \\mathrm{m/s^2}$."
+      ],
+      "reponse": "9.81*sin(pi/6)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "vitesse-limite",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Une bille de masse $m = 0{,}5\\ \\mathrm{kg}$ tombe dans un fluide qui exerce la force $\\vec f = -k\\vec v$ avec $k = 0{,}25\\ \\mathrm{kg/s}$ ($g = 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$, poussée d'Archimède négligée). Sa vitesse limite, en $\\mathrm{m/s}$ ?",
+      "correction": [
+        "PFD sur l'axe vertical descendant : $m\\dot v = mg - kv$.",
+        "À la vitesse limite, $\\dot v = 0$ : $v_\\ell = \\dfrac{mg}{k} = \\dfrac{0{,}5 \\times 9{,}81}{0{,}25} \\approx 19{,}6\\ \\mathrm{m/s}$."
+      ],
+      "reponse": "0.5*9.81/0.25",
+      "tolerance": 0.01
+    },
+    {
+      "id": "vitesse-frottement",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Une bille de masse $m = 0{,}2\\ \\mathrm{kg}$ est lâchée sans vitesse initiale dans un fluide exerçant $\\vec f = -k\\vec v$ avec $k = 0{,}05\\ \\mathrm{kg/s}$ ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$). Exprime sa vitesse $v(t)$ (SI, axe vers le bas).",
+      "indice": "Équation linéaire d'ordre 1 : solution particulière constante + solution homogène.",
+      "correction": [
+        "$m\\dot v = mg - kv$, soit $\\dot v + \\dfrac{v}{\\tau} = g$ avec $\\tau = \\dfrac{m}{k} = 4\\ \\mathrm s$.",
+        "Solution : $v = v_\\ell + Ce^{-t/\\tau}$ avec $v_\\ell = g\\tau = 40\\ \\mathrm{m/s}$.",
+        "$v(0) = 0$ donne $C = -40$ : $v(t) = 40\\,(1 - e^{-t/4})$."
+      ],
+      "reponse": "40*(1 - exp(-t/4))",
+      "variables": [
+        "t"
+      ],
+      "domaine": [
+        0,
+        12
+      ]
+    },
+    {
+      "id": "actions-reciproques",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "La Terre attire une pomme de $100\\ \\mathrm g$ avec une force de $1\\ \\mathrm N$. La pomme attire la Terre avec une force de :",
+      "correction": [
+        "$\\vec F_{\\text{pomme}\\to\\text{Terre}} = -\\vec F_{\\text{Terre}\\to\\text{pomme}}$ : $1\\ \\mathrm N$."
+      ],
+      "choix": [
+        {
+          "texte": "$1\\ \\mathrm N$",
+          "correct": true,
+          "explication": "Actions réciproques : même norme, sens opposé."
+        },
+        {
+          "texte": "environ $10^{-24}\\ \\mathrm N$, la Terre étant bien plus lourde",
+          "correct": false,
+          "explication": "Les **forces** sont égales ; c'est l'**accélération** de la Terre ($F / M_T$) qui est minuscule."
+        },
+        {
+          "texte": "$0\\ \\mathrm N$",
+          "correct": false,
+          "explication": "Toute interaction est réciproque."
+        },
+        {
+          "texte": "$0{,}1\\ \\mathrm N$",
+          "correct": false,
+          "explication": "La masse de la pomme n'intervient pas ainsi : les deux forces ont la même norme."
+        }
+      ]
+    },
+    {
+      "id": "tension-ascenseur",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une cabine d'ascenseur de $500\\ \\mathrm{kg}$ monte avec une accélération de $2\\ \\mathrm{m/s^2}$ vers le haut ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$). La tension du câble vaut :",
+      "correction": [
+        "PFD vertical (vers le haut) : $T - mg = ma$, d'où $T = 6000\\ \\mathrm N$."
+      ],
+      "choix": [
+        {
+          "texte": "$6000\\ \\mathrm N$",
+          "correct": true,
+          "explication": "$T - mg = ma$ donc $T = m(g + a) = 500 \\times 12$."
+        },
+        {
+          "texte": "$5000\\ \\mathrm N$",
+          "correct": false,
+          "explication": "C'est le poids : valable seulement à vitesse constante."
+        },
+        {
+          "texte": "$4000\\ \\mathrm N$",
+          "correct": false,
+          "explication": "Erreur de signe : $m(g - a)$ correspond à une accélération vers le bas."
+        },
+        {
+          "texte": "$1000\\ \\mathrm N$",
+          "correct": false,
+          "explication": "$ma$ seul : on a oublié le poids."
+        }
+      ]
+    },
+    {
+      "id": "vf-frottement-repos",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Un bloc immobile sur un sol horizontal, soumis seulement à son poids et à la réaction du sol, subit une force de frottement de norme $\\mu N$.",
+      "correction": [
+        "À l'équilibre, $\\vec T = \\vec 0$ : rien ne tend à faire glisser le bloc. On a seulement $\\|\\vec T\\| \\le \\mu\\|\\vec N\\|$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Aucune force horizontale n'est à compenser : le frottement est nul.",
+          "correct": true,
+          "explication": "$\\mu N$ est la valeur **maximale** du frottement statique, pas sa valeur."
+        },
+        {
+          "texte": "Vrai : $T = \\mu N$ dès qu'il y a contact.",
+          "correct": false,
+          "explication": "$T = \\mu N$ seulement **en glissement**."
+        },
+        {
+          "texte": "Vrai : le frottement s'oppose toujours au poids.",
+          "correct": false,
+          "explication": "Le frottement est tangent au support ; ici, le poids est normal au sol."
+        }
+      ]
+    },
+    {
+      "id": "vf-masse-lune",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "La masse d'un astronaute est plus petite sur la Lune que sur la Terre.",
+      "correction": [
+        "Faux : la masse est une propriété de l'objet ; le poids $mg$ change avec $g$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "C'est son **poids** qui diminue ; sa masse ne dépend pas du lieu.",
+          "correct": true,
+          "explication": "$P = mg$ avec $g_{\\text{Lune}} \\approx 1{,}6\\ \\mathrm{m/s^2}$."
+        },
+        {
+          "texte": "Vrai : il s'y sent plus léger.",
+          "correct": false,
+          "explication": "Se sentir plus léger traduit un poids plus faible, pas une masse plus faible."
+        },
+        {
+          "texte": "Vrai : la masse est proportionnelle à $g$.",
+          "correct": false,
+          "explication": "C'est le poids qui est proportionnel à $g$."
+        }
+      ]
+    },
+    {
+      "id": "coulomb-seuil",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un bloc de $2\\ \\mathrm{kg}$ repose sur un sol horizontal ($\\mu = 0{,}3$, $g = 10\\ \\mathrm{m\\cdot s^{-2}}$). On le tire horizontalement avec une force de $5\\ \\mathrm N$. Que se passe-t-il ?",
+      "correction": [
+        "$N = mg = 20\\ \\mathrm N$, seuil de glissement $\\mu N = 6\\ \\mathrm N$.",
+        "$F = 5\\ \\mathrm N < 6\\ \\mathrm N$ : le bloc reste immobile et $T = F = 5\\ \\mathrm N$."
+      ],
+      "choix": [
+        {
+          "texte": "Il reste immobile ; le frottement vaut $5\\ \\mathrm N$.",
+          "correct": true,
+          "explication": "$\\mu N = 6\\ \\mathrm N > 5\\ \\mathrm N$ : pas de glissement, $T$ compense exactement $F$."
+        },
+        {
+          "texte": "Il reste immobile ; le frottement vaut $6\\ \\mathrm N$.",
+          "correct": false,
+          "explication": "Avec $T = 6\\ \\mathrm N > F$, le bloc partirait en arrière ! $\\mu N$ n'est qu'un maximum."
+        },
+        {
+          "texte": "Il glisse ; le frottement vaut $6\\ \\mathrm N$.",
+          "correct": false,
+          "explication": "Il faudrait $F > \\mu N = 6\\ \\mathrm N$ pour le faire glisser."
+        },
+        {
+          "texte": "Il glisse avec $a = 2{,}5\\ \\mathrm{m/s^2}$.",
+          "correct": false,
+          "explication": "On a oublié le frottement."
+        }
+      ]
+    },
+    {
+      "id": "deux-blocs",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Deux blocs $m_1 = 2\\ \\mathrm{kg}$ et $m_2 = 3\\ \\mathrm{kg}$ sont posés côte à côte sur un sol sans frottement. Une force horizontale $F = 10\\ \\mathrm N$ pousse $m_1$, qui pousse $m_2$. Norme de la force exercée par $m_1$ sur $m_2$, en N ?",
+      "indice": "Applique le PFD à l'ensemble, puis au seul bloc 2.",
+      "correction": [
+        "Système $\\{m_1, m_2\\}$ : $(m_1 + m_2)\\,a = F$, donc $a = 2\\ \\mathrm{m/s^2}$.",
+        "Système $\\{m_2\\}$ : la seule force horizontale est celle de $m_1$, donc $F_{1\\to 2} = m_2 a = 6\\ \\mathrm N$."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "erreur-plan-incline",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Un bloc glisse sans frottement sur un plan incliné d'angle $\\alpha$. Où est l'erreur ?",
+      "correction": [
+        "$a = g\\sin\\alpha$. Vérification : $\\alpha = 90°$ redonne la chute libre $a = g$."
+      ],
+      "etapes": [
+        "Système : le bloc, dans le référentiel terrestre supposé galiléen.",
+        "Forces : le poids $\\vec P$ et la réaction normale $\\vec N$.",
+        "Sur l'axe parallèle à la pente (vers le bas) : $P_x = mg\\cos\\alpha$ et $N_x = 0$.",
+        "Donc $a = g\\cos\\alpha$."
+      ],
+      "etapeFausse": 2,
+      "explication": "La composante du poids le long de la pente est $mg\\sin\\alpha$ (nulle pour $\\alpha = 0$, plan horizontal). $mg\\cos\\alpha$ est la composante normale."
+    },
+    {
+      "id": "erreur-vitesse-limite",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Un parachutiste subit un frottement de norme $kv^2$. Calcul de sa vitesse limite : où est l'erreur ?",
+      "correction": [
+        "$v_\\ell = \\sqrt{mg / k}$."
+      ],
+      "etapes": [
+        "PFD sur l'axe vertical descendant : $m\\dot v = mg - kv^2$.",
+        "À la vitesse limite, la vitesse est constante : $\\dot v = 0$.",
+        "Donc $mg = k\\,v_\\ell$, soit $v_\\ell = mg / k$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Le frottement vaut $k v_\\ell^2$ : $mg = k v_\\ell^2$ donne $v_\\ell = \\sqrt{mg / k}$. (Vérification : $[k] = \\mathrm{kg/m}$ ici, et $mg/k$ n'est pas homogène à une vitesse.)"
+    }
+  ]
+}

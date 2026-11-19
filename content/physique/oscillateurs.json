@@ -1,0 +1,425 @@
+{
+  "$schema": "../schema.json",
+  "id": "oscillateurs",
+  "monde": "physique",
+  "ordre": 5,
+  "titre": "Oscillateurs mécaniques",
+  "icone": "🕰️",
+  "resume": "Oscillateur harmonique (masse-ressort, pendule), conditions initiales, énergie et amortissement.",
+  "cours": [
+    {
+      "titre": "Oscillateur harmonique",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Équation",
+          "texte": "Un système est un oscillateur harmonique si son écart $x$ à l'équilibre vérifie $$\\ddot x + \\omega_0^2\\,x = 0.$$ $\\omega_0$ est la **pulsation propre** (rad/s), $T_0 = 2\\pi / \\omega_0$ la période propre, $f_0 = 1 / T_0$ la fréquence."
+        },
+        {
+          "type": "exemple",
+          "texte": "Masse $m$ accrochée à un ressort horizontal de raideur $k$ : $m\\ddot x = -kx$, donc $\\omega_0 = \\sqrt{k / m}$. Pour un ressort **vertical**, le poids décale seulement la position d'équilibre : même $\\omega_0$."
+        },
+        {
+          "type": "exemple",
+          "texte": "Pendule simple de longueur $\\ell$, aux **petits angles** ($\\sin\\theta \\approx \\theta$) : $\\ddot\\theta + \\dfrac g\\ell\\,\\theta = 0$, donc $T_0 = 2\\pi\\sqrt{\\ell / g}$, indépendante de la masse."
+        }
+      ]
+    },
+    {
+      "titre": "Solutions et énergie",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "Solution générale",
+          "texte": "$x(t) = A\\cos(\\omega_0 t + \\varphi) = a\\cos(\\omega_0 t) + b\\sin(\\omega_0 t)$. Avec $x(0) = x_0$ et $\\dot x(0) = v_0$ : $$x(t) = x_0\\cos(\\omega_0 t) + \\frac{v_0}{\\omega_0}\\sin(\\omega_0 t),\\qquad A = \\sqrt{x_0^2 + \\left(\\frac{v_0}{\\omega_0}\\right)^2}.$$"
+        },
+        {
+          "type": "propriete",
+          "texte": "**Isochronisme** : la période ne dépend pas de l'amplitude (pour le pendule, seulement aux petits angles)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Énergie",
+          "texte": "$E_m = \\frac12 m\\dot x^2 + \\frac12 kx^2 = \\frac12 kA^2$ est constante : énergies cinétique et potentielle s'échangent à la fréquence $2f_0$."
+        }
+      ]
+    },
+    {
+      "titre": "Oscillateur amorti",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Équation",
+          "texte": "Avec un frottement fluide : $\\ddot x + \\dfrac{\\omega_0}{Q}\\,\\dot x + \\omega_0^2\\,x = 0$, où $Q$ est le **facteur de qualité**."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Régimes",
+          "texte": "Selon le discriminant de l'équation caractéristique : $Q > \\frac12$ régime **pseudo-périodique** (oscillations amorties) ; $Q = \\frac12$ régime **critique** (retour le plus rapide sans oscillation) ; $Q < \\frac12$ régime **apériodique**."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-oh",
+      "recto": "Équation de l'oscillateur harmonique ?",
+      "verso": "$\\ddot x + \\omega_0^2 x = 0$."
+    },
+    {
+      "id": "f-omega-ressort",
+      "recto": "Pulsation propre d'un système masse-ressort ?",
+      "verso": "$\\omega_0 = \\sqrt{k / m}$."
+    },
+    {
+      "id": "f-periode",
+      "recto": "Période et fréquence propres ?",
+      "verso": "$T_0 = 2\\pi / \\omega_0$, $f_0 = 1 / T_0$."
+    },
+    {
+      "id": "f-pendule",
+      "recto": "Période du pendule simple (petits angles) ?",
+      "verso": "$T_0 = 2\\pi\\sqrt{\\ell / g}$, indépendante de la masse."
+    },
+    {
+      "id": "f-solution",
+      "recto": "Solution avec $x(0) = x_0$, $\\dot x(0) = v_0$ ?",
+      "verso": "$x = x_0\\cos\\omega_0 t + \\dfrac{v_0}{\\omega_0}\\sin\\omega_0 t$."
+    },
+    {
+      "id": "f-amplitude",
+      "recto": "Amplitude en fonction des conditions initiales ?",
+      "verso": "$A = \\sqrt{x_0^2 + (v_0 / \\omega_0)^2}$."
+    },
+    {
+      "id": "f-energie-oh",
+      "recto": "Énergie mécanique d'un oscillateur harmonique ?",
+      "verso": "$E_m = \\frac12 kA^2$, constante."
+    },
+    {
+      "id": "f-isochronisme",
+      "recto": "Isochronisme ?",
+      "verso": "La période ne dépend pas de l'amplitude."
+    },
+    {
+      "id": "f-vertical",
+      "recto": "Ressort vertical : que change le poids ?",
+      "verso": "La position d'équilibre seulement ; $\\omega_0 = \\sqrt{k/m}$ est inchangée."
+    },
+    {
+      "id": "f-amorti",
+      "recto": "Forme canonique de l'oscillateur amorti ?",
+      "verso": "$\\ddot x + \\dfrac{\\omega_0}{Q}\\dot x + \\omega_0^2 x = 0$."
+    },
+    {
+      "id": "f-regimes",
+      "recto": "Les trois régimes selon $Q$ ?",
+      "verso": "$Q > \\frac12$ pseudo-périodique, $Q = \\frac12$ critique, $Q < \\frac12$ apériodique."
+    },
+    {
+      "id": "f-masse-periode",
+      "recto": "Effet de la masse sur la période d'un masse-ressort ?",
+      "verso": "$T_0 \\propto \\sqrt m$ : masse ×4 ⇒ période ×2."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "pulsation-ressort",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Masse $m = 0{,}5\\ \\mathrm{kg}$, ressort $k = 50\\ \\mathrm{N/m}$. La pulsation propre vaut :",
+      "correction": [
+        "$\\omega_0 = \\sqrt{k / m} = 10\\ \\mathrm{rad/s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$10\\ \\mathrm{rad/s}$",
+          "correct": true,
+          "explication": "$\\sqrt{50 / 0{,}5} = \\sqrt{100}$."
+        },
+        {
+          "texte": "$100\\ \\mathrm{rad/s}$",
+          "correct": false,
+          "explication": "On a oublié la racine carrée."
+        },
+        {
+          "texte": "$0{,}1\\ \\mathrm{rad/s}$",
+          "correct": false,
+          "explication": "C'est $\\sqrt{m / k}$ : rapport inversé."
+        },
+        {
+          "texte": "$50\\ \\mathrm{rad/s}$",
+          "correct": false,
+          "explication": "$k$ seul : la masse a été oubliée."
+        }
+      ]
+    },
+    {
+      "id": "periode-ressort",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Une masse $m = 0{,}2\\ \\mathrm{kg}$ oscille au bout d'un ressort de raideur $k = 20\\ \\mathrm{N/m}$. Période propre, en s ?",
+      "correction": [
+        "$\\omega_0 = \\sqrt{20 / 0{,}2} = 10\\ \\mathrm{rad/s}$.",
+        "$T_0 = 2\\pi / \\omega_0 \\approx 0{,}628\\ \\mathrm s$."
+      ],
+      "reponse": "2*pi/10",
+      "tolerance": 0.01
+    },
+    {
+      "id": "periode-pendule",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Période des petites oscillations d'un pendule simple de longueur $1\\ \\mathrm m$ ($g = 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$), en s ?",
+      "correction": [
+        "$T_0 = 2\\pi\\sqrt{\\ell / g} = 2\\pi\\sqrt{1 / 9{,}81} \\approx 2{,}01\\ \\mathrm s$."
+      ],
+      "reponse": "2*pi*sqrt(1/9.81)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "solution-ci",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Un oscillateur harmonique a pour pulsation $\\omega_0 = 2\\ \\mathrm{rad/s}$, avec $x(0) = 0{,}1\\ \\mathrm m$ et $\\dot x(0) = 0{,}4\\ \\mathrm{m/s}$. Exprime $x(t)$ (SI).",
+      "correction": [
+        "$x(t) = a\\cos(2t) + b\\sin(2t)$, $\\dot x(t) = -2a\\sin(2t) + 2b\\cos(2t)$.",
+        "$x(0) = a = 0{,}1$ et $\\dot x(0) = 2b = 0{,}4$ donc $b = 0{,}2$.",
+        "$x(t) = 0{,}1\\cos(2t) + 0{,}2\\sin(2t)$."
+      ],
+      "reponse": "0.1*cos(2*t) + 0.2*sin(2*t)",
+      "variables": [
+        "t"
+      ],
+      "domaine": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": "amplitude-cm",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Même oscillateur : $\\omega_0 = 2\\ \\mathrm{rad/s}$, $x(0) = 0{,}1\\ \\mathrm m$, $\\dot x(0) = 0{,}4\\ \\mathrm{m/s}$. Amplitude des oscillations, en **cm** ?",
+      "indice": "$a\\cos + b\\sin$ a pour amplitude $\\sqrt{a^2 + b^2}$.",
+      "correction": [
+        "$A = \\sqrt{x_0^2 + (v_0 / \\omega_0)^2} = \\sqrt{0{,}01 + 0{,}04} = \\sqrt{0{,}05}\\ \\mathrm m$.",
+        "$A \\approx 0{,}224\\ \\mathrm m = 22{,}4\\ \\mathrm{cm}$."
+      ],
+      "reponse": "100*sqrt(0.05)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "energie-amplitude",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On double l'amplitude d'un oscillateur harmonique. Son énergie mécanique est :",
+      "correction": [
+        "$E_m = \\frac12 kA^2$ : $(2A)^2 = 4A^2$."
+      ],
+      "choix": [
+        {
+          "texte": "multipliée par 4",
+          "correct": true,
+          "explication": "$E_m = \\frac12 kA^2$ : quadratique en $A$."
+        },
+        {
+          "texte": "multipliée par 2",
+          "correct": false,
+          "explication": "L'énergie n'est pas proportionnelle à l'amplitude, mais à son carré."
+        },
+        {
+          "texte": "inchangée",
+          "correct": false,
+          "explication": "Seule la **période** est indépendante de l'amplitude."
+        },
+        {
+          "texte": "divisée par 2",
+          "correct": false,
+          "explication": "Plus d'amplitude, c'est plus d'énergie."
+        }
+      ]
+    },
+    {
+      "id": "masse-pendule",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On quadruple la masse d'un pendule simple (petites oscillations). Sa période :",
+      "correction": [
+        "Pour le pendule, $m$ se simplifie dans $m\\ell\\ddot\\theta = -mg\\theta$."
+      ],
+      "choix": [
+        {
+          "texte": "ne change pas",
+          "correct": true,
+          "explication": "$T_0 = 2\\pi\\sqrt{\\ell / g}$ ne dépend pas de la masse."
+        },
+        {
+          "texte": "double",
+          "correct": false,
+          "explication": "C'est le cas du système masse-ressort, pas du pendule."
+        },
+        {
+          "texte": "quadruple",
+          "correct": false,
+          "explication": "La masse n'intervient pas dans la période du pendule."
+        },
+        {
+          "texte": "est divisée par 2",
+          "correct": false,
+          "explication": "La masse n'intervient pas."
+        }
+      ]
+    },
+    {
+      "id": "masse-ressort",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On quadruple la masse d'un système masse-ressort. Sa période :",
+      "correction": [
+        "$T_0 = 2\\pi\\sqrt{m/k}$ est multipliée par $\\sqrt 4 = 2$."
+      ],
+      "choix": [
+        {
+          "texte": "double",
+          "correct": true,
+          "explication": "$T_0 = 2\\pi\\sqrt{m / k}$ : $\\sqrt 4 = 2$."
+        },
+        {
+          "texte": "ne change pas",
+          "correct": false,
+          "explication": "C'est le cas du pendule simple, pas du ressort."
+        },
+        {
+          "texte": "quadruple",
+          "correct": false,
+          "explication": "La période varie comme la **racine** de la masse."
+        },
+        {
+          "texte": "est divisée par 2",
+          "correct": false,
+          "explication": "Une masse plus grande oscille plus lentement."
+        }
+      ]
+    },
+    {
+      "id": "regime-amorti",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quel est le régime de l'oscillateur $\\ddot x + 0{,}5\\,\\dot x + 4x = 0$ ?",
+      "correction": [
+        "Équation caractéristique $r^2 + 0{,}5r + 4 = 0$ : $\\Delta = 0{,}25 - 16 < 0$.",
+        "Racines complexes : oscillations amorties, régime pseudo-périodique ($Q = 4$)."
+      ],
+      "choix": [
+        {
+          "texte": "pseudo-périodique",
+          "correct": true,
+          "explication": "$\\omega_0 = 2$ et $\\omega_0 / Q = 0{,}5$ donc $Q = 4 > \\frac12$ (discriminant $0{,}25 - 16 < 0$)."
+        },
+        {
+          "texte": "apériodique",
+          "correct": false,
+          "explication": "Il faudrait $Q < \\frac12$, soit un discriminant positif."
+        },
+        {
+          "texte": "critique",
+          "correct": false,
+          "explication": "Il faudrait un discriminant nul ($Q = \\frac12$)."
+        },
+        {
+          "texte": "harmonique (non amorti)",
+          "correct": false,
+          "explication": "Le terme en $\\dot x$ traduit un amortissement."
+        }
+      ]
+    },
+    {
+      "id": "vf-isochronisme",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "La période d'un oscillateur harmonique dépend de son amplitude.",
+      "correction": [
+        "Faux : c'est la propriété d'isochronisme de l'oscillateur harmonique."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "$T_0 = 2\\pi / \\omega_0$ ne dépend que des caractéristiques du système (isochronisme).",
+          "correct": true,
+          "explication": "Par exemple $\\sqrt{m/k}$ pour le ressort."
+        },
+        {
+          "texte": "Vrai : plus l'amplitude est grande, plus le chemin à parcourir est long.",
+          "correct": false,
+          "explication": "La vitesse augmente dans les mêmes proportions : la durée est la même."
+        },
+        {
+          "texte": "Vrai : l'énergie dépend de l'amplitude.",
+          "correct": false,
+          "explication": "L'énergie en dépend, la période non."
+        }
+      ]
+    },
+    {
+      "id": "vf-ressort-vertical",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Pour une masse suspendue à un ressort **vertical**, la pulsation propre dépend de $g$.",
+      "correction": [
+        "À l'équilibre $k\\,\\Delta\\ell_{\\text{éq}} = mg$ ; autour : $m\\ddot x = -kx$. $\\omega_0 = \\sqrt{k/m}$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Avec $x$ l'écart à l'équilibre, le poids disparaît de l'équation : $\\omega_0 = \\sqrt{k / m}$.",
+          "correct": true,
+          "explication": "Le poids ne fait que déplacer la position d'équilibre."
+        },
+        {
+          "texte": "Vrai : le poids s'ajoute à la force de rappel.",
+          "correct": false,
+          "explication": "Il est compensé à l'équilibre par l'allongement initial du ressort."
+        },
+        {
+          "texte": "Vrai : comme pour le pendule, $\\omega_0 = \\sqrt{g / \\ell}$.",
+          "correct": false,
+          "explication": "Le pendule et le ressort n'ont pas la même force de rappel."
+        }
+      ]
+    },
+    {
+      "id": "erreur-pulsation",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Masse $m$ accrochée à un ressort horizontal de raideur $k$, sans frottement. Où est l'erreur ?",
+      "correction": [
+        "$\\omega_0 = \\sqrt{k/m}$."
+      ],
+      "etapes": [
+        "Forces : poids et réaction normale (qui se compensent), force de rappel $-kx\\,\\vec e_x$.",
+        "PFD projeté sur $Ox$ : $m\\ddot x = -kx$.",
+        "Donc $\\ddot x + \\dfrac mk\\,x = 0$, et $\\omega_0 = \\sqrt{m / k}$."
+      ],
+      "etapeFausse": 2,
+      "explication": "En divisant par $m$ : $\\ddot x + \\dfrac km\\,x = 0$, donc $\\omega_0 = \\sqrt{k / m}$. (Contrôle : $\\sqrt{m/k}$ est un temps, pas une pulsation.)"
+    },
+    {
+      "id": "erreur-phase",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Un oscillateur part de $x(0) = 0$ avec $\\dot x(0) = v_0 > 0$. On écrit $x = A\\cos(\\omega_0 t + \\varphi)$ avec $A > 0$. Où est l'erreur ?",
+      "correction": [
+        "$x(t) = A\\cos(\\omega_0 t - \\frac\\pi2) = A\\sin(\\omega_0 t)$, avec $A = v_0 / \\omega_0$ : $x$ commence bien par croître."
+      ],
+      "etapes": [
+        "$x(0) = A\\cos\\varphi = 0$, donc $\\varphi = \\pm\\frac\\pi2$.",
+        "$\\dot x(t) = -A\\omega_0\\sin(\\omega_0 t + \\varphi)$, donc $\\dot x(0) = -A\\omega_0\\sin\\varphi = v_0$.",
+        "Comme $v_0 > 0$ et $A > 0$, il faut $\\sin\\varphi > 0$, donc $\\varphi = \\frac\\pi2$.",
+        "Donc $x(t) = A\\cos(\\omega_0 t + \\frac\\pi2) = -A\\sin(\\omega_0 t)$."
+      ],
+      "etapeFausse": 2,
+      "explication": "$-A\\omega_0\\sin\\varphi > 0$ impose $\\sin\\varphi < 0$, donc $\\varphi = -\\frac\\pi2$."
+    }
+  ]
+}

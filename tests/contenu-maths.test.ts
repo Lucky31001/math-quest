@@ -5,12 +5,17 @@
  * de QCM à valeur numérique), on recalcule le résultat par une AUTRE méthode
  * que celle de la correction : force brute, intégration numérique (Simpson,
  * Runge-Kutta), différences finies, évaluation directe de limites…
+ *
+ * Physique : simulation numérique (RK4), lois de Kirchhoff résolues par Gauss,
+ * calcul vectoriel. Informatique : le code Python AFFICHÉ dans l'énoncé est
+ * réellement exécuté par `python3`.
  */
 import { describe, it, expect } from 'vitest';
 import { CONTENU } from '../src/core/loader';
 import { math, valeurDe } from '../src/core/checker';
 import type { Question } from '../src/core/schema';
 import { evalTex } from './tex';
+import { execFileSync } from 'node:child_process';
 
 /* ----------------------------- outils ----------------------------- */
 
@@ -91,6 +96,50 @@ function rang(m: number[][]): number {
   }
   return r;
 }
+/** Résout A·x = b (Gauss avec pivot partiel). */
+function resoudre(A: number[][], b: number[]): number[] {
+  const n = b.length;
+  const m = A.map((l, i) => [...l, b[i]]);
+  for (let c = 0; c < n; c++) {
+    let p = c;
+    for (let i = c + 1; i < n; i++) if (Math.abs(m[i][c]) > Math.abs(m[p][c])) p = i;
+    [m[c], m[p]] = [m[p], m[c]];
+    for (let i = 0; i < n; i++)
+      if (i !== c) {
+        const k = m[i][c] / m[c][c];
+        m[i] = m[i].map((v, j) => v - k * m[c][j]);
+      }
+  }
+  return m.map((l, i) => l[n] / l[i]);
+}
+/** Premier instant où `cond(y)` devient vrai en intégrant Y' = F(t, Y) par RK4 (pas h). */
+function instant(F: (t: number, y: number[]) => number[], y0: number[], cond: (y: number[]) => boolean, h = 1e-4, tMax = 100): { t: number; y: number[] } {
+  let y = y0.slice();
+  let t = 0;
+  while (t < tMax) {
+    const suivant = rk4(F, y, t, t + h, 1);
+    if (cond(suivant)) return { t: t + h, y: suivant };
+    y = suivant;
+    t += h;
+  }
+  throw new Error('condition jamais atteinte');
+}
+
+/** Exécute du code Python avec python3 et renvoie sa sortie standard. */
+const python = (code: string): string => execFileSync('python3', ['-c', code], { encoding: 'utf8' }).trim();
+/** Premier bloc ```python``` de l'énoncé d'une question. */
+const codeDe = (q: Question): string => {
+  const m = q.enonce.match(/```python\n([\s\S]+?)\n```/);
+  if (!m) throw new Error(`${q.id} : pas de bloc de code dans l'énoncé`);
+  return m[1];
+};
+/** Le code de l'énoncé, puis l'affichage de `expr`. */
+const executer = (q: Question, expr: string): string => python(`${codeDe(q)}\nprint(${expr})`);
+/** Texte du choix correct d'un QCM, sans les accents graves du code. */
+const bonChoixCode = (q: Question): string => {
+  if (q.type !== 'qcm') throw new Error(`${q.id} n'est pas un QCM`);
+  return q.choix.find((c) => c.correct)!.texte.replace(/`/g, '');
+};
 const POINTS = [0.3, 0.7, 1.1, 1.6];
 
 /* ------------------------ vérifications ---------------------------- */
@@ -556,6 +605,290 @@ const verifs: Record<string, () => void> = {
     const y = fonction(question('equations-differentielles', 'resoudre-second-membre-constant'));
     const [y1] = rk4((_x, [v, vp]) => [vp, 2 + 3 * vp - 2 * v], [2, 0], 0, 0.9);
     expect(y(0.9)).toBeCloseTo(y1, 6);
+  },
+  /* =============================== PHYSIQUE =============================== */
+  /* ---------------- Grandeurs et unités ---------------- */
+  'grandeurs-unites/masse-volumique': () => expect(proche(attendu(question('grandeurs-unites', 'masse-volumique')), 1e-3 / 1e-6)).toBe(true),
+  'grandeurs-unites/exposant-onde': () => {
+    // Recherche exhaustive des exposants demi-entiers rendant λ^α g^β homogène à une vitesse.
+    const sols: number[] = [];
+    for (let a = -3; a <= 3; a += 0.5) for (let b = -3; b <= 3; b += 0.5) if (a + b === 1 && -2 * b === -1) sols.push(a);
+    expect(sols).toEqual([attendu(question('grandeurs-unites', 'exposant-onde')).re]);
+  },
+  'grandeurs-unites/incertitude-surface': () => {
+    const S = (a: number, b: number) => a * b;
+    const dSa = (S(20 + 1e-6, 15) - S(20 - 1e-6, 15)) / 2e-6;
+    const dSb = (S(20, 15 + 1e-6) - S(20, 15 - 1e-6)) / 2e-6;
+    const relatif = (100 * Math.hypot(dSa * 0.2, dSb * 0.3)) / S(20, 15);
+    expect(attendu(question('grandeurs-unites', 'incertitude-surface')).re).toBeCloseTo(relatif, 5);
+  },
+  /* ---------------- Cinématique ---------------- */
+  'cinematique/distance-freinage': () => {
+    const { y } = instant((_t, [, v]) => [v, -5], [0, 20], ([, v]) => v <= 0);
+    expect(attendu(question('cinematique', 'distance-freinage')).re).toBeCloseTo(y[0], 2);
+  },
+  'cinematique/temps-chute': () => {
+    const { t } = instant((_t, [, v]) => [v, 9.81], [0, 0], ([z]) => z >= 20, 1e-5);
+    expect(Math.abs(attendu(question('cinematique', 'temps-chute')).re - t)).toBeLessThan(1e-4);
+  },
+  'cinematique/vitesse-position': () => {
+    const v = fonction(question('cinematique', 'vitesse-position'));
+    for (const t of [0.5, 1, 2.5]) {
+      const [x, vx] = rk4((_t, [, w]) => [w, 2], [0, 3], 0, t);
+      expect(v(x)).toBeCloseTo(vx, 6);
+    }
+  },
+  'cinematique/rattrapage': () => {
+    const { t } = instant((_t, [, , vb]) => [10, vb, 2], [0, 0, 0], ([xa, xb]) => xb >= xa, 1e-4, 50);
+    expect(Math.abs(attendu(question('cinematique', 'rattrapage')).re - t)).toBeLessThan(1e-3);
+  },
+  'cinematique/vitesse-moyenne': () => {
+    const d = 120; // km, valeur arbitraire
+    expect(attendu(question('cinematique', 'vitesse-moyenne')).re).toBeCloseTo((2 * d) / (d / 60 + d / 40), 10);
+  },
+  /* ---------------- Dynamique ---------------- */
+  'dynamique/pfd-simple': () => {
+    // Position après 2 s sous la force constante, comparée à ½·a·t².
+    const [x] = rk4((_t, [, v]) => [v, 12 / 4], [0, 0], 0, 2);
+    expect((attendu(question('dynamique', 'pfd-simple')).re * 4) / 2).toBeCloseTo(x, 6);
+  },
+  'dynamique/plan-incline': () => {
+    // Somme vectorielle poids + réaction normale (m = 1), dans le repère (horizontal, vertical).
+    const al = Math.PI / 6;
+    const g = 9.81;
+    const N = g * Math.cos(al);
+    const a = [N * Math.sin(al), -g + N * Math.cos(al)];
+    expect(attendu(question('dynamique', 'plan-incline')).re).toBeCloseTo(Math.hypot(a[0], a[1]), 10);
+  },
+  'dynamique/vitesse-limite': () => {
+    const [v] = rk4((_t, [w]) => [9.81 - (0.25 / 0.5) * w], [0], 0, 60);
+    expect(attendu(question('dynamique', 'vitesse-limite')).re).toBeCloseTo(v, 6);
+  },
+  'dynamique/vitesse-frottement': () => {
+    const v = fonction(question('dynamique', 'vitesse-frottement'));
+    for (const t of [0.5, 2, 7]) {
+      const [w] = rk4((_t, [u]) => [10 - (0.05 / 0.2) * u], [0], 0, t);
+      expect(v(t)).toBeCloseTo(w, 6);
+    }
+  },
+  'dynamique/deux-blocs': () => {
+    // Inconnues (a, N) : m1·a + N = F et m2·a − N = 0.
+    const [, N] = resoudre([[2, 1], [3, -1]], [10, 0]);
+    expect(attendu(question('dynamique', 'deux-blocs')).re).toBeCloseTo(N, 10);
+  },
+  /* ---------------- Énergie ---------------- */
+  'energie-mecanique/travail-poids': () => {
+    // Intégrale curviligne de P·dl le long d'un chemin courbe de z = 5 à z = 0.
+    const m = 3;
+    const g = 9.81;
+    const chemin = (s: number) => ({ x: Math.sin(3 * s), z: 5 * (1 - s) ** 2 });
+    const W = simpson((s) => {
+      const h = 1e-6;
+      const dz = (chemin(s + h).z - chemin(s - h).z) / (2 * h);
+      return -m * g * dz;
+    }, 0, 1);
+    expect(attendu(question('energie-mecanique', 'travail-poids')).re).toBeCloseTo(W, 4);
+  },
+  'energie-mecanique/vitesse-chute': () => {
+    const { y } = instant((_t, [, v]) => [v, 10], [0, 0], ([z]) => z >= 45, 1e-5);
+    expect(Math.abs(attendu(question('energie-mecanique', 'vitesse-chute')).re - y[1])).toBeLessThan(1e-3);
+  },
+  'energie-mecanique/vitesse-altitude': () => {
+    // Glissade sur une rampe à 30° partant de z = 10 : abscisse curviligne s, ṡ' = g·sin α.
+    const v = fonction(question('energie-mecanique', 'vitesse-altitude'));
+    const al = Math.PI / 6;
+    for (const t of [0.4, 1, 1.6]) {
+      const [s, vs] = rk4((_t, [, w]) => [w, 10 * Math.sin(al)], [0, 0], 0, t);
+      expect(v(10 - s * Math.sin(al))).toBeCloseTo(vs, 6);
+    }
+  },
+  'energie-mecanique/travail-frottements': () => {
+    const Em = (v: number, z: number) => 0.5 * 2 * v * v + 2 * 10 * z;
+    expect(attendu(question('energie-mecanique', 'travail-frottements')).re).toBeCloseTo(Em(8, 0) - Em(0, 5), 10);
+  },
+  /* ---------------- Oscillateurs ---------------- */
+  'oscillateurs/periode-ressort': () => {
+    // Départ au maximum : la vitesse redevient nulle après une demi-période.
+    const { t } = instant((_t, [x, v]) => [v, -(20 / 0.2) * x], [1, 0], ([, v]) => v >= 0, 1e-5);
+    expect(Math.abs(attendu(question('oscillateurs', 'periode-ressort')).re - 2 * t)).toBeLessThan(1e-3);
+  },
+  'oscillateurs/periode-pendule': () => {
+    // Pendule NON linéarisé, petite amplitude.
+    const { t } = instant((_t, [th, w]) => [w, -9.81 * Math.sin(th)], [1e-3, 0], ([, w]) => w >= 0, 1e-5);
+    expect(Math.abs(attendu(question('oscillateurs', 'periode-pendule')).re - 2 * t)).toBeLessThan(1e-3);
+  },
+  'oscillateurs/solution-ci': () => {
+    const x = fonction(question('oscillateurs', 'solution-ci'));
+    for (const t of [0.3, 1.2, 2.5]) expect(x(t)).toBeCloseTo(rk4((_t, [u, v]) => [v, -4 * u], [0.1, 0.4], 0, t)[0], 8);
+  },
+  'oscillateurs/amplitude-cm': () => {
+    let max = 0;
+    let y = [0.1, 0.4];
+    for (let k = 0; k < 4000; k++) {
+      y = rk4((_t, [u, v]) => [v, -4 * u], y, 0, 1e-3, 1);
+      max = Math.max(max, Math.abs(y[0]));
+    }
+    expect(Math.abs(attendu(question('oscillateurs', 'amplitude-cm')).re - 100 * max)).toBeLessThan(1e-3);
+  },
+  /* ---------------- Électrocinétique ---------------- */
+  'electrocinetique/resistance-equivalente': () => {
+    // Kirchhoff sous 1 V : I3 = I1 + I2 ; 6·I1 = 3·I2 ; 6·I1 + 4·I3 = 1.
+    const [, , I3] = resoudre([[1, 1, -1], [6, -3, 0], [6, 0, 4]], [0, 0, 1]);
+    expect(attendu(question('electrocinetique', 'resistance-equivalente')).re).toBeCloseTo(1 / I3, 10);
+  },
+  'electrocinetique/diviseur-tension': () => {
+    // Potentiel du nœud intermédiaire V (R2 relié à la masse) : (12 − V)/R1 = V/R2.
+    const [V] = resoudre([[1 / 1000 + 1 / 2000]], [12 / 1000]);
+    expect(attendu(question('electrocinetique', 'diviseur-tension')).re).toBeCloseTo(V, 10);
+  },
+  'electrocinetique/charge-rc': () => {
+    const [u] = rk4((_t, [w]) => [(10 - w) / (1e4 * 1e-4)], [0], 0, 1);
+    expect(attendu(question('electrocinetique', 'charge-rc')).re).toBeCloseTo(u, 8);
+  },
+  'electrocinetique/rc-condition-initiale': () => {
+    const u = fonction(question('electrocinetique', 'rc-condition-initiale'));
+    for (const t of [0.1, 0.5, 2]) expect(u(t)).toBeCloseTo(rk4((_t, [w]) => [(6 - w) / 0.5], [2], 0, t)[0], 8);
+  },
+
+  /* ============================= INFORMATIQUE ============================= */
+  'python-bases/modulo': () => expect(attendu(question('python-bases', 'modulo')).re).toBe(Number(python('print(17 % 5)'))),
+  'python-bases/floor-negatif': () => expect(attendu(question('python-bases', 'floor-negatif')).re).toBe(Number(python('print(-17 // 5)'))),
+  'python-bases/echange-rate': () => {
+    const q = question('python-bases', 'echange-rate');
+    expect(attendu(q).re).toBe(Number(executer(q, 'b')));
+  },
+  'python-bases/puissance-droite': () => expect(attendu(question('python-bases', 'puissance-droite')).re).toBe(Number(python('print(2 ** 3 ** 2)'))),
+  'python-bases/qcm': () => {
+    // Le choix correct de chaque QCM « Que vaut `…` ? » est bien ce qu'affiche Python.
+    for (const [id, expr] of [['division-entiere', '17 // 5'], ['moins-unaire', '-2 ** 2'], ['type-division', 'type(6 / 3).__name__'], ['concatenation', "repr('3' + '4')"]])
+      expect(python(`print(${expr})`), id).toBe(bonChoixCode(question('python-bases', id)));
+    expect(executer(question('python-bases', 'paresseux'), 'x != 0 and 10 / x > 1')).toBe('False');
+  },
+  'boucles-conditions/somme-boucle': () => {
+    const q = question('boucles-conditions', 'somme-boucle');
+    expect(attendu(q).re).toBe(Number(executer(q, 's')));
+  },
+  'boucles-conditions/while-divisions': () => {
+    const q = question('boucles-conditions', 'while-divisions');
+    expect(attendu(q).re).toBe(Number(executer(q, 'k')));
+  },
+  'boucles-conditions/syracuse': () => {
+    const q = question('boucles-conditions', 'syracuse');
+    expect(attendu(q).re).toBe(Number(executer(q, 'etapes')));
+  },
+  'boucles-conditions/boucles-imbriquees': () => {
+    const q = question('boucles-conditions', 'boucles-imbriquees');
+    const f = fonction(q);
+    for (let n = 1; n <= 8; n++) expect(f(n)).toBeCloseTo(python(`n = ${n}\n${codeDe(q)}`).split('\n').filter(Boolean).length, 10);
+  },
+  'boucles-conditions/qcm': () => {
+    expect(python('print(list(range(1, 5)))')).toBe(bonChoixCode(question('boucles-conditions', 'range-simple')));
+    expect(python('print(list(range(10, 0, -3)))')).toBe(bonChoixCode(question('boucles-conditions', 'range-pas')));
+    expect(executer(question('boucles-conditions', 'break-continue'), 's')).toBe(bonChoixCode(question('boucles-conditions', 'break-continue')));
+    expect(python(codeDe(question('boucles-conditions', 'elif')))).toBe('A');
+  },
+  'fonctions/appel-simple': () => {
+    const q = question('fonctions', 'appel-simple');
+    expect(attendu(q).re).toBe(Number(executer(q, 'carre(3) + carre(4)')));
+  },
+  'fonctions/return-boucle': () => {
+    const q = question('fonctions', 'return-boucle');
+    expect(attendu(q).re).toBe(Number(executer(q, 'h(10)')));
+  },
+  'fonctions/appels-imbriques': () => {
+    const q = question('fonctions', 'appels-imbriques');
+    expect(attendu(q).re).toBe(Number(executer(q, 'g(5)')));
+  },
+  'fonctions/composition': () => {
+    const q = question('fonctions', 'composition');
+    const f = fonction(q);
+    for (const x of [-2, 0.5, 3]) expect(f(x)).toBeCloseTo(Number(executer(q, `g(${x})`)), 10);
+  },
+  'fonctions/qcm': () => {
+    expect(executer(question('fonctions', 'return-print'), 'y').split('\n').pop()).toBe('None');
+    expect(python(codeDe(question('fonctions', 'portee-locale')))).toBe('5');
+    expect(executer(question('fonctions', 'parametre-defaut'), 'puissance(3) + puissance(2, 3)')).toBe(bonChoixCode(question('fonctions', 'parametre-defaut')));
+    expect(executer(question('fonctions', 'liste-modifiee'), 'M')).toBe(bonChoixCode(question('fonctions', 'liste-modifiee')));
+  },
+  'listes-chaines/alias': () => expect(attendu(question('listes-chaines', 'alias')).re).toBe(Number(python(codeDe(question('listes-chaines', 'alias'))))),
+  'listes-chaines/compte-lettres': () => expect(attendu(question('listes-chaines', 'compte-lettres')).re).toBe(Number(python(codeDe(question('listes-chaines', 'compte-lettres'))))),
+  'listes-chaines/anti-diagonale': () => {
+    const lignes = codeDe(question('listes-chaines', 'anti-diagonale')).split('\n');
+    lignes.push(`print(${lignes.pop()})`);
+    expect(attendu(question('listes-chaines', 'anti-diagonale')).re).toBe(Number(python(lignes.join('\n'))));
+  },
+  'listes-chaines/couples': () => {
+    const q = question('listes-chaines', 'couples');
+    const f = fonction(q);
+    for (let n = 1; n <= 8; n++) expect(f(n)).toBeCloseTo(Number(python(`n = ${n}\nprint(len(${codeDe(q)}))`)), 10);
+  },
+  'listes-chaines/qcm': () => {
+    const L = 'L = [4, 8, 15, 16, 23, 42]\n';
+    expect(python(`${L}print(L[-2])`)).toBe(bonChoixCode(question('listes-chaines', 'indice-negatif')));
+    expect(python(`${L}print(L[1:4])`)).toBe(bonChoixCode(question('listes-chaines', 'tranche')));
+    expect(python('print([x * x for x in range(6) if x % 2 == 1])')).toBe(bonChoixCode(question('listes-chaines', 'comprehension')));
+    expect(executer(question('listes-chaines', 'matrice-piege'), 'T')).toBe(bonChoixCode(question('listes-chaines', 'matrice-piege')));
+    expect(python("print(2 in {'a': 1, 'b': 2})")).toBe('False');
+    expect(python("s = 'python'\nprint(s[1:3], s[::-1])")).toBe('yt nohtyp');
+    expect(python('L = [2, 4, 5, 6]\nfor x in L:\n    if x % 2 == 0:\n        L.remove(x)\nprint(L)')).toBe('[4, 5]');
+  },
+  'representation-nombres/binaire-decimal': () => expect(attendu(question('representation-nombres', 'binaire-decimal')).re).toBe(Number(python('print(0b101101)'))),
+  'representation-nombres/hexa-decimal': () => expect(attendu(question('representation-nombres', 'hexa-decimal')).re).toBe(Number(python('print(0x2F)'))),
+  'representation-nombres/lecture-c2': () =>
+    expect(attendu(question('representation-nombres', 'lecture-c2')).re).toBe(Number(python("import ctypes\nprint(ctypes.c_int8(0b11111010).value)"))),
+  'representation-nombres/overflow-8bits': () =>
+    expect(attendu(question('representation-nombres', 'overflow-8bits')).re).toBe(Number(python('import ctypes\nprint(ctypes.c_int8(100 + 50).value)'))),
+  'representation-nombres/max-c2': () => {
+    // Tous les motifs de n bits, lus en complément à deux.
+    const f = fonction(question('representation-nombres', 'max-c2'));
+    for (let n = 2; n <= 12; n++) {
+      let max = -Infinity;
+      for (let motif = 0; motif < 2 ** n; motif++) max = Math.max(max, motif >= 2 ** (n - 1) ? motif - 2 ** n : motif);
+      expect(f(n)).toBe(max);
+    }
+  },
+  'representation-nombres/qcm': () => {
+    expect(python('print(bin(13)[2:])')).toBe(bonChoixCode(question('representation-nombres', 'decimal-binaire')));
+    expect(python('print(bin(19)[2:])')).toBe('10011');
+    expect(python('import ctypes\nprint(ctypes.c_int8(0b11111011).value)')).toBe('-5');
+    expect(python('import sys\nprint(sys.float_info.mant_dig - 1)')).toBe(bonChoixCode(question('representation-nombres', 'mantisse-double')));
+    expect(python('print(0.1 + 0.2 == 0.3, abs(0.1 + 0.2 - 0.3) < 1e-9)')).toBe('False True');
+  },
+  'algorithmes/factorielle-rec': () => {
+    const q = question('algorithmes', 'factorielle-rec');
+    expect(attendu(q).re).toBe(Number(executer(q, 'f(5)')));
+  },
+  'algorithmes/appels-fibonacci': () => {
+    const q = question('algorithmes', 'appels-fibonacci');
+    const instrumente = codeDe(q).replace('def fib(n):\n', 'def fib(n):\n    global appels\n    appels += 1\n');
+    expect(attendu(q).re).toBe(Number(python(`appels = 0\n${instrumente}\nfib(5)\nprint(appels)`)));
+  },
+  'algorithmes/dicho-tours': () => {
+    // La dichotomie du cours, instrumentée, sur toutes les valeurs présentes et absentes.
+    const L = Array.from({ length: 1000 }, (_, i) => 2 * i);
+    let pire = 0;
+    for (let x = -1; x <= 2000; x++) {
+      let [g, d, tours] = [0, L.length - 1, 0];
+      while (g <= d) {
+        tours++;
+        const m = Math.floor((g + d) / 2);
+        if (L[m] === x) break;
+        if (L[m] < x) g = m + 1;
+        else d = m - 1;
+      }
+      pire = Math.max(pire, tours);
+    }
+    expect(attendu(question('algorithmes', 'dicho-tours')).re).toBe(pire);
+  },
+  'algorithmes/comparaisons-selection': () => {
+    const q = question('algorithmes', 'comparaisons-selection');
+    const f = fonction(q);
+    const instrumente = codeDe(q).replace('if L[j] < L[m]:', 'comparaisons[0] += 1\n            if L[j] < L[m]:');
+    for (const n of [1, 2, 5, 9]) expect(f(n)).toBeCloseTo(Number(python(`comparaisons = [0]\n${instrumente}\ntri_selection(list(range(${n}, 0, -1)))\nprint(comparaisons[0])`)), 10);
+  },
+  'algorithmes/qcm': () => {
+    const q = question('algorithmes', 'recursion-trace');
+    expect(executer(q, 'g(7)')).toBe(bonChoixCode(q));
   },
 };
 

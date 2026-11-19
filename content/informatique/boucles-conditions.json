@@ -1,0 +1,420 @@
+{
+  "$schema": "../schema.json",
+  "id": "boucles-conditions",
+  "monde": "informatique",
+  "ordre": 2,
+  "titre": "Conditions et boucles",
+  "icone": "🔀",
+  "resume": "if / elif / else, boucles for et while, range, break et continue, invariants et terminaison.",
+  "cours": [
+    {
+      "titre": "Conditions",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "if / elif / else",
+          "texte": "Un bloc est délimité par l'**indentation** (4 espaces). Dans `if ... elif ... else`, seule la **première** branche dont la condition est vraie est exécutée.\n```python\nif x > 10:\n    print(\"grand\")\nelif x > 5:\n    print(\"moyen\")\nelse:\n    print(\"petit\")\n```"
+        }
+      ]
+    },
+    {
+      "titre": "Boucles",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "range",
+          "texte": "`range(a, b, p)` parcourt `a`, `a + p`, `a + 2p`… en s'arrêtant **avant** `b`. `range(n)` donne `0, 1, …, n - 1` (n valeurs). `range(5, 0, -1)` donne `5, 4, 3, 2, 1`."
+        },
+        {
+          "type": "definition",
+          "titre": "Boucle for",
+          "texte": "`for x in iterable:` répète le bloc pour chaque élément (liste, chaîne, `range`…). Le nombre de tours est connu à l'avance : réaffecter la variable de boucle dans le corps ne change pas les tours suivants."
+        },
+        {
+          "type": "definition",
+          "titre": "Boucle while",
+          "texte": "`while condition:` répète tant que la condition est vraie. Il faut que le corps fasse évoluer la condition, sinon la boucle est **infinie**."
+        },
+        {
+          "type": "propriete",
+          "titre": "break et continue",
+          "texte": "`break` quitte immédiatement la boucle ; `continue` passe directement au tour suivant."
+        }
+      ]
+    },
+    {
+      "titre": "Raisonner sur une boucle",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Accumulateur",
+          "texte": "**Accumulateur** : on initialise avant la boucle avec l'élément neutre (`0` pour une somme, `1` pour un produit, le premier élément pour un maximum), puis on le met à jour à chaque tour."
+        },
+        {
+          "type": "definition",
+          "titre": "Invariant et variant",
+          "texte": "Un **invariant** est une propriété vraie avant la boucle et conservée par chaque tour ; à la sortie, il prouve la correction. Un **variant** est un entier positif qui décroît strictement à chaque tour ; il prouve la **terminaison**."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-range-n",
+      "recto": "Valeurs de `range(5)` ?",
+      "verso": "`0, 1, 2, 3, 4` (5 valeurs, 5 exclu)."
+    },
+    {
+      "id": "f-range-ab",
+      "recto": "Combien de valeurs dans `range(a, b)` (a ≤ b) ?",
+      "verso": "`b - a`."
+    },
+    {
+      "id": "f-range-pas",
+      "recto": "Valeurs de `range(2, 10, 3)` ?",
+      "verso": "`2, 5, 8`."
+    },
+    {
+      "id": "f-range-negatif",
+      "recto": "Valeurs de `range(5, 0, -1)` ?",
+      "verso": "`5, 4, 3, 2, 1` (0 exclu)."
+    },
+    {
+      "id": "f-elif",
+      "recto": "Dans `if / elif / else`, combien de branches s'exécutent ?",
+      "verso": "Au plus une : la première dont la condition est vraie (ou le `else`)."
+    },
+    {
+      "id": "f-break",
+      "recto": "Rôle de `break` ?",
+      "verso": "Sortir immédiatement de la boucle la plus interne."
+    },
+    {
+      "id": "f-continue",
+      "recto": "Rôle de `continue` ?",
+      "verso": "Passer directement au tour suivant de la boucle."
+    },
+    {
+      "id": "f-while-infini",
+      "recto": "Pourquoi une boucle `while` peut-elle ne pas terminer ?",
+      "verso": "Si le corps ne rend jamais la condition fausse."
+    },
+    {
+      "id": "f-variant",
+      "recto": "Qu'est-ce qu'un variant de boucle ?",
+      "verso": "Un entier positif qui décroît strictement à chaque tour : il prouve la terminaison."
+    },
+    {
+      "id": "f-invariant",
+      "recto": "Qu'est-ce qu'un invariant de boucle ?",
+      "verso": "Une propriété vraie avant la boucle et conservée par chaque tour : il prouve la correction."
+    },
+    {
+      "id": "f-neutre",
+      "recto": "Initialiser un accumulateur de produit ?",
+      "verso": "À `1` (élément neutre), pas à `0`."
+    },
+    {
+      "id": "f-for-reaffecter",
+      "recto": "Réaffecter la variable d'une boucle `for` dans le corps change-t-il le nombre de tours ?",
+      "verso": "Non : elle reprend la valeur suivante de l'itérable au tour suivant."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "range-simple",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut `list(range(1, 5))` ?",
+      "correction": [
+        "`range(1, 5)` : de 1 inclus à 5 exclu."
+      ],
+      "choix": [
+        {
+          "texte": "`[1, 2, 3, 4]`",
+          "correct": true,
+          "explication": "La borne de fin est exclue."
+        },
+        {
+          "texte": "`[1, 2, 3, 4, 5]`",
+          "correct": false,
+          "explication": "`range` s'arrête **avant** la borne de fin."
+        },
+        {
+          "texte": "`[0, 1, 2, 3, 4]`",
+          "correct": false,
+          "explication": "C'est `list(range(5))`."
+        },
+        {
+          "texte": "`[0, 1, 2, 3, 4, 5]`",
+          "correct": false,
+          "explication": "Le début est 1 et la fin 5 est exclue."
+        }
+      ]
+    },
+    {
+      "id": "elif",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```python\nx = 15\nif x > 10:\n    print(\"A\")\nelif x > 5:\n    print(\"B\")\nelse:\n    print(\"C\")\n```",
+      "correction": [
+        "`15 > 10` : on affiche `A` et on sort du `if`."
+      ],
+      "choix": [
+        {
+          "texte": "`A`",
+          "correct": true,
+          "explication": "Première condition vraie : les autres branches sont ignorées."
+        },
+        {
+          "texte": "`A` puis `B`",
+          "correct": false,
+          "explication": "Avec `elif`, une seule branche s'exécute."
+        },
+        {
+          "texte": "`B`",
+          "correct": false,
+          "explication": "`x > 10` est déjà vraie."
+        },
+        {
+          "texte": "`C`",
+          "correct": false,
+          "explication": "Le `else` ne s'exécute que si toutes les conditions sont fausses."
+        }
+      ]
+    },
+    {
+      "id": "somme-boucle",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Que vaut `s` à la fin ?\n```python\ns = 0\nfor i in range(1, 11):\n    s = s + i\n```",
+      "correction": [
+        "`i` prend les valeurs 1 à 10 : s = 1 + 2 + … + 10 = 10 × 11 / 2 = 55."
+      ],
+      "reponse": 55
+    },
+    {
+      "id": "while-divisions",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `k` à la fin ?\n```python\nn = 100\nk = 0\nwhile n > 1:\n    n = n // 2\n    k = k + 1\n```",
+      "indice": "Écris la suite des valeurs de `n`.",
+      "correction": [
+        "`n` passe par 100, 50, 25, 12, 6, 3, 1.",
+        "Six divisions : `k` vaut 6 (c'est la partie entière de log₂ 100)."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "range-pas",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut `list(range(10, 0, -3))` ?",
+      "correction": [
+        "10, 7, 4, 1 (le suivant, -2, a franchi la borne 0)."
+      ],
+      "choix": [
+        {
+          "texte": "`[10, 7, 4, 1]`",
+          "correct": true,
+          "explication": "On part de 10, on retire 3 tant qu'on reste strictement au-dessus de 0."
+        },
+        {
+          "texte": "`[10, 7, 4]`",
+          "correct": false,
+          "explication": "1 est bien strictement supérieur à 0 : il est inclus."
+        },
+        {
+          "texte": "`[10, 7, 4, 1, -2]`",
+          "correct": false,
+          "explication": "On s'arrête avant de franchir la borne 0."
+        },
+        {
+          "texte": "`[]`",
+          "correct": false,
+          "explication": "Un pas négatif est autorisé : on compte à rebours."
+        }
+      ]
+    },
+    {
+      "id": "boucles-imbriquees",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "En fonction de `n` (entier ≥ 1), combien de fois `'*'` est-il affiché ?\n```python\nfor i in range(1, n + 1):\n    for j in range(i):\n        print('*')\n```",
+      "correction": [
+        "Pour chaque `i`, la boucle interne fait `i` tours.",
+        "Total : 1 + 2 + … + n = n(n + 1)/2."
+      ],
+      "reponse": "n*(n + 1)/2",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        20
+      ]
+    },
+    {
+      "id": "break-continue",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Que vaut `s` à la fin ?\n```python\ns = 0\nfor i in range(10):\n    if i % 3 == 0:\n        continue\n    if i > 7:\n        break\n    s += i\n```",
+      "correction": [
+        "0, 3, 6 sont sautés par `continue`.",
+        "1 + 2 + 4 + 5 + 7 = 19, puis `i = 8 > 7` : `break`."
+      ],
+      "choix": [
+        {
+          "texte": "`19`",
+          "correct": true,
+          "explication": "On ajoute 1, 2, 4, 5, 7 ; à `i = 8`, on sort."
+        },
+        {
+          "texte": "`27`",
+          "correct": false,
+          "explication": "Sans le `break` : 1 + 2 + 4 + 5 + 7 + 8."
+        },
+        {
+          "texte": "`28`",
+          "correct": false,
+          "explication": "Sans le `continue` : 0 + 1 + … + 7."
+        },
+        {
+          "texte": "`45`",
+          "correct": false,
+          "explication": "Somme de 0 à 9 : ni `continue` ni `break`."
+        }
+      ]
+    },
+    {
+      "id": "vf-for-reaffecte",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "La boucle `for i in range(5): i = i + 2` ne fait que 2 ou 3 tours, puisque `i` avance plus vite.",
+      "correction": [
+        "Faux : 5 tours, `i` valant successivement 0, 1, 2, 3, 4 au début de chaque tour."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Elle fait 5 tours : à chaque tour, `i` reprend la valeur suivante de `range(5)`.",
+          "correct": true,
+          "explication": "Modifier `i` dans le corps n'influe pas sur l'itération."
+        },
+        {
+          "texte": "Vrai : `i` atteint 5 plus vite.",
+          "correct": false,
+          "explication": "Ce serait le cas avec un `while` qui teste `i`."
+        },
+        {
+          "texte": "Faux : la boucle est infinie.",
+          "correct": false,
+          "explication": "Une boucle `for` sur un `range` termine toujours."
+        }
+      ]
+    },
+    {
+      "id": "vf-while-infini",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Cette boucle termine :\n```python\ni = 0\nwhile i < 10:\n    print(i)\n```",
+      "correction": [
+        "Faux : il manque `i += 1` dans le corps."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "`i` n'est jamais modifié : `i < 10` reste vrai, la boucle est infinie.",
+          "correct": true,
+          "explication": "Il manque `i += 1`."
+        },
+        {
+          "texte": "Vrai : elle affiche les nombres de 0 à 9.",
+          "correct": false,
+          "explication": "Elle afficherait 0 indéfiniment."
+        },
+        {
+          "texte": "Vrai : une boucle `while` termine toujours.",
+          "correct": false,
+          "explication": "Rien ne garantit la terminaison d'un `while` : il faut un variant."
+        }
+      ]
+    },
+    {
+      "id": "invariant",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Pour cette boucle, quelle propriété est un invariant vrai **au début** de chaque tour (`k` désignant le compteur) ?\n```python\nr = 1\nfor k in range(n):\n    r = r * x\n```",
+      "correction": [
+        "Au début du tour `k`, on a fait `k` multiplications : `r == x ** k`. En sortie (k = n), `r == x ** n`."
+      ],
+      "choix": [
+        {
+          "texte": "`r == x ** k`",
+          "correct": true,
+          "explication": "Vrai pour `k = 0` (`r = 1`) et conservé : après le tour, `r == x ** (k + 1)`."
+        },
+        {
+          "texte": "`r == x ** (k + 1)`",
+          "correct": false,
+          "explication": "C'est vrai à la **fin** du tour, pas au début."
+        },
+        {
+          "texte": "`r == x ** n`",
+          "correct": false,
+          "explication": "Ce n'est vrai qu'à la sortie de la boucle."
+        },
+        {
+          "texte": "`r == k * x`",
+          "correct": false,
+          "explication": "On multiplie, on n'additionne pas."
+        }
+      ]
+    },
+    {
+      "id": "syracuse",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Que vaut `etapes` à la fin ?\n```python\nn = 6\netapes = 0\nwhile n != 1:\n    if n % 2 == 0:\n        n = n // 2\n    else:\n        n = 3 * n + 1\n    etapes += 1\n```",
+      "correction": [
+        "`n` : 6, 3, 10, 5, 16, 8, 4, 2, 1.",
+        "8 étapes."
+      ],
+      "reponse": 8
+    },
+    {
+      "id": "erreur-factorielle",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "On veut calculer 5! = 120. Où est l'erreur ?",
+      "correction": [
+        "Avec `p = 1`, on obtient 1 × 2 × 3 × 4 × 5 = 120."
+      ],
+      "etapes": [
+        "Initialisation : `p = 0`",
+        "Boucle : `for k in range(1, 6):`",
+        "Dans la boucle : `p = p * k`",
+        "À la fin, `p` vaut 120."
+      ],
+      "etapeFausse": 0,
+      "explication": "Un produit s'initialise à l'élément neutre **1** : avec `p = 0`, `p` reste nul."
+    },
+    {
+      "id": "erreur-maximum",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "On cherche le maximum d'une liste `L` d'entiers. Raisonnement : où est l'erreur ?",
+      "correction": [
+        "Avec `m = L[0]`, l'invariant est vrai dès le départ et le résultat est correct pour toute liste non vide."
+      ],
+      "etapes": [
+        "On initialise `m = 0`, qui est inférieur ou égal à tous les éléments.",
+        "Pour chaque `x` de `L` : si `x > m`, on fait `m = x`.",
+        "Invariant : `m` est le maximum des éléments déjà parcourus.",
+        "À la fin, `m` est le maximum de `L`."
+      ],
+      "etapeFausse": 0,
+      "explication": "Pour `L = [-5, -2, -9]`, `m` reste à 0, qui n'est pas dans la liste. Il faut initialiser avec `m = L[0]`."
+    }
+  ]
+}

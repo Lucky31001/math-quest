@@ -100,7 +100,35 @@ code {
   background: var(--surface-2);
   padding: 0.05em 0.4em;
   border-radius: 6px;
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, Consolas, monospace;
   font-size: 0.88em;
+  /* Pas de ligatures (== affiché comme un seul signe serait trompeur). */
+  font-variant-ligatures: none;
+}
+
+/* Bloc de code (contenu d'informatique) : défile horizontalement, jamais la page. */
+pre.code {
+  display: block;
+  max-width: 100%;
+  margin: 8px 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  border: 2px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--surface-2);
+  text-align: left;
+  /* Taille posée sur le <pre> : sinon il hérite de celle de l'énoncé (1,3 rem)
+     et sa hauteur de ligne espace exagérément les lignes de code. */
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+pre.code code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  white-space: pre;
 }
 
 main {

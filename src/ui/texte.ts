@@ -1,6 +1,7 @@
 /**
  * Rendu des textes du contenu : LaTeX ($…$ et $$…$$) via KaTeX, **gras**, *italique*,
- * retours à la ligne. Les morceaux non mathématiques sont échappés (pas d'injection HTML).
+ * retours à la ligne, code (`en ligne` et blocs ```…```). Les morceaux non
+ * mathématiques sont échappés (pas d'injection HTML).
  */
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
@@ -26,8 +27,28 @@ function texteSimple(s: string): string {
     .replace(/\n/g, '<br>');
 }
 
-/** Convertit un texte du contenu en HTML sûr. */
+/** Segments de code : blocs ```…``` (langue facultative sur la 1re ligne) et `en ligne`. */
+export const MOTIF_CODE = /(```[\s\S]+?```|`[^`\n]+`)/g;
+
+/**
+ * Convertit un texte du contenu en HTML sûr. Le code est traité en premier :
+ * son contenu est seulement échappé (ni LaTeX, ni gras — `x**2` reste intact).
+ */
 export function rendreHtml(texte: string): string {
+  return texte
+    .split(MOTIF_CODE)
+    .map((m) => {
+      if (m.length > 6 && m.startsWith('```') && m.endsWith('```')) {
+        const code = m.slice(3, -3).replace(/^[a-z]*\n/, '').replace(/\n$/, '');
+        return `<pre class="code"><code>${echapper(code)}</code></pre>`;
+      }
+      if (m.length > 2 && m.startsWith('`') && m.endsWith('`')) return `<code>${echapper(m.slice(1, -1))}</code>`;
+      return rendreMaths(m);
+    })
+    .join('');
+}
+
+function rendreMaths(texte: string): string {
   const morceaux = texte.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
   return morceaux
     .map((m) => {

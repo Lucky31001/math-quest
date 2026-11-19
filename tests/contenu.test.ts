@@ -23,6 +23,8 @@ function textes(q: Question): string[] {
 /** Compile chaque segment $…$ / $$…$$ ; renvoie les erreurs. */
 function erreursLatex(texte: string): string[] {
   const erreurs: string[] = [];
+  // Le code (`…` et ```…```) n'est pas du LaTeX : on le retire avant l'analyse.
+  texte = texte.replace(/```[\s\S]+?```|`[^`\n]+`/g, ' ');
   const morceaux = texte.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
   for (const m of morceaux) {
     const bloc = m.startsWith('$$');

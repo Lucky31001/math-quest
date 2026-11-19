@@ -1,6 +1,6 @@
 # CLAUDE.md — Math Quest
 
-Application de révision de maths gamifiée (pré-ing 1, algèbre + analyse). Vite 6 + TypeScript strict, **sans framework ni backend**. Interface et contenu **en français** (identifiants de code compris : `chapitre`, `enonce`, `corriger`…). Garder cette convention.
+Application de révision gamifiée (pré-ing 1 : algèbre, analyse, physique, informatique). Vite 6 + TypeScript strict, **sans framework ni backend**. Interface et contenu **en français** (identifiants de code compris : `chapitre`, `enonce`, `corriger`…). Garder cette convention.
 
 ## Commandes
 
@@ -57,7 +57,9 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - Un générateur renvoie `id: ''` ; c'est `generer()` qui pose l'id. Il fournit son LaTeX (affichage) **et** sa chaîne math.js (vérification). Les tests relisent le LaTeX affiché : les deux doivent donc rester cohérents.
 - Distracteurs de QCM : `construireQcm` dédoublonne par `cle`, qui doit être une valeur canonique (`cleNum`, `cleExpr`). Prévoir 4 à 6 candidats pour toujours avoir 4 choix.
 - Les éléments du DOM sont construits avec `h()` ; utiliser `ajouter()` quand des enfants peuvent être `null` (`append(null)` est refusé par TS).
-- Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX).
+- Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX + code `…` / ```python … ```).
+- **Informatique** : les vérifications de `tests/contenu-maths.test.ts` exécutent le code Python de l'énoncé avec `python3` (`codeDe`, `executer`) ; garder le code de l'énoncé exécutable tel quel.
+- **Physique** : réponses numériques avec `tolerance: 0.01` (arrondis de $g$…) et en unités où la valeur est ≥ 1 (la tolérance devient absolue sous 1).
 - CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (thème sombre unique). Mobile d'abord (360 px).
 
 ## Niveaux et matières

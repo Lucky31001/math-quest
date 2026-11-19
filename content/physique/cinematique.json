@@ -1,0 +1,452 @@
+{
+  "$schema": "../schema.json",
+  "id": "cinematique",
+  "monde": "physique",
+  "ordre": 2,
+  "titre": "Cinématique du point",
+  "icone": "🚀",
+  "resume": "Position, vitesse, accélération ; mouvements rectilignes, chute libre, mouvement circulaire.",
+  "cours": [
+    {
+      "titre": "Vitesse et accélération",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Position, vitesse, accélération",
+          "texte": "Dans un référentiel donné, le point $M$ a pour vecteur position $\\overrightarrow{OM}(t)$. Sa vitesse est $\\vec v = \\dfrac{\\mathrm d\\overrightarrow{OM}}{\\mathrm dt}$ et son accélération $\\vec a = \\dfrac{\\mathrm d\\vec v}{\\mathrm dt}$. En cartésiennes : $\\vec v = \\dot x\\,\\vec e_x + \\dot y\\,\\vec e_y + \\dot z\\,\\vec e_z$."
+        },
+        {
+          "type": "remarque",
+          "texte": "Sur un graphe $x(t)$, la vitesse est la pente de la tangente. Sur un graphe $v(t)$, l'accélération est la pente et l'**aire** sous la courbe entre $t_1$ et $t_2$ est le déplacement $x(t_2) - x(t_1)$."
+        }
+      ]
+    },
+    {
+      "titre": "Mouvements rectilignes",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Rectiligne uniforme",
+          "texte": "Vitesse constante : $x(t) = x_0 + v\\,t$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Uniformément accéléré",
+          "texte": "Accélération constante $a$ : $v(t) = v_0 + a\\,t$, $x(t) = x_0 + v_0 t + \\frac12 a t^2$ et, sans le temps, $v^2 - v_0^2 = 2a\\,(x - x_0)$."
+        },
+        {
+          "type": "methode",
+          "titre": "Chute libre",
+          "texte": "Chute libre (frottements négligés) : $\\vec a = \\vec g$. On projette sur des axes, on intègre deux fois et on fixe les constantes avec les conditions initiales. Un tir donne une trajectoire parabolique."
+        }
+      ]
+    },
+    {
+      "titre": "Mouvement circulaire et coordonnées polaires",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Coordonnées polaires",
+          "texte": "En polaires : $\\vec v = \\dot r\\,\\vec e_r + r\\dot\\theta\\,\\vec e_\\theta$ et $\\vec a = (\\ddot r - r\\dot\\theta^2)\\,\\vec e_r + (r\\ddot\\theta + 2\\dot r\\dot\\theta)\\,\\vec e_\\theta$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Mouvement circulaire",
+          "texte": "Sur un cercle de rayon $R$ : $\\vec v = R\\dot\\theta\\,\\vec e_\\theta$, $v = R\\omega$. S'il est **uniforme**, l'accélération est **centripète** : $\\vec a = -R\\omega^2\\,\\vec e_r$, de norme $\\dfrac{v^2}{R}$. La période vaut $T = \\dfrac{2\\pi}{\\omega}$."
+        },
+        {
+          "type": "remarque",
+          "texte": "Vitesse de norme constante ne veut **pas** dire accélération nulle : la direction de $\\vec v$ change."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-vitesse",
+      "recto": "Définition du vecteur vitesse ?",
+      "verso": "$\\vec v = \\dfrac{\\mathrm d\\overrightarrow{OM}}{\\mathrm dt}$."
+    },
+    {
+      "id": "f-acceleration",
+      "recto": "Définition du vecteur accélération ?",
+      "verso": "$\\vec a = \\dfrac{\\mathrm d\\vec v}{\\mathrm dt} = \\dfrac{\\mathrm d^2\\overrightarrow{OM}}{\\mathrm dt^2}$."
+    },
+    {
+      "id": "f-mru",
+      "recto": "Équation horaire du mouvement rectiligne uniforme ?",
+      "verso": "$x(t) = x_0 + v\\,t$."
+    },
+    {
+      "id": "f-mrua",
+      "recto": "Équations du mouvement uniformément accéléré ?",
+      "verso": "$v = v_0 + at$ et $x = x_0 + v_0 t + \\frac12 at^2$."
+    },
+    {
+      "id": "f-sans-temps",
+      "recto": "Relation vitesse–position à accélération constante ?",
+      "verso": "$v^2 - v_0^2 = 2a\\,(x - x_0)$."
+    },
+    {
+      "id": "f-aire-vt",
+      "recto": "Que représente l'aire sous la courbe $v(t)$ ?",
+      "verso": "Le déplacement $x(t_2) - x(t_1)$."
+    },
+    {
+      "id": "f-chute-libre",
+      "recto": "Accélération en chute libre ?",
+      "verso": "$\\vec a = \\vec g$, indépendante de la masse."
+    },
+    {
+      "id": "f-temps-chute",
+      "recto": "Durée de chute d'une hauteur $h$ sans vitesse initiale ?",
+      "verso": "$t = \\sqrt{2h / g}$."
+    },
+    {
+      "id": "f-circulaire-v",
+      "recto": "Vitesse sur un cercle de rayon $R$ ?",
+      "verso": "$v = R\\omega$ avec $\\omega = \\dot\\theta$."
+    },
+    {
+      "id": "f-centripete",
+      "recto": "Accélération d'un mouvement circulaire uniforme ?",
+      "verso": "Centripète, de norme $v^2 / R = R\\omega^2$."
+    },
+    {
+      "id": "f-polaire-v",
+      "recto": "Vitesse en coordonnées polaires ?",
+      "verso": "$\\vec v = \\dot r\\,\\vec e_r + r\\dot\\theta\\,\\vec e_\\theta$."
+    },
+    {
+      "id": "f-polaire-a",
+      "recto": "Accélération en coordonnées polaires ?",
+      "verso": "$(\\ddot r - r\\dot\\theta^2)\\,\\vec e_r + (r\\ddot\\theta + 2\\dot r\\dot\\theta)\\,\\vec e_\\theta$."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "derivee-position",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un mobile a pour position $x(t) = 3t^2 - 2t + 1$ ($x$ en m, $t$ en s). Sa vitesse à $t = 2\\ \\mathrm s$ vaut :",
+      "correction": [
+        "$v(t) = 6t - 2$ donc $v(2) = 10\\ \\mathrm{m/s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$10\\ \\mathrm{m/s}$",
+          "correct": true,
+          "explication": "$v = \\dot x = 6t - 2$, soit $v(2) = 10$."
+        },
+        {
+          "texte": "$9\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "C'est $x(2) = 12 - 4 + 1 = 9$ : la position, pas la vitesse."
+        },
+        {
+          "texte": "$6\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "C'est l'accélération $\\ddot x = 6\\ \\mathrm{m/s^2}$."
+        },
+        {
+          "texte": "$14\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "Erreur de signe : la dérivée de $-2t$ est $-2$."
+        }
+      ]
+    },
+    {
+      "id": "mru-position",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un mobile a pour équation horaire $x(t) = 5 - 2t$ (SI). À $t = 4\\ \\mathrm s$, il se trouve en :",
+      "correction": [
+        "$x(4) = 5 - 8 = -3\\ \\mathrm m$."
+      ],
+      "choix": [
+        {
+          "texte": "$x = -3\\ \\mathrm m$",
+          "correct": true,
+          "explication": "$5 - 2 \\times 4 = -3$."
+        },
+        {
+          "texte": "$x = 3\\ \\mathrm m$",
+          "correct": false,
+          "explication": "Erreur de signe : le mobile recule (vitesse $-2$ m/s) et dépasse l'origine."
+        },
+        {
+          "texte": "$x = 13\\ \\mathrm m$",
+          "correct": false,
+          "explication": "On a ajouté $2t$ au lieu de le retrancher."
+        },
+        {
+          "texte": "$x = -8\\ \\mathrm m$",
+          "correct": false,
+          "explication": "On a oublié la position initiale $x_0 = 5\\ \\mathrm m$."
+        }
+      ]
+    },
+    {
+      "id": "distance-freinage",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Une voiture roulant à $20\\ \\mathrm{m/s}$ freine avec une décélération constante de $5\\ \\mathrm{m/s^2}$. Quelle distance (en m) parcourt-elle avant de s'arrêter ?",
+      "indice": "Utilise la relation sans le temps : $v^2 - v_0^2 = 2a\\,(x - x_0)$.",
+      "correction": [
+        "À accélération constante : $v^2 - v_0^2 = 2a\\,d$ avec $v = 0$, $a = -5$.",
+        "$d = \\dfrac{v_0^2}{2 \\times 5} = \\dfrac{400}{10} = 40\\ \\mathrm m$."
+      ],
+      "reponse": 40
+    },
+    {
+      "id": "temps-chute",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un objet est lâché sans vitesse initiale d'une hauteur $h = 20\\ \\mathrm m$ ; $g = 9{,}81\\ \\mathrm{m\\cdot s^{-2}}$, frottements négligés. Durée de la chute, en s ?",
+      "correction": [
+        "Axe vertical vers le bas : $z(t) = \\frac12 g t^2$.",
+        "$\\frac12 g t^2 = h$ donne $t = \\sqrt{2h / g} = \\sqrt{40 / 9{,}81} \\approx 2{,}02\\ \\mathrm s$."
+      ],
+      "reponse": "sqrt(2*20/9.81)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "vitesse-position",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Un mobile part de $x = 0$ avec la vitesse $v_0 = 3\\ \\mathrm{m/s}$ et une accélération constante $a = 2\\ \\mathrm{m/s^2}$ (même sens). Exprime sa vitesse $v$ en fonction de sa position $x$ (SI).",
+      "indice": "Pas besoin du temps : $v^2 - v_0^2 = 2a\\,(x - x_0)$.",
+      "correction": [
+        "$v^2 - v_0^2 = 2a\\,x$ donc $v^2 = 9 + 4x$.",
+        "$v > 0$ : $v = \\sqrt{9 + 4x}$."
+      ],
+      "reponse": "sqrt(9 + 4*x)",
+      "variables": [
+        "x"
+      ],
+      "domaine": [
+        0,
+        10
+      ]
+    },
+    {
+      "id": "centripete",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un point décrit un cercle de rayon $R = 2\\ \\mathrm m$ à la vitesse constante $v = 4\\ \\mathrm{m/s}$. Son accélération est :",
+      "correction": [
+        "Mouvement circulaire uniforme : $\\vec a = -\\dfrac{v^2}{R}\\,\\vec e_r$, de norme $8\\ \\mathrm{m/s^2}$."
+      ],
+      "choix": [
+        {
+          "texte": "$8\\ \\mathrm{m/s^2}$, dirigée vers le centre",
+          "correct": true,
+          "explication": "$a = v^2 / R = 16 / 2$, centripète."
+        },
+        {
+          "texte": "nulle, car la vitesse est constante",
+          "correct": false,
+          "explication": "Seule la norme est constante : la direction de la vitesse change, donc $\\vec a \\neq \\vec 0$."
+        },
+        {
+          "texte": "$8\\ \\mathrm{m/s^2}$, tangente à la trajectoire",
+          "correct": false,
+          "explication": "En mouvement uniforme, l'accélération tangentielle $\\dot v$ est nulle : tout est normal (centripète)."
+        },
+        {
+          "texte": "$2\\ \\mathrm{m/s^2}$, dirigée vers le centre",
+          "correct": false,
+          "explication": "C'est $v / R$ (une pulsation), pas $v^2 / R$."
+        }
+      ]
+    },
+    {
+      "id": "vf-norme-constante",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si la norme de la vitesse d'un point est constante, son accélération est nulle.",
+      "correction": [
+        "Faux : en mouvement circulaire uniforme, $\\|\\vec v\\|$ est constante mais $\\vec a = -R\\omega^2\\,\\vec e_r$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : le mouvement circulaire uniforme a une accélération centripète.",
+          "correct": true,
+          "explication": "La direction de la vitesse change, donc $\\vec a \\neq \\vec 0$."
+        },
+        {
+          "texte": "Vrai : l'accélération est la dérivée de la vitesse.",
+          "correct": false,
+          "explication": "C'est la dérivée du **vecteur** vitesse, pas de sa norme."
+        },
+        {
+          "texte": "Vrai, sauf si le mouvement est rectiligne.",
+          "correct": false,
+          "explication": "C'est l'inverse : en rectiligne, norme constante implique bien $\\vec a = \\vec 0$."
+        }
+      ]
+    },
+    {
+      "id": "tir-horizontal",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une balle est lancée horizontalement à $4\\ \\mathrm{m/s}$ depuis une hauteur de $1{,}25\\ \\mathrm m$ ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$, frottements négligés). À quelle distance horizontale touche-t-elle le sol ?",
+      "correction": [
+        "Les mouvements horizontal (uniforme) et vertical (chute libre) sont indépendants.",
+        "$\\frac12 g t^2 = 1{,}25$ donne $t = 0{,}5\\ \\mathrm s$, puis $x = 4 \\times 0{,}5 = 2\\ \\mathrm m$."
+      ],
+      "choix": [
+        {
+          "texte": "$2\\ \\mathrm m$",
+          "correct": true,
+          "explication": "Chute : $t = \\sqrt{2h/g} = 0{,}5\\ \\mathrm s$ ; horizontalement $x = v_0 t = 2\\ \\mathrm m$."
+        },
+        {
+          "texte": "$0{,}5\\ \\mathrm m$",
+          "correct": false,
+          "explication": "C'est la durée de chute (en s), pas la distance."
+        },
+        {
+          "texte": "$1\\ \\mathrm m$",
+          "correct": false,
+          "explication": "On a pris $t = \\sqrt{h / (2g)} = 0{,}25\\ \\mathrm s$ : le facteur 2 est mal placé."
+        },
+        {
+          "texte": "$5\\ \\mathrm m$",
+          "correct": false,
+          "explication": "On a multiplié la hauteur par la vitesse : ce n'est pas homogène à une longueur."
+        }
+      ]
+    },
+    {
+      "id": "aire-vt",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Sur le graphe de la vitesse $v(t)$ d'un mouvement rectiligne, l'aire algébrique sous la courbe entre $t_1$ et $t_2$ représente :",
+      "correction": [
+        "$v = \\dot x$ donc $\\int_{t_1}^{t_2} v\\,\\mathrm dt = x(t_2) - x(t_1)$."
+      ],
+      "choix": [
+        {
+          "texte": "le déplacement $x(t_2) - x(t_1)$",
+          "correct": true,
+          "explication": "$x(t_2) - x(t_1) = \\int_{t_1}^{t_2} v(t)\\,\\mathrm dt$."
+        },
+        {
+          "texte": "la variation de vitesse $v(t_2) - v(t_1)$",
+          "correct": false,
+          "explication": "C'est l'aire sous la courbe de l'**accélération**."
+        },
+        {
+          "texte": "l'accélération moyenne",
+          "correct": false,
+          "explication": "L'accélération est la **pente** de $v(t)$, pas l'aire."
+        },
+        {
+          "texte": "la vitesse moyenne",
+          "correct": false,
+          "explication": "La vitesse moyenne est cette aire **divisée** par $t_2 - t_1$."
+        }
+      ]
+    },
+    {
+      "id": "erreur-hauteur-max",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Une balle est lancée verticalement vers le haut à $v_0 = 10\\ \\mathrm{m/s}$ ($g = 10\\ \\mathrm{m\\cdot s^{-2}}$). On cherche sa hauteur maximale. Où est l'erreur ?",
+      "correction": [
+        "$z(t_1) = 10 - 5 = 5\\ \\mathrm m$ (on retrouve $\\dfrac{v_0^2}{2g}$)."
+      ],
+      "etapes": [
+        "Axe $Oz$ vers le haut : $a_z = -g$.",
+        "$v_z(t) = v_0 - g t$ s'annule en $t_1 = v_0 / g = 1\\ \\mathrm s$.",
+        "$z(t_1) = v_0 t_1 - g t_1^2 = 10 - 10 = 0\\ \\mathrm m$.",
+        "La hauteur maximale est donc nulle."
+      ],
+      "etapeFausse": 2,
+      "explication": "En intégrant $v_z = v_0 - gt$, on obtient $z = v_0 t - \\frac12 g t^2$ : il manque le facteur $\\frac12$."
+    },
+    {
+      "id": "vf-polaire-cercle",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour un mouvement circulaire de rayon $R$, la vitesse s'écrit $\\vec v = R\\dot\\theta\\,\\vec e_\\theta$.",
+      "correction": [
+        "$\\dot r = 0$ donc $\\vec v = R\\dot\\theta\\,\\vec e_\\theta$ : vrai, pour tout mouvement circulaire (uniforme ou non)."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$\\vec v = \\dot r\\,\\vec e_r + r\\dot\\theta\\,\\vec e_\\theta$ avec $r = R$ constant, donc $\\dot r = 0$.",
+          "correct": true,
+          "explication": "La vitesse est tangente au cercle."
+        },
+        {
+          "texte": "Faux : il manque le terme $-R\\dot\\theta^2\\,\\vec e_r$.",
+          "correct": false,
+          "explication": "Ce terme figure dans l'**accélération**, pas dans la vitesse."
+        },
+        {
+          "texte": "Faux : la vitesse est portée par $\\vec e_r$.",
+          "correct": false,
+          "explication": "$\\vec e_r$ est radial ; sur un cercle, la vitesse est tangente donc selon $\\vec e_\\theta$."
+        }
+      ]
+    },
+    {
+      "id": "acceleration-polaire",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un point décrit un cercle de rayon $R$ à vitesse angulaire constante $\\dot\\theta = \\omega$. En polaires, son accélération est :",
+      "correction": [
+        "$\\vec a = (\\ddot r - r\\dot\\theta^2)\\vec e_r + (r\\ddot\\theta + 2\\dot r\\dot\\theta)\\vec e_\\theta = -R\\omega^2\\,\\vec e_r$."
+      ],
+      "choix": [
+        {
+          "texte": "$-R\\omega^2\\,\\vec e_r$",
+          "correct": true,
+          "explication": "$\\ddot r = \\dot r = 0$ et $\\ddot\\theta = 0$ : il ne reste que $-r\\dot\\theta^2\\,\\vec e_r$."
+        },
+        {
+          "texte": "$R\\omega^2\\,\\vec e_r$",
+          "correct": false,
+          "explication": "Erreur de signe : l'accélération est dirigée vers le centre (centripète)."
+        },
+        {
+          "texte": "$R\\omega\\,\\vec e_\\theta$",
+          "correct": false,
+          "explication": "C'est la vitesse."
+        },
+        {
+          "texte": "$\\vec 0$",
+          "correct": false,
+          "explication": "La direction de la vitesse tourne : l'accélération n'est pas nulle."
+        }
+      ]
+    },
+    {
+      "id": "rattrapage",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "À $t = 0$, une voiture A passe en $x = 0$ à vitesse constante $10\\ \\mathrm{m/s}$. Au même instant, une voiture B démarre de $x = 0$ (à l'arrêt) avec une accélération constante $2\\ \\mathrm{m/s^2}$. À quel instant $t > 0$ (en s) B rattrape-t-elle A ?",
+      "correction": [
+        "$x_A = 10t$ et $x_B = \\frac12 \\times 2\\,t^2 = t^2$.",
+        "$t^2 = 10t$ avec $t > 0$ : $t = 10\\ \\mathrm s$."
+      ],
+      "reponse": 10
+    },
+    {
+      "id": "vitesse-moyenne",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Un trajet aller se fait à $60\\ \\mathrm{km/h}$ et le retour, de même longueur, à $40\\ \\mathrm{km/h}$. Quelle est la vitesse moyenne sur l'aller-retour, en $\\mathrm{km/h}$ ?",
+      "indice": "Vitesse moyenne = distance totale / durée totale. Ce n'est pas la moyenne des vitesses.",
+      "correction": [
+        "Avec une distance $d$ : durée totale $\\dfrac{d}{60} + \\dfrac{d}{40} = \\dfrac{5d}{120} = \\dfrac{d}{24}$.",
+        "$v_{\\text{moy}} = \\dfrac{2d}{d / 24} = 48\\ \\mathrm{km/h}$ (et non 50 : on passe plus de temps au retour)."
+      ],
+      "reponse": 48
+    }
+  ]
+}
