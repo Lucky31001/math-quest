@@ -151,8 +151,8 @@ describe('sauvegarde', () => {
     expect(r.ok && r.progression.reglages.sons).toBe(true);
   });
   it('résiste à un localStorage corrompu', () => {
-    expect(charger({ getItem: () => '{oups' }).xp).toBe(0);
-    expect(charger({ getItem: () => null }).xp).toBe(0);
+    expect(charger({ getItem: () => '{oups', setItem: () => {} }).xp).toBe(0);
+    expect(charger({ getItem: () => null, setItem: () => {} }).xp).toBe(0);
   });
 });
 
@@ -224,5 +224,14 @@ describe('modes de jeu', () => {
     enregistrerReponse(p, { chapitre: ch.id, cle: k(q3.id), type: q3.type, difficulte: 1, correct: false }, J);
     expect(questionsDues(CONTENU.chapitres, p, J).map((i) => i.cle)).toEqual([k(q2.id), k(q3.id)]);
     expect(questionsDues(CONTENU.chapitres, p, ajouterJours(J, 2)).map((i) => i.cle)).toContain(k(q1.id));
+  });
+});
+
+describe('sauvegarde illisible', () => {
+  it('conserve une copie brute au lieu de la perdre', () => {
+    const ecrit: Record<string, string> = {};
+    const stock = { getItem: () => '{"xp": -5}', setItem: (k: string, v: string) => void (ecrit[k] = v) };
+    expect(charger(stock).xp).toBe(0);
+    expect(Object.values(ecrit)).toEqual(['{"xp": -5}']);
   });
 });

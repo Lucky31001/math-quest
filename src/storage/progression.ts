@@ -7,6 +7,7 @@
  */
 import { z } from 'zod';
 import type { TypeQuestion } from '../core/schema';
+import { migrer } from './migrations';
 
 const Leitner = z.object({
   boite: z.number().int().min(1).max(5),
@@ -65,16 +66,39 @@ export const progressionVide = (): Progression => ProgressionSchema.parse({});
 
 const CLE_STOCKAGE = 'math-quest:progression:v1';
 
-/** Lecture tolérante : renvoie une progression vide si rien n'est stocké ou si c'est illisible. */
-export function charger(stockage: Pick<Storage, 'getItem'> | null = safeStorage()): Progression {
+/** Préfixe des copies de sécurité d'une sauvegarde illisible (jamais écrasées en silence). */
+export const PREFIXE_COPIE = 'math-quest:copie-securite:';
+
+/**
+ * Lecture sûre : migre les anciennes sauvegardes vers le format actuel. Si la
+ * sauvegarde reste illisible (JSON cassé, format incompatible, version future),
+ * une COPIE BRUTE est conservée sous une autre clé avant de repartir de zéro :
+ * la progression n'est plus jamais perdue définitivement.
+ */
+export function charger(stockage: Pick<Storage, 'getItem' | 'setItem'> | null = safeStorage()): Progression {
+  let brut: string | null | undefined;
   try {
-    const brut = stockage?.getItem(CLE_STOCKAGE);
-    if (!brut) return progressionVide();
-    const res = ProgressionSchema.safeParse(JSON.parse(brut));
-    return res.success ? res.data : progressionVide();
+    brut = stockage?.getItem(CLE_STOCKAGE);
   } catch {
     return progressionVide();
   }
+  if (!brut) return progressionVide();
+  try {
+    const json = JSON.parse(brut);
+    const m = migrer(json && typeof json === 'object' ? json : {});
+    if (m.ok) {
+      const res = ProgressionSchema.safeParse(m.donnees);
+      if (res.success) return res.data;
+    }
+  } catch {
+    /* JSON illisible : traité ci-dessous */
+  }
+  try {
+    stockage?.setItem(`${PREFIXE_COPIE}${new Date().toISOString()}`, brut);
+  } catch {
+    /* stockage plein : on ne peut rien de plus */
+  }
+  return progressionVide();
 }
 
 export function sauvegarder(p: Progression, stockage: Pick<Storage, 'setItem'> | null = safeStorage()): void {
