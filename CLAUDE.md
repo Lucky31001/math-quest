@@ -34,7 +34,9 @@ src/game/        logique pure (testable sans DOM)
   progres.ts     enregistrerReponse / payerIndice / enregistrerFlashcard / streak
   badges.ts      badges = prédicats sur la Progression (+ « 100 % » par chapitre)
   modes.ts       séries : entraînement, boss, survie, éclair, révision du jour, stats
-src/storage/progression.ts   modèle Progression (Zod), localStorage, export/import
+src/storage/progression.ts   modèle Progression (Zod), localStorage, export/import,
+                             récupération partielle + copies de sécurité
+src/storage/migrations.ts    VERSION_PROGRESSION + migrations n → n+1 du format
 src/ui/
   dom.ts (h(), ajouter())  texte.ts (KaTeX + **gras**, HTML échappé)
   etat.ts        état global : etat.modifier(f) sauvegarde + niveaux/badges/toasts
@@ -49,6 +51,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 - **Le streak 🔥 n'avance QUE via `validerSerie`** (bilan d'une séance, ou chaque tranche de 10 réponses en mode infini) — jamais à chaque réponse ni pour une flashcard.
 - **Toute modification de la progression passe par `etat.modifier(p => …)`**. Elle sauvegarde, détecte les passages de niveau et débloque les badges.
+- **Format de sauvegarde** : changement incompatible ⇒ incrémenter `VERSION_PROGRESSION`, ajouter la migration dans `storage/migrations.ts` **et** une sauvegarde d'exemple `tests/fixtures/sauvegardes/vN.json` (le test l'exige). Au chargement, seuls les éléments invalides sont réinitialisés et l'original est copié sous `math-quest:copie-securite:<date>` (téléchargeable dans Réglages).
 - Les **indices de choix** passés à `corriger` sont ceux du JSON. Le mélange est fait uniquement dans `components/question.ts`.
 - Ids des questions générées : `gen~<générateur>~<graine>~<difficulté>`. Elles ne vont **pas** dans Leitner (`cle: null`), seulement dans les stats.
 - Un générateur renvoie `id: ''` ; c'est `generer()` qui pose l'id. Il fournit son LaTeX (affichage) **et** sa chaîne math.js (vérification). Les tests relisent le LaTeX affiché : les deux doivent donc rester cohérents.

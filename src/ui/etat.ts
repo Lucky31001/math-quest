@@ -3,7 +3,7 @@
  * et les notifications de jeu (XP, niveau, badges).
  */
 import { CONTENU, toutesLesMatieres } from '../core/loader';
-import { charger, sauvegarder, type Progression } from '../storage/progression';
+import { chargerAvecRapport, sauvegarder, type Progression, type RapportChargement } from '../storage/progression';
 import { listeBadges, nouveauxBadges, type Badge } from '../game/badges';
 import { niveauDepuisXp, titre } from '../game/xp';
 import { jour } from '../game/dates';
@@ -11,7 +11,19 @@ import { toast, celebrer, jouerSon } from './effets';
 
 export const BADGES: Badge[] = listeBadges(CONTENU.chapitres, toutesLesMatieres());
 
-let progression: Progression = charger();
+const chargement = chargerAvecRapport();
+let progression: Progression = chargement.progression;
+/** Ce qui s'est passé au chargement de la sauvegarde (affiché dans les Réglages). */
+export const rapportChargement: RapportChargement = chargement.rapport;
+/**
+ * Sauvegarde créée par une version PLUS RÉCENTE : on ne l'écrase pas (un simple
+ * rechargement de la page suffit à récupérer la bonne version). Un import ou une
+ * réinitialisation explicite lève ce verrou.
+ */
+let ecritureBloquee = rapportChargement.statut === 'version-future';
+const enregistrer = (): void => {
+  if (!ecritureBloquee) sauvegarder(progression);
+};
 const abonnes = new Set<() => void>();
 
 export const etat = {
@@ -22,6 +34,7 @@ export const etat = {
   /** Remplace toute la progression (import / réinitialisation). */
   remplacer(p: Progression): void {
     progression = p;
+    ecritureBloquee = false;
     sauvegarder(progression);
     abonnes.forEach((f) => f());
   },
@@ -34,7 +47,7 @@ export const etat = {
     const r = f(progression);
     const niveauApres = niveauDepuisXp(progression.xp).niveau;
     const badges = nouveauxBadges(progression, BADGES, jour());
-    sauvegarder(progression);
+    enregistrer();
     if (niveauApres > niveauAvant) {
       toast(`⬆️ Niveau ${niveauApres} ! Titre : « ${titre(niveauApres)} »`, 'niveau');
       celebrer();
@@ -53,3 +66,17 @@ export const etat = {
     return () => abonnes.delete(f);
   },
 };
+
+/** Message d'avertissement à afficher si la sauvegarde n'a pas pu être lue telle quelle. */
+export function avertissementChargement(r: RapportChargement = rapportChargement): string | null {
+  switch (r.statut) {
+    case 'reparee':
+      return `⚠️ Une partie de ta sauvegarde était illisible : ${r.perdus.length} élément(s) réinitialisé(s), le reste est conservé.`;
+    case 'reinitialisee':
+      return '⚠️ Ta sauvegarde était illisible : la progression repart de zéro.';
+    case 'version-future':
+      return '⚠️ Ta sauvegarde vient d’une version plus récente de Math Quest : recharge la page. Rien ne sera enregistré d’ici là.';
+    default:
+      return null;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "xp": 1240,
+  "questions": {
+    "analyse-limites/q1": { "boite": 3, "prochaine": "2026-03-14", "vues": 4, "reussites": 3, "derniere": "2026-03-10" },
+    "algebre-complexes/q2": { "boite": 1, "prochaine": "2026-03-11", "vues": 2, "reussites": 0, "derniere": "2026-03-10" }
+  },
+  "flashcards": {
+    "analyse-limites/f1": { "boite": 2, "prochaine": "2026-03-12", "vues": 1, "reussites": 1, "derniere": "2026-03-10" }
+  },
+  "stats": { "analyse-limites": { "qcm": { "tentatives": 12, "reussites": 9 }, "numerique": { "tentatives": 5, "reussites": 2 } } },
+  "streak": { "courant": 4, "record": 9, "dernierJour": "2026-03-10" },
+  "badges": { "premiere-reponse": "2026-02-01", "serie-7": "2026-02-20" },
+  "records": {
+    "survie": 17,
+    "eclair": 840,
+    "eclairParfait": false,
+    "meilleurCombo": 11,
+    "boss": { "analyse-limites": { "meilleur": 8, "vaincu": true, "sansIndice": false } }
+  },
+  "compteurs": { "reponses": 230, "bonnes": 171, "qcmReussis": 90, "indices": 14, "flashcards": 40, "revisions": 6, "series": 21 },
+  "reglages": { "sons": false, "animations": true },
+  "journal": { "2026-03-09": 25, "2026-03-10": 18 }
+}

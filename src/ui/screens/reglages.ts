@@ -1,8 +1,70 @@
-/** Réglages : sons, animations, export / import / réinitialisation de la progression. */
-import { h } from '../dom';
-import { etat } from '../etat';
-import { exporter, importer, progressionVide } from '../../storage/progression';
+/** Réglages : sons, animations, export / import / réinitialisation, copies de sécurité. */
+import { h, ajouter } from '../dom';
+import { etat, avertissementChargement, rapportChargement } from '../etat';
+import { exporter, importer, progressionVide, listerCopies, supprimerCopie } from '../../storage/progression';
 import { toast, jouerSon } from '../effets';
+
+/** Propose un fichier texte au téléchargement. */
+function telecharger(nom: string, contenu: string): void {
+  const blob = new Blob([contenu], { type: 'application/json' });
+  const a = h('a', { href: URL.createObjectURL(blob), download: nom });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/** Copies brutes d'une sauvegarde illisible, à télécharger avant de les supprimer. */
+function sectionCopies(): HTMLElement | null {
+  const avertissement = avertissementChargement();
+  const copies = listerCopies();
+  if (!avertissement && !copies.length) return null;
+  const section = h('section', { class: 'carte-info zone-alerte' }, h('h2', null, '🛟 Copies de sécurité'));
+  const rendre = (): void => {
+    section.replaceChildren(section.firstChild!);
+    const restantes = listerCopies();
+    ajouter(section, [
+      avertissement ? h('p', null, avertissement) : null,
+      rapportChargement.perdus.length
+        ? h('details', null, h('summary', null, 'Éléments réinitialisés'), h('ul', { class: 'liste-perdus' }, rapportChargement.perdus.map((c) => h('li', null, h('code', null, c)))))
+        : null,
+      restantes.length
+        ? h('p', null, 'Ces copies brutes de ta sauvegarde d’origine ont été conservées. Télécharge-les : une prochaine version pourra peut-être les réimporter.')
+        : null,
+      h(
+        'ul',
+        { class: 'liste-copies' },
+        restantes.map((c) =>
+          h(
+            'li',
+            null,
+            h('span', null, `${new Date(c.date).toLocaleString('fr-FR')} · ${Math.ceil(c.contenu.length / 1024)} Ko`),
+            h(
+              'span',
+              { class: 'actions' },
+              h('button', { class: 'btn', type: 'button', onclick: () => telecharger(`math-quest-copie-${c.date.replace(/[:.]/g, '-')}.json`, c.contenu) }, '⬇️ Télécharger'),
+              h(
+                'button',
+                {
+                  class: 'btn btn-danger',
+                  type: 'button',
+                  onclick: () => {
+                    if (!confirm('Supprimer définitivement cette copie de sécurité ? Pense à la télécharger avant.')) return;
+                    supprimerCopie(c.cle);
+                    rendre();
+                  },
+                },
+                '🗑️ Supprimer',
+              ),
+            ),
+          ),
+        ),
+      ),
+    ]);
+  };
+  rendre();
+  return section;
+}
 
 export function ecranReglages(main: HTMLElement): void {
   const p = etat.p;
@@ -27,8 +89,9 @@ export function ecranReglages(main: HTMLElement): void {
     location.hash = '#/';
   });
 
-  main.append(
+  ajouter(main, [
     h('h1', null, '⚙️ Réglages'),
+    sectionCopies(),
     h(
       'section',
       { class: 'carte-info' },
@@ -52,14 +115,7 @@ export function ecranReglages(main: HTMLElement): void {
           {
             class: 'btn btn-primaire',
             type: 'button',
-            onclick: () => {
-              const blob = new Blob([exporter(etat.p)], { type: 'application/json' });
-              const a = h('a', { href: URL.createObjectURL(blob), download: `math-quest-${etat.aujourdhui()}.json` });
-              document.body.append(a);
-              a.click();
-              a.remove();
-              setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-            },
+            onclick: () => telecharger(`math-quest-${etat.aujourdhui()}.json`, exporter(etat.p)),
           },
           '⬇️ Exporter (JSON)',
         ),
@@ -88,5 +144,5 @@ export function ecranReglages(main: HTMLElement): void {
         '🗑️ Réinitialiser la progression',
       ),
     ),
-  );
+  ]);
 }
