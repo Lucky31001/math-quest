@@ -13,7 +13,7 @@
         {
           "type": "definition",
           "titre": "Le type char",
-          "texte": "Un `char` est un petit entier (1 octet) : le **code ASCII** du caractère. `'A'` vaut 65, `'a'` vaut 97, `'0'` vaut 48. Les lettres et les chiffres sont consécutifs, d'où des calculs comme :\n```c\n/* chiffre '7' -> valeur 7 */\nint v = c - '0';\n/* minuscule -> majuscule */\nchar M = c - 'a' + 'A';\n```"
+          "texte": "Un `char` est un petit entier (1 octet) : le **code ASCII** du caractère. `'A'` vaut 65, `'a'` vaut 97, `'0'` vaut 48. Les lettres et les chiffres sont consécutifs, d'où des calculs comme :\n```c\nchar c = '7', m = 'g';\n/* chiffre '7' -> valeur 7 */\nint v = c - '0';\n/* minuscule 'g' -> majuscule 'G' */\nchar M = m - 'a' + 'A';\nprintf(\"%d %c\\n\", v, M);\n```"
         }
       ]
     },

@@ -192,7 +192,29 @@ describe('rendu du texte', () => {
   });
   it('rend un bloc ```python``` dans un <pre>, indentation conservée', () => {
     const html = rendreHtml('Code :\n```python\ndef f(x):\n    return x < 2 and \'$\'\n```\nFin.');
-    expect(html).toContain('<pre class="code"><code>def f(x):\n    return x &lt; 2 and &#39;$&#39;</code></pre>');
-    expect(html).not.toContain('python');
+    expect(html).toContain('<pre class="code" data-langage="python"><code>def f(x):\n    return x &lt; 2 and &#39;$&#39;</code></pre>');
+    expect(html).not.toContain('<code>python');
+  });
+});
+
+describe('atelier C', () => {
+  it("s'affiche avec un éditeur, un exemple et le bouton Exécuter (sans lancer le compilateur)", async () => {
+    await aller('#/atelier');
+    const main = document.getElementById('contenu')!;
+    const editeur = main.querySelector<HTMLTextAreaElement>('textarea.editeur-c')!;
+    expect(editeur.value).toContain('int main(void)');
+    expect(main.querySelector('select.exemples-c')!.querySelectorAll('option').length).toBeGreaterThan(3);
+    expect([...main.querySelectorAll('button')].some((b) => b.textContent!.includes('Exécuter'))).toBe(true);
+  });
+  it('le cours de C propose « Essayer dans l’atelier », qui ouvre le code complété', async () => {
+    await aller('#/chapitre/c-pointeurs/cours');
+    const bouton = [...document.querySelectorAll<HTMLButtonElement>('.btn-essayer')][0];
+    expect(bouton).toBeTruthy();
+    bouton.click();
+    window.dispatchEvent(new Event('hashchange'));
+    await attendre();
+    const editeur = document.querySelector<HTMLTextAreaElement>('textarea.editeur-c')!;
+    expect(editeur.value).toContain('void echange(int *a, int *b)');
+    expect(editeur.value).toContain('int main(void)');
   });
 });

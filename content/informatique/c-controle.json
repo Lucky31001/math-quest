@@ -13,7 +13,7 @@
         {
           "type": "definition",
           "titre": "if / else",
-          "texte": "`if (condition) { … } else if (…) { … } else { … }` : seule la première branche dont la condition est vraie s'exécute. Les accolades délimitent les blocs (indentation seulement pour la lisibilité).\n```c\nif (note >= 10) {\n    printf(\"admis\\n\");\n} else {\n    printf(\"ajourné\\n\");\n}\n```"
+          "texte": "`if (condition) { … } else if (…) { … } else { … }` : seule la première branche dont la condition est vraie s'exécute. Les accolades délimitent les blocs (indentation seulement pour la lisibilité).\n```c\nint note = 12;\nif (note >= 10) {\n    printf(\"admis\\n\");\n} else {\n    printf(\"ajourné\\n\");\n}\n```"
         },
         {
           "type": "propriete",

@@ -10,6 +10,7 @@ import { ecranRevision } from './ui/screens/revision';
 import { ecranStats } from './ui/screens/stats';
 import { ecranBadges } from './ui/screens/badges';
 import { ecranReglages } from './ui/screens/reglages';
+import { ecranAtelier } from './ui/screens/atelier';
 import { brancherReglages, toast } from './ui/effets';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 
@@ -22,6 +23,7 @@ route('revision', ecranRevision);
 route('stats', ecranStats);
 route('badges', ecranBadges);
 route('reglages', ecranReglages);
+route('atelier', ecranAtelier);
 
 const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });

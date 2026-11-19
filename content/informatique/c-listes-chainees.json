@@ -27,7 +27,7 @@
         },
         {
           "type": "remarque",
-          "texte": "Pour **libérer** une liste, il faut libérer **chaque** maillon, en mémorisant le suivant **avant** `free` :\n```c\nwhile (l != NULL) {\n    Maillon *s = l->suiv;\n    free(l);\n    l = s;\n}\n```"
+          "texte": "Pour **libérer** une liste, il faut libérer **chaque** maillon, en mémorisant le suivant **avant** `free` :\n```c\nvoid liberer(Maillon *l) {\n    while (l != NULL) {\n        Maillon *s = l->suiv;\n        free(l);\n        l = s;\n    }\n}\n```"
         }
       ]
     },
@@ -391,7 +391,7 @@
       "difficulte": 3,
       "enonce": "Libération d'une liste : où est l'erreur ?\n```c\nfor (Maillon *p = l; p != NULL; p = p->suiv)\n    free(p);\n```",
       "correction": [
-        "Voir la boucle du cours : `s = l->suiv; free(l); l = s;`."
+        "Voir la fonction `liberer` du cours : `s = l->suiv; free(l); l = s;`."
       ],
       "etapes": [
         "On parcourt la liste avec `p`.",

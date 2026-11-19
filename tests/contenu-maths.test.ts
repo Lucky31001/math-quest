@@ -1061,11 +1061,11 @@ const verifs: Record<string, () => void> = {
     // Le code du cours compile et fonctionne : insertion en tête puis libération.
     const type = codeCours('c-listes-chainees', 'typedef struct Maillon');
     const ajout = codeCours('c-listes-chainees', 'Maillon *ajouter_tete(');
-    const liberer = codeCours('c-listes-chainees', 'Maillon *s = l->suiv;');
+    const liberer = codeCours('c-listes-chainees', 'void liberer(');
     const sortie = executerC(
-      `${type}\n${ajout}\nint main(void) {\nMaillon *l = NULL;\nfor (int i = 1; i <= 3; i++) l = ajouter_tete(l, i);\nint s = 0;\nfor (Maillon *p = l; p != NULL; p = p->suiv) s = 10 * s + p->val;\n${liberer}\nprintf("%d %d\\n", s, l == NULL);\nreturn 0;\n}`,
+      `${type}\n${ajout}\n${liberer}\nint main(void) {\nMaillon *l = NULL;\nfor (int i = 1; i <= 3; i++) l = ajouter_tete(l, i);\nint s = 0;\nfor (Maillon *p = l; p != NULL; p = p->suiv) s = 10 * s + p->val;\nliberer(l);\nprintf("%d\\n", s);\nreturn 0;\n}`,
     );
-    expect(sortie).toBe('321 1');
+    expect(sortie).toBe('321');
   },
 };
 

@@ -131,6 +131,106 @@ pre.code code {
   white-space: pre;
 }
 
+/* ---------------------------- Atelier C ---------------------------- */
+
+.btn-essayer {
+  margin: -2px 0 10px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.intro-atelier,
+.note-atelier {
+  color: var(--texte-doux);
+}
+
+.note-atelier {
+  font-size: 0.85rem;
+}
+
+.barre-atelier {
+  margin: 12px 0 8px;
+}
+
+.exemples-c,
+.editeur-c,
+.entree-c {
+  width: 100%;
+  border: 2px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--surface-2);
+  color: var(--texte);
+  font: 500 0.9rem/1.45 ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+}
+
+.exemples-c {
+  padding: 8px 10px;
+  font-family: inherit;
+}
+
+.editeur-c {
+  min-height: 18em;
+  padding: 10px 12px;
+  resize: vertical;
+  tab-size: 4;
+  white-space: pre;
+  overflow: auto;
+}
+
+.entree-c {
+  margin-top: 6px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.editeur-c:focus-visible,
+.entree-c:focus-visible,
+.exemples-c:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 1px;
+}
+
+.details-entree {
+  margin: 8px 0;
+}
+
+.details-entree summary {
+  cursor: pointer;
+  color: var(--texte-doux);
+  font-weight: 700;
+}
+
+.statut-c {
+  margin: 8px 0 4px;
+  font-weight: 700;
+}
+
+.console-c {
+  min-height: 6em;
+  max-height: 24em;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 2px solid var(--bord);
+  border-radius: var(--rayon);
+  background: #0b141a;
+  color: var(--texte);
+  font: 500 0.85rem/1.45 ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.console-erreur {
+  color: var(--rouge);
+}
+
+.console-info {
+  color: var(--texte-doux);
+  font-style: italic;
+}
+
 /* Écran étroit : un peu plus petit, pour que la plupart des lignes tiennent sans défiler. */
 @media (max-width: 420px) {
   pre.code {

@@ -33,7 +33,7 @@
         {
           "type": "definition",
           "titre": "malloc et free",
-          "texte": "`#include <stdlib.h>`. `malloc(n * sizeof(int))` réserve un bloc pour `n` entiers dans le **tas** et renvoie son adresse (ou `NULL` en cas d'échec : il faut tester). `free(p)` le libère. Contrairement à un tableau local, la taille peut être choisie à l'exécution et le bloc survit à la fonction qui l'a créé.\n```c\nint *t = malloc(n * sizeof(int));\nif (t == NULL) {\n    /* échec de l'allocation */\n    return 1;\n}\n/* … t[0] à t[n - 1] … */\nfree(t);\n```"
+          "texte": "`#include <stdlib.h>`. `malloc(n * sizeof(int))` réserve un bloc pour `n` entiers dans le **tas** et renvoie son adresse (ou `NULL` en cas d'échec : il faut tester). `free(p)` le libère. Contrairement à un tableau local, la taille peut être choisie à l'exécution et le bloc survit à la fonction qui l'a créé.\n```c\nint n = 10;\nint *t = malloc(n * sizeof(int));\nif (t == NULL) {\n    /* échec de l'allocation */\n    return 1;\n}\n/* … t[0] à t[n - 1] … */\nfree(t);\n```"
         },
         {
           "type": "remarque",
@@ -47,7 +47,7 @@
         {
           "type": "definition",
           "titre": "struct et typedef",
-          "texte": "Une structure regroupe des champs de types variés. Avec `typedef`, on lui donne un nom de type. On accède aux champs par `.` (variable) ou `->` (pointeur : `q->x` équivaut à `(*q).x`).\n```c\ntypedef struct {\n    double x;\n    double y;\n} Point;\n\nPoint p = {3.0, 4.0};\nPoint *q = &p;\n/* p.x vaut maintenant 5 */\nq->x = 5.0;\n```"
+          "texte": "Une structure regroupe des champs de types variés. Avec `typedef`, on lui donne un nom de type. On accède aux champs par `.` (variable) ou `->` (pointeur : `q->x` équivaut à `(*q).x`).\n```c\ntypedef struct {\n    double x;\n    double y;\n} Point;\n\nPoint p = {3.0, 4.0};\nPoint *q = &p;\n/* p.x vaut maintenant 5 */\nq->x = 5.0;\nprintf(\"(%g, %g)\\n\", p.x, p.y);\n```"
         }
       ]
     }
