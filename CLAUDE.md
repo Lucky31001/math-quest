@@ -64,7 +64,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 ## Décor et effets
 
-- **Vagues de fond** : SVG en ligne créé dans `main.ts` (`.decor`, couleurs `--vague-1/2/3`, `--ciel`). Elles sont coupées par le réglage « animations » (classe `sans-animations` sur `<html>`) et par `prefers-reduced-motion`.
+- **Vagues de fond** : bandes VERTICALES sur les bords gauche et droit, SVG en ligne créé dans `main.ts` (`.decor`). Le dégradé est répété tous les 1440 unités, soit la distance de défilement, pour ne pas avoir de saut ; il utilise `--vert`, `--bleu` et `--violet`. Elles sont coupées par le réglage « animations » (classe `sans-animations` sur `<html>`) et par `prefers-reduced-motion`.
 - **Effets de survol** : uniquement sous `@media (hover: hover) and (pointer: fine)`. L'état `:active` (enfoncé) reste prioritaire.
 - **Ne pas mettre de `backdrop-filter` ni de `transform` sur `.hud`** : la barre d'onglets mobile (`position: fixed`) ne serait plus collée en bas.
 - **Icône d'onglet** : `public/favicon.svg`. Le Σ y est un tracé vectoriel, sans dépendance à une police.

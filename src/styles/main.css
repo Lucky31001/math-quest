@@ -33,11 +33,8 @@
   --violet: #ce82ff;
   --violet-fonce: #a568cc;
 
-  /* Décor de fond (vagues) */
+  /* Décor de fond (le dégradé des vagues reprend --vert, --bleu, --violet) */
   --ciel: #eef9ff;
-  --vague-1: #f1e4ff;
-  --vague-2: #dcf2fd;
-  --vague-3: #e3f9d3;
 
   --rayon: 16px;
   --police: 'Nunito', 'Segoe UI Rounded', 'SF Pro Rounded', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -61,9 +58,6 @@
     --bleu-bord: #1d6f94;
     --rouge-clair: #3f1d20;
     --ciel: #10232b;
-    --vague-1: #1f2536;
-    --vague-2: #14303d;
-    --vague-3: #173225;
     color-scheme: dark;
   }
 }
@@ -2195,7 +2189,12 @@ a.stat-ligne:hover {
   padding: 4px 16px 10px;
   overflow-x: auto;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
+  /* Rangée qui se fait défiler au doigt / à la molette : pas de barre visible. */
+  scrollbar-width: none;
+}
+
+.matieres::-webkit-scrollbar {
+  display: none;
 }
 
 .matiere-onglet {
@@ -2205,7 +2204,7 @@ a.stat-ligne:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex: 1 0 180px;
+  flex: 1 0 150px;
   max-width: 280px;
   padding: 12px 14px 16px;
   border: 2px solid var(--bord);
@@ -2318,35 +2317,45 @@ main {
 
 .vagues {
   position: absolute;
+  top: 0;
+  height: 100%;
+  width: clamp(26px, 9vw, 150px);
+}
+
+.vagues-gauche {
   left: 0;
-  bottom: 0;
-  width: 100%;
-  height: min(34vh, 300px);
+}
+
+/* Le bord droit est le miroir du gauche. */
+.vagues-droite {
+  right: 0;
+  transform: scaleX(-1);
 }
 
 .vague {
-  animation: houle 48s linear infinite;
+  animation: houle 60s linear infinite;
 }
 
+/* Trois couches de plus en plus marquées vers le bord de l'écran. */
 .vague-1 {
-  fill: var(--vague-1);
-  animation-duration: 70s;
+  opacity: 0.12;
+  animation-duration: 75s;
 }
 
 .vague-2 {
-  fill: var(--vague-2);
-  animation-duration: 52s;
+  opacity: 0.16;
+  animation-duration: 55s;
   animation-direction: reverse;
 }
 
 .vague-3 {
-  fill: var(--vague-3);
-  animation-duration: 38s;
+  opacity: 0.26;
+  animation-duration: 40s;
 }
 
 @keyframes houle {
   to {
-    transform: translateX(-1440px);
+    transform: translateY(-1440px);
   }
 }
 
@@ -2354,10 +2363,21 @@ main {
   animation: none;
 }
 
-/* Pendant une leçon, des vagues plus basses pour ne rien gêner */
+@media (prefers-color-scheme: dark) {
+  .vague-1 {
+    opacity: 0.1;
+  }
+  .vague-2 {
+    opacity: 0.14;
+  }
+  .vague-3 {
+    opacity: 0.2;
+  }
+}
+
+/* Pendant une leçon, des bandes plus fines pour ne rien gêner */
 body[data-ecran='jouer'] .vagues {
-  height: min(18vh, 160px);
-  opacity: 0.7;
+  width: clamp(16px, 5vw, 90px);
 }
 
 /* =====================================================================

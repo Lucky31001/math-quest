@@ -46,7 +46,8 @@ describe('écrans', () => {
   it('le décor de vagues est présent et ignoré par les lecteurs d’écran', () => {
     const decor = document.querySelector('.decor')!;
     expect(decor.getAttribute('aria-hidden')).toBe('true');
-    expect(decor.querySelectorAll('.vague')).toHaveLength(3);
+    expect(decor.querySelectorAll('.vagues')).toHaveLength(2); // bords gauche et droit
+    expect(decor.querySelectorAll('.vague')).toHaveLength(6);
   });
 
   it.each(['cours', 'flashcards', 'exercices'])('chapitre : onglet %s', async (onglet) => {
