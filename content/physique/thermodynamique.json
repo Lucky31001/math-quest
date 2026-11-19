@@ -1,0 +1,471 @@
+{
+  "$schema": "../schema.json",
+  "id": "thermodynamique",
+  "monde": "physique",
+  "ordre": 9,
+  "titre": "Thermodynamique",
+  "icone": "🔥",
+  "resume": "Gaz parfait, travail et chaleur, premier et second principes, machines thermiques.",
+  "cours": [
+    {
+      "titre": "Système et gaz parfait",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Variables d'état",
+          "texte": "Un système est décrit par des variables d'état : pression $P$ (Pa), volume $V$ (m³), température $T$ (K), quantité de matière $n$ (mol). $T(\\mathrm K) = \\theta(°\\mathrm C) + 273{,}15$. Variables **extensives** (proportionnelles à la taille : $V$, $n$, $U$) et **intensives** ($P$, $T$)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Équation d'état du gaz parfait",
+          "texte": "$$PV = nRT$$ avec $R = 8{,}314\\ \\mathrm{J\\cdot K^{-1}\\cdot mol^{-1}}$. Toutes les grandeurs en unités SI : $P$ en Pa, $V$ en m³ ($1\\ \\mathrm L = 10^{-3}\\ \\mathrm{m^3}$), $T$ en K."
+        }
+      ]
+    },
+    {
+      "titre": "Premier principe",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Travail",
+          "texte": "Travail reçu par le système de la part des forces de pression : $W = -\\int P_{\\text{ext}}\\,\\mathrm dV$. Isochore : $W = 0$. Isobare ($P_{\\text{ext}} = P$ constante) : $W = -P\\,\\Delta V$. Isotherme réversible d'un gaz parfait : $W = -nRT\\ln\\dfrac{V_f}{V_i}$. Une compression ($\\mathrm dV < 0$) donne $W > 0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Premier principe",
+          "texte": "$\\Delta U = W + Q$ : la variation d'énergie interne égale le travail **reçu** plus le transfert thermique **reçu** (convention : positif si reçu par le système). Pour un gaz parfait, $U$ ne dépend que de $T$ : $\\Delta U = C_V\\,\\Delta T$ ($C_{V,m} = \\frac32 R$ pour un gaz monoatomique)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Calorimétrie",
+          "texte": "Échauffement sans changement d'état : $Q = mc\\,\\Delta T$ ($c_{\\text{eau}} = 4180\\ \\mathrm{J\\cdot kg^{-1}\\cdot K^{-1}}$). Changement d'état à température constante : $Q = mL$ (chaleur latente ; fusion de la glace : $L_f = 334\\ \\mathrm{kJ/kg}$)."
+        }
+      ]
+    },
+    {
+      "titre": "Second principe et machines thermiques",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "Second principe",
+          "texte": "L'entropie $S$ d'un système isolé ne peut que croître : $\\Delta S \\ge 0$ (égalité pour une transformation réversible). Conséquence : la chaleur passe spontanément du chaud vers le froid."
+        },
+        {
+          "type": "propriete",
+          "titre": "Moteurs et rendement de Carnot",
+          "texte": "Un **moteur** ditherme reçoit $Q_c > 0$ de la source chaude ($T_c$), cède $Q_f < 0$ à la source froide ($T_f$) et fournit le travail $-W > 0$. Son rendement $\\eta = \\dfrac{-W}{Q_c}$ vérifie $\\eta \\le \\eta_{\\text{Carnot}} = 1 - \\dfrac{T_f}{T_c}$ (températures en kelvins). Un rendement de 100 % est impossible : il faut toujours céder de la chaleur à la source froide."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-kelvin",
+      "recto": "Passer des °C aux kelvins ?",
+      "verso": "$T = \\theta + 273{,}15$."
+    },
+    {
+      "id": "f-gp",
+      "recto": "Équation d'état du gaz parfait ?",
+      "verso": "$PV = nRT$, $R = 8{,}314\\ \\mathrm{J\\cdot K^{-1}\\cdot mol^{-1}}$."
+    },
+    {
+      "id": "f-travail",
+      "recto": "Travail reçu des forces de pression ?",
+      "verso": "$W = -\\int P_{\\text{ext}}\\,\\mathrm dV$."
+    },
+    {
+      "id": "f-isobare",
+      "recto": "Travail lors d'une transformation isobare ?",
+      "verso": "$W = -P\\,\\Delta V$."
+    },
+    {
+      "id": "f-isotherme",
+      "recto": "Travail lors d'une isotherme réversible (gaz parfait) ?",
+      "verso": "$W = -nRT\\ln(V_f / V_i)$."
+    },
+    {
+      "id": "f-isochore",
+      "recto": "Travail lors d'une isochore ?",
+      "verso": "$W = 0$."
+    },
+    {
+      "id": "f-premier",
+      "recto": "Premier principe ?",
+      "verso": "$\\Delta U = W + Q$ (grandeurs reçues par le système)."
+    },
+    {
+      "id": "f-u-gp",
+      "recto": "De quoi dépend l'énergie interne d'un gaz parfait ?",
+      "verso": "De sa température seulement."
+    },
+    {
+      "id": "f-calorimetrie",
+      "recto": "Chaleur pour chauffer une masse $m$ de $\\Delta T$ ?",
+      "verso": "$Q = mc\\,\\Delta T$."
+    },
+    {
+      "id": "f-latente",
+      "recto": "Chaleur pour un changement d'état ?",
+      "verso": "$Q = mL$, à température constante."
+    },
+    {
+      "id": "f-second",
+      "recto": "Second principe pour un système isolé ?",
+      "verso": "$\\Delta S \\ge 0$."
+    },
+    {
+      "id": "f-carnot",
+      "recto": "Rendement maximal d'un moteur ditherme ?",
+      "verso": "$\\eta_{\\text{Carnot}} = 1 - T_f / T_c$ (en kelvins)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "kelvin",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien vaut $25\\ °\\mathrm C$ en kelvins ?",
+      "correction": [
+        "$T = \\theta + 273{,}15$."
+      ],
+      "choix": [
+        {
+          "texte": "$298{,}15\\ \\mathrm K$",
+          "correct": true,
+          "explication": "$25 + 273{,}15$."
+        },
+        {
+          "texte": "$248{,}15\\ \\mathrm K$",
+          "correct": false,
+          "explication": "On a soustrait 25 au lieu de l'ajouter."
+        },
+        {
+          "texte": "$25\\ \\mathrm K$",
+          "correct": false,
+          "explication": "$25\\ \\mathrm K$ correspond à $-248\\ °\\mathrm C$."
+        },
+        {
+          "texte": "$77\\ \\mathrm K$",
+          "correct": false,
+          "explication": "C'est la conversion en degrés Fahrenheit ($77\\ °\\mathrm F$)."
+        }
+      ]
+    },
+    {
+      "id": "loi-gp",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est l'équation d'état du gaz parfait ?",
+      "correction": [
+        "$PV = nRT$."
+      ],
+      "choix": [
+        {
+          "texte": "$PV = nRT$",
+          "correct": true,
+          "explication": "En unités SI."
+        },
+        {
+          "texte": "$PV = RT / n$",
+          "correct": false,
+          "explication": "À $P$ et $T$ fixés, $V$ est proportionnel à $n$, pas inversement proportionnel."
+        },
+        {
+          "texte": "$P = nRTV$",
+          "correct": false,
+          "explication": "La pression diminue quand le volume augmente."
+        },
+        {
+          "texte": "$PT = nRV$",
+          "correct": false,
+          "explication": "À volume fixé, la pression augmente avec la température."
+        }
+      ]
+    },
+    {
+      "id": "pression-gp",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Une mole de gaz parfait occupe $24{,}9\\ \\mathrm L$ à $300\\ \\mathrm K$. Quelle est sa pression, en **kPa** ? ($R = 8{,}314$ SI)",
+      "indice": "Convertis le volume en m³.",
+      "correction": [
+        "$P = \\dfrac{nRT}{V} = \\dfrac{8{,}314 \\times 300}{24{,}9 \\times 10^{-3}} \\approx 1{,}00 \\times 10^5\\ \\mathrm{Pa} = 100\\ \\mathrm{kPa}$."
+      ],
+      "reponse": "8.314*300/0.0249/1000",
+      "tolerance": 0.01
+    },
+    {
+      "id": "travail-isochore",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel travail des forces de pression un gaz reçoit-il lors d'une transformation **isochore** ?",
+      "correction": [
+        "$W = -\\int P\\,\\mathrm dV = 0$."
+      ],
+      "choix": [
+        {
+          "texte": "0",
+          "correct": true,
+          "explication": "$\\mathrm dV = 0$ à chaque instant."
+        },
+        {
+          "texte": "$nR\\,\\Delta T$",
+          "correct": false,
+          "explication": "C'est le travail isobare changé de signe : $P\\,\\Delta V = nR\\,\\Delta T$."
+        },
+        {
+          "texte": "$-P\\,\\Delta V \\neq 0$",
+          "correct": false,
+          "explication": "$\\Delta V = 0$."
+        },
+        {
+          "texte": "$Q$",
+          "correct": false,
+          "explication": "À volume constant, c'est $\\Delta U$ qui vaut $Q$."
+        }
+      ]
+    },
+    {
+      "id": "travail-isobare",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un gaz, sous une pression extérieure constante de $2\\ \\mathrm{bar}$ ($2 \\times 10^5\\ \\mathrm{Pa}$), passe de $1\\ \\mathrm L$ à $3\\ \\mathrm L$. Quel travail **reçoit**-il, en J ?",
+      "correction": [
+        "$W = -P\\,\\Delta V = -2 \\times 10^5 \\times 2 \\times 10^{-3} = -400\\ \\mathrm J$.",
+        "Négatif : le gaz se détend, il **fournit** du travail."
+      ],
+      "reponse": -400
+    },
+    {
+      "id": "travail-isotherme",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Une mole de gaz parfait subit une détente isotherme réversible à $300\\ \\mathrm K$ qui double son volume. Travail reçu, en J ? ($R = 8{,}314$ SI)",
+      "correction": [
+        "$W = -nRT\\ln\\dfrac{V_f}{V_i} = -8{,}314 \\times 300 \\times \\ln 2 \\approx -1729\\ \\mathrm J$."
+      ],
+      "reponse": "-8.314*300*log(2)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "premier-principe",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un gaz reçoit un transfert thermique $Q = 500\\ \\mathrm J$ et **fournit** un travail de $200\\ \\mathrm J$. Son énergie interne varie de :",
+      "correction": [
+        "$\\Delta U = W + Q = -200 + 500 = 300\\ \\mathrm J$."
+      ],
+      "choix": [
+        {
+          "texte": "$+300\\ \\mathrm J$",
+          "correct": true,
+          "explication": "$W = -200\\ \\mathrm J$ (fourni) donc $\\Delta U = -200 + 500$."
+        },
+        {
+          "texte": "$+700\\ \\mathrm J$",
+          "correct": false,
+          "explication": "Erreur de signe : le travail est fourni, donc $W < 0$."
+        },
+        {
+          "texte": "$-300\\ \\mathrm J$",
+          "correct": false,
+          "explication": "Le système reçoit plus d'énergie qu'il n'en cède."
+        },
+        {
+          "texte": "$+500\\ \\mathrm J$",
+          "correct": false,
+          "explication": "On a oublié le travail."
+        }
+      ]
+    },
+    {
+      "id": "chauffer-eau",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quelle énergie faut-il pour chauffer $2\\ \\mathrm{kg}$ d'eau de $20\\ °\\mathrm C$ à $80\\ °\\mathrm C$ ($c = 4180\\ \\mathrm{J\\cdot kg^{-1}\\cdot K^{-1}}$), en **kJ** ?",
+      "correction": [
+        "$Q = mc\\,\\Delta T = 2 \\times 4180 \\times 60 = 501\\,600\\ \\mathrm J \\approx 502\\ \\mathrm{kJ}$.",
+        "Un écart de $60\\ °\\mathrm C$ vaut un écart de $60\\ \\mathrm K$."
+      ],
+      "reponse": 501.6,
+      "tolerance": 0.01
+    },
+    {
+      "id": "chaleur-latente",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle énergie faut-il pour faire fondre $0{,}5\\ \\mathrm{kg}$ de glace à $0\\ °\\mathrm C$ ($L_f = 334\\ \\mathrm{kJ/kg}$) ?",
+      "correction": [
+        "$Q = mL_f = 167\\ \\mathrm{kJ}$."
+      ],
+      "choix": [
+        {
+          "texte": "$167\\ \\mathrm{kJ}$",
+          "correct": true,
+          "explication": "$Q = mL_f = 0{,}5 \\times 334$."
+        },
+        {
+          "texte": "$668\\ \\mathrm{kJ}$",
+          "correct": false,
+          "explication": "On a divisé par la masse au lieu de multiplier."
+        },
+        {
+          "texte": "$334\\ \\mathrm{kJ}$",
+          "correct": false,
+          "explication": "C'est pour 1 kg."
+        },
+        {
+          "texte": "$0\\ \\mathrm{kJ}$, la température ne change pas",
+          "correct": false,
+          "explication": "La fusion absorbe de l'énergie, même à température constante."
+        }
+      ]
+    },
+    {
+      "id": "temperature-melange",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "On mélange $1\\ \\mathrm{kg}$ d'eau à $20\\ °\\mathrm C$ et une masse $m$ (en kg) d'eau à $80\\ °\\mathrm C$, sans pertes. Exprime la température finale (en °C) en fonction de $m$.",
+      "correction": [
+        "Somme des transferts nulle : $1 \\cdot c\\,(T - 20) + m\\,c\\,(T - 80) = 0$.",
+        "$T = \\dfrac{20 + 80m}{1 + m}$ : moyenne pondérée par les masses. Contrôle : $m = 1$ donne $50\\ °\\mathrm C$."
+      ],
+      "reponse": "(20 + 80*m)/(1 + m)",
+      "variables": [
+        "m"
+      ],
+      "domaine": [
+        0.1,
+        5
+      ]
+    },
+    {
+      "id": "rendement-carnot",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Rendement maximal (en %) d'un moteur fonctionnant entre une source chaude à $600\\ \\mathrm K$ et une source froide à $300\\ \\mathrm K$ ?",
+      "correction": [
+        "$\\eta_{\\text{Carnot}} = 1 - \\dfrac{T_f}{T_c} = 1 - \\dfrac{300}{600} = 0{,}5$, soit 50 %."
+      ],
+      "reponse": 50
+    },
+    {
+      "id": "rendement-100",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Pourquoi un moteur ditherme ne peut-il pas avoir un rendement de 100 % ?",
+      "correction": [
+        "C'est une conséquence du second principe."
+      ],
+      "choix": [
+        {
+          "texte": "le second principe impose de céder de la chaleur à la source froide",
+          "correct": true,
+          "explication": "Sinon l'entropie totale diminuerait ; d'où $\\eta \\le 1 - T_f/T_c < 1$."
+        },
+        {
+          "texte": "le premier principe l'interdit",
+          "correct": false,
+          "explication": "Un rendement de 100 % conserverait l'énergie : le premier principe ne l'exclut pas."
+        },
+        {
+          "texte": "à cause des frottements, qu'on ne peut pas supprimer",
+          "correct": false,
+          "explication": "Même un moteur réversible idéal, sans frottement, est limité par le rendement de Carnot."
+        },
+        {
+          "texte": "parce que la source chaude se refroidit",
+          "correct": false,
+          "explication": "Les sources sont supposées de température constante (thermostats)."
+        }
+      ]
+    },
+    {
+      "id": "vf-u-gp",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "L'énergie interne d'un gaz parfait ne dépend que de sa température.",
+      "correction": [
+        "Vrai : $\\Delta U = C_V\\,\\Delta T$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Les particules d'un gaz parfait n'interagissent pas : $U$ est leur énergie cinétique, fixée par $T$.",
+          "correct": true,
+          "explication": "C'est la première loi de Joule."
+        },
+        {
+          "texte": "Faux : elle dépend aussi du volume.",
+          "correct": false,
+          "explication": "Ce serait le cas d'un gaz réel (interactions entre molécules)."
+        },
+        {
+          "texte": "Faux : elle dépend de la pression.",
+          "correct": false,
+          "explication": "À $T$ fixée, $U$ ne change pas avec $P$ pour un gaz parfait."
+        }
+      ]
+    },
+    {
+      "id": "vf-isotherme-chaleur",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Lors d'une transformation isotherme d'un gaz parfait, le gaz n'échange aucune chaleur.",
+      "correction": [
+        "Faux : en détente isotherme, le gaz reçoit $Q = -W > 0$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "$\\Delta U = 0$ (température constante), donc $Q = -W \\neq 0$ : le gaz échange de la chaleur.",
+          "correct": true,
+          "explication": "Isotherme ne veut pas dire adiabatique."
+        },
+        {
+          "texte": "Vrai : sa température ne change pas.",
+          "correct": false,
+          "explication": "Confusion entre température constante et absence de transfert thermique."
+        },
+        {
+          "texte": "Vrai : $Q = mc\\,\\Delta T = 0$.",
+          "correct": false,
+          "explication": "Cette formule ne s'applique pas aux transformations avec travail d'un gaz."
+        }
+      ]
+    },
+    {
+      "id": "erreur-kelvin",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Un gaz parfait est chauffé à volume constant de $20\\ °\\mathrm C$ à $40\\ °\\mathrm C$. Où est l'erreur ?",
+      "correction": [
+        "$P_f / P_i = 313{,}15 / 293{,}15 \\approx 1{,}07$."
+      ],
+      "etapes": [
+        "À volume constant, $P / T$ est constant.",
+        "La température passe de 20 à 40 : elle double.",
+        "Donc la pression double."
+      ],
+      "etapeFausse": 1,
+      "explication": "La loi porte sur la température **absolue** : on passe de $293\\ \\mathrm K$ à $313\\ \\mathrm K$, soit $+7\\ \\%$ seulement."
+    },
+    {
+      "id": "erreur-signe-travail",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Compression d'un gaz : où est l'erreur ?",
+      "correction": [
+        "Compression : $W > 0$ ; détente : $W < 0$."
+      ],
+      "etapes": [
+        "On comprime le gaz : son volume diminue, $\\mathrm dV < 0$.",
+        "Le travail reçu est $W = -\\int P_{\\text{ext}}\\,\\mathrm dV$.",
+        "Comme $\\mathrm dV < 0$, $W < 0$ : le gaz cède du travail lors d'une compression."
+      ],
+      "etapeFausse": 2,
+      "explication": "$-P_{\\text{ext}}\\,\\mathrm dV > 0$ quand $\\mathrm dV < 0$ : $W > 0$, le gaz **reçoit** du travail (il faut pousser le piston)."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "energie-mecanique",
   "monde": "physique",
-  "ordre": 4,
+  "ordre": 5,
   "titre": "Travail, puissance et énergie",
   "icone": "🎢",
   "resume": "Travail d'une force, théorème de l'énergie cinétique, énergie potentielle et énergie mécanique.",

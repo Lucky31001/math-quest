@@ -6,6 +6,7 @@
  *   #/jouer/:mode[/:chap[/:d]] entrainement, infini, boss, survie, eclair, revision
  *   #/revision                 révision du jour
  *   #/stats  #/badges  #/reglages
+ *   #/atelier                  atelier C (écrire, compiler, exécuter)
  */
 export type Ecran = (main: HTMLElement, params: string[]) => void | (() => void);
 

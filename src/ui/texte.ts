@@ -39,8 +39,9 @@ export function rendreHtml(texte: string): string {
     .split(MOTIF_CODE)
     .map((m) => {
       if (m.length > 6 && m.startsWith('```') && m.endsWith('```')) {
+        const langage = /^([a-z]*)\n/.exec(m.slice(3))?.[1] ?? '';
         const code = m.slice(3, -3).replace(/^[a-z]*\n/, '').replace(/\n$/, '');
-        return `<pre class="code"><code>${echapper(code)}</code></pre>`;
+        return `<pre class="code" data-langage="${langage}"><code>${echapper(code)}</code></pre>`;
       }
       if (m.length > 2 && m.startsWith('`') && m.endsWith('`')) return `<code>${echapper(m.slice(1, -1))}</code>`;
       return rendreMaths(m);

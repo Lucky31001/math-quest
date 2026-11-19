@@ -1,0 +1,438 @@
+{
+  "$schema": "../schema.json",
+  "id": "c-pointeurs",
+  "monde": "informatique",
+  "ordre": 5,
+  "titre": "Pointeurs, mémoire et structures",
+  "icone": "📍",
+  "resume": "Adresses et pointeurs, passage par adresse, arithmétique des pointeurs, malloc et free, struct.",
+  "cours": [
+    {
+      "titre": "Pointeurs",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Adresses",
+          "texte": "`&x` est l'**adresse** de `x`. Un pointeur stocke une adresse : `int *p = &x;`. `*p` (déréférencement) désigne la variable pointée : `*p = 8;` modifie `x`. `NULL` est l'adresse « vide », à ne jamais déréférencer."
+        },
+        {
+          "type": "methode",
+          "titre": "Passage par adresse",
+          "texte": "Pour qu'une fonction modifie une variable de l'appelant, on lui passe son **adresse** :\n```c\nvoid echange(int *a, int *b) {\n    int t = *a;\n    *a = *b;\n    *b = t;\n}\n/* appel : echange(&x, &y); */\n```"
+        },
+        {
+          "type": "propriete",
+          "titre": "Arithmétique des pointeurs",
+          "texte": "Le nom d'un tableau se convertit en l'adresse de son premier élément. `p + k` avance de `k` **éléments** (soit `k * sizeof(*p)` octets) ; `t[i]` équivaut à `*(t + i)`."
+        }
+      ]
+    },
+    {
+      "titre": "Allocation dynamique",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "malloc et free",
+          "texte": "`#include <stdlib.h>`. `malloc(n * sizeof(int))` réserve un bloc pour `n` entiers dans le **tas** et renvoie son adresse (ou `NULL` en cas d'échec : il faut tester). `free(p)` le libère. Contrairement à un tableau local, la taille peut être choisie à l'exécution et le bloc survit à la fonction qui l'a créé.\n```c\nint n = 10;\nint *t = malloc(n * sizeof(int));\nif (t == NULL) {\n    /* échec de l'allocation */\n    return 1;\n}\n/* … t[0] à t[n - 1] … */\nfree(t);\n```"
+        },
+        {
+          "type": "remarque",
+          "texte": "Erreurs classiques : **fuite mémoire** (bloc jamais libéré), **double free**, utilisation après `free` (pointeur pendant : `free` ne met pas `p` à `NULL`), renvoi de l'adresse d'une **variable locale** (détruite à la fin de la fonction)."
+        }
+      ]
+    },
+    {
+      "titre": "Structures",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "struct et typedef",
+          "texte": "Une structure regroupe des champs de types variés. Avec `typedef`, on lui donne un nom de type. On accède aux champs par `.` (variable) ou `->` (pointeur : `q->x` équivaut à `(*q).x`).\n```c\ntypedef struct {\n    double x;\n    double y;\n} Point;\n\nPoint p = {3.0, 4.0};\nPoint *q = &p;\n/* p.x vaut maintenant 5 */\nq->x = 5.0;\nprintf(\"(%g, %g)\\n\", p.x, p.y);\n```"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-adresse",
+      "recto": "Opérateur « adresse de » ?",
+      "verso": "`&` : `&x` est l'adresse de `x`."
+    },
+    {
+      "id": "f-deref",
+      "recto": "Que désigne `*p` ?",
+      "verso": "La variable pointée par `p`."
+    },
+    {
+      "id": "f-declaration",
+      "recto": "Déclarer un pointeur sur `int` vers `x` ?",
+      "verso": "`int *p = &x;`"
+    },
+    {
+      "id": "f-null",
+      "recto": "Peut-on déréférencer `NULL` ?",
+      "verso": "Non : erreur de segmentation (ou comportement indéfini)."
+    },
+    {
+      "id": "f-par-adresse",
+      "recto": "Comment une fonction modifie-t-elle une variable de l'appelant ?",
+      "verso": "On lui passe son adresse : `f(&x)` avec un paramètre `int *`."
+    },
+    {
+      "id": "f-arith",
+      "recto": "Équivalent de `t[i]` avec les pointeurs ?",
+      "verso": "`*(t + i)`."
+    },
+    {
+      "id": "f-malloc",
+      "recto": "Allouer un tableau de `n` entiers ?",
+      "verso": "`int *t = malloc(n * sizeof(int));` puis tester `t != NULL`."
+    },
+    {
+      "id": "f-free",
+      "recto": "Libérer un bloc alloué ?",
+      "verso": "`free(t);` (une seule fois)."
+    },
+    {
+      "id": "f-fuite",
+      "recto": "Qu'est-ce qu'une fuite mémoire ?",
+      "verso": "Un bloc alloué qui n'est jamais libéré (souvent parce qu'on a perdu son adresse)."
+    },
+    {
+      "id": "f-pendant",
+      "recto": "`free(p)` met-il `p` à `NULL` ?",
+      "verso": "Non : `p` devient un pointeur pendant ; on peut écrire `p = NULL;`."
+    },
+    {
+      "id": "f-fleche",
+      "recto": "Que signifie `q->x` ?",
+      "verso": "`(*q).x` : le champ `x` de la structure pointée par `q`."
+    },
+    {
+      "id": "f-local",
+      "recto": "Peut-on renvoyer l'adresse d'une variable locale ?",
+      "verso": "Non : elle n'existe plus après le retour de la fonction."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "operateur-adresse",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quel opérateur donne l'adresse de la variable `x` ?",
+      "correction": [
+        "`int *p = &x;`"
+      ],
+      "choix": [
+        {
+          "texte": "`&x`",
+          "correct": true,
+          "explication": "`&` : « adresse de »."
+        },
+        {
+          "texte": "`*x`",
+          "correct": false,
+          "explication": "`*` déréférence un pointeur."
+        },
+        {
+          "texte": "`x&`",
+          "correct": false,
+          "explication": "Ce n'est pas une syntaxe valide."
+        },
+        {
+          "texte": "`->x`",
+          "correct": false,
+          "explication": "`->` accède à un champ via un pointeur sur structure."
+        }
+      ]
+    },
+    {
+      "id": "dereferencement",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut `x` à la fin ?\n```c\nint x = 5;\nint *p = &x;\n*p = 8;\n```",
+      "correction": [
+        "`p` pointe sur `x` : `*p = 8` écrit dans `x`."
+      ],
+      "choix": [
+        {
+          "texte": "8",
+          "correct": true,
+          "explication": "`*p` désigne `x` lui-même."
+        },
+        {
+          "texte": "5",
+          "correct": false,
+          "explication": "Modifier `*p`, c'est modifier `x`."
+        },
+        {
+          "texte": "l'adresse de `p`",
+          "correct": false,
+          "explication": "`x` reste un `int` ; c'est `p` qui contient une adresse."
+        },
+        {
+          "texte": "une erreur de compilation",
+          "correct": false,
+          "explication": "Le code est valide."
+        }
+      ]
+    },
+    {
+      "id": "somme-pointeurs",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Que vaut `*p + *q` ?\n```c\nint a = 3, b = 4;\nint *p = &a, *q = &b;\n```",
+      "correction": [
+        "`*p` vaut `a` (3) et `*q` vaut `b` (4)."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "echange",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle version permet d'échanger les entiers `x` et `y` de `main` ?",
+      "correction": [
+        "Passage par adresse : paramètres pointeurs et appel avec `&`."
+      ],
+      "choix": [
+        {
+          "texte": "`void echange(int *a, int *b)` appelée par `echange(&x, &y)`",
+          "correct": true,
+          "explication": "La fonction reçoit les adresses et écrit à ces adresses."
+        },
+        {
+          "texte": "`void echange(int a, int b)` appelée par `echange(x, y)`",
+          "correct": false,
+          "explication": "La fonction n'échange que des copies."
+        },
+        {
+          "texte": "`void echange(int *a, int *b)` appelée par `echange(x, y)`",
+          "correct": false,
+          "explication": "On passe des valeurs là où des adresses sont attendues (avertissement, puis comportement indéfini)."
+        },
+        {
+          "texte": "`void echange(int &a, int &b)` appelée par `echange(x, y)`",
+          "correct": false,
+          "explication": "Les références `int &` n'existent pas en C (c'est du C++)."
+        }
+      ]
+    },
+    {
+      "id": "arithmetique",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `*(p + 2)` ?\n```c\nint t[] = {10, 20, 30, 40};\nint *p = t + 1;\n```",
+      "correction": [
+        "`p` pointe sur `t[1]` ; `p + 2` pointe sur `t[3]`, qui vaut 40."
+      ],
+      "reponse": 40
+    },
+    {
+      "id": "malloc-taille",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel appel réserve un tableau dynamique de 10 `int` ?",
+      "correction": [
+        "`int *t = malloc(10 * sizeof(int));`"
+      ],
+      "choix": [
+        {
+          "texte": "`malloc(10 * sizeof(int))`",
+          "correct": true,
+          "explication": "`malloc` compte en octets : 10 fois la taille d'un `int`."
+        },
+        {
+          "texte": "`malloc(10)`",
+          "correct": false,
+          "explication": "10 **octets** seulement, soit 2 entiers et demi."
+        },
+        {
+          "texte": "`malloc(sizeof(int))`",
+          "correct": false,
+          "explication": "Un seul entier."
+        },
+        {
+          "texte": "`malloc(10 * sizeof(int *))`",
+          "correct": false,
+          "explication": "Taille d'un **pointeur** (souvent 8 octets), pas d'un `int`."
+        }
+      ]
+    },
+    {
+      "id": "struct-acces",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `p.x` à la fin ?\n```c\ntypedef struct {\n    int x;\n    int y;\n} Point;\n\nPoint p = {3, 4};\nPoint *q = &p;\nq->x = q->x + p.y;\n```",
+      "correction": [
+        "`q->x` est `p.x` : $3 + 4 = 7$."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "decalage-octets",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Avec `int *p` (des `int` de 4 octets), de combien d'**octets** l'adresse `p + k` est-elle décalée par rapport à `p` ? (Réponds en fonction de `k`.)",
+      "correction": [
+        "`p + k` avance de `k` éléments, soit `k * sizeof(int)` octets."
+      ],
+      "reponse": "4*k",
+      "variables": [
+        "k"
+      ],
+      "domaine": [
+        0,
+        20
+      ]
+    },
+    {
+      "id": "fuite",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quel est le problème de ce code ?\n```c\nint *p = malloc(100 * sizeof(int));\np = malloc(50 * sizeof(int));\nfree(p);\n```",
+      "correction": [
+        "Il fallait `free(p)` avant de réaffecter `p`."
+      ],
+      "choix": [
+        {
+          "texte": "une fuite mémoire : le premier bloc n'est jamais libéré",
+          "correct": true,
+          "explication": "Son adresse est perdue quand on réaffecte `p`."
+        },
+        {
+          "texte": "un double `free`",
+          "correct": false,
+          "explication": "`free` n'est appelé qu'une fois, sur le second bloc."
+        },
+        {
+          "texte": "un pointeur pendant",
+          "correct": false,
+          "explication": "On n'utilise pas `p` après `free`."
+        },
+        {
+          "texte": "aucun problème",
+          "correct": false,
+          "explication": "400 octets restent réservés sans pouvoir être libérés."
+        }
+      ]
+    },
+    {
+      "id": "sizeof-pointeur",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Sur une machine 64 bits usuelle, que vaut `sizeof(int *)` ?",
+      "correction": [
+        "Tous les pointeurs ont la taille d'une adresse : 8 octets en 64 bits."
+      ],
+      "choix": [
+        {
+          "texte": "8",
+          "correct": true,
+          "explication": "Une adresse occupe 64 bits, soit 8 octets."
+        },
+        {
+          "texte": "4",
+          "correct": false,
+          "explication": "C'est `sizeof(int)`."
+        },
+        {
+          "texte": "la taille du tableau pointé",
+          "correct": false,
+          "explication": "Un pointeur ne connaît pas la taille de ce qu'il pointe."
+        },
+        {
+          "texte": "1",
+          "correct": false,
+          "explication": "C'est `sizeof(char)`."
+        }
+      ]
+    },
+    {
+      "id": "vf-free-null",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Après `free(p);`, le pointeur `p` vaut automatiquement `NULL`.",
+      "correction": [
+        "Faux : `free(p)` libère le bloc mais ne modifie pas `p`."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "`p` garde l'ancienne adresse, devenue invalide (pointeur pendant).",
+          "correct": true,
+          "explication": "Bonne pratique : écrire `p = NULL;` juste après."
+        },
+        {
+          "texte": "Vrai : `free` remet `p` à zéro.",
+          "correct": false,
+          "explication": "`free` reçoit une copie de `p` : elle ne peut pas le modifier."
+        },
+        {
+          "texte": "Vrai, mais seulement si le bloc était un tableau.",
+          "correct": false,
+          "explication": "Le type du bloc ne change rien."
+        }
+      ]
+    },
+    {
+      "id": "vf-tableau-pointeur",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour un tableau `t`, `t[i]` et `*(t + i)` désignent le même élément.",
+      "correction": [
+        "Vrai : `t[i]` est défini comme `*(t + i)`."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "`t` se convertit en l'adresse de `t[0]`, et `t + i` pointe sur le `i`-ième élément.",
+          "correct": true,
+          "explication": "C'est la définition même de l'indexation en C."
+        },
+        {
+          "texte": "Faux : `t + i` avance de `i` octets.",
+          "correct": false,
+          "explication": "L'arithmétique des pointeurs compte en éléments (`i * sizeof(int)` octets)."
+        },
+        {
+          "texte": "Faux : `*(t + i)` vaut `t[0] + i`.",
+          "correct": false,
+          "explication": "Ce serait `*t + i` (priorité de `*`)."
+        }
+      ]
+    },
+    {
+      "id": "erreur-adresse-locale",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Analyse de cette fonction : où est l'erreur ?\n```c\nint *f(void) {\n    int x = 42;\n    return &x;\n}\n```",
+      "correction": [
+        "`gcc -Wall` signale : « function returns address of local variable »."
+      ],
+      "etapes": [
+        "`x` est une variable locale de `f`.",
+        "`f` renvoie l'adresse de `x`.",
+        "Après l'appel, `*f()` vaut toujours 42 car cette adresse reste valide."
+      ],
+      "etapeFausse": 2,
+      "explication": "`x` est détruite à la fin de `f` : l'adresse renvoyée ne désigne plus rien de valide (comportement indéfini). Il faut renvoyer la valeur, ou allouer avec `malloc`."
+    },
+    {
+      "id": "erreur-malloc",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "On alloue un tableau de `n` entiers. Où est l'erreur ?",
+      "correction": [
+        "Toujours vérifier `t != NULL` après `malloc`."
+      ],
+      "etapes": [
+        "`int *t = malloc(n * sizeof(int));`",
+        "`malloc` réussit toujours : inutile de tester le résultat.",
+        "On remplit `t[0]` à `t[n - 1]`, puis on fait `free(t);`."
+      ],
+      "etapeFausse": 1,
+      "explication": "`malloc` renvoie `NULL` si la mémoire manque : il faut tester `if (t == NULL)` avant d'écrire dans `t`."
+    }
+  ]
+}

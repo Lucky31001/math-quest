@@ -13,6 +13,7 @@ import { enregistrerReponse, payerIndice } from '../../game/progres';
 import { maitriseChapitre, tauxChapitre } from '../../game/modes';
 import { jouerSon, secouer } from '../effets';
 import { icone } from '../icones';
+import { ouvrirDansAtelier } from './atelier';
 
 const LIBELLES_BLOC: Record<string, string> = {
   definition: 'Définition',
@@ -100,7 +101,7 @@ function legende(ch: Chapitre): HTMLElement {
 }
 
 function cours(ch: Chapitre): HTMLElement {
-  return h(
+  const el = h(
     'div',
     { class: 'cours' },
     legende(ch),
@@ -121,6 +122,16 @@ function cours(ch: Chapitre): HTMLElement {
     ),
     h('div', { class: 'actions' }, h('a', { class: 'btn btn-primaire', href: `#/chapitre/${ch.id}/exercices` }, "Passer aux exercices →")),
   );
+  // Code C du cours : bouton pour l'essayer dans l'atelier.
+  const blocsC = [...el.querySelectorAll<HTMLElement>('pre.code[data-langage="c"]')];
+  blocsC.forEach((pre, i) => {
+    const code = pre.textContent ?? '';
+    // Les blocs précédents fournissent les types utilisés (ex. `Maillon`).
+    const precedents = blocsC.slice(0, i).map((p) => p.textContent ?? '');
+    pre.after(h('button', { class: 'btn btn-essayer', type: 'button', onclick: () => ouvrirDansAtelier(code, precedents) }, '▶ Essayer dans l’atelier'));
+  });
+  if (blocsC.length) el.querySelector('.actions')!.prepend(h('a', { class: 'btn', href: '#/atelier' }, '🧪 Atelier C'));
+  return el;
 }
 
 function exercices(ch: Chapitre, conteneur: HTMLElement): () => void {

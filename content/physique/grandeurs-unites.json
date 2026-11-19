@@ -67,7 +67,7 @@
         {
           "type": "propriete",
           "titre": "Propagation",
-          "texte": "Pour $G = a\\,b$ ou $G = a / b$ (incertitudes indépendantes) : $$\\frac{u(G)}{|G|} = \\sqrt{\\left(\\frac{u(a)}{a}\\right)^2 + \\left(\\frac{u(b)}{b}\\right)^2}.$$ Pour $G = a + b$ ou $a - b$ : $u(G) = \\sqrt{u(a)^2 + u(b)^2}$."
+          "texte": "Pour $G = a\\,b$ ou $G = a / b$ (incertitudes indépendantes) : $$\\frac{u(G)}{|G|} = \\sqrt{\\left(\\frac{u(a)}{a}\\right)^2 + \\left(\\frac{u(b)}{b}\\right)^2}$$ Pour $G = a + b$ ou $a - b$ : $u(G) = \\sqrt{u(a)^2 + u(b)^2}$."
         }
       ]
     }

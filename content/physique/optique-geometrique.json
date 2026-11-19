@@ -1,0 +1,460 @@
+{
+  "$schema": "../schema.json",
+  "id": "optique-geometrique",
+  "monde": "physique",
+  "ordre": 8,
+  "titre": "Optique géométrique",
+  "icone": "🔦",
+  "resume": "Propagation de la lumière, lois de Snell-Descartes, réflexion totale, miroir plan et lentilles minces.",
+  "cours": [
+    {
+      "titre": "Lumière et lois de Snell-Descartes",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Indice de réfraction",
+          "texte": "Dans un milieu transparent homogène, la lumière se propage en ligne droite (rayons lumineux) à la vitesse $v = c / n$, où $n \\ge 1$ est l'**indice** du milieu ($n_{\\text{air}} \\approx 1$, $n_{\\text{eau}} \\approx 1{,}33$, $n_{\\text{verre}} \\approx 1{,}5$) et $c \\approx 3{,}00 \\times 10^8\\ \\mathrm{m/s}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Lois de Snell-Descartes",
+          "texte": "Les angles sont mesurés par rapport à la **normale** au dioptre. Réflexion : $i' = i$. Réfraction : $n_1 \\sin i_1 = n_2 \\sin i_2$. En passant dans un milieu plus réfringent ($n_2 > n_1$), le rayon se rapproche de la normale."
+        },
+        {
+          "type": "propriete",
+          "titre": "Réflexion totale",
+          "texte": "Si $n_1 > n_2$, il n'y a plus de rayon réfracté au-delà de l'**angle limite** $i_\\ell$ tel que $\\sin i_\\ell = n_2 / n_1$ : toute la lumière est réfléchie (principe des fibres optiques)."
+        }
+      ]
+    },
+    {
+      "titre": "Miroir plan et lentilles minces",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Miroir plan",
+          "texte": "L'image d'un objet par un miroir plan est son **symétrique** par rapport au miroir : virtuelle, de même taille. Pour se voir en entier, il suffit d'un miroir de hauteur moitié de sa taille."
+        },
+        {
+          "type": "definition",
+          "titre": "Lentilles minces",
+          "texte": "Une lentille mince de centre $O$ a un foyer objet $F$ et un foyer image $F'$, symétriques par rapport à $O$. Distance focale $f' = \\overline{OF'}$, vergence $V = 1 / f'$ (en dioptries $\\delta$, $f'$ en mètres). **Convergente** : $f' > 0$ ; **divergente** : $f' < 0$. On travaille dans les **conditions de Gauss** (rayons peu inclinés, proches de l'axe)."
+        },
+        {
+          "type": "methode",
+          "titre": "Construction des images",
+          "texte": "Trois rayons utiles : un rayon passant par $O$ n'est pas dévié ; un rayon parallèle à l'axe ressort en passant par $F'$ ; un rayon passant par $F$ ressort parallèle à l'axe."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Relations de conjugaison (Descartes)",
+          "texte": "Pour un objet $A$ sur l'axe et son image $A'$ : $$\\frac{1}{\\overline{OA'}} - \\frac{1}{\\overline{OA}} = \\frac{1}{f'}$$ et le grandissement $$\\gamma = \\frac{\\overline{A'B'}}{\\overline{AB}} = \\frac{\\overline{OA'}}{\\overline{OA}}.$$ Les distances sont **algébriques** (orientées dans le sens de la lumière) : un objet réel devant la lentille a $\\overline{OA} < 0$. Image réelle si $\\overline{OA'} > 0$, virtuelle sinon ; $\\gamma < 0$ : image renversée."
+        },
+        {
+          "type": "remarque",
+          "texte": "Un objet placé entre $F$ et $O$ d'une lentille convergente donne une image **virtuelle**, droite et agrandie : c'est le principe de la loupe."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-indice",
+      "recto": "Définition de l'indice d'un milieu ?",
+      "verso": "$n = c / v$, où $v$ est la vitesse de la lumière dans le milieu."
+    },
+    {
+      "id": "f-reflexion",
+      "recto": "Loi de la réflexion ?",
+      "verso": "$i' = i$ (angles mesurés depuis la normale)."
+    },
+    {
+      "id": "f-refraction",
+      "recto": "Loi de la réfraction ?",
+      "verso": "$n_1 \\sin i_1 = n_2 \\sin i_2$."
+    },
+    {
+      "id": "f-normale",
+      "recto": "Vers où dévie un rayon qui entre dans un milieu plus réfringent ?",
+      "verso": "Il se rapproche de la normale."
+    },
+    {
+      "id": "f-angle-limite",
+      "recto": "Angle limite de réflexion totale ?",
+      "verso": "$\\sin i_\\ell = n_2 / n_1$, possible seulement si $n_1 > n_2$."
+    },
+    {
+      "id": "f-miroir",
+      "recto": "Image par un miroir plan ?",
+      "verso": "Le symétrique de l'objet par rapport au miroir (virtuelle, même taille)."
+    },
+    {
+      "id": "f-vergence",
+      "recto": "Vergence d'une lentille ?",
+      "verso": "$V = 1 / f'$ en dioptries ($f'$ en m)."
+    },
+    {
+      "id": "f-convergente",
+      "recto": "Signe de $f'$ pour une lentille convergente ? divergente ?",
+      "verso": "$f' > 0$ ; $f' < 0$."
+    },
+    {
+      "id": "f-conjugaison",
+      "recto": "Relation de conjugaison de Descartes ?",
+      "verso": "$\\dfrac{1}{\\overline{OA'}} - \\dfrac{1}{\\overline{OA}} = \\dfrac{1}{f'}$."
+    },
+    {
+      "id": "f-grandissement",
+      "recto": "Grandissement d'une lentille mince ?",
+      "verso": "$\\gamma = \\overline{OA'} / \\overline{OA}$."
+    },
+    {
+      "id": "f-rayons",
+      "recto": "Trois rayons particuliers d'une lentille ?",
+      "verso": "Par $O$ : non dévié ; parallèle à l'axe : ressort par $F'$ ; par $F$ : ressort parallèle à l'axe."
+    },
+    {
+      "id": "f-loupe",
+      "recto": "Objet entre $F$ et $O$ d'une lentille convergente ?",
+      "verso": "Image virtuelle, droite, agrandie (loupe)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "vitesse-eau",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la vitesse de la lumière dans l'eau ($n = 1{,}33$, $c = 3{,}00 \\times 10^8\\ \\mathrm{m/s}$) ?",
+      "correction": [
+        "$v = c / n \\approx 2{,}26 \\times 10^8\\ \\mathrm{m/s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$2{,}26 \\times 10^8\\ \\mathrm{m/s}$",
+          "correct": true,
+          "explication": "$v = c / n = 3{,}00 \\times 10^8 / 1{,}33$."
+        },
+        {
+          "texte": "$3{,}99 \\times 10^8\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "On a multiplié par $n$ : rien ne va plus vite que $c$."
+        },
+        {
+          "texte": "$3{,}00 \\times 10^8\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "C'est la vitesse dans le vide."
+        },
+        {
+          "texte": "$1{,}33 \\times 10^8\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "Ce n'est pas $c / n$."
+        }
+      ]
+    },
+    {
+      "id": "reflexion",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un rayon arrive sur un miroir plan avec un angle d'incidence de $40°$ (par rapport à la normale). L'angle de réflexion vaut :",
+      "correction": [
+        "Loi de la réflexion : angles égaux par rapport à la normale."
+      ],
+      "choix": [
+        {
+          "texte": "$40°$",
+          "correct": true,
+          "explication": "$i' = i$."
+        },
+        {
+          "texte": "$50°$",
+          "correct": false,
+          "explication": "C'est l'angle avec la surface du miroir, pas avec la normale."
+        },
+        {
+          "texte": "$80°$",
+          "correct": false,
+          "explication": "C'est l'angle entre le rayon incident et le rayon réfléchi."
+        },
+        {
+          "texte": "$140°$",
+          "correct": false,
+          "explication": "$180° - 40°$ n'a pas de sens ici."
+        }
+      ]
+    },
+    {
+      "id": "foyer-image",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un faisceau de rayons parallèles à l'axe optique traverse une lentille convergente. Il converge :",
+      "correction": [
+        "Faisceau parallèle à l'axe → convergence en $F'$."
+      ],
+      "choix": [
+        {
+          "texte": "au foyer image $F'$",
+          "correct": true,
+          "explication": "C'est la définition de $F'$."
+        },
+        {
+          "texte": "au foyer objet $F$",
+          "correct": false,
+          "explication": "$F$ est **avant** la lentille : les rayons passant par $F$ ressortent parallèles à l'axe."
+        },
+        {
+          "texte": "au centre optique $O$",
+          "correct": false,
+          "explication": "Seuls les rayons qui passent par $O$ ne sont pas déviés."
+        },
+        {
+          "texte": "à l'infini",
+          "correct": false,
+          "explication": "Ce serait le cas d'un faisceau issu du foyer objet."
+        }
+      ]
+    },
+    {
+      "id": "vergence",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Quelle est la vergence (en dioptries) d'une lentille convergente de distance focale $f' = 20\\ \\mathrm{cm}$ ?",
+      "indice": "La distance focale doit être en mètres.",
+      "correction": [
+        "$V = 1 / f' = 1 / 0{,}20\\ \\mathrm m = 5\\ \\delta$."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "lentille-divergente",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une lentille a une vergence de $-4\\ \\delta$. C'est une lentille :",
+      "correction": [
+        "$V < 0$ : divergente, $f' = 1/V = -25\\ \\mathrm{cm}$."
+      ],
+      "choix": [
+        {
+          "texte": "divergente, de distance focale $f' = -25\\ \\mathrm{cm}$",
+          "correct": true,
+          "explication": "$f' = 1 / V = -0{,}25\\ \\mathrm m$."
+        },
+        {
+          "texte": "convergente, de distance focale $f' = 25\\ \\mathrm{cm}$",
+          "correct": false,
+          "explication": "Une vergence négative signifie $f' < 0$ : lentille divergente."
+        },
+        {
+          "texte": "divergente, de distance focale $f' = -4\\ \\mathrm m$",
+          "correct": false,
+          "explication": "$f' = 1/V$, pas $V$."
+        },
+        {
+          "texte": "convergente, de distance focale $f' = 4\\ \\mathrm{cm}$",
+          "correct": false,
+          "explication": "Signe et valeur sont faux."
+        }
+      ]
+    },
+    {
+      "id": "refraction-eau",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un rayon passe de l'air ($n_1 = 1$) dans l'eau ($n_2 = 1{,}33$) avec un angle d'incidence de $30°$. Angle de réfraction, en degrés ?",
+      "correction": [
+        "$\\sin i_2 = \\dfrac{n_1}{n_2}\\sin i_1 = \\dfrac{0{,}5}{1{,}33} \\approx 0{,}376$.",
+        "$i_2 \\approx 22{,}1°$ : le rayon se rapproche de la normale."
+      ],
+      "reponse": "asin(0.5/1.33)*180/pi",
+      "tolerance": 0.01
+    },
+    {
+      "id": "angle-limite",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quel est l'angle limite de réflexion totale pour un rayon passant du verre ($n = 1{,}5$) à l'air, en degrés ?",
+      "correction": [
+        "$\\sin i_\\ell = \\dfrac{n_{\\text{air}}}{n_{\\text{verre}}} = \\dfrac{1}{1{,}5}$, donc $i_\\ell \\approx 41{,}8°$."
+      ],
+      "reponse": "asin(1/1.5)*180/pi",
+      "tolerance": 0.01
+    },
+    {
+      "id": "conjugaison",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un objet est placé $30\\ \\mathrm{cm}$ devant une lentille convergente de distance focale $f' = 10\\ \\mathrm{cm}$ ($\\overline{OA} = -30\\ \\mathrm{cm}$). Que vaut $\\overline{OA'}$, en cm ?",
+      "indice": "Attention aux signes : l'objet réel est avant la lentille, donc $\\overline{OA} < 0$.",
+      "correction": [
+        "$\\dfrac{1}{\\overline{OA'}} = \\dfrac{1}{f'} + \\dfrac{1}{\\overline{OA}} = \\dfrac{1}{10} - \\dfrac{1}{30} = \\dfrac{2}{30}$.",
+        "$\\overline{OA'} = 15\\ \\mathrm{cm}$ : image réelle, après la lentille."
+      ],
+      "reponse": 15
+    },
+    {
+      "id": "grandissement",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Dans la situation précédente ($\\overline{OA} = -30\\ \\mathrm{cm}$, $\\overline{OA'} = 15\\ \\mathrm{cm}$), le grandissement vaut :",
+      "correction": [
+        "$\\gamma = \\overline{OA'}/\\overline{OA} = -0{,}5$."
+      ],
+      "choix": [
+        {
+          "texte": "$-0{,}5$",
+          "correct": true,
+          "explication": "$\\gamma = 15 / (-30)$ : image renversée, deux fois plus petite."
+        },
+        {
+          "texte": "$0{,}5$",
+          "correct": false,
+          "explication": "Le signe compte : $\\overline{OA}$ et $\\overline{OA'}$ sont de signes opposés."
+        },
+        {
+          "texte": "$-2$",
+          "correct": false,
+          "explication": "Rapport inversé : $\\gamma = \\overline{OA'} / \\overline{OA}$."
+        },
+        {
+          "texte": "$2$",
+          "correct": false,
+          "explication": "Signe et rapport sont faux."
+        }
+      ]
+    },
+    {
+      "id": "position-image",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Lentille convergente de distance focale $f' = 10\\ \\mathrm{cm}$. Exprime $\\overline{OA'}$ (en cm) en fonction de $x = \\overline{OA}$ (en cm, $x < -10$).",
+      "correction": [
+        "$\\dfrac{1}{\\overline{OA'}} = \\dfrac{1}{10} + \\dfrac{1}{x} = \\dfrac{x + 10}{10x}$.",
+        "$\\overline{OA'} = \\dfrac{10x}{x + 10}$. Contrôle : $x = -30$ donne $15$."
+      ],
+      "reponse": "10*x/(x + 10)",
+      "variables": [
+        "x"
+      ],
+      "domaine": [
+        -60,
+        -15
+      ]
+    },
+    {
+      "id": "miroir-taille",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quelle hauteur minimale doit avoir un miroir plan vertical pour qu'une personne de $1{,}80\\ \\mathrm m$ s'y voie en entier ?",
+      "correction": [
+        "Moitié de la taille, indépendamment de la distance."
+      ],
+      "choix": [
+        {
+          "texte": "$0{,}90\\ \\mathrm m$, quelle que soit la distance au miroir",
+          "correct": true,
+          "explication": "Les rayons utiles se réfléchissent à mi-hauteur entre les yeux et les pieds, puis entre les yeux et le sommet du crâne."
+        },
+        {
+          "texte": "$1{,}80\\ \\mathrm m$",
+          "correct": false,
+          "explication": "L'image est de même taille, mais le miroir est à mi-chemin entre l'œil et l'image."
+        },
+        {
+          "texte": "$3{,}60\\ \\mathrm m$",
+          "correct": false,
+          "explication": "Bien plus que nécessaire."
+        },
+        {
+          "texte": "elle dépend de la distance au miroir",
+          "correct": false,
+          "explication": "Le facteur 1/2 ne dépend pas de la distance (théorème de Thalès)."
+        }
+      ]
+    },
+    {
+      "id": "vf-reflexion-totale",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Il peut y avoir réflexion totale quand la lumière passe de l'air dans l'eau.",
+      "correction": [
+        "Faux : la réflexion totale n'existe que vers un milieu moins réfringent."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "La réflexion totale exige $n_1 > n_2$ ; de l'air à l'eau, $n_1 < n_2$ : il y a toujours un rayon réfracté.",
+          "correct": true,
+          "explication": "$\\sin i_2 = \\sin i_1 / 1{,}33 < 1$ pour tout angle."
+        },
+        {
+          "texte": "Vrai, pour une incidence rasante.",
+          "correct": false,
+          "explication": "Même à $90°$, $\\sin i_2 = 1/1{,}33 < 1$."
+        },
+        {
+          "texte": "Vrai, si l'eau est assez profonde.",
+          "correct": false,
+          "explication": "La profondeur n'intervient pas."
+        }
+      ]
+    },
+    {
+      "id": "vf-loupe",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Un objet placé entre le foyer objet et une lentille convergente donne une image virtuelle.",
+      "correction": [
+        "Vrai. Exemple : $f' = 10$, $\\overline{OA} = -5$ donne $\\overline{OA'} = -10\\ \\mathrm{cm}$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Si $-f' < \\overline{OA} < 0$, la relation de conjugaison donne $\\overline{OA'} < 0$ : image virtuelle, droite et agrandie.",
+          "correct": true,
+          "explication": "C'est le principe de la loupe."
+        },
+        {
+          "texte": "Faux : une lentille convergente donne toujours une image réelle.",
+          "correct": false,
+          "explication": "Seulement pour un objet réel placé avant le foyer objet."
+        },
+        {
+          "texte": "Faux : il n'y a pas d'image du tout.",
+          "correct": false,
+          "explication": "C'est le cas limite d'un objet **sur** le foyer (image à l'infini)."
+        }
+      ]
+    },
+    {
+      "id": "erreur-image-virtuelle",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Lentille convergente $f' = 10\\ \\mathrm{cm}$, objet réel $5\\ \\mathrm{cm}$ devant. Où est l'erreur ?",
+      "correction": [
+        "$\\overline{OA'} = -10\\ \\mathrm{cm}$ et $\\gamma = 2$ : image droite, deux fois plus grande."
+      ],
+      "etapes": [
+        "$\\overline{OA} = -5\\ \\mathrm{cm}$.",
+        "$\\dfrac{1}{\\overline{OA'}} = \\dfrac{1}{10} - \\dfrac{1}{5} = -\\dfrac{1}{10}$.",
+        "Donc $\\overline{OA'} = 10\\ \\mathrm{cm}$ : l'image est réelle, après la lentille."
+      ],
+      "etapeFausse": 2,
+      "explication": "$\\overline{OA'} = -10\\ \\mathrm{cm}$ : l'image est **virtuelle**, du même côté que l'objet (loupe)."
+    },
+    {
+      "id": "erreur-reflexion-totale",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Un rayon passe de l'eau ($n_1 = 1{,}33$) à l'air ($n_2 = 1$) avec une incidence de $60°$. Où est l'erreur ?",
+      "correction": [
+        "Toute la lumière est réfléchie dans l'eau."
+      ],
+      "etapes": [
+        "Snell-Descartes : $\\sin i_2 = \\dfrac{n_1}{n_2}\\sin i_1$.",
+        "$\\sin i_2 = 1{,}33 \\times \\sin 60° \\approx 1{,}15$.",
+        "Donc $i_2 = \\arcsin(1{,}15)$, un peu plus de $90°$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Un sinus ne dépasse jamais 1 : il n'y a pas de rayon réfracté. $60°$ dépasse l'angle limite ($\\arcsin(1/1{,}33) \\approx 48{,}8°$) : il y a **réflexion totale**."
+    }
+  ]
+}

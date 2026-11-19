@@ -1,0 +1,421 @@
+{
+  "$schema": "../schema.json",
+  "id": "c-algorithmes",
+  "monde": "informatique",
+  "ordre": 6,
+  "titre": "Algorithmes, complexité et récursivité",
+  "icone": "⏱️",
+  "resume": "Recherche séquentielle et dichotomique, tris, complexité, fonctions récursives.",
+  "cours": [
+    {
+      "titre": "Complexité",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Définition",
+          "texte": "La **complexité** compte les opérations élémentaires en fonction de la taille $n$ des données, dans le **pire cas** sauf mention contraire. On note $O(f(n))$ l'ordre de grandeur : $O(1) < O(\\log n) < O(n) < O(n\\log n) < O(n^2) < O(2^n)$."
+        },
+        {
+          "type": "remarque",
+          "texte": "En $O(n^2)$, doubler $n$ multiplie le temps par environ 4 ; en $O(n)$, par 2 ; en $O(\\log n)$, on ajoute une étape."
+        }
+      ]
+    },
+    {
+      "titre": "Recherche et tris",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Recherche",
+          "texte": "**Recherche séquentielle** : $O(n)$. **Recherche dichotomique** dans un tableau **trié** : on compare au milieu et on garde une moitié, $O(\\log n)$ — au plus $\\lfloor\\log_2 n\\rfloor + 1$ tours."
+        },
+        {
+          "type": "exemple",
+          "texte": "Recherche dichotomique :\n```c\nint dicho(int t[], int n, int x) {\n    int g = 0, d = n - 1;\n    while (g <= d) {\n        int m = (g + d) / 2;\n        if (t[m] == x)\n            return m;\n        else if (t[m] < x)\n            g = m + 1;\n        else\n            d = m - 1;\n    }\n    return -1;\n}\n```"
+        },
+        {
+          "type": "propriete",
+          "titre": "Tris",
+          "texte": "**Tri par sélection** : on place le minimum en tête, puis on recommence sur le reste ; $\\frac{n(n-1)}2$ comparaisons, $O(n^2)$. **Tri par insertion** : on insère chaque élément dans la partie triée ; $O(n^2)$ au pire, $O(n)$ si le tableau est déjà trié. **Tri fusion** : on trie récursivement les deux moitiés puis on les fusionne, $O(n\\log n)$."
+        }
+      ]
+    },
+    {
+      "titre": "Récursivité",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Principe",
+          "texte": "Une fonction **récursive** s'appelle elle-même. Il faut un **cas de base** (sans appel récursif) et des appels qui s'en rapprochent ; sinon la **pile d'appels** déborde (*stack overflow*, erreur de segmentation).\n```c\nint fact(int n) {\n    /* cas de base */\n    if (n == 0)\n        return 1;\n    return n * fact(n - 1);\n}\n```"
+        },
+        {
+          "type": "methode",
+          "titre": "Diviser pour régner",
+          "texte": "**Exponentiation rapide** : $x^n = (x^{n/2})^2$ si $n$ est pair, $x \\cdot (x^{(n-1)/2})^2$ sinon : $O(\\log n)$ multiplications au lieu de $n$."
+        },
+        {
+          "type": "remarque",
+          "texte": "Fibonacci récursif naïf recalcule les mêmes valeurs : nombre d'appels exponentiel. Une boucle le rend linéaire."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-o-sequentielle",
+      "recto": "Complexité de la recherche séquentielle ?",
+      "verso": "$O(n)$ dans le pire cas."
+    },
+    {
+      "id": "f-o-dicho",
+      "recto": "Complexité de la recherche dichotomique ?",
+      "verso": "$O(\\log n)$ ; tableau trié obligatoire."
+    },
+    {
+      "id": "f-o-selection",
+      "recto": "Complexité du tri par sélection ?",
+      "verso": "$O(n^2)$ : $\\frac{n(n-1)}2$ comparaisons."
+    },
+    {
+      "id": "f-o-insertion",
+      "recto": "Complexité du tri par insertion ?",
+      "verso": "$O(n^2)$ au pire, $O(n)$ sur un tableau déjà trié."
+    },
+    {
+      "id": "f-o-fusion",
+      "recto": "Complexité du tri fusion ?",
+      "verso": "$O(n\\log n)$."
+    },
+    {
+      "id": "f-doubler",
+      "recto": "Algorithme en $O(n^2)$ : effet de doubler $n$ ?",
+      "verso": "Temps multiplié par environ 4."
+    },
+    {
+      "id": "f-cas-base",
+      "recto": "Que faut-il à toute fonction récursive ?",
+      "verso": "Un cas de base, et des appels qui s'en rapprochent."
+    },
+    {
+      "id": "f-pile",
+      "recto": "Que se passe-t-il sans cas de base ?",
+      "verso": "Débordement de la pile d'appels (erreur de segmentation)."
+    },
+    {
+      "id": "f-expo-rapide",
+      "recto": "Principe de l'exponentiation rapide ?",
+      "verso": "$x^n = (x^{n/2})^2$ : $O(\\log n)$ multiplications."
+    },
+    {
+      "id": "f-fibo",
+      "recto": "Pourquoi Fibonacci récursif naïf est-il lent ?",
+      "verso": "Il recalcule les mêmes valeurs : nombre d'appels exponentiel."
+    },
+    {
+      "id": "f-dicho-tours",
+      "recto": "Nombre maximal de tours d'une dichotomie sur 1000 éléments ?",
+      "verso": "10 ($\\lfloor\\log_2 1000\\rfloor + 1$)."
+    },
+    {
+      "id": "f-invariant-dicho",
+      "recto": "Invariant de la dichotomie ?",
+      "verso": "Si `x` est dans `t`, il est entre les indices `g` et `d`."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "o-sequentielle",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Dans le pire cas, la recherche séquentielle dans un tableau de taille $n$ est en :",
+      "correction": [
+        "Pire cas : élément absent ou en dernière position, $n$ comparaisons."
+      ],
+      "choix": [
+        {
+          "texte": "$O(n)$",
+          "correct": true,
+          "explication": "On peut devoir parcourir tout le tableau."
+        },
+        {
+          "texte": "$O(1)$",
+          "correct": false,
+          "explication": "C'est l'accès à un élément par son indice."
+        },
+        {
+          "texte": "$O(\\log n)$",
+          "correct": false,
+          "explication": "C'est la dichotomie, qui exige un tableau trié."
+        },
+        {
+          "texte": "$O(n^2)$",
+          "correct": false,
+          "explication": "Une seule boucle suffit."
+        }
+      ]
+    },
+    {
+      "id": "recursion-trace",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut `g(7)` ?\n```c\nint g(int n) {\n    if (n <= 0)\n        return 0;\n    return 1 + g(n - 2);\n}\n```",
+      "correction": [
+        "$g(7) = 1 + g(5) = \\dots = 4 + g(-1) = 4$."
+      ],
+      "choix": [
+        {
+          "texte": "4",
+          "correct": true,
+          "explication": "Appels sur 7, 5, 3, 1, puis -1 (cas de base)."
+        },
+        {
+          "texte": "3",
+          "correct": false,
+          "explication": "`g(1)` vaut encore `1 + g(-1)`."
+        },
+        {
+          "texte": "7",
+          "correct": false,
+          "explication": "On descend de 2 en 2."
+        },
+        {
+          "texte": "0",
+          "correct": false,
+          "explication": "Chaque appel non terminal ajoute 1."
+        }
+      ]
+    },
+    {
+      "id": "factorielle-rec",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Avec la fonction `fact` du cours, que vaut `fact(5)` ?",
+      "correction": [
+        "$5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$."
+      ],
+      "reponse": 120
+    },
+    {
+      "id": "dicho-prerequis",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour appliquer la recherche dichotomique, le tableau doit :",
+      "correction": [
+        "Seul prérequis : le tableau trié."
+      ],
+      "choix": [
+        {
+          "texte": "être trié",
+          "correct": true,
+          "explication": "On élimine une moitié en comparant au milieu."
+        },
+        {
+          "texte": "être de taille paire",
+          "correct": false,
+          "explication": "Le milieu `(g + d) / 2` existe pour toute taille."
+        },
+        {
+          "texte": "ne contenir que des éléments distincts",
+          "correct": false,
+          "explication": "Avec des doublons, on trouve l'une des positions."
+        },
+        {
+          "texte": "contenir l'élément cherché",
+          "correct": false,
+          "explication": "Sinon, la fonction renvoie -1."
+        }
+      ]
+    },
+    {
+      "id": "dicho-tours",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Avec la fonction `dicho` du cours, quel est le nombre **maximal** de tours de la boucle `while` pour un tableau trié de 1000 éléments ?",
+      "indice": "$2^9 = 512 \\le 1000 < 1024 = 2^{10}$.",
+      "correction": [
+        "Chaque tour divise environ par 2 la zone de recherche : 1000, 500, 250, 125, 62, 31, 15, 7, 3, 1.",
+        "Au plus $\\lfloor\\log_2 1000\\rfloor + 1 = 10$ tours."
+      ],
+      "reponse": 10
+    },
+    {
+      "id": "comparaisons-selection",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Combien de comparaisons `t[j] < t[m]` fait ce tri par sélection sur un tableau de taille `n` ?\n```c\nvoid tri_selection(int t[], int n) {\n    for (int i = 0; i < n; i++) {\n        int m = i;\n        for (int j = i + 1; j < n; j++)\n            if (t[j] < t[m])\n                m = j;\n        int tmp = t[i];\n        t[i] = t[m];\n        t[m] = tmp;\n    }\n}\n```",
+      "correction": [
+        "Pour chaque `i`, la boucle interne fait `n - 1 - i` comparaisons.",
+        "$(n - 1) + (n - 2) + \\dots + 0 = \\frac{n(n-1)}2$."
+      ],
+      "reponse": "n*(n-1)/2",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        30
+      ]
+    },
+    {
+      "id": "tri-fusion",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est la complexité du tri fusion ?",
+      "correction": [
+        "$O(n\\log n)$ dans tous les cas."
+      ],
+      "choix": [
+        {
+          "texte": "$O(n\\log n)$",
+          "correct": true,
+          "explication": "$\\log_2 n$ niveaux de découpage, $O(n)$ opérations de fusion par niveau."
+        },
+        {
+          "texte": "$O(n^2)$",
+          "correct": false,
+          "explication": "C'est la complexité des tris par sélection et par insertion."
+        },
+        {
+          "texte": "$O(n)$",
+          "correct": false,
+          "explication": "Aucun tri par comparaisons ne fait mieux que $O(n\\log n)$ dans le pire cas."
+        },
+        {
+          "texte": "$O(\\log n)$",
+          "correct": false,
+          "explication": "Il faut au moins lire les $n$ éléments."
+        }
+      ]
+    },
+    {
+      "id": "expo-rapide",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Combien de multiplications fait l'exponentiation rapide pour calculer $x^n$ ?",
+      "correction": [
+        "Environ $2\\log_2 n$ multiplications."
+      ],
+      "choix": [
+        {
+          "texte": "$O(\\log n)$",
+          "correct": true,
+          "explication": "$n$ est divisé par 2 à chaque appel, avec au plus 2 multiplications par appel."
+        },
+        {
+          "texte": "$O(n)$",
+          "correct": false,
+          "explication": "C'est la méthode naïve."
+        },
+        {
+          "texte": "$O(n^2)$",
+          "correct": false,
+          "explication": "Encore plus que la méthode naïve."
+        },
+        {
+          "texte": "$O(1)$",
+          "correct": false,
+          "explication": "Le nombre d'étapes dépend de $n$."
+        }
+      ]
+    },
+    {
+      "id": "appels-fibonacci",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Combien d'appels à `fib` (appel initial compris) le calcul de `fib(5)` provoque-t-il ?\n```c\nint fib(int n) {\n    if (n < 2)\n        return n;\n    return fib(n - 1) + fib(n - 2);\n}\n```",
+      "indice": "Écris une relation de récurrence sur le nombre d'appels.",
+      "correction": [
+        "Avec $A(n)$ le nombre d'appels : $A(0) = A(1) = 1$ et $A(n) = 1 + A(n - 1) + A(n - 2)$.",
+        "$A(2) = 3$, $A(3) = 5$, $A(4) = 9$, $A(5) = 15$."
+      ],
+      "reponse": 15
+    },
+    {
+      "id": "vf-cas-base",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Une fonction récursive sans cas de base finit par s'arrêter normalement quand la mémoire est pleine, en renvoyant le dernier résultat.",
+      "correction": [
+        "Faux : stack overflow."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "La pile d'appels déborde et le programme plante (erreur de segmentation).",
+          "correct": true,
+          "explication": "Aucun appel ne se termine : chacun attend le suivant."
+        },
+        {
+          "texte": "Vrai : le système arrête la récursion et renvoie 0.",
+          "correct": false,
+          "explication": "Le programme est tué, il ne renvoie rien."
+        },
+        {
+          "texte": "Vrai, si la fonction est de type `void`.",
+          "correct": false,
+          "explication": "Le type de retour ne change rien à la récursion infinie."
+        }
+      ]
+    },
+    {
+      "id": "vf-quadratique",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si un algorithme est en $O(n^2)$, doubler la taille des données multiplie son temps d'exécution par environ 4.",
+      "correction": [
+        "Vrai : $(2n)^2 = 4n^2$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$(2n)^2 = 4n^2$.",
+          "correct": true,
+          "explication": "Pour de grandes valeurs de $n$, le terme dominant l'emporte."
+        },
+        {
+          "texte": "Faux : par 2, puisque les données sont doublées.",
+          "correct": false,
+          "explication": "C'est le cas d'un algorithme en $O(n)$."
+        },
+        {
+          "texte": "Faux : par 6.",
+          "correct": false,
+          "explication": "$O$ ne retient que le terme dominant."
+        }
+      ]
+    },
+    {
+      "id": "erreur-somme-rec",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "On veut `somme(n)` $= 0 + 1 + \\dots + n$ en récursif. Où est l'erreur ?",
+      "correction": [
+        "`return n + somme(n - 1);`"
+      ],
+      "etapes": [
+        "Cas de base : `if (n == 0) return 0;`",
+        "Appel récursif : `return n + somme(n);`",
+        "Donc `somme(3)` vaut $3 + 2 + 1 + 0 = 6$."
+      ],
+      "etapeFausse": 1,
+      "explication": "L'argument doit se rapprocher du cas de base : `n + somme(n - 1)`. Ici, `somme(n)` se rappelle avec le même `n` : débordement de pile."
+    },
+    {
+      "id": "erreur-insertion",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Raisonnement sur la complexité du tri par insertion. Où est l'erreur ?",
+      "correction": [
+        "Meilleur cas $O(n)$, pire cas $O(n^2)$."
+      ],
+      "etapes": [
+        "Le tri par insertion insère chaque élément dans la partie déjà triée, en la parcourant depuis la droite.",
+        "Si le tableau est déjà trié, chaque insertion ne fait qu'une comparaison.",
+        "Le meilleur cas est donc en $O(n)$.",
+        "Le pire cas (tableau trié à l'envers) est aussi en $O(n)$, puisque l'algorithme est le même."
+      ],
+      "etapeFausse": 3,
+      "explication": "Sur un tableau trié à l'envers, le $k$-ième élément est comparé aux $k$ précédents : $\\frac{n(n-1)}2$ comparaisons, soit $O(n^2)$."
+    }
+  ]
+}

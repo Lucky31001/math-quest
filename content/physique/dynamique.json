@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "dynamique",
   "monde": "physique",
-  "ordre": 3,
+  "ordre": 4,
   "titre": "Dynamique : lois de Newton",
   "icone": "🍎",
   "resume": "Principe d'inertie, principe fondamental de la dynamique, actions réciproques et forces usuelles.",
