@@ -10,8 +10,8 @@ import { ecranRevision } from './ui/screens/revision';
 import { ecranStats } from './ui/screens/stats';
 import { ecranBadges } from './ui/screens/badges';
 import { ecranReglages } from './ui/screens/reglages';
-import { brancherReglages } from './ui/effets';
-import { etat } from './ui/etat';
+import { brancherReglages, toast } from './ui/effets';
+import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 
 brancherReglages(() => etat.p.reglages);
 
@@ -27,3 +27,6 @@ const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });
 app.append(creerHud(), main);
 demarrer(main);
+
+const avertissement = avertissementChargement();
+if (avertissement) toast(`${avertissement}${rapportChargement.copie ? ' Une copie de sécurité est disponible dans les Réglages.' : ''}`, 'erreur', 9000);

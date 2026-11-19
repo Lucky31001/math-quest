@@ -116,13 +116,13 @@ export function secouer(el: Element): void {
 }
 
 let pile: HTMLElement | null = null;
-export function toast(message: string, genre: 'info' | 'badge' | 'niveau' | 'erreur' = 'info'): void {
+export function toast(message: string, genre: 'info' | 'badge' | 'niveau' | 'erreur' = 'info', duree = 3200): void {
   if (!pile || !pile.isConnected) {
     pile = h('div', { class: 'toasts', role: 'status', 'aria-live': 'polite' });
     document.body.appendChild(pile);
   }
   const t = h('div', { class: `toast toast-${genre}` }, message);
   pile.appendChild(t);
-  setTimeout(() => t.classList.add('sortie'), 3200);
-  setTimeout(() => t.remove(), 3700);
+  setTimeout(() => t.classList.add('sortie'), duree);
+  setTimeout(() => t.remove(), duree + 500);
 }
