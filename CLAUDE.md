@@ -44,7 +44,10 @@ src/ui/
   components/    question.ts (composant central), flashcards.ts, hud.ts
   screens/       accueil (carte), chapitre, session (tous les modes), revision, stats, badges, reglages
 src/router.ts    routeur par hash (#/chapitre/:id/:onglet, #/jouer/:mode/:chap/:diff…)
+src/c/           atelier C : wasi.ts (WASI en mémoire), compilateur.ts (xcc), worker.ts, client.ts
 tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifier l'affiché
+  outils/        tout-verifier.ts (un test, toutes les vérifications), verification.ts, generateurs.ts
+  verifications/ maths.ts, physique.ts, informatique.ts : réponses recalculées indépendamment
 ```
 
 ## Conventions et pièges
@@ -58,8 +61,9 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - Distracteurs de QCM : `construireQcm` dédoublonne par `cle`, qui doit être une valeur canonique (`cleNum`, `cleExpr`). Prévoir 4 à 6 candidats pour toujours avoir 4 choix.
 - Les éléments du DOM sont construits avec `h()` ; utiliser `ajouter()` quand des enfants peuvent être `null` (`append(null)` est refusé par TS).
 - Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX + code `…` / ```c … ```).
-- **Informatique = langage C** (programme CY Tech, pas de Python). Les vérifications de `tests/contenu-maths.test.ts` compilent le code de l'énoncé ou du cours avec `gcc -Wall -Werror` puis l'exécutent (`codeDe`, `codeCours`, `instructionsC`, `definitionsC`) : garder ce code compilable tel quel, sans comportement indéfini (sauf piège volontaire, compilé avec `executerC(…, true)`).
+- **Informatique = langage C** (programme CY Tech, pas de Python). Les vérifications de `tests/verifications/informatique.ts` compilent le code de l'énoncé ou du cours avec `gcc -Wall -Werror` puis l'exécutent (`codeDe`, `codeCours`, `instructionsC`, `definitionsC`) : garder ce code compilable tel quel, sans comportement indéfini (sauf piège volontaire, compilé avec `executerC(…, true)`).
 - **Physique** : réponses numériques avec `tolerance: 0.01` (arrondis de $g$…) et en unités où la valeur est ≥ 1 (la tolérance devient absolue sous 1).
+- **Tests : pas de test généré par élément** (un `it` par chapitre, question ou générateur). Utiliser `toutVerifier` : un seul test, qui liste les éléments fautifs.
 - CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (thème sombre unique). Mobile d'abord (360 px).
 
 ## Niveaux et matières
@@ -80,7 +84,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 Voir le README, qui documente le format avec un exemple de chaque type. Après tout ajout :
 1. `npm test` ;
-2. pour une question `numerique` ou `expression`, **ajouter une vérification indépendante** dans `tests/contenu-maths.test.ts`. Le test échoue sinon.
+2. pour une question `numerique` ou `expression`, **ajouter une vérification indépendante** dans `tests/verifications/<maths|physique|informatique>.ts` (clé « chapitre/question »). Le test de couverture échoue sinon.
 
 Vérifier soi-même l'exactitude mathématique de chaque réponse, correction et distracteur. Un distracteur ne doit pas être « vrai aussi » (piège classique : un équivalent juste, une solution particulière qui est aussi solution).
 

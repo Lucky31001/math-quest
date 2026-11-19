@@ -141,11 +141,6 @@ export function polyStr(coefs: readonly Q[], v = 'x'): string {
 
 export const qs = (...xs: number[]): Q[] => xs.map((x) => new Q(x));
 
-/** Évalue un polynôme (coefficients croissants). */
-export function evalPoly(coefs: readonly (Q | number)[], x: number): number {
-  return coefs.reduce<number>((s, c, k) => s + Number(c) * x ** k, 0);
-}
-
 /** Matrice LaTeX. */
 export function matTex(m: readonly (readonly (number | Q | string)[])[]): string {
   const lignes = m.map((l) => l.map((c) => (c instanceof Q ? c.tex() : String(c))).join(' & '));
@@ -216,12 +211,6 @@ export interface Generateur {
   formes: readonly Forme[];
   generer(rng: Rng, difficulte: Difficulte, forme: Forme): Question;
 }
-
-/** Signe LaTeX d'un terme ajouté : (3) → "+ 3", (-3) → "- 3". */
-export const plusTex = (c: number | Q): string => {
-  const v = Q.of(c);
-  return v.n < 0 ? `- ${v.neg().tex()}` : `+ ${v.tex()}`;
-};
 
 /**
  * Combinaison linéaire LaTeX : [[3, ''], [-2, 'e^{-2x}'], [1, 'x']] → "3 - 2e^{-2x} + x".

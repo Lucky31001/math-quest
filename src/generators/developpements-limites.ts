@@ -7,8 +7,6 @@ import { pick, type Rng } from '../core/random';
 import type { Question } from '../core/schema';
 import { Q, fact, construireQcm, polyTex, polyStr, cleNum, type Generateur, type Candidat } from './outils';
 
-const ORDRE = 3;
-
 export interface Usuelle {
   nom: string;
   /** LaTeX de f(u) en fonction de l'argument LaTeX `u`. */
@@ -227,6 +225,3 @@ export const dlOrdre3: Generateur = {
   },
 };
 
-/** Exposé pour les tests : la fonction cible et son DL. */
-export const _tirerDl = tirer;
-export { ORDRE };

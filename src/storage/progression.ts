@@ -60,7 +60,6 @@ export const ProgressionSchema = z.object({
 });
 
 export type Progression = z.infer<typeof ProgressionSchema>;
-export type StatType = z.infer<typeof Stat>;
 
 export const progressionVide = (): Progression => ProgressionSchema.parse({});
 

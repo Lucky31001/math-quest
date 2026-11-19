@@ -5,23 +5,15 @@
  * on recalcule indépendamment, et chaque distracteur de QCM doit être faux.
  */
 import { describe, it, expect } from 'vitest';
-import { generer, generateurParId } from '../src/generators';
-import type { Difficulte, Question, Qcm } from '../src/core/schema';
+import type { Question } from '../src/core/schema';
 import { math, valeurDe } from '../src/core/checker';
 import { createRng } from '../src/core/random';
 import { evalReel, evalTex, segment, segments, texVersMath } from './tex';
 import type { Forme } from '../src/generators/outils';
+import { graines, toutes as toutesQuestions, sansDollars, bonne, mauvais, proche } from './outils/generateurs';
 
-const GRAINES = Array.from({ length: 40 }, (_, i) => 500 + i * 6271);
-function* toutes(id: string, forme: Forme) {
-  const g = generateurParId(id)!;
-  if (!g.formes.includes(forme)) return;
-  for (const d of [1, 2, 3] as Difficulte[]) for (const s of GRAINES) yield generer(g, d, forme, s);
-}
-const sansDollars = (t: string) => t.replace(/^\$|\$$/g, '');
-const bonne = (q: Qcm) => q.choix.find((c) => c.correct)!;
-const mauvais = (q: Qcm) => q.choix.filter((c) => !c.correct);
-const proche = (a: number, b: number, tol = 1e-6) => Math.abs(a - b) <= tol * Math.max(1, Math.abs(a), Math.abs(b));
+const GRAINES = graines(500, 6271);
+const toutes = (id: string, forme: Forme) => toutesQuestions(id, forme, GRAINES);
 const valeurNum = (q: Question): number => {
   if (q.type !== 'numerique') throw new Error(q.type);
   return valeurDe(Array.isArray(q.reponse) ? q.reponse[0] : q.reponse).re;

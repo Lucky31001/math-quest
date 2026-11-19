@@ -8,58 +8,51 @@
  *    chaque distracteur de QCM est faux.
  */
 import { describe, it, expect } from 'vitest';
-import { GENERATEURS, generer, generateurParId } from '../src/generators';
-import { QuestionSchema, type Difficulte, type Question, type Qcm } from '../src/core/schema';
+import { GENERATEURS, generer, type Generateur } from '../src/generators';
+import { QuestionSchema, type Question } from '../src/core/schema';
+import type { Forme } from '../src/generators/outils';
 import { math, verifierExpression, verifierNumerique, valeurDe } from '../src/core/checker';
 import { evalTex, evalReel, segment, texVersMath } from './tex';
-import type { Forme } from '../src/generators/outils';
+import { toutVerifier } from './outils/tout-verifier';
+import { DIFFICULTES, graines, toutes, sansDollars, bonne, mauvais, proche } from './outils/generateurs';
 
-const GRAINES = Array.from({ length: 40 }, (_, i) => 1000 + i * 7919);
-const DIFFS: Difficulte[] = [1, 2, 3];
+const GRAINES = graines();
 
-function* toutes(id: string, forme: Forme) {
-  const g = generateurParId(id)!;
-  if (!g.formes.includes(forme)) return;
-  for (const d of DIFFS) for (const s of GRAINES) yield generer(g, d, forme, s);
+/** Une question générée est valide pour le schéma, sans « undefined »/« NaN », avec des QCM propres. */
+function verifierStructure(g: Generateur): void {
+  let qcmA4 = 0;
+  let nbQcm = 0;
+  for (const forme of g.formes)
+    for (const d of DIFFICULTES)
+      for (const s of GRAINES) {
+        const q = generer(g, d, forme, s);
+        const parse = QuestionSchema.safeParse({ ...q, id: 'genere' }); // les ids générés contiennent « ~ »
+        expect(parse.success, `${q.id} : ${JSON.stringify(parse.error?.issues)}`).toBe(true);
+        expect(q.difficulte).toBe(d);
+        expect(q.enonce).not.toMatch(/undefined|NaN|Infinity|\[object/);
+        for (const c of q.correction) expect(c).not.toMatch(/undefined|NaN|\[object/);
+        if (q.type === 'qcm') {
+          nbQcm++;
+          expect(q.choix.length, q.enonce).toBeGreaterThanOrEqual(3);
+          if (q.choix.length === 4) qcmA4++;
+          expect(q.choix.filter((c) => c.correct)).toHaveLength(1);
+          const textes = q.choix.map((c) => c.texte);
+          expect(new Set(textes).size, textes.join(' | ')).toBe(textes.length);
+          for (const c of q.choix) expect(c.texte + c.explication).not.toMatch(/undefined|NaN|\[object/);
+          // Pas de coefficient « 1 » inutile : 1x, 1e^{…}, 1\sin…
+          for (const c of q.choix) expect(c.texte, c.texte).not.toMatch(/(?<![\d.{^_])1(?=[a-z]|\\(sin|cos|tan|ln|sqrt|arctan))/);
+        }
+        if (q.type === 'expression') expect(verifierExpression(q.reponse, q.reponse, q).statut).toBe('correct');
+        if (q.type === 'numerique') expect(verifierNumerique(Array.isArray(q.reponse) ? q.reponse.join(';') : String(q.reponse), q.reponse).statut).toBe('correct');
+      }
+  // 4 choix par défaut : on tolère de rares cas à 3 choix.
+  if (nbQcm) expect(qcmA4 / nbQcm).toBeGreaterThan(0.9);
 }
-
-const texChoix = (t: string) => t.replace(/^\$|\$$/g, '');
-const bonne = (q: Qcm) => q.choix.find((c) => c.correct)!;
-const mauvais = (q: Qcm) => q.choix.filter((c) => !c.correct);
 
 /* ------------------------------------------------------------------ */
 describe('structure de tous les générateurs', () => {
-  for (const g of GENERATEURS) {
-    it(`${g.id} produit des questions valides`, () => {
-      let qcmA4 = 0;
-      let nbQcm = 0;
-      for (const forme of g.formes)
-        for (const d of DIFFS)
-          for (const s of GRAINES) {
-            const q = generer(g, d, forme, s);
-            const parse = QuestionSchema.safeParse({ ...q, id: 'genere' }); // les ids générés contiennent « ~ »
-            expect(parse.success, `${q.id} : ${JSON.stringify(parse.error?.issues)}`).toBe(true);
-            expect(q.difficulte).toBe(d);
-            expect(q.enonce).not.toMatch(/undefined|NaN|Infinity|\[object/);
-            for (const c of q.correction) expect(c).not.toMatch(/undefined|NaN|\[object/);
-            if (q.type === 'qcm') {
-              nbQcm++;
-              expect(q.choix.length, q.enonce).toBeGreaterThanOrEqual(3);
-              if (q.choix.length === 4) qcmA4++;
-              expect(q.choix.filter((c) => c.correct)).toHaveLength(1);
-              const textes = q.choix.map((c) => c.texte);
-              expect(new Set(textes).size, textes.join(' | ')).toBe(textes.length);
-              for (const c of q.choix) expect(c.texte + c.explication).not.toMatch(/undefined|NaN|\[object/);
-              // Pas de coefficient « 1 » inutile : 1x, 1e^{…}, 1\sin…
-              for (const c of q.choix) expect(c.texte, c.texte).not.toMatch(/(?<![\d.{^_])1(?=[a-z]|\\(sin|cos|tan|ln|sqrt|arctan))/);
-            }
-            if (q.type === 'expression') expect(verifierExpression(q.reponse, q.reponse, q).statut).toBe('correct');
-            if (q.type === 'numerique') expect(verifierNumerique(Array.isArray(q.reponse) ? q.reponse.join(';') : String(q.reponse), q.reponse).statut).toBe('correct');
-          }
-      // 4 choix par défaut : on tolère de rares cas à 3 choix.
-      if (nbQcm) expect(qcmA4 / nbQcm).toBeGreaterThan(0.9);
-    });
-  }
+  it('chaque générateur produit des questions valides (3 difficultés × 40 graines × chaque forme)', () =>
+    toutVerifier(GENERATEURS.map((g): [string, () => void] => [g.id, () => verifierStructure(g)])));
   it('la même graine redonne la même question', () => {
     const g = GENERATEURS[0];
     expect(generer(g, 2, 'qcm', 42)).toEqual(generer(g, 2, 'qcm', 42));
@@ -71,7 +64,6 @@ describe('structure de tous les générateurs', () => {
 /* ------------------------------------------------------------------ */
 
 const POINTS = [0.31, 0.77, 1.23, 1.9];
-const proche = (a: number, b: number, tol = 1e-6) => Math.abs(a - b) <= tol * Math.max(1, Math.abs(a), Math.abs(b));
 const fn = (tex: string) => (x: number) => evalReel(tex, { x });
 const fnStr = (s: string) => {
   const c = math.compile(s);
@@ -100,8 +92,8 @@ describe('dérivées : f\' affichée = dérivée de f affichée', () => {
       if (q.type !== 'qcm') throw new Error();
       const f = fn(segment(q.enonce, /\$f\(x\) = (.*?)\$/));
       const fp = (x: number) => deriveeNum(f, x);
-      expect(egalesFonctions(fp, fn(texChoix(bonne(q).texte)), pts), `${q.enonce} → ${bonne(q).texte}`).toBe(true);
-      for (const c of mauvais(q)) expect(egalesFonctions(fp, fn(texChoix(c.texte)), pts), `${q.enonce} : ${c.texte}`).toBe(false);
+      expect(egalesFonctions(fp, fn(sansDollars(bonne(q).texte)), pts), `${q.enonce} → ${bonne(q).texte}`).toBe(true);
+      for (const c of mauvais(q)) expect(egalesFonctions(fp, fn(sansDollars(c.texte)), pts), `${q.enonce} : ${c.texte}`).toBe(false);
     }
   });
 });
@@ -120,7 +112,7 @@ describe('primitives : F\' = f', () => {
     for (const q of toutes('primitives', 'qcm')) {
       if (q.type !== 'qcm') throw new Error();
       const f = fn(segment(q.enonce, /\$f\(x\) = (.*?)\$/));
-      const deriv = (t: string) => (x: number) => deriveeNum(fn(texChoix(t)), x);
+      const deriv = (t: string) => (x: number) => deriveeNum(fn(sansDollars(t)), x);
       expect(egalesFonctions(deriv(bonne(q).texte), f, pts), `${q.enonce} → ${bonne(q).texte}`).toBe(true);
       for (const c of mauvais(q)) expect(egalesFonctions(deriv(c.texte), f, pts), c.texte).toBe(false);
     }
@@ -142,7 +134,7 @@ describe('développements limités : f(h) − P(h) = o(h³)', () => {
     for (const q of toutes('dl-ordre-3', 'qcm')) {
       if (q.type !== 'qcm') throw new Error();
       const f = fn(segment(q.enonce, /\$f\(x\) = (.*?)\$/));
-      const P = (t: string) => fn(texChoix(t).replace(' + o(x^3)', ''));
+      const P = (t: string) => fn(sansDollars(t).replace(' + o(x^3)', ''));
       expect(reste(f, P(bonne(q).texte)), `${q.enonce} → ${bonne(q).texte}`).toBeLessThan(0.01);
       for (const c of mauvais(q)) expect(reste(f, P(c.texte)), c.texte).toBeGreaterThan(0.02);
     }
@@ -171,7 +163,7 @@ describe('EDO d\'ordre 1 : la solution vérifie l\'équation et la condition ini
   it('QCM', () => {
     for (const q of toutes('edo-ordre-1', 'qcm')) {
       if (q.type !== 'qcm') throw new Error();
-      const y = (t: string) => fn(texChoix(t).replace(/^y = /, ''));
+      const y = (t: string) => fn(sansDollars(t).replace(/^y = /, ''));
       expect(verifie(q.enonce, y(bonne(q).texte)), `${q.enonce} → ${bonne(q).texte}`).toBe(true);
       for (const c of mauvais(q)) expect(verifie(q.enonce, y(c.texte)), c.texte).toBe(false);
     }
@@ -191,7 +183,7 @@ describe('EDO d\'ordre 2 : la bonne famille de solutions vérifie l\'équation',
           [0, 1],
           [1, 0],
         ].every(([lam, mu]) => {
-          const y = (x: number) => evalReel(texChoix(t).replace(/^y = /, ''), { x, lam, mu });
+          const y = (x: number) => evalReel(sansDollars(t).replace(/^y = /, ''), { x, lam, mu });
           return POINTS.every((x) => {
             const h = 1e-4;
             const scope = { y: y(x), yp: (y(x + h) - y(x - h)) / (2 * h), ypp: (y(x + h) - 2 * y(x) + y(x - h)) / (h * h) };
@@ -199,7 +191,7 @@ describe('EDO d\'ordre 2 : la bonne famille de solutions vérifie l\'équation',
           });
         });
       // Solution GÉNÉRALE : la famille doit aussi dépendre de μ (dimension 2).
-      const dependDeMu = (t: string) => POINTS.some((x) => Math.abs(evalReel(texChoix(t).replace(/^y = /, ''), { x, lam: 0, mu: 1 })) > 1e-9);
+      const dependDeMu = (t: string) => POINTS.some((x) => Math.abs(evalReel(sansDollars(t).replace(/^y = /, ''), { x, lam: 0, mu: 1 })) > 1e-9);
       const generale = (t: string) => solution(t) && dependDeMu(t);
       expect(generale(bonne(q).texte), `${q.enonce} → ${bonne(q).texte}`).toBe(true);
       for (const c of mauvais(q)) expect(generale(c.texte), c.texte).toBe(false);
@@ -216,7 +208,7 @@ const valeursQuestion = (q: Question): { bonne: number | { re: number; im: numbe
   }
   if (q.type !== 'qcm') throw new Error(q.type);
   const val = (t: string) => {
-    const s = texChoix(t);
+    const s = sansDollars(t);
     if (s === '+\\infty') return Infinity;
     if (s === '-\\infty') return -Infinity;
     return evalTex(s);
@@ -358,7 +350,7 @@ describe('algèbre : vérifications spécifiques', () => {
       if (q.type !== 'qcm') throw new Error();
       const inv = (math.inv(lireMatrice(q.enonce)) as number[][]).flat();
       const lire = (t: string) => {
-        const s = texChoix(t);
+        const s = sansDollars(t);
         const pre = s.slice(0, s.indexOf('\\begin'));
         const k = pre === '' ? 1 : pre === '-' ? -1 : evalReel(pre);
         return lireMatrice(s).flat().map((x) => x * k);
@@ -401,7 +393,7 @@ describe('algèbre : vérifications spécifiques', () => {
         if (q.type === 'numerique') {
           for (const r of q.reponse as string[]) expect(carreEgal(math.evaluate(r)), q.enonce).toBe(true);
         } else if (q.type === 'qcm') {
-          const z = (t: string) => math.evaluate(texVersMath(texChoix(t).replace(/^z = \\pm/, '')));
+          const z = (t: string) => math.evaluate(texVersMath(sansDollars(t).replace(/^z = \\pm/, '')));
           expect(carreEgal(z(bonne(q).texte)), q.enonce).toBe(true);
           for (const c of mauvais(q)) expect(carreEgal(z(c.texte)), c.texte).toBe(false);
         }

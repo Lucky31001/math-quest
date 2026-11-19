@@ -8,7 +8,7 @@
  * avec les schémas Zod. Un chapitre invalide n'empêche pas l'application de
  * démarrer : il est écarté et l'erreur est affichée sur l'écran d'accueil.
  */
-import { CatalogueSchema, ChapitreSchema, type Catalogue, type Chapitre, type Matiere, type Niveau, type Question } from './schema';
+import { CatalogueSchema, ChapitreSchema, type Catalogue, type Chapitre, type Matiere, type Niveau } from './schema';
 
 export interface ErreurContenu {
   fichier: string;
@@ -82,13 +82,3 @@ export const styleMatiere = (m: Matiere | undefined): string =>
 
 /** Clé globale d'une question / flashcard : « chapitre/id ». */
 export const cle = (chapitre: string, id: string): string => `${chapitre}/${id}`;
-
-export interface QuestionLocalisee {
-  chapitre: Chapitre;
-  question: Question;
-}
-
-/** Toutes les questions fixes, avec leur chapitre. */
-export function toutesLesQuestions(): QuestionLocalisee[] {
-  return CONTENU.chapitres.flatMap((chapitre) => chapitre.exercices.map((question) => ({ chapitre, question })));
-}

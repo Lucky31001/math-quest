@@ -4,7 +4,7 @@
  */
 import type { Chapitre, Difficulte, Question } from '../core/schema';
 import { cle } from '../core/loader';
-import { shuffle, pick, randomSeed, type Rng } from '../core/random';
+import { shuffle, pick, type Rng } from '../core/random';
 import { generateursDu, generer, GENERATEURS } from '../generators';
 import type { Progression } from '../storage/progression';
 import { estDue, estMaitrise } from './leitner';
@@ -170,5 +170,3 @@ export function pointsFaibles(chapitres: readonly Chapitre[], p: Progression) {
     .filter((x) => x.tentatives >= 3 && x.taux !== null)
     .sort((a, b) => a.taux! - b.taux!);
 }
-
-export const nouvelleGraine = randomSeed;

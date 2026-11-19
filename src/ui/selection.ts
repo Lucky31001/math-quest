@@ -2,7 +2,7 @@
  * Matière affichée sur la carte (confort par appareil, stockée dans localStorage).
  * Si rien n'est stocké ou si la matière n'existe plus, on prend la première du catalogue.
  */
-import { toutesLesMatieres, niveauDeMatiere } from '../core/loader';
+import { toutesLesMatieres } from '../core/loader';
 
 const CLE = 'math-quest:matiere';
 
@@ -24,9 +24,3 @@ export function selectionnerMatiere(id: string): void {
     /* stockage indisponible : la sélection n'est pas mémorisée */
   }
 }
-
-/** Niveau de la matière sélectionnée. */
-export const niveauSelectionne = (): string | undefined => {
-  const m = matiereSelectionnee();
-  return m ? niveauDeMatiere(m)?.id : undefined;
-};
