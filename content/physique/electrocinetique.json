@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "electrocinetique",
   "monde": "physique",
-  "ordre": 6,
+  "ordre": 7,
   "titre": "Électrocinétique",
   "icone": "🔌",
   "resume": "Lois de Kirchhoff, résistances, diviseurs, générateur réel, condensateur, bobine et circuit RC.",
@@ -57,7 +57,7 @@
         {
           "type": "theoreme",
           "titre": "Circuit RC",
-          "texte": "Charge d'un condensateur sous $E$ à travers $R$, avec $u_C(0) = 0$ : $$RC\\,\\dot u_C + u_C = E,\\qquad u_C(t) = E\\,(1 - e^{-t/\\tau}),\\quad \\tau = RC.$$ Décharge : $u_C = U_0\\,e^{-t/\\tau}$. À $t = \\tau$, la charge est faite à 63 % ; à $5\\tau$, à plus de 99 %."
+          "texte": "Charge d'un condensateur sous $E$ à travers $R$, avec $u_C(0) = 0$ : $$RC\\,\\dot u_C + u_C = E,$$ $$u_C(t) = E\\,(1 - e^{-t/\\tau})$$ avec $\\tau = RC$. Décharge : $u_C = U_0\\,e^{-t/\\tau}$. À $t = \\tau$, la charge est faite à 63 % ; à $5\\tau$, à plus de 99 %."
         },
         {
           "type": "remarque",

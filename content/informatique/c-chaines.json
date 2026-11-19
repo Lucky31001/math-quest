@@ -1,0 +1,439 @@
+{
+  "$schema": "../schema.json",
+  "id": "c-chaines",
+  "monde": "informatique",
+  "ordre": 4,
+  "titre": "Caractères et chaînes",
+  "icone": "🔤",
+  "resume": "Le type char, le code ASCII, les chaînes terminées par '\\0' et la bibliothèque string.h.",
+  "cours": [
+    {
+      "titre": "Caractères",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Le type char",
+          "texte": "Un `char` est un petit entier (1 octet) : le **code ASCII** du caractère. `'A'` vaut 65, `'a'` vaut 97, `'0'` vaut 48. Les lettres et les chiffres sont consécutifs, d'où des calculs comme :\n```c\n/* chiffre '7' -> valeur 7 */\nint v = c - '0';\n/* minuscule -> majuscule */\nchar M = c - 'a' + 'A';\n```"
+        }
+      ]
+    },
+    {
+      "titre": "Chaînes",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Représentation",
+          "texte": "Une chaîne est un **tableau de `char` terminé par le caractère nul `'\\0'`** (code 0). `char s[] = \"chat\";` occupe 5 octets : `'c' 'h' 'a' 't' '\\0'`. Un littéral entre guillemets doubles est une chaîne ; entre apostrophes, un seul caractère."
+        },
+        {
+          "type": "methode",
+          "titre": "Parcours",
+          "texte": "On parcourt une chaîne jusqu'au `'\\0'` :\n```c\nint longueur(char s[]) {\n    int n = 0;\n    while (s[n] != '\\0')\n        n++;\n    return n;\n}\n```"
+        },
+        {
+          "type": "propriete",
+          "titre": "string.h",
+          "texte": "`#include <string.h>` : `strlen(s)` (longueur, **sans** le `'\\0'`), `strcpy(dest, src)` (copie), `strcat(dest, src)` (concaténation), `strcmp(s1, s2)` (0 si les chaînes sont égales, négatif si `s1` est avant dans l'ordre alphabétique, positif sinon). La destination doit être **assez grande**, `'\\0'` compris."
+        },
+        {
+          "type": "remarque",
+          "texte": "`s1 == s2` compare des **adresses**, pas des contenus : il faut `strcmp(s1, s2) == 0`. On ne peut pas non plus affecter une chaîne avec `=` après la déclaration : on utilise `strcpy`."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-ascii",
+      "recto": "Codes ASCII de `'A'`, `'a'` et `'0'` ?",
+      "verso": "65, 97 et 48."
+    },
+    {
+      "id": "f-chiffre",
+      "recto": "Valeur numérique d'un caractère chiffre `c` ?",
+      "verso": "`c - '0'`."
+    },
+    {
+      "id": "f-majuscule",
+      "recto": "Passer la minuscule `c` en majuscule ?",
+      "verso": "`c - 'a' + 'A'`."
+    },
+    {
+      "id": "f-fin",
+      "recto": "Comment se termine une chaîne en C ?",
+      "verso": "Par le caractère nul `'\\0'`."
+    },
+    {
+      "id": "f-taille-chaine",
+      "recto": "Octets occupés par `char s[] = \"chat\";` ?",
+      "verso": "5 : 4 lettres + `'\\0'`."
+    },
+    {
+      "id": "f-strlen",
+      "recto": "`strlen(\"chat\")` ?",
+      "verso": "4 (le `'\\0'` n'est pas compté)."
+    },
+    {
+      "id": "f-strcmp",
+      "recto": "Tester l'égalité de deux chaînes ?",
+      "verso": "`strcmp(s1, s2) == 0`."
+    },
+    {
+      "id": "f-egal-adresses",
+      "recto": "Que compare `s1 == s2` pour deux chaînes ?",
+      "verso": "Leurs adresses, pas leur contenu."
+    },
+    {
+      "id": "f-strcpy",
+      "recto": "Copier une chaîne dans `dest` ?",
+      "verso": "`strcpy(dest, src)` : `dest` doit contenir `strlen(src) + 1` octets."
+    },
+    {
+      "id": "f-strcat",
+      "recto": "Fonction de concaténation ?",
+      "verso": "`strcat(dest, src)` ajoute `src` à la fin de `dest`."
+    },
+    {
+      "id": "f-apostrophes",
+      "recto": "Différence entre `'a'` et `\"a\"` ?",
+      "verso": "`'a'` est un `char` ; `\"a\"` une chaîne de 2 octets (`'a'`, `'\\0'`)."
+    },
+    {
+      "id": "f-printf-s",
+      "recto": "Afficher une chaîne avec printf ?",
+      "verso": "Le format `%s`."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "code-ascii",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quel est le code ASCII de `'A'` ?",
+      "correction": [
+        "`'A'` vaut 65."
+      ],
+      "choix": [
+        {
+          "texte": "65",
+          "correct": true,
+          "explication": "Les majuscules vont de 65 (`A`) à 90 (`Z`)."
+        },
+        {
+          "texte": "97",
+          "correct": false,
+          "explication": "C'est `'a'` (minuscule)."
+        },
+        {
+          "texte": "48",
+          "correct": false,
+          "explication": "C'est `'0'`."
+        },
+        {
+          "texte": "1",
+          "correct": false,
+          "explication": "Les codes ne commencent pas à 1 pour les lettres."
+        }
+      ]
+    },
+    {
+      "id": "taille-chaine",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien d'octets occupe `char s[] = \"chat\";` ?",
+      "correction": [
+        "`sizeof(s)` vaut 5, `strlen(s)` vaut 4."
+      ],
+      "choix": [
+        {
+          "texte": "5",
+          "correct": true,
+          "explication": "4 caractères + le `'\\0'` final."
+        },
+        {
+          "texte": "4",
+          "correct": false,
+          "explication": "On oublie le `'\\0'`."
+        },
+        {
+          "texte": "8",
+          "correct": false,
+          "explication": "Un `char` occupe 1 octet."
+        },
+        {
+          "texte": "1",
+          "correct": false,
+          "explication": "C'est un tableau de plusieurs `char`."
+        }
+      ]
+    },
+    {
+      "id": "strcat",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle fonction de `string.h` ajoute une chaîne à la fin d'une autre ?",
+      "correction": [
+        "`strcat(dest, src)`, avec `dest` assez grande."
+      ],
+      "choix": [
+        {
+          "texte": "`strcat`",
+          "correct": true,
+          "explication": "*cat* comme concaténer."
+        },
+        {
+          "texte": "`strcpy`",
+          "correct": false,
+          "explication": "Elle **remplace** le contenu de la destination."
+        },
+        {
+          "texte": "`strcmp`",
+          "correct": false,
+          "explication": "Elle compare deux chaînes."
+        },
+        {
+          "texte": "`strlen`",
+          "correct": false,
+          "explication": "Elle renvoie la longueur."
+        }
+      ]
+    },
+    {
+      "id": "strlen",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Que vaut `strlen(\"bonjour\")` ?",
+      "correction": [
+        "7 lettres ; le `'\\0'` n'est pas compté."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "octets-chaine",
+      "type": "expression",
+      "difficulte": 1,
+      "enonce": "Combien d'octets faut-il au minimum dans un tableau de `char` pour stocker une chaîne de `n` caractères ?",
+      "correction": [
+        "`n` caractères plus le `'\\0'` final."
+      ],
+      "reponse": "n + 1",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        0,
+        50
+      ]
+    },
+    {
+      "id": "chiffre-valeur",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `v` ?\n```c\nchar c = '7';\nint v = c - '0';\n```",
+      "correction": [
+        "`'7'` vaut 55 et `'0'` vaut 48 : $55 - 48 = 7$."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "comparer-chaines",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Comment tester si les chaînes `s1` et `s2` ont le même contenu ?",
+      "correction": [
+        "`if (strcmp(s1, s2) == 0) { … }`"
+      ],
+      "choix": [
+        {
+          "texte": "`strcmp(s1, s2) == 0`",
+          "correct": true,
+          "explication": "`strcmp` renvoie 0 pour des chaînes égales."
+        },
+        {
+          "texte": "`s1 == s2`",
+          "correct": false,
+          "explication": "Compare les adresses : deux tableaux distincts ont des adresses différentes."
+        },
+        {
+          "texte": "`strcmp(s1, s2) == 1`",
+          "correct": false,
+          "explication": "`strcmp` renvoie 0 en cas d'égalité ; une valeur positive veut dire `s1 > s2`."
+        },
+        {
+          "texte": "`strlen(s1) == strlen(s2)`",
+          "correct": false,
+          "explication": "Même longueur ne veut pas dire même contenu : `\"abc\"` et `\"abd\"`."
+        }
+      ]
+    },
+    {
+      "id": "majuscule",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut `c` à la fin ?\n```c\nchar c = 'g';\nc = c - 'a' + 'A';\n```",
+      "correction": [
+        "Le rang dans l'alphabet est conservé."
+      ],
+      "choix": [
+        {
+          "texte": "`'G'`",
+          "correct": true,
+          "explication": "`c - 'a'` vaut 6 (rang de `g`) ; `'A' + 6` est `'G'`."
+        },
+        {
+          "texte": "`'g'`",
+          "correct": false,
+          "explication": "La valeur de `c` change."
+        },
+        {
+          "texte": "`'A'`",
+          "correct": false,
+          "explication": "On garde le rang de la lettre."
+        },
+        {
+          "texte": "un caractère indéterminé",
+          "correct": false,
+          "explication": "Le calcul est bien défini sur les codes ASCII."
+        }
+      ]
+    },
+    {
+      "id": "compte-lettre",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `n` à la fin ?\n```c\nchar s[] = \"abracadabra\";\nint n = 0;\nfor (int i = 0; s[i] != '\\0'; i++)\n    if (s[i] == 'a')\n        n++;\n```",
+      "correction": [
+        "« abracadabra » contient 5 fois la lettre a."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "inverser",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Qu'affiche ce code ?\n```c\nchar s[] = \"radar1\";\nint n = strlen(s);\nfor (int i = 0; i < n / 2; i++) {\n    char t = s[i];\n    s[i] = s[n - 1 - i];\n    s[n - 1 - i] = t;\n}\nprintf(\"%s\\n\", s);\n```",
+      "correction": [
+        "Renversement en place : on s'arrête à `n / 2` pour ne pas tout ré-échanger."
+      ],
+      "choix": [
+        {
+          "texte": "`1radar`",
+          "correct": true,
+          "explication": "On échange les caractères symétriques : la chaîne est renversée."
+        },
+        {
+          "texte": "`radar1`",
+          "correct": false,
+          "explication": "La chaîne est bien modifiée en place."
+        },
+        {
+          "texte": "`1rada`",
+          "correct": false,
+          "explication": "La longueur ne change pas ; le `'\\0'` reste à sa place."
+        },
+        {
+          "texte": "`1radar1`",
+          "correct": false,
+          "explication": "On échange, on n'ajoute pas."
+        }
+      ]
+    },
+    {
+      "id": "conversion-entier",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Que vaut `v + 1` à la fin ?\n```c\nchar s[] = \"2024\";\nint v = 0;\nfor (int i = 0; s[i] != '\\0'; i++)\n    v = 10 * v + (s[i] - '0');\n```",
+      "correction": [
+        "`v` vaut successivement 2, 20, 202, 2024 (schéma de Horner).",
+        "$2024 + 1 = 2025$."
+      ],
+      "reponse": 2025
+    },
+    {
+      "id": "vf-egal-chaines",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "En C, `s1 == s2` vaut vrai si les chaînes `s1` et `s2` contiennent les mêmes caractères.",
+      "correction": [
+        "Faux : utiliser `strcmp`."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "`==` compare les adresses des tableaux ; il faut `strcmp(s1, s2) == 0`.",
+          "correct": true,
+          "explication": "Deux tableaux distincts n'ont jamais la même adresse."
+        },
+        {
+          "texte": "Vrai : `==` compare caractère par caractère.",
+          "correct": false,
+          "explication": "Le C ne compare pas les tableaux élément par élément."
+        },
+        {
+          "texte": "Vrai si elles ont la même longueur.",
+          "correct": false,
+          "explication": "La longueur n'intervient pas : ce sont des adresses."
+        }
+      ]
+    },
+    {
+      "id": "vf-strcpy-taille",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Le code `char s[3]; strcpy(s, \"abc\");` est correct.",
+      "correction": [
+        "Faux : débordement de tableau (comportement indéfini)."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "`\"abc\"` occupe 4 octets avec le `'\\0'` : on écrit hors du tableau.",
+          "correct": true,
+          "explication": "Il faut au moins `char s[4];`."
+        },
+        {
+          "texte": "Vrai : la chaîne a 3 lettres.",
+          "correct": false,
+          "explication": "On oublie le `'\\0'` final."
+        },
+        {
+          "texte": "Vrai : `strcpy` ajuste la taille de `s`.",
+          "correct": false,
+          "explication": "La taille d'un tableau est fixe ; `strcpy` ne vérifie rien."
+        }
+      ]
+    },
+    {
+      "id": "erreur-longueur",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "On calcule la longueur de `s = \"abc\"` avec `while (s[n] != '\\0') n++;` (en partant de `n = 0`). Où est l'erreur ?",
+      "correction": [
+        "La longueur vaut 3, comme `strlen`."
+      ],
+      "etapes": [
+        "`s[0]`, `s[1]`, `s[2]` valent `'a'`, `'b'`, `'c'` : `n` passe à 3.",
+        "Le `'\\0'` est aussi compté : `n` passe à 4 avant l'arrêt.",
+        "La fonction renvoie donc 4."
+      ],
+      "etapeFausse": 1,
+      "explication": "Quand `n` vaut 3, `s[3]` est `'\\0'` : la condition est fausse et la boucle s'arrête **sans** incrémenter. On obtient 3."
+    },
+    {
+      "id": "erreur-palindrome",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "On teste si une chaîne `s` de longueur `n` est un palindrome. Où est l'erreur ?",
+      "correction": [
+        "Comparer `s[i]` et `s[n - 1 - i]`."
+      ],
+      "etapes": [
+        "On note `n = strlen(s)`.",
+        "Pour `i` de 0 à `n / 2 - 1`, on compare `s[i]` et `s[n - i]`.",
+        "Si tous les couples sont égaux, `s` est un palindrome."
+      ],
+      "etapeFausse": 1,
+      "explication": "Le symétrique de `s[i]` est `s[n - 1 - i]` : pour `i = 0`, `s[n]` est le `'\\0'`."
+    }
+  ]
+}

@@ -131,6 +131,14 @@ pre.code code {
   white-space: pre;
 }
 
+/* Écran étroit : un peu plus petit, pour que la plupart des lignes tiennent sans défiler. */
+@media (max-width: 420px) {
+  pre.code {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+}
+
 main {
   max-width: 1000px;
   margin: 0 auto;

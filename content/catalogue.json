@@ -25,7 +25,7 @@
         {
           "id": "physique",
           "nom": "Physique",
-          "sousTitre": "Mécanique, énergie et circuits",
+          "sousTitre": "Mécanique, électricité, optique et thermo",
           "embleme": "🪐",
           "couleur": "#ff9600",
           "couleurFonce": "#d97f00"
@@ -33,7 +33,7 @@
         {
           "id": "informatique",
           "nom": "Informatique",
-          "sousTitre": "Python, données et algorithmes",
+          "sousTitre": "Langage C, mémoire et algorithmes",
           "embleme": "💻",
           "couleur": "#58cc02",
           "couleurFonce": "#46a302"

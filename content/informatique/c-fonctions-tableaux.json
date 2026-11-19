@@ -1,0 +1,446 @@
+{
+  "$schema": "../schema.json",
+  "id": "c-fonctions-tableaux",
+  "monde": "informatique",
+  "ordre": 3,
+  "titre": "Fonctions et tableaux",
+  "icone": "📦",
+  "resume": "Définir et appeler des fonctions, passage par valeur, portée, tableaux à une et deux dimensions.",
+  "cours": [
+    {
+      "titre": "Fonctions",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Définition",
+          "texte": "`type nom(type1 p1, type2 p2) { … return valeur; }`. Une fonction qui ne renvoie rien est de type `void`. Une fonction doit être **déclarée avant son appel** : on la définit plus haut dans le fichier, ou on écrit son **prototype** (`int carre(int x);`) en tête.\n```c\nint carre(int x) {\n    return x * x;\n}\n```"
+        },
+        {
+          "type": "theoreme",
+          "titre": "Passage par valeur",
+          "texte": "Les arguments sont passés **par valeur** : la fonction reçoit une **copie**. Modifier un paramètre ne change pas la variable de l'appelant (pour cela, il faudra passer son adresse : voir les pointeurs)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Portée",
+          "texte": "Une variable déclarée dans une fonction (ou un bloc) est **locale** : elle disparaît à la fin de l'appel. `return` termine immédiatement la fonction."
+        }
+      ]
+    },
+    {
+      "titre": "Tableaux",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Déclaration",
+          "texte": "`int t[5] = {3, 1, 4, 1, 5};` réserve 5 `int` **contigus**, d'indices 0 à 4. La taille est fixe. Le C ne vérifie **pas** les bornes : `t[5]` est un accès hors du tableau, comportement indéfini."
+        },
+        {
+          "type": "propriete",
+          "titre": "Tableaux et fonctions",
+          "texte": "Passer un tableau à une fonction transmet l'**adresse** de son premier élément : la fonction peut **modifier** le tableau de l'appelant, et ne connaît pas sa taille, qu'il faut passer en paramètre.\n```c\nint somme(int t[], int n) {\n    int s = 0;\n    for (int i = 0; i < n; i++)\n        s += t[i];\n    return s;\n}\n```"
+        },
+        {
+          "type": "remarque",
+          "texte": "`sizeof(t) / sizeof(t[0])` donne le nombre d'éléments **seulement** là où `t` est déclaré comme tableau ; dans une fonction qui le reçoit, `t` est un pointeur."
+        },
+        {
+          "type": "definition",
+          "titre": "Tableaux à deux dimensions",
+          "texte": "`int m[2][3];` : 2 lignes, 3 colonnes ; `m[i][j]` est l'élément de la ligne `i`, colonne `j`. Les éléments sont rangés ligne par ligne."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-signature",
+      "recto": "Écrire une fonction qui renvoie le carré d'un entier ?",
+      "verso": "`int carre(int x) { return x * x; }`"
+    },
+    {
+      "id": "f-void",
+      "recto": "Que signifie `void f(void)` ?",
+      "verso": "Une fonction sans paramètre, qui ne renvoie rien."
+    },
+    {
+      "id": "f-prototype",
+      "recto": "À quoi sert un prototype ?",
+      "verso": "Déclarer une fonction avant sa définition, pour pouvoir l'appeler plus haut dans le fichier."
+    },
+    {
+      "id": "f-valeur",
+      "recto": "Passage des arguments en C ?",
+      "verso": "Par valeur : la fonction travaille sur une copie."
+    },
+    {
+      "id": "f-locale",
+      "recto": "Durée de vie d'une variable locale ?",
+      "verso": "Celle de l'appel (ou du bloc) où elle est déclarée."
+    },
+    {
+      "id": "f-indices",
+      "recto": "Indices valides de `int t[n];` ?",
+      "verso": "De 0 à `n - 1`."
+    },
+    {
+      "id": "f-bornes",
+      "recto": "Le C vérifie-t-il les indices des tableaux ?",
+      "verso": "Non : un accès hors bornes est un comportement indéfini."
+    },
+    {
+      "id": "f-tableau-param",
+      "recto": "Une fonction peut-elle modifier un tableau reçu en paramètre ?",
+      "verso": "Oui : elle reçoit l'adresse du premier élément."
+    },
+    {
+      "id": "f-taille",
+      "recto": "Comment une fonction connaît-elle la taille d'un tableau reçu ?",
+      "verso": "Il faut la lui passer en paramètre."
+    },
+    {
+      "id": "f-sizeof",
+      "recto": "Nombre d'éléments de `int t[10];` (là où il est déclaré) ?",
+      "verso": "`sizeof(t) / sizeof(t[0])`, soit 10."
+    },
+    {
+      "id": "f-2d",
+      "recto": "Nombre d'`int` dans `int m[3][4];` ?",
+      "verso": "12 (3 lignes de 4)."
+    },
+    {
+      "id": "f-retour",
+      "recto": "Que fait `return` dans une boucle ?",
+      "verso": "Il termine immédiatement la fonction."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "passage-valeur",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce programme ?\n```c\nvoid incr(int x) {\n    x = x + 1;\n}\n\nint main(void) {\n    int a = 5;\n    incr(a);\n    printf(\"%d\\n\", a);\n    return 0;\n}\n```",
+      "correction": [
+        "Passage par valeur : l'appelant ne voit pas la modification."
+      ],
+      "choix": [
+        {
+          "texte": "`5`",
+          "correct": true,
+          "explication": "`incr` modifie une copie de `a`."
+        },
+        {
+          "texte": "`6`",
+          "correct": false,
+          "explication": "Il faudrait passer l'adresse : `incr(&a)` avec `void incr(int *x)`."
+        },
+        {
+          "texte": "une erreur de compilation",
+          "correct": false,
+          "explication": "Le code est valide."
+        },
+        {
+          "texte": "une valeur indéterminée",
+          "correct": false,
+          "explication": "`a` est initialisé et n'est pas modifié."
+        }
+      ]
+    },
+    {
+      "id": "indices",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quels sont les indices valides du tableau `int t[5];` ?",
+      "correction": [
+        "Un tableau de taille $n$ a les indices $0$ à $n - 1$."
+      ],
+      "choix": [
+        {
+          "texte": "de 0 à 4",
+          "correct": true,
+          "explication": "Les indices commencent à 0."
+        },
+        {
+          "texte": "de 1 à 5",
+          "correct": false,
+          "explication": "`t[5]` est hors du tableau."
+        },
+        {
+          "texte": "de 0 à 5",
+          "correct": false,
+          "explication": "Cela ferait 6 éléments."
+        },
+        {
+          "texte": "de 1 à 4",
+          "correct": false,
+          "explication": "`t[0]` existe et c'est le premier."
+        }
+      ]
+    },
+    {
+      "id": "taille-2d",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien d'entiers contient `int m[3][4];` ?",
+      "correction": [
+        "$3 \\times 4 = 12$."
+      ],
+      "choix": [
+        {
+          "texte": "12",
+          "correct": true,
+          "explication": "3 lignes de 4 colonnes."
+        },
+        {
+          "texte": "7",
+          "correct": false,
+          "explication": "Les dimensions se multiplient."
+        },
+        {
+          "texte": "3",
+          "correct": false,
+          "explication": "C'est le nombre de lignes."
+        },
+        {
+          "texte": "20",
+          "correct": false,
+          "explication": "Ce serait `m[4][5]`."
+        }
+      ]
+    },
+    {
+      "id": "appel-simple",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Que vaut `carre(3) + carre(4)` ?\n```c\nint carre(int x) {\n    return x * x;\n}\n```",
+      "correction": [
+        "$9 + 16 = 25$."
+      ],
+      "reponse": 25
+    },
+    {
+      "id": "somme-tableau",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Avec la fonction `somme` du cours, que vaut `somme(t, 6)` pour `int t[] = {3, 1, 4, 1, 5, 9};` ?",
+      "correction": [
+        "$3 + 1 + 4 + 1 + 5 + 9 = 23$."
+      ],
+      "reponse": 23
+    },
+    {
+      "id": "tableau-modifie",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce programme ?\n```c\nvoid raz(int t[], int n) {\n    for (int i = 0; i < n; i++)\n        t[i] = 0;\n}\n\nint main(void) {\n    int a[3] = {1, 2, 3};\n    raz(a, 3);\n    printf(\"%d\\n\", a[1]);\n    return 0;\n}\n```",
+      "correction": [
+        "La fonction travaille directement sur le tableau de l'appelant."
+      ],
+      "choix": [
+        {
+          "texte": "`0`",
+          "correct": true,
+          "explication": "Un tableau est transmis par son adresse : `raz` modifie celui de `main`."
+        },
+        {
+          "texte": "`2`",
+          "correct": false,
+          "explication": "Ce serait vrai pour un `int` passé par valeur, pas pour un tableau."
+        },
+        {
+          "texte": "`1`",
+          "correct": false,
+          "explication": "`a[1]` est le **deuxième** élément."
+        },
+        {
+          "texte": "une erreur de compilation",
+          "correct": false,
+          "explication": "Le code est valide."
+        }
+      ]
+    },
+    {
+      "id": "prototype",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quand faut-il écrire le prototype d'une fonction ?",
+      "correction": [
+        "Prototype en tête de fichier ou définition avant l'appel."
+      ],
+      "choix": [
+        {
+          "texte": "quand elle est appelée avant sa définition dans le fichier",
+          "correct": true,
+          "explication": "Le compilateur lit de haut en bas : il doit connaître la signature avant l'appel."
+        },
+        {
+          "texte": "toujours, y compris pour `main`",
+          "correct": false,
+          "explication": "`main` n'est appelée par aucune autre fonction du fichier."
+        },
+        {
+          "texte": "seulement pour les fonctions `void`",
+          "correct": false,
+          "explication": "Le type de retour ne change rien."
+        },
+        {
+          "texte": "jamais : les compilateurs récents le devinent",
+          "correct": false,
+          "explication": "Depuis C99, appeler une fonction non déclarée est une erreur."
+        }
+      ]
+    },
+    {
+      "id": "void",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que signifie la signature `void afficher(void)` ?",
+      "correction": [
+        "Retour : rien ; paramètres : aucun."
+      ],
+      "choix": [
+        {
+          "texte": "la fonction ne prend aucun paramètre et ne renvoie rien",
+          "correct": true,
+          "explication": "Le premier `void` concerne le retour, le second les paramètres."
+        },
+        {
+          "texte": "la fonction renvoie un pointeur quelconque",
+          "correct": false,
+          "explication": "Ce serait `void *`."
+        },
+        {
+          "texte": "la fonction peut prendre n'importe quels paramètres",
+          "correct": false,
+          "explication": "`(void)` signifie justement « aucun paramètre »."
+        },
+        {
+          "texte": "la fonction renvoie 0",
+          "correct": false,
+          "explication": "Une fonction `void` ne renvoie aucune valeur."
+        }
+      ]
+    },
+    {
+      "id": "return-boucle",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Que vaut `h(10)` ?\n```c\nint h(int n) {\n    for (int i = 0; i < n; i++)\n        if (i * i > n)\n            return i;\n    return -1;\n}\n```",
+      "correction": [
+        "Carrés : 0, 1, 4, 9, 16 ; le premier qui dépasse 10 est atteint pour `i = 4`, et `return` termine la fonction."
+      ],
+      "reponse": 4
+    },
+    {
+      "id": "composition",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Exprime `g(x)` en fonction de `x` :\n```c\ndouble f(double x) {\n    return 2 * x + 1;\n}\n\ndouble g(double x) {\n    return f(f(x));\n}\n```",
+      "correction": [
+        "$f(f(x)) = 2(2x + 1) + 1 = 4x + 3$."
+      ],
+      "reponse": "4*x + 3",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "anti-diagonale",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Que vaut `s` à la fin ?\n```c\nint m[2][3] = {{1, 2, 3},\n               {4, 5, 6}};\nint s = 0;\nfor (int i = 0; i < 2; i++)\n    s += m[i][2 - i];\n```",
+      "correction": [
+        "`m[0][2] = 3` et `m[1][1] = 5` : $3 + 5 = 8$."
+      ],
+      "reponse": 8
+    },
+    {
+      "id": "vf-bornes",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour `int t[5];`, lire `t[5]` provoque toujours une erreur à l'exécution.",
+      "correction": [
+        "Faux : rien n'est garanti, d'où des bugs difficiles à trouver."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "C'est un comportement indéfini : souvent, on lit silencieusement une valeur quelconque.",
+          "correct": true,
+          "explication": "Le C ne vérifie pas les bornes : c'est au programmeur de le faire."
+        },
+        {
+          "texte": "Vrai : le programme s'arrête avec une erreur d'indice.",
+          "correct": false,
+          "explication": "C'est le comportement de Python ou Java, pas du C."
+        },
+        {
+          "texte": "Faux : `t[5]` est le dernier élément.",
+          "correct": false,
+          "explication": "Le dernier est `t[4]`."
+        }
+      ]
+    },
+    {
+      "id": "vf-sizeof-param",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Dans `void f(int t[])`, l'expression `sizeof(t) / sizeof(t[0])` donne le nombre d'éléments du tableau passé.",
+      "correction": [
+        "Faux : un tableau passé en paramètre est converti en pointeur."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Dans la fonction, `t` est un pointeur : `sizeof(t)` est la taille d'une adresse (8 octets en général).",
+          "correct": true,
+          "explication": "D'où la nécessité de passer la taille en paramètre."
+        },
+        {
+          "texte": "Vrai : `sizeof` connaît toujours la taille d'un tableau.",
+          "correct": false,
+          "explication": "Seulement là où il est déclaré comme tableau."
+        },
+        {
+          "texte": "Faux : cela provoque une erreur de compilation.",
+          "correct": false,
+          "explication": "Cela compile (avec un avertissement de `gcc -Wall`)."
+        }
+      ]
+    },
+    {
+      "id": "erreur-echange",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "On veut échanger deux entiers. Où est l'erreur ?\n```c\nvoid echange(int a, int b) {\n    int t = a;\n    a = b;\n    b = t;\n}\n```",
+      "correction": [
+        "`x` vaut toujours 1 et `y` toujours 2."
+      ],
+      "etapes": [
+        "Dans `main`, `x = 1`, `y = 2`, puis on appelle `echange(x, y)`.",
+        "`echange` reçoit `a = 1` et `b = 2`.",
+        "Elle échange `a` et `b` : `a = 2`, `b = 1`.",
+        "De retour dans `main`, `x` vaut 2 et `y` vaut 1."
+      ],
+      "etapeFausse": 3,
+      "explication": "`a` et `b` sont des **copies** : `x` et `y` ne changent pas. Il faut passer les adresses : `void echange(int *a, int *b)` et `echange(&x, &y)`."
+    },
+    {
+      "id": "erreur-maximum",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "On cherche le maximum d'un tableau `t` de `n ≥ 1` entiers. Où est l'erreur ?",
+      "correction": [
+        "Avec `m = t[0]`, l'invariant est vrai dès le départ."
+      ],
+      "etapes": [
+        "On initialise `int m = 0;`, qui est inférieur ou égal à tous les éléments.",
+        "Pour `i` de 0 à `n - 1` : si `t[i] > m`, alors `m = t[i]`.",
+        "Invariant : `m` est le maximum des éléments déjà parcourus.",
+        "À la fin, `m` est le maximum du tableau."
+      ],
+      "etapeFausse": 0,
+      "explication": "Si tous les éléments sont négatifs, `m` reste à 0, qui n'est pas dans le tableau. Il faut initialiser avec `m = t[0]`."
+    }
+  ]
+}

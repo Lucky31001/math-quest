@@ -7,8 +7,9 @@
  * Runge-Kutta), différences finies, évaluation directe de limites…
  *
  * Physique : simulation numérique (RK4), lois de Kirchhoff résolues par Gauss,
- * calcul vectoriel. Informatique : le code Python AFFICHÉ dans l'énoncé est
- * réellement exécuté par `python3`.
+ * calcul vectoriel, tracé de rayons, principe de Fermat, cycle de Carnot calculé.
+ * Informatique : le code C AFFICHÉ dans l'énoncé (ou le cours) est réellement
+ * compilé par `gcc -Wall -Werror` puis exécuté.
  */
 import { describe, it, expect } from 'vitest';
 import { CONTENU } from '../src/core/loader';
@@ -16,6 +17,9 @@ import { math, valeurDe } from '../src/core/checker';
 import type { Question } from '../src/core/schema';
 import { evalTex } from './tex';
 import { execFileSync } from 'node:child_process';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 /* ----------------------------- outils ----------------------------- */
 
@@ -125,21 +129,74 @@ function instant(F: (t: number, y: number[]) => number[], y0: number[], cond: (y
   throw new Error('condition jamais atteinte');
 }
 
-/** Exécute du code Python avec python3 et renvoie sa sortie standard. */
-const python = (code: string): string => execFileSync('python3', ['-c', code], { encoding: 'utf8' }).trim();
-/** Premier bloc ```python``` de l'énoncé d'une question. */
-const codeDe = (q: Question): string => {
-  const m = q.enonce.match(/```python\n([\s\S]+?)\n```/);
-  if (!m) throw new Error(`${q.id} : pas de bloc de code dans l'énoncé`);
+/* ------------------------- langage C (gcc) ------------------------- */
+
+const ENTETES = '#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n';
+const dossierC = mkdtempSync(join(tmpdir(), 'math-quest-c-'));
+let numeroC = 0;
+/**
+ * Compile (gcc -Wall -Werror) et exécute un programme C ; renvoie sa sortie standard.
+ * `piege` : code volontairement fautif (question « piège ») compilé sans -Werror.
+ */
+function executerC(source: string, piege = false): string {
+  const base = join(dossierC, `p${numeroC++}`);
+  writeFileSync(`${base}.c`, source.includes('#include') ? source : ENTETES + source);
+  execFileSync('gcc', ['-std=c11', '-Wall', ...(piege ? [] : ['-Werror']), '-O0', '-o', base, `${base}.c`, '-lm'], { stdio: 'pipe' });
+  return execFileSync(base, { encoding: 'utf8' }).trim();
+}
+/** Premier bloc ```c``` d'un texte. */
+const blocC = (texte: string): string => {
+  const m = texte.match(/```c\n([\s\S]+?)\n```/);
+  if (!m) throw new Error(`pas de bloc de code C dans « ${texte.slice(0, 50)} »`);
   return m[1];
 };
-/** Le code de l'énoncé, puis l'affichage de `expr`. */
-const executer = (q: Question, expr: string): string => python(`${codeDe(q)}\nprint(${expr})`);
+const codeDe = (q: Question): string => blocC(q.enonce);
+/** Bloc de code du cours d'un chapitre contenant `motCle`. */
+const codeCours = (chap: string, motCle: string): string => {
+  const b = CONTENU.chapitres
+    .find((c) => c.id === chap)!
+    .cours.flatMap((s) => s.blocs)
+    .find((x) => x.texte.includes('```c') && blocC(x.texte).includes(motCle));
+  if (!b) throw new Error(`${chap} : pas de code « ${motCle} » dans le cours`);
+  return blocC(b.texte);
+};
+/** Des instructions exécutées dans `main`, puis l'affichage de `expr` au format `fmt`. */
+const instructionsC = (code: string, fmt: string, expr: string): string =>
+  executerC(`int main(void) {\n${code}\nprintf("${fmt}\\n", ${expr});\nreturn 0;\n}`);
+/** Des définitions (fonctions, types), puis un `main` qui affiche `expr`. */
+const definitionsC = (code: string, fmt: string, expr: string): string =>
+  executerC(`${code}\nint main(void) {\nprintf("${fmt}\\n", ${expr});\nreturn 0;\n}`);
 /** Texte du choix correct d'un QCM, sans les accents graves du code. */
 const bonChoixCode = (q: Question): string => {
   if (q.type !== 'qcm') throw new Error(`${q.id} n'est pas un QCM`);
-  return q.choix.find((c) => c.correct)!.texte.replace(/`/g, '');
+  return q.choix.find((c) => c.correct)!.texte.replace(/`/g, '').trim();
 };
+/** Image du point B (abscisse oa, hauteur 1) par une lentille mince de focale f : intersection de deux rayons. */
+function imageParRayons(oa: number, f: number): { x: number; y: number } {
+  // Rayon parallèle à l'axe, qui ressort par F'(f, 0) : x/f + y = 1. Rayon par O, non dévié : x/oa − y = 0.
+  const [x, y] = resoudre([[1 / f, 1], [1 / oa, -1]], [1, 0]);
+  return { x, y };
+}
+/** Minimum d'une fonction unimodale sur [a, b] (section dorée). */
+function minimum(f: (x: number) => number, a: number, b: number): number {
+  const r = (Math.sqrt(5) - 1) / 2;
+  for (let k = 0; k < 200; k++) {
+    const c = b - r * (b - a);
+    const d = a + r * (b - a);
+    if (f(c) < f(d)) b = d;
+    else a = c;
+  }
+  return (a + b) / 2;
+}
+/** Racine d'une fonction monotone sur [a, b] (dichotomie). */
+function racine(f: (x: number) => number, a: number, b: number): number {
+  for (let k = 0; k < 200; k++) {
+    const m = (a + b) / 2;
+    if (f(a) * f(m) <= 0) b = m;
+    else a = m;
+  }
+  return (a + b) / 2;
+}
 const POINTS = [0.3, 0.7, 1.1, 1.6];
 
 /* ------------------------ vérifications ---------------------------- */
@@ -750,145 +807,265 @@ const verifs: Record<string, () => void> = {
     for (const t of [0.1, 0.5, 2]) expect(u(t)).toBeCloseTo(rk4((_t, [w]) => [(6 - w) / 0.5], [2], 0, t)[0], 8);
   },
 
-  /* ============================= INFORMATIQUE ============================= */
-  'python-bases/modulo': () => expect(attendu(question('python-bases', 'modulo')).re).toBe(Number(python('print(17 % 5)'))),
-  'python-bases/floor-negatif': () => expect(attendu(question('python-bases', 'floor-negatif')).re).toBe(Number(python('print(-17 // 5)'))),
-  'python-bases/echange-rate': () => {
-    const q = question('python-bases', 'echange-rate');
-    expect(attendu(q).re).toBe(Number(executer(q, 'b')));
+  /* ---------------- Pensée scientifique ---------------- */
+  'pensee-scientifique/ordre-grandeur': () => {
+    const annee = 365 * 24 * 3600;
+    const n = attendu(question('pensee-scientifique', 'ordre-grandeur')).re;
+    expect(annee / 10 ** n).toBeGreaterThan(2.5);
+    expect(annee / 10 ** n).toBeLessThan(3.5);
   },
-  'python-bases/puissance-droite': () => expect(attendu(question('python-bases', 'puissance-droite')).re).toBe(Number(python('print(2 ** 3 ** 2)'))),
-  'python-bases/qcm': () => {
-    // Le choix correct de chaque QCM « Que vaut `…` ? » est bien ce qu'affiche Python.
-    for (const [id, expr] of [['division-entiere', '17 // 5'], ['moins-unaire', '-2 ** 2'], ['type-division', 'type(6 / 3).__name__'], ['concatenation', "repr('3' + '4')"]])
-      expect(python(`print(${expr})`), id).toBe(bonChoixCode(question('python-bases', id)));
-    expect(executer(question('python-bases', 'paresseux'), 'x != 0 and 10 / x > 1')).toBe('False');
+  /* ---------------- Optique géométrique ---------------- */
+  'optique-geometrique/vergence': () => expect(attendu(question('optique-geometrique', 'vergence')).re).toBeCloseTo(1 / 0.2, 10),
+  'optique-geometrique/refraction-eau': () => {
+    // Principe de Fermat : A dans l'air, B dans l'eau sur le rayon réfracté annoncé ; le chemin optique
+    // n1·AI + n2·IB doit être minimal au point d'incidence I prévu.
+    const r = (attendu(question('optique-geometrique', 'refraction-eau')).re * Math.PI) / 180;
+    const xI = Math.tan(Math.PI / 6); // A = (0, 1), incidence 30°
+    const B = { x: xI + Math.tan(r), y: -1 };
+    const chemin = (x: number) => Math.hypot(x, 1) + 1.33 * Math.hypot(B.x - x, B.y);
+    expect(minimum(chemin, -2, 3)).toBeCloseTo(xI, 4);
   },
-  'boucles-conditions/somme-boucle': () => {
-    const q = question('boucles-conditions', 'somme-boucle');
-    expect(attendu(q).re).toBe(Number(executer(q, 's')));
+  'optique-geometrique/angle-limite': () => {
+    // Plus grand angle d'incidence pour lequel un rayon réfracté existe encore (sin i2 ≤ 1).
+    const il = racine((i) => 1.5 * Math.sin(i) - 1, 0, Math.PI / 2);
+    expect(attendu(question('optique-geometrique', 'angle-limite')).re).toBeCloseTo((il * 180) / Math.PI, 6);
   },
-  'boucles-conditions/while-divisions': () => {
-    const q = question('boucles-conditions', 'while-divisions');
-    expect(attendu(q).re).toBe(Number(executer(q, 'k')));
+  'optique-geometrique/conjugaison': () =>
+    expect(attendu(question('optique-geometrique', 'conjugaison')).re).toBeCloseTo(imageParRayons(-30, 10).x, 8),
+  'optique-geometrique/position-image': () => {
+    const g = fonction(question('optique-geometrique', 'position-image'));
+    for (const x of [-50, -30, -12.5]) expect(g(x)).toBeCloseTo(imageParRayons(x, 10).x, 8);
   },
-  'boucles-conditions/syracuse': () => {
-    const q = question('boucles-conditions', 'syracuse');
-    expect(attendu(q).re).toBe(Number(executer(q, 'etapes')));
+  'optique-geometrique/grandissement': () => {
+    const q = question('optique-geometrique', 'grandissement');
+    if (q.type !== 'qcm') throw new Error('QCM attendu');
+    expect(q.choix.find((c) => c.correct)!.texte).toContain('-0{,}5');
+    expect(imageParRayons(-30, 10).y).toBeCloseTo(-0.5, 10);
   },
-  'boucles-conditions/boucles-imbriquees': () => {
-    const q = question('boucles-conditions', 'boucles-imbriquees');
+  /* ---------------- Thermodynamique ---------------- */
+  'thermodynamique/pression-gp': () => {
+    // P·V/(n·T) doit redonner R.
+    expect((attendu(question('thermodynamique', 'pression-gp')).re * 1000 * 24.9e-3) / 300).toBeCloseTo(8.314, 6);
+  },
+  'thermodynamique/travail-isobare': () =>
+    expect(attendu(question('thermodynamique', 'travail-isobare')).re).toBeCloseTo(simpson(() => -2e5, 1e-3, 3e-3), 6),
+  'thermodynamique/travail-isotherme': () =>
+    expect(attendu(question('thermodynamique', 'travail-isotherme')).re).toBeCloseTo(simpson((V) => (-8.314 * 300) / V, 1e-3, 2e-3), 4),
+  'thermodynamique/chauffer-eau': () => {
+    let Q = 0;
+    for (let T = 20; T < 80; T += 0.5) Q += 2 * 4180 * 0.5;
+    expect(attendu(question('thermodynamique', 'chauffer-eau')).re).toBeCloseTo(Q / 1000, 6);
+  },
+  'thermodynamique/temperature-melange': () => {
+    const T = fonction(question('thermodynamique', 'temperature-melange'));
+    for (const m of [0.25, 1, 3]) expect(T(m)).toBeCloseTo(racine((t) => 1 * (t - 20) + m * (t - 80), 20, 80), 8);
+  },
+  'thermodynamique/rendement-carnot': () => {
+    // Cycle de Carnot d'un gaz parfait monoatomique (γ = 5/3), calculé étape par étape.
+    const [n, R, Tc, Tf, g] = [1, 8.314, 600, 300, 5 / 3];
+    const V1 = 1e-3;
+    const V2 = 3e-3;
+    const V3 = V2 * (Tc / Tf) ** (1 / (g - 1));
+    const V4 = V1 * (Tc / Tf) ** (1 / (g - 1));
+    const Qc = simpson((V) => (n * R * Tc) / V, V1, V2); // isotherme chaude : Q = −W
+    const Qf = simpson((V) => (n * R * Tf) / V, V3, V4); // isotherme froide
+    expect(attendu(question('thermodynamique', 'rendement-carnot')).re).toBeCloseTo((100 * (Qc + Qf)) / Qc, 4);
+  },
+
+  /* ========================= INFORMATIQUE (langage C) ========================= */
+  /* ---------------- Bases ---------------- */
+  'c-bases/modulo': () => expect(attendu(question('c-bases', 'modulo')).re).toBe(Number(instructionsC('', '%d', '17 % 5'))),
+  'c-bases/division-negative': () => expect(attendu(question('c-bases', 'division-negative')).re).toBe(Number(instructionsC('', '%d', '-7 / 2'))),
+  'c-bases/cast': () => {
+    const q = question('c-bases', 'cast');
+    expect(attendu(q).re).toBeCloseTo(Number(instructionsC(codeDe(q), '%f', 'x + y')), 10);
+  },
+  'c-bases/incrementation': () => {
+    const q = question('c-bases', 'incrementation');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'a + b')));
+  },
+  'c-bases/qcm': () => {
+    expect(instructionsC('', '%d', '7 / 2')).toBe(bonChoixCode(question('c-bases', 'division-entiere')));
+    expect(instructionsC('', '%d', '-7 % 2')).toBe(bonChoixCode(question('c-bases', 'modulo-negatif')));
+    expect(instructionsC(codeDe(question('c-bases', 'char-ascii')), '%s', '""')).toBe(bonChoixCode(question('c-bases', 'char-ascii')));
+    expect(instructionsC('int x = 0;', '%d', 'x != 0 && 10 / x > 1')).toBe('0');
+    expect(instructionsC('int s = 12 + 15 + 10;\ndouble m = s / 3;', '%.2f', 'm')).toBe('12.00');
+  },
+  /* ---------------- Conditions et boucles ---------------- */
+  'c-controle/somme-for': () => {
+    const q = question('c-controle', 'somme-for');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 's')));
+  },
+  'c-controle/while-divisions': () => {
+    const q = question('c-controle', 'while-divisions');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'k')));
+  },
+  'c-controle/syracuse': () => {
+    const q = question('c-controle', 'syracuse');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'etapes')));
+  },
+  'c-controle/boucles-imbriquees': () => {
+    const q = question('c-controle', 'boucles-imbriquees');
     const f = fonction(q);
-    for (let n = 1; n <= 8; n++) expect(f(n)).toBeCloseTo(python(`n = ${n}\n${codeDe(q)}`).split('\n').filter(Boolean).length, 10);
+    for (const n of [1, 2, 5, 9]) expect(f(n)).toBeCloseTo(Number(instructionsC(`int n = ${n};\n${codeDe(q)}`, '%d', 'c')), 10);
   },
-  'boucles-conditions/qcm': () => {
-    expect(python('print(list(range(1, 5)))')).toBe(bonChoixCode(question('boucles-conditions', 'range-simple')));
-    expect(python('print(list(range(10, 0, -3)))')).toBe(bonChoixCode(question('boucles-conditions', 'range-pas')));
-    expect(executer(question('boucles-conditions', 'break-continue'), 's')).toBe(bonChoixCode(question('boucles-conditions', 'break-continue')));
-    expect(python(codeDe(question('boucles-conditions', 'elif')))).toBe('A');
+  'c-controle/qcm': () => {
+    const qc = (id: string) => question('c-controle', id);
+    expect(instructionsC(codeDe(qc('do-while')), '%s', '""')).toBe(bonChoixCode(qc('do-while')));
+    expect(instructionsC(codeDe(qc('switch-sans-break')), '%s', '""')).toBe(bonChoixCode(qc('switch-sans-break')));
+    expect(instructionsC(codeDe(qc('break-continue')), '%d', 's')).toBe(bonChoixCode(qc('break-continue')));
+    // Piège volontaire (gcc -Wall le signale : « misleading indentation »).
+    expect(executerC(`int main(void) {\n${codeDe(qc('vf-point-virgule'))}\nreturn 0;\n}`, true)).toBe('10');
+    // 10 additions de 0.1 ne donnent pas exactement 1.0.
+    expect(instructionsC('double x = 0;\nfor (int k = 0; k < 10; k++) x += 0.1;', '%d', 'x != 1.0')).toBe('1');
   },
-  'fonctions/appel-simple': () => {
-    const q = question('fonctions', 'appel-simple');
-    expect(attendu(q).re).toBe(Number(executer(q, 'carre(3) + carre(4)')));
+  /* ---------------- Fonctions et tableaux ---------------- */
+  'c-fonctions-tableaux/appel-simple': () => {
+    const q = question('c-fonctions-tableaux', 'appel-simple');
+    expect(attendu(q).re).toBe(Number(definitionsC(codeDe(q), '%d', 'carre(3) + carre(4)')));
   },
-  'fonctions/return-boucle': () => {
-    const q = question('fonctions', 'return-boucle');
-    expect(attendu(q).re).toBe(Number(executer(q, 'h(10)')));
+  'c-fonctions-tableaux/somme-tableau': () => {
+    const somme = codeCours('c-fonctions-tableaux', 'int somme(');
+    const sortie = executerC(`${somme}\nint main(void) {\nint t[] = {3, 1, 4, 1, 5, 9};\nprintf("%d\\n", somme(t, 6));\nreturn 0;\n}`);
+    expect(attendu(question('c-fonctions-tableaux', 'somme-tableau')).re).toBe(Number(sortie));
   },
-  'fonctions/appels-imbriques': () => {
-    const q = question('fonctions', 'appels-imbriques');
-    expect(attendu(q).re).toBe(Number(executer(q, 'g(5)')));
+  'c-fonctions-tableaux/return-boucle': () => {
+    const q = question('c-fonctions-tableaux', 'return-boucle');
+    expect(attendu(q).re).toBe(Number(definitionsC(codeDe(q), '%d', 'h(10)')));
   },
-  'fonctions/composition': () => {
-    const q = question('fonctions', 'composition');
+  'c-fonctions-tableaux/composition': () => {
+    const q = question('c-fonctions-tableaux', 'composition');
     const f = fonction(q);
-    for (const x of [-2, 0.5, 3]) expect(f(x)).toBeCloseTo(Number(executer(q, `g(${x})`)), 10);
+    for (const x of [-2, 0.5, 3]) expect(f(x)).toBeCloseTo(Number(definitionsC(codeDe(q), '%f', `g(${x})`)), 6);
   },
-  'fonctions/qcm': () => {
-    expect(executer(question('fonctions', 'return-print'), 'y').split('\n').pop()).toBe('None');
-    expect(python(codeDe(question('fonctions', 'portee-locale')))).toBe('5');
-    expect(executer(question('fonctions', 'parametre-defaut'), 'puissance(3) + puissance(2, 3)')).toBe(bonChoixCode(question('fonctions', 'parametre-defaut')));
-    expect(executer(question('fonctions', 'liste-modifiee'), 'M')).toBe(bonChoixCode(question('fonctions', 'liste-modifiee')));
+  'c-fonctions-tableaux/anti-diagonale': () => {
+    const q = question('c-fonctions-tableaux', 'anti-diagonale');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 's')));
   },
-  'listes-chaines/alias': () => expect(attendu(question('listes-chaines', 'alias')).re).toBe(Number(python(codeDe(question('listes-chaines', 'alias'))))),
-  'listes-chaines/compte-lettres': () => expect(attendu(question('listes-chaines', 'compte-lettres')).re).toBe(Number(python(codeDe(question('listes-chaines', 'compte-lettres'))))),
-  'listes-chaines/anti-diagonale': () => {
-    const lignes = codeDe(question('listes-chaines', 'anti-diagonale')).split('\n');
-    lignes.push(`print(${lignes.pop()})`);
-    expect(attendu(question('listes-chaines', 'anti-diagonale')).re).toBe(Number(python(lignes.join('\n'))));
+  'c-fonctions-tableaux/qcm': () => {
+    const qc = (id: string) => question('c-fonctions-tableaux', id);
+    expect(executerC(codeDe(qc('passage-valeur')))).toBe(bonChoixCode(qc('passage-valeur')));
+    expect(executerC(codeDe(qc('tableau-modifie')))).toBe(bonChoixCode(qc('tableau-modifie')));
+    expect(instructionsC('int m[3][4];', '%zu', 'sizeof(m) / sizeof(m[0][0])')).toBe(bonChoixCode(qc('taille-2d')));
   },
-  'listes-chaines/couples': () => {
-    const q = question('listes-chaines', 'couples');
+  /* ---------------- Chaînes ---------------- */
+  'c-chaines/strlen': () => expect(attendu(question('c-chaines', 'strlen')).re).toBe(Number(instructionsC('', '%zu', 'strlen("bonjour")'))),
+  'c-chaines/octets-chaine': () => {
+    const f = fonction(question('c-chaines', 'octets-chaine'));
+    for (const n of [0, 1, 4, 11]) expect(f(n)).toBe(Number(instructionsC('', '%zu', `sizeof("${'x'.repeat(n)}")`)));
+  },
+  'c-chaines/chiffre-valeur': () => {
+    const q = question('c-chaines', 'chiffre-valeur');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'v')));
+  },
+  'c-chaines/compte-lettre': () => {
+    const q = question('c-chaines', 'compte-lettre');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'n')));
+  },
+  'c-chaines/conversion-entier': () => {
+    const q = question('c-chaines', 'conversion-entier');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'v + 1')));
+  },
+  'c-chaines/qcm': () => {
+    const qc = (id: string) => question('c-chaines', id);
+    expect(instructionsC('', '%d', "'A'")).toBe(bonChoixCode(qc('code-ascii')));
+    expect(instructionsC('char s[] = "chat";', '%zu', 'sizeof(s)')).toBe(bonChoixCode(qc('taille-chaine')));
+    expect(`'${instructionsC(codeDe(qc('majuscule')), '%c', 'c')}'`).toBe(bonChoixCode(qc('majuscule')));
+    expect(instructionsC(codeDe(qc('inverser')), '%s', '""')).toBe(bonChoixCode(qc('inverser')));
+    expect(definitionsC(codeCours('c-chaines', 'int longueur('), '%d', 'longueur("abc")')).toBe('3');
+  },
+  /* ---------------- Pointeurs ---------------- */
+  'c-pointeurs/somme-pointeurs': () => {
+    const q = question('c-pointeurs', 'somme-pointeurs');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', '*p + *q')));
+  },
+  'c-pointeurs/arithmetique': () => {
+    const q = question('c-pointeurs', 'arithmetique');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', '*(p + 2)')));
+  },
+  'c-pointeurs/struct-acces': () => {
+    const q = question('c-pointeurs', 'struct-acces');
+    expect(attendu(q).re).toBe(Number(instructionsC(codeDe(q), '%d', 'p.x')));
+  },
+  'c-pointeurs/decalage-octets': () => {
+    const f = fonction(question('c-pointeurs', 'decalage-octets'));
+    for (const k of [0, 1, 3, 10]) expect(f(k)).toBe(Number(instructionsC('int t[32];\nint *p = t;', '%td', `(char *)(p + ${k}) - (char *)p`)));
+  },
+  'c-pointeurs/qcm': () => {
+    const qc = (id: string) => question('c-pointeurs', id);
+    expect(instructionsC(codeDe(qc('dereferencement')), '%d', 'x')).toBe(bonChoixCode(qc('dereferencement')));
+    expect(instructionsC('', '%zu', 'sizeof(int *)')).toBe(bonChoixCode(qc('sizeof-pointeur')));
+    const echange = codeCours('c-pointeurs', 'void echange(');
+    expect(executerC(`${echange}\nint main(void) {\nint x = 1, y = 2;\nechange(&x, &y);\nprintf("%d %d\\n", x, y);\nreturn 0;\n}`)).toBe('2 1');
+  },
+  /* ---------------- Algorithmes ---------------- */
+  'c-algorithmes/factorielle-rec': () =>
+    expect(attendu(question('c-algorithmes', 'factorielle-rec')).re).toBe(Number(definitionsC(codeCours('c-algorithmes', 'int fact('), '%d', 'fact(5)'))),
+  'c-algorithmes/appels-fibonacci': () => {
+    const q = question('c-algorithmes', 'appels-fibonacci');
+    const instrumente = codeDe(q).replace('int fib(int n) {\n', 'int fib(int n) {\n    appels++;\n');
+    expect(attendu(q).re).toBe(Number(executerC(`int appels = 0;\n${instrumente}\nint main(void) {\nfib(5);\nprintf("%d\\n", appels);\nreturn 0;\n}`)));
+  },
+  'c-algorithmes/comparaisons-selection': () => {
+    const q = question('c-algorithmes', 'comparaisons-selection');
     const f = fonction(q);
-    for (let n = 1; n <= 8; n++) expect(f(n)).toBeCloseTo(Number(python(`n = ${n}\nprint(len(${codeDe(q)}))`)), 10);
-  },
-  'listes-chaines/qcm': () => {
-    const L = 'L = [4, 8, 15, 16, 23, 42]\n';
-    expect(python(`${L}print(L[-2])`)).toBe(bonChoixCode(question('listes-chaines', 'indice-negatif')));
-    expect(python(`${L}print(L[1:4])`)).toBe(bonChoixCode(question('listes-chaines', 'tranche')));
-    expect(python('print([x * x for x in range(6) if x % 2 == 1])')).toBe(bonChoixCode(question('listes-chaines', 'comprehension')));
-    expect(executer(question('listes-chaines', 'matrice-piege'), 'T')).toBe(bonChoixCode(question('listes-chaines', 'matrice-piege')));
-    expect(python("print(2 in {'a': 1, 'b': 2})")).toBe('False');
-    expect(python("s = 'python'\nprint(s[1:3], s[::-1])")).toBe('yt nohtyp');
-    expect(python('L = [2, 4, 5, 6]\nfor x in L:\n    if x % 2 == 0:\n        L.remove(x)\nprint(L)')).toBe('[4, 5]');
-  },
-  'representation-nombres/binaire-decimal': () => expect(attendu(question('representation-nombres', 'binaire-decimal')).re).toBe(Number(python('print(0b101101)'))),
-  'representation-nombres/hexa-decimal': () => expect(attendu(question('representation-nombres', 'hexa-decimal')).re).toBe(Number(python('print(0x2F)'))),
-  'representation-nombres/lecture-c2': () =>
-    expect(attendu(question('representation-nombres', 'lecture-c2')).re).toBe(Number(python("import ctypes\nprint(ctypes.c_int8(0b11111010).value)"))),
-  'representation-nombres/overflow-8bits': () =>
-    expect(attendu(question('representation-nombres', 'overflow-8bits')).re).toBe(Number(python('import ctypes\nprint(ctypes.c_int8(100 + 50).value)'))),
-  'representation-nombres/max-c2': () => {
-    // Tous les motifs de n bits, lus en complément à deux.
-    const f = fonction(question('representation-nombres', 'max-c2'));
-    for (let n = 2; n <= 12; n++) {
-      let max = -Infinity;
-      for (let motif = 0; motif < 2 ** n; motif++) max = Math.max(max, motif >= 2 ** (n - 1) ? motif - 2 ** n : motif);
-      expect(f(n)).toBe(max);
+    const instrumente = codeDe(q).replace('if (t[j] < t[m])', 'if (comparaisons++, t[j] < t[m])');
+    for (const n of [1, 2, 5, 9]) {
+      const sortie = executerC(
+        `int comparaisons = 0;\n${instrumente}\nint main(void) {\nint t[${n}];\nfor (int i = 0; i < ${n}; i++) t[i] = ${n} - i;\ntri_selection(t, ${n});\nprintf("%d\\n", comparaisons);\nreturn 0;\n}`,
+      );
+      expect(f(n)).toBeCloseTo(Number(sortie), 10);
     }
   },
-  'representation-nombres/qcm': () => {
-    expect(python('print(bin(13)[2:])')).toBe(bonChoixCode(question('representation-nombres', 'decimal-binaire')));
-    expect(python('print(bin(19)[2:])')).toBe('10011');
-    expect(python('import ctypes\nprint(ctypes.c_int8(0b11111011).value)')).toBe('-5');
-    expect(python('import sys\nprint(sys.float_info.mant_dig - 1)')).toBe(bonChoixCode(question('representation-nombres', 'mantisse-double')));
-    expect(python('print(0.1 + 0.2 == 0.3, abs(0.1 + 0.2 - 0.3) < 1e-9)')).toBe('False True');
+  'c-algorithmes/dicho-tours': () => {
+    // La dichotomie du cours, instrumentée, sur toutes les valeurs présentes et absentes d'un tableau de 1000 éléments.
+    const dicho = codeCours('c-algorithmes', 'int dicho(').replace('while (g <= d) {', 'while (g <= d) {\n        tours++;');
+    const sortie = executerC(
+      `int tours;\n${dicho}\nint main(void) {\nint t[1000], pire = 0;\nfor (int i = 0; i < 1000; i++) t[i] = 2 * i;\nfor (int x = -1; x <= 2000; x++) {\ntours = 0;\ndicho(t, 1000, x);\nif (tours > pire) pire = tours;\n}\nprintf("%d\\n", pire);\nreturn 0;\n}`,
+    );
+    expect(attendu(question('c-algorithmes', 'dicho-tours')).re).toBe(Number(sortie));
   },
-  'algorithmes/factorielle-rec': () => {
-    const q = question('algorithmes', 'factorielle-rec');
-    expect(attendu(q).re).toBe(Number(executer(q, 'f(5)')));
+  'c-algorithmes/qcm': () => {
+    const q = question('c-algorithmes', 'recursion-trace');
+    expect(definitionsC(codeDe(q), '%d', 'g(7)')).toBe(bonChoixCode(q));
   },
-  'algorithmes/appels-fibonacci': () => {
-    const q = question('algorithmes', 'appels-fibonacci');
-    const instrumente = codeDe(q).replace('def fib(n):\n', 'def fib(n):\n    global appels\n    appels += 1\n');
-    expect(attendu(q).re).toBe(Number(python(`appels = 0\n${instrumente}\nfib(5)\nprint(appels)`)));
+  /* ---------------- Listes chaînées ---------------- */
+  'c-listes-chainees/liste-construite': () => {
+    const q = question('c-listes-chainees', 'liste-construite');
+    expect(attendu(q).re).toBe(Number(executerC(codeDe(q))));
   },
-  'algorithmes/dicho-tours': () => {
-    // La dichotomie du cours, instrumentée, sur toutes les valeurs présentes et absentes.
-    const L = Array.from({ length: 1000 }, (_, i) => 2 * i);
-    let pire = 0;
-    for (let x = -1; x <= 2000; x++) {
-      let [g, d, tours] = [0, L.length - 1, 0];
-      while (g <= d) {
-        tours++;
-        const m = Math.floor((g + d) / 2);
-        if (L[m] === x) break;
-        if (L[m] < x) g = m + 1;
-        else d = m - 1;
-      }
-      pire = Math.max(pire, tours);
-    }
-    expect(attendu(question('algorithmes', 'dicho-tours')).re).toBe(pire);
-  },
-  'algorithmes/comparaisons-selection': () => {
-    const q = question('algorithmes', 'comparaisons-selection');
+  'c-listes-chainees/insertion-queue': () => {
+    const q = question('c-listes-chainees', 'insertion-queue');
     const f = fonction(q);
-    const instrumente = codeDe(q).replace('if L[j] < L[m]:', 'comparaisons[0] += 1\n            if L[j] < L[m]:');
-    for (const n of [1, 2, 5, 9]) expect(f(n)).toBeCloseTo(Number(python(`comparaisons = [0]\n${instrumente}\ntri_selection(list(range(${n}, 0, -1)))\nprint(comparaisons[0])`)), 10);
+    const type = codeCours('c-listes-chainees', 'typedef struct Maillon');
+    const instrumente = codeDe(q).replace('p = p->suiv;', '{ p = p->suiv; pas++; }');
+    for (const n of [1, 2, 3, 7, 12]) {
+      const sortie = executerC(
+        `${type}\nint pas = 0;\n${instrumente}\nint main(void) {\nMaillon *l = NULL;\nfor (int i = 0; i < ${n}; i++) l = ajouter_queue(l, i);\nprintf("%d\\n", pas);\nreturn 0;\n}`,
+      );
+      expect(f(n)).toBeCloseTo(Number(sortie), 10);
+    }
   },
-  'algorithmes/qcm': () => {
-    const q = question('algorithmes', 'recursion-trace');
-    expect(executer(q, 'g(7)')).toBe(bonChoixCode(q));
+  'c-listes-chainees/pile-sequence': () => {
+    const pile: number[] = [];
+    const depilees: number[] = [];
+    for (const op of ['+1', '+2', '+3', '-', '+4', '-', '-']) op === '-' ? depilees.push(pile.pop()!) : pile.push(Number(op));
+    expect(attendu(question('c-listes-chainees', 'pile-sequence')).re).toBe(depilees.at(-1));
+  },
+  'c-listes-chainees/file-sequence': () => {
+    const file: number[] = [];
+    for (const op of ['+1', '+2', '+3', '-', '+4', '-']) op === '-' ? file.shift() : file.push(Number(op));
+    expect(attendu(question('c-listes-chainees', 'file-sequence')).re).toBe(file[0]);
+  },
+  'c-listes-chainees/cours': () => {
+    // Le code du cours compile et fonctionne : insertion en tête puis libération.
+    const type = codeCours('c-listes-chainees', 'typedef struct Maillon');
+    const ajout = codeCours('c-listes-chainees', 'Maillon *ajouter_tete(');
+    const liberer = codeCours('c-listes-chainees', 'Maillon *s = l->suiv;');
+    const sortie = executerC(
+      `${type}\n${ajout}\nint main(void) {\nMaillon *l = NULL;\nfor (int i = 1; i <= 3; i++) l = ajouter_tete(l, i);\nint s = 0;\nfor (Maillon *p = l; p != NULL; p = p->suiv) s = 10 * s + p->val;\n${liberer}\nprintf("%d %d\\n", s, l == NULL);\nreturn 0;\n}`,
+    );
+    expect(sortie).toBe('321 1');
   },
 };
 

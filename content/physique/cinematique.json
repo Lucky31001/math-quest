@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "cinematique",
   "monde": "physique",
-  "ordre": 2,
+  "ordre": 3,
   "titre": "Cinématique du point",
   "icone": "🚀",
   "resume": "Position, vitesse, accélération ; mouvements rectilignes, chute libre, mouvement circulaire.",

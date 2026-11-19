@@ -1,0 +1,500 @@
+{
+  "$schema": "../schema.json",
+  "id": "pensee-scientifique",
+  "monde": "physique",
+  "ordre": 2,
+  "titre": "Pensée scientifique et grands scientifiques",
+  "icone": "🔭",
+  "resume": "La démarche scientifique, les modèles et leurs limites, et les grandes figures de l'histoire de la physique.",
+  "cours": [
+    {
+      "titre": "La démarche scientifique",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Les étapes",
+          "texte": "Observer un phénomène → formuler une **hypothèse** → en déduire une **prédiction** testable → réaliser une **expérience** reproductible → confronter le résultat à la prédiction, en tenant compte des incertitudes. Une prédiction vérifiée **renforce** l'hypothèse sans la prouver définitivement ; une prédiction contredite (de façon reproductible) la **réfute**."
+        },
+        {
+          "type": "definition",
+          "titre": "Réfutabilité",
+          "texte": "Pour le philosophe Karl **Popper**, une théorie est scientifique si elle est **réfutable** : elle doit pouvoir être contredite par une expérience. « Tout peut arriver » n'est pas une théorie scientifique."
+        },
+        {
+          "type": "propriete",
+          "titre": "Modèles",
+          "texte": "Un **modèle** est une représentation simplifiée de la réalité, valable dans un **domaine de validité**. La mécanique de Newton reste exacte à une très bonne approximation pour des vitesses petites devant celle de la lumière ($v \\ll c$) : la relativité ne la rend pas « fausse », elle en fixe les limites."
+        },
+        {
+          "type": "methode",
+          "titre": "Estimer",
+          "texte": "**Ordre de grandeur** : on estime un résultat à une puissance de 10 près pour vérifier un calcul ou trancher rapidement (raisonnement « à la Fermi »). Exemple : une année dure environ $3 \\times 10^7\\ \\mathrm s$."
+        }
+      ]
+    },
+    {
+      "titre": "Grands scientifiques",
+      "blocs": [
+        {
+          "type": "exemple",
+          "titre": "Antiquité et révolution scientifique",
+          "texte": "**Archimède** (IIIe s. av. J.-C.) : poussée d'Archimède, levier. **Copernic** (1543) : héliocentrisme. **Galilée** (début XVIIe) : chute des corps (tous tombent de la même façon dans le vide), principe d'inertie, observations à la lunette. **Kepler** : lois du mouvement des planètes. **Snell** (1621) et **Descartes** (1637) : lois de la réfraction."
+        },
+        {
+          "type": "exemple",
+          "titre": "Physique classique (XVIIe–XIXe)",
+          "texte": "**Newton** (*Principia*, 1687) : lois du mouvement et gravitation universelle ; décomposition de la lumière blanche. **Huygens** : théorie ondulatoire de la lumière, horloge à pendule. **Coulomb** (1785) : force électrostatique. **Volta** (1800) : pile électrique. **Ohm** (1827) : loi d'Ohm. **Faraday** (1831) : induction électromagnétique. **Carnot** (1824) : rendement maximal des machines thermiques. **Joule** : équivalence travail–chaleur. **Maxwell** (vers 1865) : équations unifiant électricité, magnétisme et lumière. **Boltzmann** : physique statistique, entropie."
+        },
+        {
+          "type": "exemple",
+          "titre": "Physique moderne (XXe)",
+          "texte": "**Planck** (1900) : quanta d'énergie. **Einstein** (1905) : relativité restreinte, effet photoélectrique (prix Nobel 1921 pour ce dernier), $E = mc^2$. **Marie Curie** : radioactivité, prix Nobel de physique (1903) et de chimie (1911). **Rutherford** (1911) : noyau atomique. **Emmy Noether** (1918) : à chaque symétrie correspond une loi de conservation. **Bohr**, **Heisenberg**, **Schrödinger** : mécanique quantique."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-demarche",
+      "recto": "Étapes de la démarche scientifique ?",
+      "verso": "Observation, hypothèse, prédiction, expérience, confrontation (validation ou réfutation)."
+    },
+    {
+      "id": "f-popper",
+      "recto": "Critère de Popper ?",
+      "verso": "Une théorie est scientifique si elle est réfutable par l'expérience."
+    },
+    {
+      "id": "f-modele",
+      "recto": "Qu'est-ce qu'un domaine de validité ?",
+      "verso": "Les conditions dans lesquelles un modèle donne des prédictions correctes (ex. $v \\ll c$ pour Newton)."
+    },
+    {
+      "id": "f-galilee",
+      "recto": "Apport de Galilée sur la chute des corps ?",
+      "verso": "Dans le vide, tous les corps tombent avec la même accélération, quelle que soit leur masse."
+    },
+    {
+      "id": "f-newton",
+      "recto": "Œuvre majeure de Newton et sa date ?",
+      "verso": "Les *Principia* (1687) : lois du mouvement et gravitation universelle."
+    },
+    {
+      "id": "f-maxwell",
+      "recto": "Apport de Maxwell ?",
+      "verso": "Les équations de l'électromagnétisme (vers 1865) : la lumière est une onde électromagnétique."
+    },
+    {
+      "id": "f-carnot",
+      "recto": "Apport de Sadi Carnot ?",
+      "verso": "Le rendement maximal des machines thermiques (1824)."
+    },
+    {
+      "id": "f-faraday",
+      "recto": "Apport de Faraday ?",
+      "verso": "L'induction électromagnétique (1831)."
+    },
+    {
+      "id": "f-einstein",
+      "recto": "Pour quoi Einstein a-t-il reçu le prix Nobel ?",
+      "verso": "L'explication de l'effet photoélectrique (Nobel 1921), pas la relativité."
+    },
+    {
+      "id": "f-curie",
+      "recto": "Marie Curie ?",
+      "verso": "Pionnière de la radioactivité ; Nobel de physique (1903) et de chimie (1911)."
+    },
+    {
+      "id": "f-noether",
+      "recto": "Théorème de Noether ?",
+      "verso": "À toute symétrie continue correspond une grandeur conservée (temps → énergie, espace → quantité de mouvement)."
+    },
+    {
+      "id": "f-annee",
+      "recto": "Ordre de grandeur d'une année en secondes ?",
+      "verso": "$\\approx 3 \\times 10^7\\ \\mathrm s$ ($365 \\times 86\\,400$)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "gravitation",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qui a formulé la loi de la gravitation universelle ?",
+      "correction": [
+        "Newton, *Principia*, 1687."
+      ],
+      "choix": [
+        {
+          "texte": "Isaac Newton",
+          "correct": true,
+          "explication": "Dans les *Principia* (1687)."
+        },
+        {
+          "texte": "Galilée",
+          "correct": false,
+          "explication": "Il a étudié la chute des corps, mais sans loi de gravitation universelle."
+        },
+        {
+          "texte": "Johannes Kepler",
+          "correct": false,
+          "explication": "Il a décrit le mouvement des planètes (lois de Kepler), que Newton a ensuite expliqué."
+        },
+        {
+          "texte": "Albert Einstein",
+          "correct": false,
+          "explication": "Il a proposé la relativité générale (1915), qui généralise la gravitation de Newton."
+        }
+      ]
+    },
+    {
+      "id": "curie",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Pour quels travaux Marie Curie est-elle célèbre ?",
+      "correction": [
+        "Marie Curie : radioactivité, deux prix Nobel."
+      ],
+      "choix": [
+        {
+          "texte": "la radioactivité, qui lui a valu deux prix Nobel (physique et chimie)",
+          "correct": true,
+          "explication": "Nobel de physique en 1903, de chimie en 1911 (polonium et radium)."
+        },
+        {
+          "texte": "la découverte de l'électron",
+          "correct": false,
+          "explication": "C'est J. J. Thomson (1897)."
+        },
+        {
+          "texte": "la relativité restreinte",
+          "correct": false,
+          "explication": "C'est Einstein (1905)."
+        },
+        {
+          "texte": "l'invention de la pile électrique",
+          "correct": false,
+          "explication": "C'est Volta (1800)."
+        }
+      ]
+    },
+    {
+      "id": "galilee",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'a établi Galilée sur la chute des corps ?",
+      "correction": [
+        "Galilée : même accélération pour tous dans le vide."
+      ],
+      "choix": [
+        {
+          "texte": "dans le vide, tous les corps tombent avec la même accélération",
+          "correct": true,
+          "explication": "La masse n'intervient pas ; c'est l'air qui freine différemment une plume et une bille."
+        },
+        {
+          "texte": "les corps lourds tombent plus vite que les corps légers",
+          "correct": false,
+          "explication": "C'est l'idée d'Aristote, que Galilée a réfutée."
+        },
+        {
+          "texte": "la vitesse de chute est constante",
+          "correct": false,
+          "explication": "Elle augmente proportionnellement au temps (mouvement uniformément accéléré)."
+        },
+        {
+          "texte": "la chute dépend de la forme mais pas de l'air",
+          "correct": false,
+          "explication": "C'est l'inverse : dans le vide, la forme ne compte pas ; dans l'air, si."
+        }
+      ]
+    },
+    {
+      "id": "carnot",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est l'apport de Sadi Carnot (1824) ?",
+      "correction": [
+        "Carnot : limite théorique du rendement des machines thermiques."
+      ],
+      "choix": [
+        {
+          "texte": "le rendement maximal d'une machine thermique",
+          "correct": true,
+          "explication": "*Réflexions sur la puissance motrice du feu* : fondation de la thermodynamique."
+        },
+        {
+          "texte": "la loi des gaz parfaits",
+          "correct": false,
+          "explication": "Elle résulte des travaux de Boyle, Mariotte, Charles et Gay-Lussac."
+        },
+        {
+          "texte": "la conservation de l'énergie",
+          "correct": false,
+          "explication": "Elle sera établie plus tard (Joule, Helmholtz, Mayer)."
+        },
+        {
+          "texte": "la machine à vapeur",
+          "correct": false,
+          "explication": "Elle existait déjà (Newcomen, Watt) ; Carnot l'a analysée."
+        }
+      ]
+    },
+    {
+      "id": "maxwell",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est l'apport majeur de Maxwell ?",
+      "correction": [
+        "Électromagnétisme de Maxwell."
+      ],
+      "choix": [
+        {
+          "texte": "unifier électricité, magnétisme et lumière dans une même théorie",
+          "correct": true,
+          "explication": "Ses équations (vers 1865) prédisent les ondes électromagnétiques, dont la lumière."
+        },
+        {
+          "texte": "découvrir l'induction électromagnétique",
+          "correct": false,
+          "explication": "C'est Faraday (1831)."
+        },
+        {
+          "texte": "mesurer la charge de l'électron",
+          "correct": false,
+          "explication": "C'est Millikan (1909)."
+        },
+        {
+          "texte": "formuler la loi des nœuds",
+          "correct": false,
+          "explication": "C'est Kirchhoff (1845)."
+        }
+      ]
+    },
+    {
+      "id": "refutabilite",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Selon Karl Popper, qu'est-ce qui rend une théorie scientifique ?",
+      "correction": [
+        "Critère de réfutabilité."
+      ],
+      "choix": [
+        {
+          "texte": "elle peut être réfutée par une expérience",
+          "correct": true,
+          "explication": "Une théorie qui s'accommode de tous les résultats possibles ne dit rien de testable."
+        },
+        {
+          "texte": "elle a été confirmée par de nombreuses expériences",
+          "correct": false,
+          "explication": "Des confirmations ne prouvent jamais définitivement une théorie."
+        },
+        {
+          "texte": "elle est acceptée par la majorité des scientifiques",
+          "correct": false,
+          "explication": "Le consensus n'est pas un critère logique de scientificité."
+        },
+        {
+          "texte": "elle est écrite en langage mathématique",
+          "correct": false,
+          "explication": "La mathématisation est utile, mais ce n'est pas le critère."
+        }
+      ]
+    },
+    {
+      "id": "noether",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Que dit le théorème d'Emmy Noether (1918) ?",
+      "correction": [
+        "Symétries ↔ lois de conservation."
+      ],
+      "choix": [
+        {
+          "texte": "à chaque symétrie continue d'un système correspond une grandeur conservée",
+          "correct": true,
+          "explication": "Invariance dans le temps → conservation de l'énergie ; dans l'espace → de la quantité de mouvement."
+        },
+        {
+          "texte": "l'énergie d'un système isolé diminue toujours",
+          "correct": false,
+          "explication": "C'est faux, et ce n'est pas Noether."
+        },
+        {
+          "texte": "toute force dérive d'une énergie potentielle",
+          "correct": false,
+          "explication": "Les frottements, par exemple, n'en dérivent pas."
+        },
+        {
+          "texte": "la vitesse de la lumière est la même dans tous les référentiels",
+          "correct": false,
+          "explication": "C'est un postulat de la relativité d'Einstein."
+        }
+      ]
+    },
+    {
+      "id": "dix-neuvieme",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Lesquels de ces scientifiques ont mené l'essentiel de leurs travaux au **XIXe siècle** ?",
+      "correction": [
+        "Faraday, Maxwell et Carnot : XIXe siècle."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "Michael Faraday",
+          "correct": true,
+          "explication": "Induction électromagnétique, 1831."
+        },
+        {
+          "texte": "James Clerk Maxwell",
+          "correct": true,
+          "explication": "Équations de l'électromagnétisme, vers 1865."
+        },
+        {
+          "texte": "Sadi Carnot",
+          "correct": true,
+          "explication": "Machines thermiques, 1824."
+        },
+        {
+          "texte": "Isaac Newton",
+          "correct": false,
+          "explication": "XVIIe siècle (1643–1727)."
+        },
+        {
+          "texte": "Galilée",
+          "correct": false,
+          "explication": "XVIe–XVIIe siècles (1564–1642)."
+        }
+      ]
+    },
+    {
+      "id": "ordre-grandeur",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Une année dure environ $3 \\times 10^{n}$ secondes. Que vaut l'entier $n$ ?",
+      "indice": "Un jour dure $86\\,400\\ \\mathrm s \\approx 10^5\\ \\mathrm s$.",
+      "correction": [
+        "$365 \\times 24 \\times 3600 = 31\\,536\\,000 \\approx 3{,}2 \\times 10^7\\ \\mathrm s$."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "vf-theorie-prouvee",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Une théorie scientifique est définitivement prouvée dès qu'une expérience la confirme.",
+      "correction": [
+        "Faux : une théorie n'est jamais définitivement prouvée, seulement non réfutée à ce jour."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Une confirmation renforce la théorie mais ne la prouve pas : une autre expérience peut la contredire.",
+          "correct": true,
+          "explication": "C'est l'asymétrie soulignée par Popper."
+        },
+        {
+          "texte": "Vrai, si l'expérience est reproductible.",
+          "correct": false,
+          "explication": "La reproductibilité est nécessaire, mais une théorie reste toujours révisable."
+        },
+        {
+          "texte": "Vrai : c'est le rôle de l'expérience.",
+          "correct": false,
+          "explication": "L'expérience peut réfuter ; elle ne prouve jamais définitivement."
+        }
+      ]
+    },
+    {
+      "id": "vf-newton-faux",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "La relativité d'Einstein a montré que la mécanique de Newton est fausse : on ne doit plus l'utiliser.",
+      "correction": [
+        "Faux : tout modèle a un domaine de validité ; celui de Newton couvre les vitesses petites devant $c$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "La mécanique de Newton est un modèle valable pour $v \\ll c$ : on l'utilise toujours (ponts, fusées, voitures).",
+          "correct": true,
+          "explication": "La relativité en précise le domaine de validité."
+        },
+        {
+          "texte": "Vrai : elle donne des résultats faux dans tous les cas.",
+          "correct": false,
+          "explication": "Les écarts sont négligeables aux vitesses usuelles."
+        },
+        {
+          "texte": "Vrai, sauf pour les planètes.",
+          "correct": false,
+          "explication": "C'est plutôt l'inverse : l'orbite de Mercure fait partie des écarts expliqués par la relativité générale."
+        }
+      ]
+    },
+    {
+      "id": "vf-einstein-nobel",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Einstein a reçu le prix Nobel de physique pour la théorie de la relativité.",
+      "correction": [
+        "Faux : Nobel 1921 pour l'effet photoélectrique."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Il l'a reçu (en 1921) pour l'explication de l'effet photoélectrique.",
+          "correct": true,
+          "explication": "Ce travail de 1905 fonde la notion de photon."
+        },
+        {
+          "texte": "Vrai, pour la relativité restreinte de 1905.",
+          "correct": false,
+          "explication": "La relativité était encore jugée trop controversée par le comité Nobel."
+        },
+        {
+          "texte": "Faux : Einstein n'a jamais reçu le prix Nobel.",
+          "correct": false,
+          "explication": "Il l'a reçu en 1921 (décerné en 1922)."
+        }
+      ]
+    },
+    {
+      "id": "erreur-chronologie",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Chronologie de quelques grandes découvertes : où est l'erreur ?",
+      "correction": [
+        "Einstein, 1905 : relativité restreinte et effet photoélectrique."
+      ],
+      "etapes": [
+        "Newton publie les *Principia* en 1687.",
+        "Coulomb énonce la loi de la force électrostatique en 1785.",
+        "Maxwell publie ses équations de l'électromagnétisme vers 1865.",
+        "S'appuyant sur ces équations, Einstein publie la relativité restreinte en 1805."
+      ],
+      "etapeFausse": 3,
+      "explication": "La relativité restreinte date de **1905** : un siècle plus tard, et après Maxwell (dont elle s'inspire)."
+    },
+    {
+      "id": "erreur-demarche",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Démarche scientifique : où est l'erreur ?",
+      "correction": [
+        "On vérifie l'expérience, puis on modifie ou abandonne l'hypothèse."
+      ],
+      "etapes": [
+        "On observe un phénomène et on formule une hypothèse.",
+        "On en déduit une prédiction testable.",
+        "On réalise l'expérience ; si le résultat contredit la prédiction de façon reproductible, on écarte la mesure, sans doute ratée, et on garde l'hypothèse.",
+        "Si la prédiction est vérifiée, l'hypothèse est renforcée (mais pas prouvée)."
+      ],
+      "etapeFausse": 2,
+      "explication": "Une contradiction **reproductible** (au-delà des incertitudes) réfute l'hypothèse : c'est l'hypothèse qu'il faut réviser, pas la mesure qu'il faut écarter."
+    }
+  ]
+}
