@@ -1,0 +1,427 @@
+{
+  "$schema": "../schema.json",
+  "id": "electrocinetique",
+  "monde": "physique",
+  "ordre": 6,
+  "titre": "Électrocinétique",
+  "icone": "🔌",
+  "resume": "Lois de Kirchhoff, résistances, diviseurs, générateur réel, condensateur, bobine et circuit RC.",
+  "cours": [
+    {
+      "titre": "Grandeurs et lois",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Intensité, tension, puissance",
+          "texte": "Intensité $i = \\dfrac{\\mathrm dq}{\\mathrm dt}$ (A), tension $u_{AB} = V_A - V_B$ (V). En convention récepteur, la puissance reçue par un dipôle est $\\mathcal P = u\\,i$ (W)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Lois de Kirchhoff",
+          "texte": "**Loi des nœuds** : la somme des intensités qui arrivent à un nœud égale la somme de celles qui en partent. **Loi des mailles** : la somme algébrique des tensions le long d'une maille est nulle."
+        }
+      ]
+    },
+    {
+      "titre": "Résistances et générateurs",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Résistances",
+          "texte": "Loi d'Ohm (convention récepteur) : $u = Ri$ ; puissance dissipée (effet Joule) $\\mathcal P = Ri^2 = u^2 / R$. En **série** : $R = R_1 + R_2$. En **parallèle** : $\\dfrac1R = \\dfrac1{R_1} + \\dfrac1{R_2}$, soit $R = \\dfrac{R_1R_2}{R_1 + R_2}$."
+        },
+        {
+          "type": "methode",
+          "titre": "Diviseurs",
+          "texte": "**Diviseur de tension** (résistances en série sous $E$) : $u_2 = E\\,\\dfrac{R_2}{R_1 + R_2}$. **Diviseur de courant** (en parallèle, courant total $I$) : $i_2 = I\\,\\dfrac{R_1}{R_1 + R_2}$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Générateur réel",
+          "texte": "Générateur réel (modèle de Thévenin) : $u = E - ri$, où $E$ est la force électromotrice et $r$ la résistance interne."
+        }
+      ]
+    },
+    {
+      "titre": "Condensateur, bobine et circuit RC",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Dipôles capacitifs et inductifs",
+          "texte": "**Condensateur** : $q = Cu$, $i = C\\dfrac{\\mathrm du}{\\mathrm dt}$, énergie $\\frac12 Cu^2$ ; sa **tension est continue**. **Bobine** : $u = L\\dfrac{\\mathrm di}{\\mathrm dt}$, énergie $\\frac12 Li^2$ ; son **intensité est continue**."
+        },
+        {
+          "type": "remarque",
+          "texte": "En régime permanent continu, un condensateur se comporte comme un **interrupteur ouvert** ($i = 0$) et une bobine idéale comme un **fil** ($u = 0$)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Circuit RC",
+          "texte": "Charge d'un condensateur sous $E$ à travers $R$, avec $u_C(0) = 0$ : $$RC\\,\\dot u_C + u_C = E,\\qquad u_C(t) = E\\,(1 - e^{-t/\\tau}),\\quad \\tau = RC.$$ Décharge : $u_C = U_0\\,e^{-t/\\tau}$. À $t = \\tau$, la charge est faite à 63 % ; à $5\\tau$, à plus de 99 %."
+        },
+        {
+          "type": "remarque",
+          "texte": "Circuit RL : même équation avec $\\tau = L / R$."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-intensite",
+      "recto": "Définition de l'intensité ?",
+      "verso": "$i = \\dfrac{\\mathrm dq}{\\mathrm dt}$, débit de charge (A)."
+    },
+    {
+      "id": "f-noeuds",
+      "recto": "Loi des nœuds ?",
+      "verso": "Somme des intensités entrantes = somme des intensités sortantes."
+    },
+    {
+      "id": "f-mailles",
+      "recto": "Loi des mailles ?",
+      "verso": "La somme algébrique des tensions le long d'une maille est nulle."
+    },
+    {
+      "id": "f-ohm",
+      "recto": "Loi d'Ohm et puissance Joule ?",
+      "verso": "$u = Ri$ ; $\\mathcal P = Ri^2 = u^2/R$."
+    },
+    {
+      "id": "f-serie-parallele",
+      "recto": "Résistances en série ? en parallèle ?",
+      "verso": "$R_1 + R_2$ ; $\\dfrac{R_1R_2}{R_1 + R_2}$."
+    },
+    {
+      "id": "f-diviseur",
+      "recto": "Diviseur de tension ?",
+      "verso": "$u_2 = E\\,\\dfrac{R_2}{R_1 + R_2}$."
+    },
+    {
+      "id": "f-generateur",
+      "recto": "Tension aux bornes d'un générateur réel ?",
+      "verso": "$u = E - ri$."
+    },
+    {
+      "id": "f-condensateur",
+      "recto": "Relations du condensateur ?",
+      "verso": "$q = Cu$, $i = C\\dfrac{\\mathrm du}{\\mathrm dt}$, énergie $\\frac12 Cu^2$."
+    },
+    {
+      "id": "f-bobine",
+      "recto": "Relations de la bobine ?",
+      "verso": "$u = L\\dfrac{\\mathrm di}{\\mathrm dt}$, énergie $\\frac12 Li^2$."
+    },
+    {
+      "id": "f-continuite",
+      "recto": "Quelles grandeurs sont continues ?",
+      "verso": "La tension aux bornes d'un condensateur et l'intensité dans une bobine."
+    },
+    {
+      "id": "f-rc",
+      "recto": "Charge d'un condensateur (RC, $u_C(0) = 0$) ?",
+      "verso": "$u_C = E(1 - e^{-t/\\tau})$, $\\tau = RC$."
+    },
+    {
+      "id": "f-permanent",
+      "recto": "Régime permanent continu : condensateur ? bobine ?",
+      "verso": "Interrupteur ouvert ; fil."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "loi-ohm",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Une résistance de $100\\ \\Omega$ est parcourue par un courant de $50\\ \\mathrm{mA}$. La tension à ses bornes vaut :",
+      "correction": [
+        "$U = RI = 100 \\times 0{,}05 = 5\\ \\mathrm V$."
+      ],
+      "choix": [
+        {
+          "texte": "$5\\ \\mathrm V$",
+          "correct": true,
+          "explication": "$U = RI = 100 \\times 0{,}050$."
+        },
+        {
+          "texte": "$5000\\ \\mathrm V$",
+          "correct": false,
+          "explication": "Les milliampères n'ont pas été convertis en ampères."
+        },
+        {
+          "texte": "$2\\ \\mathrm V$",
+          "correct": false,
+          "explication": "On a calculé $R / I$ (en mA)."
+        },
+        {
+          "texte": "$0{,}5\\ \\mathrm V$",
+          "correct": false,
+          "explication": "Erreur de conversion : $50\\ \\mathrm{mA} = 0{,}05\\ \\mathrm A$."
+        }
+      ]
+    },
+    {
+      "id": "resistance-equivalente",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Deux résistances $R_1 = 6\\ \\Omega$ et $R_2 = 3\\ \\Omega$ sont en parallèle ; l'ensemble est en série avec $R_3 = 4\\ \\Omega$. Résistance équivalente, en $\\Omega$ ?",
+      "correction": [
+        "Parallèle : $\\dfrac{6 \\times 3}{6 + 3} = 2\\ \\Omega$.",
+        "Série : $2 + 4 = 6\\ \\Omega$."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "diviseur-tension",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un générateur idéal $E = 12\\ \\mathrm V$ alimente $R_1 = 1\\ \\mathrm{k\\Omega}$ et $R_2 = 2\\ \\mathrm{k\\Omega}$ en série. Tension aux bornes de $R_2$, en V ?",
+      "correction": [
+        "Diviseur de tension : $u_2 = E\\,\\dfrac{R_2}{R_1 + R_2} = 12 \\times \\dfrac23 = 8\\ \\mathrm V$."
+      ],
+      "reponse": 8
+    },
+    {
+      "id": "loi-noeuds",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "En un nœud, $i_1 = 3\\ \\mathrm A$ et $i_2 = 2\\ \\mathrm A$ arrivent, $i_3 = 4\\ \\mathrm A$ repart. Le quatrième fil emporte un courant $i_4$ (compté sortant) égal à :",
+      "correction": [
+        "Loi des nœuds : $3 + 2 = 4 + i_4$, donc $i_4 = 1\\ \\mathrm A$."
+      ],
+      "choix": [
+        {
+          "texte": "$1\\ \\mathrm A$",
+          "correct": true,
+          "explication": "$i_1 + i_2 = i_3 + i_4$ donc $i_4 = 5 - 4$."
+        },
+        {
+          "texte": "$9\\ \\mathrm A$",
+          "correct": false,
+          "explication": "On a additionné tous les courants sans tenir compte de leur sens."
+        },
+        {
+          "texte": "$-1\\ \\mathrm A$",
+          "correct": false,
+          "explication": "Erreur de signe : avec $i_4$ compté sortant, $i_4 = +1\\ \\mathrm A$."
+        },
+        {
+          "texte": "$5\\ \\mathrm A$",
+          "correct": false,
+          "explication": "C'est le courant entrant total ; $i_3$ en repart déjà en partie."
+        }
+      ]
+    },
+    {
+      "id": "charge-rc",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un condensateur initialement déchargé ($R = 10\\ \\mathrm{k\\Omega}$, $C = 100\\ \\mathrm{\\mu F}$) est chargé sous $E = 10\\ \\mathrm V$ à partir de $t = 0$. Tension $u_C$ à $t = 1\\ \\mathrm s$, en V ?",
+      "correction": [
+        "$\\tau = RC = 10^4 \\times 10^{-4} = 1\\ \\mathrm s$.",
+        "$u_C(\\tau) = E\\,(1 - e^{-1}) \\approx 6{,}32\\ \\mathrm V$."
+      ],
+      "reponse": "10*(1 - exp(-1))",
+      "tolerance": 0.01
+    },
+    {
+      "id": "rc-condition-initiale",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Dans un circuit RC de constante de temps $\\tau = 0{,}5\\ \\mathrm s$, le condensateur porte $2\\ \\mathrm V$ à $t = 0$ et est chargé sous $E = 6\\ \\mathrm V$. Exprime $u_C(t)$ (SI).",
+      "indice": "Solution particulière constante + solution homogène ; la condition initiale porte sur la solution complète.",
+      "correction": [
+        "$\\tau\\,\\dot u_C + u_C = E$ : $u_C = E + Ke^{-t/\\tau} = 6 + Ke^{-2t}$.",
+        "$u_C(0) = 6 + K = 2$, donc $K = -4$ : $u_C(t) = 6 - 4e^{-2t}$."
+      ],
+      "reponse": "6 - 4*exp(-2*t)",
+      "variables": [
+        "t"
+      ],
+      "domaine": [
+        0,
+        3
+      ]
+    },
+    {
+      "id": "puissance-joule",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une résistance de $10\\ \\Omega$ est soumise à une tension de $20\\ \\mathrm V$. Puissance dissipée :",
+      "correction": [
+        "$I = 2\\ \\mathrm A$ et $\\mathcal P = UI = 40\\ \\mathrm W$."
+      ],
+      "choix": [
+        {
+          "texte": "$40\\ \\mathrm W$",
+          "correct": true,
+          "explication": "$\\mathcal P = U^2 / R = 400 / 10$."
+        },
+        {
+          "texte": "$200\\ \\mathrm W$",
+          "correct": false,
+          "explication": "$U \\times R$ n'est pas une puissance."
+        },
+        {
+          "texte": "$2\\ \\mathrm W$",
+          "correct": false,
+          "explication": "$U / R = 2\\ \\mathrm A$ est l'intensité."
+        },
+        {
+          "texte": "$4000\\ \\mathrm W$",
+          "correct": false,
+          "explication": "$U^2 R$ : il faut diviser par $R$."
+        }
+      ]
+    },
+    {
+      "id": "regime-permanent",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "En régime permanent continu, un condensateur se comporte comme :",
+      "correction": [
+        "$i = C\\dfrac{\\mathrm du}{\\mathrm dt} = 0$ : aucune intensité ne le traverse."
+      ],
+      "choix": [
+        {
+          "texte": "un interrupteur ouvert",
+          "correct": true,
+          "explication": "$u$ constante donc $i = C\\dot u = 0$."
+        },
+        {
+          "texte": "un fil (court-circuit)",
+          "correct": false,
+          "explication": "C'est le comportement d'une bobine idéale."
+        },
+        {
+          "texte": "une résistance de valeur $1/C$",
+          "correct": false,
+          "explication": "Ce n'est pas homogène, et le courant est nul."
+        },
+        {
+          "texte": "un générateur de tension idéal",
+          "correct": false,
+          "explication": "Il ne fournit pas d'énergie en régime permanent ; aucun courant ne le traverse."
+        }
+      ]
+    },
+    {
+      "id": "cinq-tau",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un condensateur se charge dans un circuit RC de constante de temps $\\tau = 2\\ \\mathrm{ms}$. Au bout de combien de temps la charge est-elle faite à plus de 99 % ?",
+      "correction": [
+        "$1 - e^{-t/\\tau} > 0{,}99$ pour $t > \\tau\\ln 100 \\approx 4{,}6\\,\\tau$ : environ $5\\tau = 10\\ \\mathrm{ms}$."
+      ],
+      "choix": [
+        {
+          "texte": "environ $10\\ \\mathrm{ms}$",
+          "correct": true,
+          "explication": "$5\\tau$ : $1 - e^{-5} \\approx 99{,}3\\ \\%$."
+        },
+        {
+          "texte": "$2\\ \\mathrm{ms}$",
+          "correct": false,
+          "explication": "À $t = \\tau$, la charge n'est faite qu'à 63 %."
+        },
+        {
+          "texte": "$4\\ \\mathrm{ms}$",
+          "correct": false,
+          "explication": "À $2\\tau$, on n'est qu'à 86 %."
+        },
+        {
+          "texte": "$1\\ \\mathrm s$",
+          "correct": false,
+          "explication": "Bien plus que nécessaire : 500 constantes de temps."
+        }
+      ]
+    },
+    {
+      "id": "vf-continuite-c",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "La tension aux bornes d'un condensateur peut être discontinue à la fermeture d'un interrupteur.",
+      "correction": [
+        "La tension aux bornes d'un condensateur est continue (l'énergie $\\frac12 Cu^2$ l'est)."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Un saut de $u$ demanderait une énergie $\\frac12 Cu^2$ transférée instantanément (puissance infinie).",
+          "correct": true,
+          "explication": "Et $i = C\\dot u$ serait infinie."
+        },
+        {
+          "texte": "Vrai : l'interrupteur impose un changement brutal.",
+          "correct": false,
+          "explication": "C'est l'intensité qui peut sauter dans un circuit RC, pas $u_C$."
+        },
+        {
+          "texte": "Vrai, si la résistance est grande.",
+          "correct": false,
+          "explication": "Plus $R$ est grand, plus la charge est lente : $u_C$ reste continue."
+        }
+      ]
+    },
+    {
+      "id": "vf-bobine-fil",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "En régime permanent continu, une bobine idéale se comporte comme un fil.",
+      "correction": [
+        "$u = L\\,\\dot i = 0$ en régime permanent : la bobine idéale est un fil."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$i$ constante donc $u = L\\dfrac{\\mathrm di}{\\mathrm dt} = 0$.",
+          "correct": true,
+          "explication": "Une tension nulle quel que soit le courant : c'est un fil."
+        },
+        {
+          "texte": "Faux : elle se comporte comme un interrupteur ouvert.",
+          "correct": false,
+          "explication": "C'est le condensateur qui se comporte ainsi."
+        },
+        {
+          "texte": "Faux : elle conserve une tension égale à $L$.",
+          "correct": false,
+          "explication": "$L$ n'est pas une tension (henrys)."
+        }
+      ]
+    },
+    {
+      "id": "erreur-parallele",
+      "type": "trouve-erreur",
+      "difficulte": 1,
+      "enonce": "Calcul de la résistance équivalente à deux résistances de $4\\ \\Omega$ en parallèle. Où est l'erreur ?",
+      "correction": [
+        "$R = 2\\ \\Omega$."
+      ],
+      "etapes": [
+        "En parallèle, les inverses s'ajoutent : $\\dfrac1R = \\dfrac1{R_1} + \\dfrac1{R_2}$.",
+        "$\\dfrac1R = \\dfrac14 + \\dfrac14 = \\dfrac12$.",
+        "Donc $R = \\dfrac12\\ \\Omega$."
+      ],
+      "etapeFausse": 2,
+      "explication": "On a obtenu $\\dfrac1R$ ; il faut l'inverser : $R = 2\\ \\Omega$ (deux résistances égales en parallèle donnent la moitié)."
+    },
+    {
+      "id": "erreur-generateur",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "Un générateur ($E = 12\\ \\mathrm V$, $r = 1\\ \\Omega$) alimente une résistance $R = 5\\ \\Omega$. Où est l'erreur ?",
+      "correction": [
+        "$U = 10\\ \\mathrm V$ (c'est aussi $RI$) et $\\mathcal P = RI^2 = 20\\ \\mathrm W$."
+      ],
+      "etapes": [
+        "Loi des mailles : $E - rI - RI = 0$.",
+        "$I = \\dfrac{E}{R + r} = 2\\ \\mathrm A$.",
+        "Tension aux bornes du générateur : $U = E + rI = 14\\ \\mathrm V$.",
+        "Puissance reçue par $R$ : $\\mathcal P = UI = 28\\ \\mathrm W$."
+      ],
+      "etapeFausse": 2,
+      "explication": "La résistance interne fait **chuter** la tension : $U = E - rI = 10\\ \\mathrm V$."
+    }
+  ]
+}

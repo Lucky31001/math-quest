@@ -2,9 +2,9 @@
 
 **👉 Essayer en ligne : [lucky31001.github.io/math-quest](https://lucky31001.github.io/math-quest/)**
 
-Application web **gamifiée** de révision de mathématiques pour la prépa intégrée (pré-ing 1), centrée sur l'**algèbre** et l'**analyse**. Tout fonctionne dans le navigateur, sans serveur, et sur téléphone.
+Application web **gamifiée** de révision pour la prépa intégrée (pré-ing 1) : **algèbre**, **analyse**, **physique** et **informatique** (Python). Tout fonctionne dans le navigateur, sans serveur, et sur téléphone.
 
-- **14 chapitres** (7 en algèbre, 7 en analyse) : fiche de cours, 15 flashcards et 18 à 23 exercices écrits à la main par chapitre (≈ 300 au total).
+- **26 chapitres** : 7 en algèbre et 7 en analyse (15 flashcards, 18 à 23 exercices chacun), 6 en physique et 6 en informatique (12 à 14 flashcards, 13 à 15 exercices chacun), tous avec une fiche de cours.
 - **5 types de questions** : QCM (réponse unique ou multiple), réponse numérique, réponse expression (`2x+2` = `2(x+1)`), vrai/faux justifié, « trouve l'erreur ».
 - **32 générateurs** d'exercices aléatoires (tables de vérité, négations, dénombrement, dérivées, tangentes, DL, racines complexes, matrices, systèmes, primitives, EDO…) : exercices infinis, en QCM ou à saisir.
 - **Gamification** : XP, niveaux et titres, streak 🔥, badges, carte de progression, modes **Boss**, **Survie** et **QCM éclair**.
@@ -49,6 +49,7 @@ Grâce à `"$schema": "../schema.json"`, VS Code propose l'autocomplétion et si
 
 **Règles d'écriture :**
 - tous les textes acceptent du **LaTeX** entre `$…$` (en ligne) ou `$$…$$` (bloc), ainsi que `**gras**` ;
+- du **code** : `` `x // 2` `` en ligne, ou un bloc ` ```python ` … ` ``` ` (indentation conservée, ni LaTeX ni gras à l'intérieur). Pour une question d'informatique, `tests/contenu-maths.test.ts` peut exécuter avec `python3` le bloc de code de l'énoncé ;
 - en JSON, chaque antislash est doublé : `"$\\frac{1}{2}$"` ;
 - les `id` sont en minuscules avec tirets, et uniques dans le chapitre.
 

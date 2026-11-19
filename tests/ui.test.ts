@@ -7,6 +7,7 @@ import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { CONTENU } from '../src/core/loader';
 import { afficherQuestion } from '../src/ui/components/question';
 import type { Question } from '../src/core/schema';
+import { rendreHtml } from '../src/ui/texte';
 
 const attendre = () => new Promise((r) => setTimeout(r, 0));
 const touche = (key: string, cible: EventTarget = document) =>
@@ -179,5 +180,19 @@ describe('composant question : chaque type se corrige', () => {
     expect(appels).toBe(0);
     expect(c.el.querySelector('.msg-invalide')!.textContent).not.toBe('');
     c.detruire();
+  });
+});
+
+describe('rendu du texte', () => {
+  it('affiche le code tel quel : ni gras, ni LaTeX, HTML échappé', () => {
+    const html = rendreHtml('Calcule `x**2 + y**2` puis **gras** et $x^2$.');
+    expect(html).toContain('<code>x**2 + y**2</code>');
+    expect(html).toContain('<strong>gras</strong>');
+    expect(html).toContain('katex');
+  });
+  it('rend un bloc ```python``` dans un <pre>, indentation conservée', () => {
+    const html = rendreHtml('Code :\n```python\ndef f(x):\n    return x < 2 and \'$\'\n```\nFin.');
+    expect(html).toContain('<pre class="code"><code>def f(x):\n    return x &lt; 2 and &#39;$&#39;</code></pre>');
+    expect(html).not.toContain('python');
   });
 });

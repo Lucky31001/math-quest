@@ -21,6 +21,22 @@
           "embleme": "🌋",
           "couleur": "#1cb0f6",
           "couleurFonce": "#1899d6"
+        },
+        {
+          "id": "physique",
+          "nom": "Physique",
+          "sousTitre": "Mécanique, énergie et circuits",
+          "embleme": "🪐",
+          "couleur": "#ff9600",
+          "couleurFonce": "#d97f00"
+        },
+        {
+          "id": "informatique",
+          "nom": "Informatique",
+          "sousTitre": "Python, données et algorithmes",
+          "embleme": "💻",
+          "couleur": "#58cc02",
+          "couleurFonce": "#46a302"
         }
       ]
     }

@@ -1,0 +1,467 @@
+{
+  "$schema": "../schema.json",
+  "id": "grandeurs-unites",
+  "monde": "physique",
+  "ordre": 1,
+  "titre": "Grandeurs, unités et dimensions",
+  "icone": "⚖️",
+  "resume": "Système international, analyse dimensionnelle, chiffres significatifs et incertitudes.",
+  "cours": [
+    {
+      "titre": "Système international",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Unités de base",
+          "texte": "Le SI repose sur 7 unités de base : mètre (m), kilogramme (kg), seconde (s), ampère (A), kelvin (K), mole (mol), candela (cd). Toutes les autres unités en dérivent."
+        },
+        {
+          "type": "propriete",
+          "titre": "Unités dérivées",
+          "texte": "$1\\ \\mathrm{N} = 1\\ \\mathrm{kg\\cdot m\\cdot s^{-2}}$ (force), $1\\ \\mathrm{J} = 1\\ \\mathrm{N\\cdot m} = 1\\ \\mathrm{kg\\cdot m^2\\cdot s^{-2}}$ (énergie), $1\\ \\mathrm{W} = 1\\ \\mathrm{J\\cdot s^{-1}}$ (puissance), $1\\ \\mathrm{Pa} = 1\\ \\mathrm{N\\cdot m^{-2}}$ (pression), $1\\ \\mathrm{C} = 1\\ \\mathrm{A\\cdot s}$ (charge), $1\\ \\mathrm{V} = 1\\ \\mathrm{W\\cdot A^{-1}}$ (tension)."
+        },
+        {
+          "type": "remarque",
+          "titre": "Préfixes et conversions",
+          "texte": "Préfixes : $\\mathrm{n} = 10^{-9}$, $\\mathrm{\\mu} = 10^{-6}$, $\\mathrm{m} = 10^{-3}$, $\\mathrm{k} = 10^{3}$, $\\mathrm{M} = 10^{6}$, $\\mathrm{G} = 10^{9}$. Attention aux surfaces et volumes : $1\\ \\mathrm{cm^2} = 10^{-4}\\ \\mathrm{m^2}$, $1\\ \\mathrm{cm^3} = 10^{-6}\\ \\mathrm{m^3}$, $1\\ \\mathrm{L} = 10^{-3}\\ \\mathrm{m^3}$."
+        }
+      ]
+    },
+    {
+      "titre": "Analyse dimensionnelle",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Dimension",
+          "texte": "La dimension d'une grandeur $G$, notée $[G]$, s'exprime avec les dimensions de base : longueur $\\mathsf{L}$, masse $\\mathsf{M}$, temps $\\mathsf{T}$, intensité $\\mathsf{I}$, température $\\Theta$… Par exemple $[v] = \\mathsf{L\\,T^{-1}}$ et $[F] = \\mathsf{M\\,L\\,T^{-2}}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Principe d'homogénéité",
+          "texte": "On ne peut **additionner, soustraire ou égaler** que des grandeurs de même dimension. Les arguments de $\\exp$, $\\ln$, $\\cos$, $\\sin$… sont **sans dimension**. Une formule non homogène est forcément fausse (la réciproque est fausse : une formule homogène peut être fausse d'un facteur numérique)."
+        },
+        {
+          "type": "methode",
+          "titre": "Trouver une loi par analyse dimensionnelle",
+          "texte": "Pour deviner une loi $G = k\\,a^\\alpha b^\\beta c^\\gamma$ ($k$ sans dimension) : écrire $[G] = [a]^\\alpha [b]^\\beta [c]^\\gamma$, puis identifier les exposants de $\\mathsf{L}$, $\\mathsf{M}$, $\\mathsf{T}$ : on obtient un système linéaire en $\\alpha, \\beta, \\gamma$."
+        },
+        {
+          "type": "exemple",
+          "texte": "Période $T$ d'un pendule de longueur $\\ell$ et de masse $m$ dans le champ $g$ : $T = k\\,\\ell^\\alpha m^\\beta g^\\gamma$. Masse : $\\beta = 0$ ; temps : $1 = -2\\gamma$ ; longueur : $0 = \\alpha + \\gamma$. Donc $T = k\\sqrt{\\ell / g}$ (en fait $k = 2\\pi$)."
+        }
+      ]
+    },
+    {
+      "titre": "Mesures et incertitudes",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Chiffres significatifs",
+          "texte": "Un résultat s'écrit avec autant de **chiffres significatifs** que la donnée la moins précise. Les zéros à gauche ne comptent pas : $0{,}0520$ a 3 chiffres significatifs."
+        },
+        {
+          "type": "definition",
+          "titre": "Incertitude-type",
+          "texte": "Une mesure s'écrit $x = (x_{\\text{mes}} \\pm u(x))$ unité, où $u(x)$ est l'**incertitude-type**. L'incertitude relative $u(x)/|x|$ est sans dimension, souvent en %."
+        },
+        {
+          "type": "propriete",
+          "titre": "Propagation",
+          "texte": "Pour $G = a\\,b$ ou $G = a / b$ (incertitudes indépendantes) : $$\\frac{u(G)}{|G|} = \\sqrt{\\left(\\frac{u(a)}{a}\\right)^2 + \\left(\\frac{u(b)}{b}\\right)^2}.$$ Pour $G = a + b$ ou $a - b$ : $u(G) = \\sqrt{u(a)^2 + u(b)^2}$."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-unites-base",
+      "recto": "Les 7 unités de base du SI ?",
+      "verso": "Mètre, kilogramme, seconde, ampère, kelvin, mole, candela."
+    },
+    {
+      "id": "f-newton",
+      "recto": "Le newton en unités de base ?",
+      "verso": "$1\\ \\mathrm{N} = 1\\ \\mathrm{kg\\cdot m\\cdot s^{-2}}$ (car $F = ma$)."
+    },
+    {
+      "id": "f-joule",
+      "recto": "Le joule en unités de base ?",
+      "verso": "$1\\ \\mathrm{J} = 1\\ \\mathrm{kg\\cdot m^2\\cdot s^{-2}}$ (car $E_c = \\frac12 mv^2$)."
+    },
+    {
+      "id": "f-watt",
+      "recto": "Le watt ?",
+      "verso": "$1\\ \\mathrm{W} = 1\\ \\mathrm{J\\cdot s^{-1}} = 1\\ \\mathrm{kg\\cdot m^2\\cdot s^{-3}}$."
+    },
+    {
+      "id": "f-pascal",
+      "recto": "Le pascal ?",
+      "verso": "$1\\ \\mathrm{Pa} = 1\\ \\mathrm{N\\cdot m^{-2}} = 1\\ \\mathrm{kg\\cdot m^{-1}\\cdot s^{-2}}$."
+    },
+    {
+      "id": "f-dim-vitesse",
+      "recto": "Dimension d'une vitesse ? d'une accélération ?",
+      "verso": "$\\mathsf{L\\,T^{-1}}$ et $\\mathsf{L\\,T^{-2}}$."
+    },
+    {
+      "id": "f-dim-force",
+      "recto": "Dimension d'une force ?",
+      "verso": "$\\mathsf{M\\,L\\,T^{-2}}$."
+    },
+    {
+      "id": "f-homogeneite",
+      "recto": "Principe d'homogénéité ?",
+      "verso": "On n'additionne, ne soustrait et n'égale que des grandeurs de même dimension."
+    },
+    {
+      "id": "f-argument",
+      "recto": "Dimension de l'argument de $\\exp$, $\\ln$ ou $\\cos$ ?",
+      "verso": "Aucune : il est sans dimension (ex. $\\omega t$, $t / \\tau$)."
+    },
+    {
+      "id": "f-kmh",
+      "recto": "Passer des $\\mathrm{km/h}$ aux $\\mathrm{m/s}$ ?",
+      "verso": "Diviser par $3{,}6$ (car $1\\ \\mathrm{km/h} = 1000\\ \\mathrm{m} / 3600\\ \\mathrm{s}$)."
+    },
+    {
+      "id": "f-prefixes",
+      "recto": "Valeurs de $\\mathrm{m}$, $\\mathrm{\\mu}$, $\\mathrm{n}$ ? de $\\mathrm{k}$, $\\mathrm{M}$, $\\mathrm{G}$ ?",
+      "verso": "$10^{-3}$, $10^{-6}$, $10^{-9}$ ; $10^{3}$, $10^{6}$, $10^{9}$."
+    },
+    {
+      "id": "f-cm2",
+      "recto": "$1\\ \\mathrm{cm^2}$ en $\\mathrm{m^2}$ ?",
+      "verso": "$(10^{-2})^2 = 10^{-4}\\ \\mathrm{m^2}$."
+    },
+    {
+      "id": "f-incertitude-produit",
+      "recto": "Incertitude relative sur $G = ab$ ?",
+      "verso": "$\\dfrac{u(G)}{G} = \\sqrt{\\left(\\dfrac{u(a)}{a}\\right)^2 + \\left(\\dfrac{u(b)}{b}\\right)^2}$."
+    },
+    {
+      "id": "f-cs",
+      "recto": "Nombre de chiffres significatifs de $0{,}0520$ ?",
+      "verso": "3 (les zéros de gauche ne comptent pas, le zéro final compte)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "unite-newton",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Le newton s'exprime en unités de base du SI par :",
+      "correction": [
+        "$[F] = [m][a] = \\mathsf{M\\,L\\,T^{-2}}$ : $1\\ \\mathrm{N} = 1\\ \\mathrm{kg\\cdot m\\cdot s^{-2}}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\mathrm{kg\\cdot m\\cdot s^{-2}}$",
+          "correct": true,
+          "explication": "$F = ma$ : une masse fois une accélération."
+        },
+        {
+          "texte": "$\\mathrm{kg\\cdot m\\cdot s^{-1}}$",
+          "correct": false,
+          "explication": "C'est l'unité d'une quantité de mouvement $p = mv$."
+        },
+        {
+          "texte": "$\\mathrm{kg\\cdot m^2\\cdot s^{-2}}$",
+          "correct": false,
+          "explication": "C'est le joule (énergie), soit un newton fois un mètre."
+        },
+        {
+          "texte": "$\\mathrm{kg\\cdot m^{-1}\\cdot s^{-2}}$",
+          "correct": false,
+          "explication": "C'est le pascal (pression), soit un newton par mètre carré."
+        }
+      ]
+    },
+    {
+      "id": "conversion-kmh",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Une voiture roule à $90\\ \\mathrm{km/h}$. Sa vitesse en $\\mathrm{m/s}$ vaut :",
+      "correction": [
+        "$90\\ \\mathrm{km/h} = \\dfrac{90\\,000\\ \\mathrm{m}}{3600\\ \\mathrm{s}} = 25\\ \\mathrm{m/s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$25\\ \\mathrm{m/s}$",
+          "correct": true,
+          "explication": "$90 / 3{,}6 = 25$."
+        },
+        {
+          "texte": "$324\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "On a multiplié par $3{,}6$ au lieu de diviser."
+        },
+        {
+          "texte": "$1{,}5\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "On a divisé par 60 : une heure dure 3600 s, et les km ne sont pas convertis."
+        },
+        {
+          "texte": "$90\\,000\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "Les kilomètres sont convertis, mais pas les heures."
+        }
+      ]
+    },
+    {
+      "id": "masse-volumique",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "La masse volumique de l'eau vaut $1{,}00\\ \\mathrm{g/cm^3}$. Combien vaut-elle en $\\mathrm{kg/m^3}$ ?",
+      "indice": "Convertis séparément la masse et le volume ($1\\ \\mathrm{cm} = 10^{-2}\\ \\mathrm{m}$, au cube).",
+      "correction": [
+        "$1\\ \\mathrm{g} = 10^{-3}\\ \\mathrm{kg}$ et $1\\ \\mathrm{cm^3} = 10^{-6}\\ \\mathrm{m^3}$.",
+        "$1{,}00\\ \\mathrm{g/cm^3} = \\dfrac{10^{-3}}{10^{-6}}\\ \\mathrm{kg/m^3} = 1000\\ \\mathrm{kg/m^3}$."
+      ],
+      "reponse": 1000
+    },
+    {
+      "id": "dimension-energie",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est la dimension de l'énergie cinétique $E_c = \\frac12 m v^2$ ?",
+      "correction": [
+        "$[E_c] = \\mathsf{M\\,L^2\\,T^{-2}}$, comme le joule $\\mathrm{kg\\cdot m^2\\cdot s^{-2}}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\mathsf{M\\,L^2\\,T^{-2}}$",
+          "correct": true,
+          "explication": "$[m][v]^2 = \\mathsf{M}\\,(\\mathsf{L\\,T^{-1}})^2$ ; le facteur $\\frac12$ n'a pas de dimension."
+        },
+        {
+          "texte": "$\\mathsf{M\\,L\\,T^{-2}}$",
+          "correct": false,
+          "explication": "C'est la dimension d'une force : il manque une longueur."
+        },
+        {
+          "texte": "$\\mathsf{M\\,L^2\\,T^{-1}}$",
+          "correct": false,
+          "explication": "Le carré porte aussi sur le temps : $(\\mathsf{T^{-1}})^2 = \\mathsf{T^{-2}}$."
+        },
+        {
+          "texte": "$\\mathsf{\\tfrac12\\,M\\,L^2\\,T^{-2}}$",
+          "correct": false,
+          "explication": "Un coefficient numérique n'apparaît pas dans une dimension."
+        }
+      ]
+    },
+    {
+      "id": "vf-homogene-somme",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "La formule $x = v\\,t + a\\,t$ est homogène ($x$ position, $v$ vitesse, $a$ accélération, $t$ durée).",
+      "correction": [
+        "$[v\\,t] = \\mathsf{L}$ mais $[a\\,t] = \\mathsf{L\\,T^{-2}\\,T} = \\mathsf{L\\,T^{-1}}$ : on additionne une longueur et une vitesse, la formule est fausse."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "$[a\\,t] = \\mathsf{L\\,T^{-1}}$ : c'est une vitesse, pas une longueur.",
+          "correct": true,
+          "explication": "Le second terme n'a pas la dimension de $x$ ; la bonne loi est $x = vt + \\frac12 at^2$."
+        },
+        {
+          "texte": "Vrai : chaque terme contient $t$.",
+          "correct": false,
+          "explication": "Contenir $t$ ne suffit pas : il faut comparer les dimensions de chaque terme."
+        },
+        {
+          "texte": "Vrai : $v$ et $a$ sont toutes deux des grandeurs cinématiques.",
+          "correct": false,
+          "explication": "$[v\\,t] = \\mathsf{L}$ mais $[a\\,t] = \\mathsf{L\\,T^{-1}}$."
+        }
+      ]
+    },
+    {
+      "id": "pendule-dimensionnel",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Par analyse dimensionnelle, la période $T$ d'un pendule simple de longueur $\\ell$ et de masse $m$, dans le champ de pesanteur $g$, est proportionnelle à :",
+      "correction": [
+        "$T = k\\,\\ell^\\alpha m^\\beta g^\\gamma$ : $\\mathsf{M}$ donne $\\beta = 0$, $\\mathsf{T}$ donne $-2\\gamma = 1$, $\\mathsf{L}$ donne $\\alpha + \\gamma = 0$.",
+        "$\\alpha = \\frac12$, $\\gamma = -\\frac12$ : $T = k\\sqrt{\\ell / g}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\sqrt{\\ell / g}$",
+          "correct": true,
+          "explication": "$[\\ell / g] = \\mathsf{L} / \\mathsf{L\\,T^{-2}} = \\mathsf{T^2}$ : sa racine est un temps."
+        },
+        {
+          "texte": "$\\sqrt{g / \\ell}$",
+          "correct": false,
+          "explication": "C'est l'inverse d'un temps : la pulsation $\\omega_0$, pas la période."
+        },
+        {
+          "texte": "$\\ell / g$",
+          "correct": false,
+          "explication": "$\\ell / g$ a la dimension d'un temps au carré."
+        },
+        {
+          "texte": "$\\sqrt{m\\ell / g}$",
+          "correct": false,
+          "explication": "La masse est la seule grandeur contenant $\\mathsf{M}$ : elle ne peut pas apparaître."
+        }
+      ]
+    },
+    {
+      "id": "exposant-onde",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "La vitesse $v$ des vagues en eau profonde ne dépend que de leur longueur d'onde $\\lambda$ et de $g$ : $v = k\\,\\lambda^\\alpha g^\\beta$ ($k$ sans dimension). Que vaut $\\alpha$ ?",
+      "indice": "Identifie séparément les exposants de $\\mathsf{L}$ et de $\\mathsf{T}$.",
+      "correction": [
+        "$\\mathsf{L\\,T^{-1}} = \\mathsf{L}^\\alpha\\,(\\mathsf{L\\,T^{-2}})^\\beta = \\mathsf{L}^{\\alpha + \\beta}\\,\\mathsf{T}^{-2\\beta}$.",
+        "Temps : $-1 = -2\\beta$, donc $\\beta = \\frac12$. Longueur : $\\alpha + \\beta = 1$, donc $\\alpha = \\frac12$.",
+        "$v = k\\sqrt{g\\lambda}$ (en fait $k = 1/\\sqrt{2\\pi}$)."
+      ],
+      "reponse": "1/2"
+    },
+    {
+      "id": "chiffres-significatifs",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un coureur parcourt $100{,}0\\ \\mathrm{m}$ en $12{,}3\\ \\mathrm{s}$. Sa vitesse moyenne, correctement écrite, est :",
+      "correction": [
+        "$100{,}0 / 12{,}3 = 8{,}130\\ldots$ ; la donnée la moins précise a 3 chiffres significatifs : $v = 8{,}13\\ \\mathrm{m/s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$8{,}13\\ \\mathrm{m/s}$",
+          "correct": true,
+          "explication": "$12{,}3$ a 3 chiffres significatifs : le résultat en garde 3."
+        },
+        {
+          "texte": "$8{,}130\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "4 chiffres significatifs : plus précis que la durée mesurée."
+        },
+        {
+          "texte": "$8{,}1\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "2 chiffres : on perd de l'information disponible."
+        },
+        {
+          "texte": "$8{,}1300813\\ \\mathrm{m/s}$",
+          "correct": false,
+          "explication": "La calculatrice donne des chiffres qui n'ont aucun sens physique."
+        }
+      ]
+    },
+    {
+      "id": "incertitude-surface",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Un rectangle mesure $a = 20{,}0\\ \\mathrm{cm}$ ($u(a) = 0{,}2\\ \\mathrm{cm}$) sur $b = 15{,}0\\ \\mathrm{cm}$ ($u(b) = 0{,}3\\ \\mathrm{cm}$). Quelle est l'incertitude-type **relative** sur sa surface $S = ab$, en % ?",
+      "indice": "Pour un produit, les incertitudes relatives se composent en somme quadratique.",
+      "correction": [
+        "$\\dfrac{u(a)}{a} = 1\\ \\%$ et $\\dfrac{u(b)}{b} = 2\\ \\%$.",
+        "$\\dfrac{u(S)}{S} = \\sqrt{1^2 + 2^2}\\ \\% = \\sqrt 5\\ \\% \\approx 2{,}2\\ \\%$."
+      ],
+      "reponse": "sqrt(5)",
+      "tolerance": 0.02
+    },
+    {
+      "id": "erreur-homogeneite",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "On vérifie que la hauteur maximale d'un objet lancé verticalement, $h = \\dfrac{v_0^2}{2g}$, est homogène. Où est l'erreur ?",
+      "correction": [
+        "$\\dfrac{\\mathsf{L^2\\,T^{-2}}}{\\mathsf{L\\,T^{-2}}} = \\mathsf{L}$ : $h$ est bien une longueur."
+      ],
+      "etapes": [
+        "$[v_0^2] = \\mathsf{L^2\\,T^{-2}}$.",
+        "$[g] = \\mathsf{L\\,T^{-2}}$ et le facteur 2 n'a pas de dimension.",
+        "$\\left[\\dfrac{v_0^2}{2g}\\right] = \\dfrac{\\mathsf{L^2\\,T^{-2}}}{\\mathsf{L\\,T^{-2}}} = \\mathsf{L\\,T^{-4}}$.",
+        "Ce n'est pas une longueur : la formule est fausse."
+      ],
+      "etapeFausse": 2,
+      "explication": "En divisant, les exposants se **soustraient** : $\\mathsf{T^{-2}} / \\mathsf{T^{-2}} = \\mathsf{T^0}$. On obtient $\\mathsf{L}$ : la formule est homogène."
+    },
+    {
+      "id": "vf-argument-cos",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Dans $x(t) = A\\cos(\\omega t + \\varphi)$, la pulsation $\\omega$ peut s'exprimer en secondes.",
+      "correction": [
+        "$\\omega t$ est sans dimension : $\\omega$ s'exprime en $\\mathrm{s^{-1}}$ (ou $\\mathrm{rad\\cdot s^{-1}}$)."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "$\\omega t$ doit être sans dimension, donc $[\\omega] = \\mathsf{T^{-1}}$ ($\\mathrm{rad\\cdot s^{-1}}$).",
+          "correct": true,
+          "explication": "L'argument d'un cosinus est sans dimension."
+        },
+        {
+          "texte": "Vrai : $\\omega$ est liée à la période, qui est un temps.",
+          "correct": false,
+          "explication": "$\\omega = 2\\pi / T$ : c'est l'**inverse** d'un temps."
+        },
+        {
+          "texte": "Vrai : l'argument d'un cosinus est un angle, donc une durée.",
+          "correct": false,
+          "explication": "Un angle (en radians) est sans dimension."
+        }
+      ]
+    },
+    {
+      "id": "unites-energie",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces unités sont des unités d'**énergie** ?",
+      "correction": [
+        "Une énergie a la dimension $\\mathsf{M\\,L^2\\,T^{-2}}$ : c'est le cas du kWh, du W·s et de l'eV."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$\\mathrm{kW\\cdot h}$",
+          "correct": true,
+          "explication": "Une puissance fois une durée : $1\\ \\mathrm{kWh} = 3{,}6\\times 10^6\\ \\mathrm{J}$."
+        },
+        {
+          "texte": "$\\mathrm{W\\cdot s}$",
+          "correct": true,
+          "explication": "$1\\ \\mathrm{W\\cdot s} = 1\\ \\mathrm{J}$."
+        },
+        {
+          "texte": "$\\mathrm{eV}$",
+          "correct": true,
+          "explication": "L'électronvolt : $1\\ \\mathrm{eV} \\approx 1{,}6\\times 10^{-19}\\ \\mathrm{J}$."
+        },
+        {
+          "texte": "$\\mathrm{kg\\cdot m\\cdot s^{-2}}$",
+          "correct": false,
+          "explication": "C'est le newton (force)."
+        },
+        {
+          "texte": "$\\mathrm{N\\cdot m^{-1}}$",
+          "correct": false,
+          "explication": "Une force par unité de longueur (raideur d'un ressort), pas une énergie."
+        }
+      ]
+    },
+    {
+      "id": "erreur-conversion-surface",
+      "type": "trouve-erreur",
+      "difficulte": 1,
+      "enonce": "On convertit $2{,}5\\ \\mathrm{cm^2}$ en $\\mathrm{m^2}$. Où est l'erreur ?",
+      "correction": [
+        "$2{,}5\\ \\mathrm{cm^2} = 2{,}5 \\times 10^{-4}\\ \\mathrm{m^2}$."
+      ],
+      "etapes": [
+        "$1\\ \\mathrm{cm} = 10^{-2}\\ \\mathrm{m}$.",
+        "Donc $1\\ \\mathrm{cm^2} = 10^{-2}\\ \\mathrm{m^2}$.",
+        "Donc $2{,}5\\ \\mathrm{cm^2} = 2{,}5 \\times 10^{-2}\\ \\mathrm{m^2}$."
+      ],
+      "etapeFausse": 1,
+      "explication": "Le carré porte aussi sur la puissance de 10 : $1\\ \\mathrm{cm^2} = (10^{-2}\\ \\mathrm{m})^2 = 10^{-4}\\ \\mathrm{m^2}$."
+    }
+  ]
+}

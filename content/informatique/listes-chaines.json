@@ -1,0 +1,416 @@
+{
+  "$schema": "../schema.json",
+  "id": "listes-chaines",
+  "monde": "informatique",
+  "ordre": 4,
+  "titre": "Listes, chaînes et dictionnaires",
+  "icone": "📚",
+  "resume": "Indices et tranches, méthodes de liste, alias et copies, compréhensions, chaînes et dictionnaires.",
+  "cours": [
+    {
+      "titre": "Listes",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Indices et tranches",
+          "texte": "Une liste `L` de longueur `len(L) = n` a des indices de `0` à `n - 1` ; `L[-1]` est le dernier élément. La tranche `L[a:b]` contient les indices `a` à `b - 1` ; `L[::-1]` est la liste renversée. `L[i]` avec `i` hors bornes lève une `IndexError`."
+        },
+        {
+          "type": "propriete",
+          "titre": "Opérations",
+          "texte": "`L.append(x)` ajoute à la fin (en place) ; `L.pop()` retire et renvoie le dernier ; `x in L` teste l'appartenance ; `L + M` crée une nouvelle liste ; `[0] * n` une liste de `n` zéros."
+        },
+        {
+          "type": "propriete",
+          "titre": "Alias et copies",
+          "texte": "Après `M = L`, `M` et `L` sont deux noms pour la **même** liste (alias) : modifier l'une modifie l'autre. `L.copy()` ou `L[:]` crée une copie (superficielle)."
+        },
+        {
+          "type": "remarque",
+          "texte": "Piège : `[[0] * 3] * 2` contient deux fois la **même** sous-liste. Pour une matrice, écrire `[[0] * 3 for _ in range(2)]`."
+        },
+        {
+          "type": "definition",
+          "titre": "Listes en compréhension",
+          "texte": "`[f(x) for x in iterable if condition]` construit une liste en une ligne.\n```python\ncarres_pairs = [x * x for x in range(10) if x % 2 == 0]   # [0, 4, 16, 36, 64]\n```"
+        }
+      ]
+    },
+    {
+      "titre": "Chaînes et dictionnaires",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Chaînes",
+          "texte": "Les chaînes se manipulent comme des listes (indices, tranches, `len`, `in`, parcours) mais sont **immuables** : `s[0] = 'p'` lève une `TypeError`. On construit une nouvelle chaîne : `'p' + s[1:]`."
+        },
+        {
+          "type": "definition",
+          "titre": "Dictionnaires",
+          "texte": "Un dictionnaire associe des **clés** à des valeurs : `d = {'a': 1}`, `d['b'] = 2`. `k in d` teste les **clés**. `d.get(k, v)` renvoie `v` si la clé est absente (au lieu d'une `KeyError`). `for k in d:` parcourt les clés ; `d.items()` donne les couples."
+        },
+        {
+          "type": "exemple",
+          "texte": "Compter les occurrences :\n```python\ncompte = {}\nfor c in \"banane\":\n    compte[c] = compte.get(c, 0) + 1\n# compte == {'b': 1, 'a': 2, 'n': 2, 'e': 1}\n```"
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-dernier",
+      "recto": "Dernier élément d'une liste `L` ?",
+      "verso": "`L[-1]` (ou `L[len(L) - 1]`)."
+    },
+    {
+      "id": "f-tranche",
+      "recto": "Indices contenus dans `L[a:b]` ?",
+      "verso": "De `a` inclus à `b` exclu."
+    },
+    {
+      "id": "f-renverser",
+      "recto": "Renverser une liste ou une chaîne ?",
+      "verso": "`L[::-1]`."
+    },
+    {
+      "id": "f-append",
+      "recto": "`L.append(x)` renvoie… ?",
+      "verso": "`None` : elle modifie `L` en place."
+    },
+    {
+      "id": "f-alias",
+      "recto": "Après `M = L`, que fait `M.append(1)` sur `L` ?",
+      "verso": "`L` est modifiée aussi : c'est la même liste."
+    },
+    {
+      "id": "f-copie",
+      "recto": "Copier une liste ?",
+      "verso": "`L.copy()` ou `L[:]` (copie superficielle)."
+    },
+    {
+      "id": "f-matrice",
+      "recto": "Créer une matrice 2 × 3 de zéros correctement ?",
+      "verso": "`[[0] * 3 for _ in range(2)]` (et non `[[0] * 3] * 2`)."
+    },
+    {
+      "id": "f-comprehension",
+      "recto": "Liste des carrés des impairs de 0 à 9 ?",
+      "verso": "`[x * x for x in range(10) if x % 2 == 1]`"
+    },
+    {
+      "id": "f-str-immuable",
+      "recto": "Peut-on écrire `s[0] = 'p'` pour une chaîne ?",
+      "verso": "Non : les chaînes sont immuables (`TypeError`)."
+    },
+    {
+      "id": "f-dict-in",
+      "recto": "`k in d` pour un dictionnaire teste… ?",
+      "verso": "Les clés (pas les valeurs)."
+    },
+    {
+      "id": "f-get",
+      "recto": "`d.get(k, 0)` ?",
+      "verso": "`d[k]` si la clé existe, sinon `0` (pas de `KeyError`)."
+    },
+    {
+      "id": "f-items",
+      "recto": "Parcourir clés et valeurs d'un dictionnaire ?",
+      "verso": "`for k, v in d.items():`"
+    }
+  ],
+  "exercices": [
+    {
+      "id": "indice-negatif",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Avec `L = [4, 8, 15, 16, 23, 42]`, que vaut `L[-2]` ?",
+      "correction": [
+        "`L[-2] == L[len(L) - 2] == L[4] == 23`."
+      ],
+      "choix": [
+        {
+          "texte": "`23`",
+          "correct": true,
+          "explication": "`L[-1]` est 42, `L[-2]` l'avant-dernier."
+        },
+        {
+          "texte": "`16`",
+          "correct": false,
+          "explication": "C'est `L[-3]`."
+        },
+        {
+          "texte": "`8`",
+          "correct": false,
+          "explication": "C'est `L[1]` : `-2` compte depuis la fin."
+        },
+        {
+          "texte": "une `IndexError`",
+          "correct": false,
+          "explication": "Les indices négatifs sont autorisés, de `-1` à `-len(L)`."
+        }
+      ]
+    },
+    {
+      "id": "tranche",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Avec `L = [4, 8, 15, 16, 23, 42]`, que vaut `L[1:4]` ?",
+      "correction": [
+        "`L[1:4]` contient `L[1]`, `L[2]`, `L[3]`."
+      ],
+      "choix": [
+        {
+          "texte": "`[8, 15, 16]`",
+          "correct": true,
+          "explication": "Indices 1, 2, 3 : la borne 4 est exclue."
+        },
+        {
+          "texte": "`[4, 8, 15, 16]`",
+          "correct": false,
+          "explication": "Les indices commencent à 0 : `L[1]` est 8."
+        },
+        {
+          "texte": "`[8, 15, 16, 23]`",
+          "correct": false,
+          "explication": "L'indice 4 est exclu."
+        },
+        {
+          "texte": "`[4, 8, 15]`",
+          "correct": false,
+          "explication": "C'est `L[0:3]`."
+        }
+      ]
+    },
+    {
+      "id": "alias",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```python\nL = [1, 2, 3]\nM = L\nM.append(4)\nprint(len(L))\n```",
+      "correction": [
+        "`M = L` ne copie pas : `M` et `L` sont la même liste.",
+        "Après `append`, elle contient 4 éléments."
+      ],
+      "reponse": 4
+    },
+    {
+      "id": "comprehension",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut `[x * x for x in range(6) if x % 2 == 1]` ?",
+      "correction": [
+        "1² = 1, 3² = 9, 5² = 25."
+      ],
+      "choix": [
+        {
+          "texte": "`[1, 9, 25]`",
+          "correct": true,
+          "explication": "`x` impair parmi 0 à 5 : 1, 3, 5."
+        },
+        {
+          "texte": "`[0, 4, 16]`",
+          "correct": false,
+          "explication": "Ce sont les carrés des pairs."
+        },
+        {
+          "texte": "`[1, 4, 9, 16, 25]`",
+          "correct": false,
+          "explication": "Le filtre `if` n'a pas été appliqué."
+        },
+        {
+          "texte": "`[1, 9, 25, 49]`",
+          "correct": false,
+          "explication": "`range(6)` s'arrête à 5."
+        }
+      ]
+    },
+    {
+      "id": "compte-lettres",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```python\nd = {}\nfor c in \"abracadabra\":\n    d[c] = d.get(c, 0) + 1\nprint(d[\"a\"])\n```",
+      "correction": [
+        "Le dictionnaire compte les occurrences de chaque lettre.",
+        "« abracadabra » contient 5 fois la lettre a."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "couples",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "En fonction de `n`, quelle est la longueur de la liste suivante ?\n```python\n[(i, j) for i in range(n) for j in range(n) if i != j]\n```",
+      "correction": [
+        "Il y a n² couples `(i, j)` au total.",
+        "On retire les n couples où `i == j` : n² − n = n(n − 1)."
+      ],
+      "reponse": "n^2 - n",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        20
+      ]
+    },
+    {
+      "id": "matrice-piege",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Que vaut `T` à la fin ?\n```python\nT = [[0] * 3] * 2\nT[0][0] = 1\n```",
+      "correction": [
+        "`* 2` duplique la référence, pas la sous-liste."
+      ],
+      "choix": [
+        {
+          "texte": "`[[1, 0, 0], [1, 0, 0]]`",
+          "correct": true,
+          "explication": "`T` contient deux fois la **même** sous-liste : la modifier par `T[0]` la modifie aussi par `T[1]`."
+        },
+        {
+          "texte": "`[[1, 0, 0], [0, 0, 0]]`",
+          "correct": false,
+          "explication": "Ce serait le cas avec `[[0] * 3 for _ in range(2)]`."
+        },
+        {
+          "texte": "`[[1, 1, 1], [0, 0, 0]]`",
+          "correct": false,
+          "explication": "`T[0][0]` ne désigne qu'une case."
+        },
+        {
+          "texte": "une erreur",
+          "correct": false,
+          "explication": "Le code est valide."
+        }
+      ]
+    },
+    {
+      "id": "dict-in",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Avec `d = {'a': 1, 'b': 2}`, que vaut `2 in d` ?",
+      "correction": [
+        "`'a' in d` vaut `True`, `2 in d` vaut `False`."
+      ],
+      "choix": [
+        {
+          "texte": "`False`",
+          "correct": true,
+          "explication": "`in` teste les **clés** : 2 n'est pas une clé."
+        },
+        {
+          "texte": "`True`",
+          "correct": false,
+          "explication": "2 est une valeur, pas une clé. Tester les valeurs : `2 in d.values()`."
+        },
+        {
+          "texte": "une `KeyError`",
+          "correct": false,
+          "explication": "`in` ne lève pas d'erreur."
+        },
+        {
+          "texte": "`'b'`",
+          "correct": false,
+          "explication": "`in` renvoie un booléen."
+        }
+      ]
+    },
+    {
+      "id": "vf-chaine-immuable",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Après `s = 'chat'`, l'instruction `s[0] = 'p'` transforme `s` en `'phat'`.",
+      "correction": [
+        "Faux : `TypeError: 'str' object does not support item assignment`."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Les chaînes sont immuables : `TypeError`.",
+          "correct": true,
+          "explication": "Il faut créer une nouvelle chaîne : `s = 'p' + s[1:]`."
+        },
+        {
+          "texte": "Vrai : on modifie la chaîne comme une liste.",
+          "correct": false,
+          "explication": "Seule la **lecture** par indice est possible."
+        },
+        {
+          "texte": "Faux : on obtient `'pchat'`.",
+          "correct": false,
+          "explication": "Il n'y a pas d'insertion ; l'instruction échoue."
+        }
+      ]
+    },
+    {
+      "id": "vf-copie",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Après `M = L[:]` (`L` liste d'entiers), modifier `M[0]` ne modifie pas `L[0]`.",
+      "correction": [
+        "Vrai : la tranche complète est une copie."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "`L[:]` crée une nouvelle liste : `M` et `L` sont distinctes.",
+          "correct": true,
+          "explication": "Pour des éléments immuables comme les entiers, la copie superficielle suffit."
+        },
+        {
+          "texte": "Faux : `M` est un alias de `L`.",
+          "correct": false,
+          "explication": "C'est `M = L` qui crée un alias."
+        },
+        {
+          "texte": "Faux : une tranche ne peut pas être modifiée.",
+          "correct": false,
+          "explication": "Le résultat d'une tranche de liste est une liste ordinaire."
+        }
+      ]
+    },
+    {
+      "id": "anti-diagonale",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Que vaut l'expression finale ?\n```python\nM = [[1, 2, 3],\n     [4, 5, 6]]\nsum(M[i][2 - i] for i in range(2))\n```",
+      "correction": [
+        "`i = 0` : `M[0][2] = 3` ; `i = 1` : `M[1][1] = 5`.",
+        "3 + 5 = 8."
+      ],
+      "reponse": 8
+    },
+    {
+      "id": "erreur-tranche",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Avec `s = 'python'` : où est l'erreur ?",
+      "correction": [
+        "`s[1:3] == 'yt'` ; `'pyt'` serait `s[0:3]`."
+      ],
+      "etapes": [
+        "`len(s)` vaut `6`.",
+        "`s[::-1]` vaut `'nohtyp'`.",
+        "`s[1:3]` vaut `'pyt'`.",
+        "`s[-1]` vaut `'n'`."
+      ],
+      "etapeFausse": 2,
+      "explication": "Les indices commencent à 0 et la borne de fin est exclue : `s[1:3]` contient `s[1]` et `s[2]`, soit `'yt'`."
+    },
+    {
+      "id": "erreur-suppression",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "On veut supprimer les nombres pairs de `L = [2, 4, 5, 6]`. Où est l'erreur ?\n```python\nfor x in L:\n    if x % 2 == 0:\n        L.remove(x)\n```",
+      "correction": [
+        "Ne jamais modifier une liste qu'on parcourt : `L = [x for x in L if x % 2 != 0]`."
+      ],
+      "etapes": [
+        "La boucle parcourt `L` élément par élément.",
+        "Pour chaque pair rencontré, `L.remove(x)` le supprime.",
+        "Chaque élément est examiné une fois, donc à la fin `L == [5]`."
+      ],
+      "etapeFausse": 2,
+      "explication": "Supprimer pendant le parcours décale les éléments : après la suppression de 2, le 4 passe à l'indice 0 et n'est jamais examiné. On obtient `[4, 5]`."
+    }
+  ]
+}
