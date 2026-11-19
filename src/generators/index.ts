@@ -16,10 +16,26 @@ import { primitives, integralePolynome } from './integration';
 import { edoOrdre1, edoOrdre2 } from './equations-differentielles';
 import { limiteSuite, arithmeticoGeometrique } from './suites';
 import { limitesUsuelles, trigoReciproques } from './limites-fonctions';
+import { tableVerite, negationQuantifiee, denombrement } from './logique-ensembles';
+import { sommesUsuelles, coefficientsRacines, produitMatrices, systeme2x2, dimensionEquations } from './algebre-extra';
+import { suiteOrdre2, limitesFactorisation, tangente, limiteParDl, expLn } from './analyse-extra';
 
 export type { Forme, Generateur } from './outils';
 
 export const GENERATEURS: readonly Generateur[] = [
+  tableVerite,
+  negationQuantifiee,
+  denombrement,
+  sommesUsuelles,
+  coefficientsRacines,
+  produitMatrices,
+  systeme2x2,
+  dimensionEquations,
+  suiteOrdre2,
+  limitesFactorisation,
+  tangente,
+  limiteParDl,
+  expLn,
   racineCarree,
   formeExponentielle,
   binome,
