@@ -2082,6 +2082,33 @@ a.stat-ligne:hover {
   border-color: var(--rouge);
 }
 
+.zone-alerte {
+  border-color: var(--orange);
+}
+
+.liste-copies {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste-copies li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid var(--bord);
+}
+
+.liste-perdus {
+  max-height: 12em;
+  overflow-y: auto;
+  padding-left: 1.2em;
+  overflow-wrap: anywhere;
+}
+
 .liste-faibles {
   padding-left: 1.2em;
 }
