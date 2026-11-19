@@ -1,0 +1,253 @@
+{
+  "$schema": "../schema.json",
+  "id": "ensembles",
+  "monde": "algebre",
+  "ordre": 2,
+  "titre": "Ensembles et applications",
+  "icone": "🔗",
+  "resume": "Opérations sur les ensembles, images directes et réciproques, injections, surjections, bijections.",
+  "cours": [
+    {
+      "titre": "Ensembles",
+      "blocs": [
+        { "type": "definition", "texte": "$A \\subset B$ si tout élément de $A$ est dans $B$. $A \\cup B$, $A \\cap B$, $A \\setminus B$, complémentaire $\\bar A = E \\setminus A$, produit cartésien $A \\times B = \\{(a, b)\\}$." },
+        { "type": "propriete", "titre": "Lois de De Morgan", "texte": "$\\overline{A \\cup B} = \\bar A \\cap \\bar B$ et $\\overline{A \\cap B} = \\bar A \\cup \\bar B$." },
+        { "type": "propriete", "titre": "Cardinaux", "texte": "$|A \\cup B| = |A| + |B| - |A \\cap B|$, $|A \\times B| = |A|\\,|B|$, $|\\mathcal{P}(E)| = 2^{|E|}$." }
+      ]
+    },
+    {
+      "titre": "Applications",
+      "blocs": [
+        { "type": "definition", "titre": "Image directe, image réciproque", "texte": "Pour $f : E \\to F$, $A \\subset E$, $B \\subset F$ : $f(A) = \\{f(x),\\ x \\in A\\}$ et $f^{-1}(B) = \\{x \\in E,\\ f(x) \\in B\\}$ (définie même si $f$ n'est pas bijective)." },
+        { "type": "definition", "titre": "Injection, surjection, bijection", "texte": "$f$ est **injective** si $f(x) = f(x') \\Rightarrow x = x'$ ; **surjective** si $\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$ ; **bijective** si elle est les deux : tout $y$ a exactement un antécédent." },
+        { "type": "theoreme", "titre": "Composition", "texte": "Une composée d'injections (resp. surjections, bijections) en est une. Si $g \\circ f$ est injective, $f$ est injective ; si $g \\circ f$ est surjective, $g$ est surjective." },
+        { "type": "propriete", "titre": "Bijection réciproque", "texte": "$f : E \\to F$ est bijective ssi il existe $g : F \\to E$ avec $g \\circ f = \\mathrm{id}_E$ et $f \\circ g = \\mathrm{id}_F$ ; alors $g = f^{-1}$." },
+        { "type": "methode", "titre": "Montrer qu'une application est injective", "texte": "Prendre $x, x'$ avec $f(x) = f(x')$ et montrer $x = x'$. Pour montrer qu'elle ne l'est pas : trouver $x \\neq x'$ avec $f(x) = f(x')$." },
+        { "type": "propriete", "titre": "Dénombrement", "texte": "Si $|E| = p$ et $|F| = n$ : il y a $n^p$ applications de $E$ dans $F$ et $\\frac{n!}{(n-p)!}$ injections (si $p \\leq n$). Si $|E| = |F|$ finis : injective $\\iff$ surjective $\\iff$ bijective." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-injective", "recto": "Définition : $f$ injective ?", "verso": "$\\forall x, x' \\in E,\\ f(x) = f(x') \\Rightarrow x = x'$ (tout élément a au plus un antécédent)." },
+    { "id": "f-surjective", "recto": "Définition : $f$ surjective ?", "verso": "$\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$ (tout élément a au moins un antécédent)." },
+    { "id": "f-bijective", "recto": "Définition : $f$ bijective ?", "verso": "Injective et surjective : tout $y \\in F$ a exactement un antécédent." },
+    { "id": "f-composee-inj", "recto": "Si $g \\circ f$ est injective, que peut-on dire ?", "verso": "$f$ est injective (mais pas forcément $g$)." },
+    { "id": "f-composee-surj", "recto": "Si $g \\circ f$ est surjective, que peut-on dire ?", "verso": "$g$ est surjective (mais pas forcément $f$)." },
+    { "id": "f-parties", "recto": "Cardinal de $\\mathcal{P}(E)$ si $|E| = n$ ?", "verso": "$2^n$" },
+    { "id": "f-de-morgan", "recto": "$\\overline{A \\cup B} = $ ?", "verso": "$\\bar A \\cap \\bar B$ (De Morgan)." },
+    { "id": "f-nb-applications", "recto": "Nombre d'applications de $E$ ($p$ éléments) dans $F$ ($n$ éléments) ?", "verso": "$n^p$" },
+    { "id": "f-nb-injections", "recto": "Nombre d'injections de $E$ ($p$ éléments) dans $F$ ($n \\geq p$ éléments) ?", "verso": "$n(n-1)\\cdots(n-p+1) = \\dfrac{n!}{(n-p)!}$" },
+    { "id": "f-image-reciproque", "recto": "Définition de $f^{-1}(B)$ ?", "verso": "$\\{x \\in E,\\ f(x) \\in B\\}$ — elle existe même si $f$ n'est pas bijective." },
+    { "id": "f-fof-1", "recto": "Compare $A$ et $f^{-1}(f(A))$.", "verso": "$A \\subset f^{-1}(f(A))$, avec égalité pour tout $A$ si $f$ est injective." },
+    { "id": "f-cardinal-union", "recto": "$|A \\cup B| = $ ?", "verso": "$|A| + |B| - |A \\cap B|$" }
+  ],
+  "exercices": [
+    {
+      "id": "carre-reel",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "L'application $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$ est :",
+      "indice": "Regarde $f(-1)$ et $f(1)$, puis cherche un antécédent de $-1$.",
+      "correction": [
+        "$f(-1) = f(1) = 1$ avec $-1 \\neq 1$ : $f$ n'est pas injective.",
+        "$-1$ n'a pas d'antécédent (un carré est positif) : $f$ n'est pas surjective."
+      ],
+      "choix": [
+        { "texte": "ni injective ni surjective", "correct": true, "explication": "$f(-1) = f(1)$ et $-1$ n'a pas d'antécédent." },
+        { "texte": "injective mais pas surjective", "correct": false, "explication": "$f(-1) = f(1)$ : deux éléments distincts ont la même image." },
+        { "texte": "surjective mais pas injective", "correct": false, "explication": "L'ensemble d'arrivée est $\\mathbb{R}$ : les négatifs n'ont pas d'antécédent." },
+        { "texte": "bijective", "correct": false, "explication": "Ce serait vrai de $[0, +\\infty[$ dans $[0, +\\infty[$, mais pas de $\\mathbb{R}$ dans $\\mathbb{R}$." }
+      ]
+    },
+    {
+      "id": "cardinal-parties",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien l'ensemble $E = \\{1, 2, 3\\}$ a-t-il de parties (sous-ensembles) ?",
+      "indice": "Pour chaque élément : on le prend ou pas.",
+      "correction": [
+        "Chaque élément est dans la partie ou non : $2 \\times 2 \\times 2 = 2^3 = 8$ parties.",
+        "Ce sont $\\emptyset$, $\\{1\\}$, $\\{2\\}$, $\\{3\\}$, $\\{1,2\\}$, $\\{1,3\\}$, $\\{2,3\\}$, $E$."
+      ],
+      "choix": [
+        { "texte": "$8$", "correct": true, "explication": "$2^3$ parties, en comptant $\\emptyset$ et $E$." },
+        { "texte": "$6$", "correct": false, "explication": "Tu as oublié $\\emptyset$ et $E$ lui-même (ou confondu avec $3! = 6$)." },
+        { "texte": "$3$", "correct": false, "explication": "Ce sont seulement les singletons." },
+        { "texte": "$9$", "correct": false, "explication": "$3^2 = 9$ : c'est $2^3$ qu'il faut calculer." }
+      ]
+    },
+    {
+      "id": "double-entier",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "L'application $f : \\mathbb{N} \\to \\mathbb{N}$, $n \\mapsto 2n$ est :",
+      "indice": "$1$ a-t-il un antécédent ?",
+      "correction": [
+        "$2n = 2m \\Rightarrow n = m$ : $f$ est injective.",
+        "$1$ (impair) n'a pas d'antécédent : $f$ n'est pas surjective."
+      ],
+      "choix": [
+        { "texte": "injective mais pas surjective", "correct": true, "explication": "Les impairs n'ont pas d'antécédent." },
+        { "texte": "surjective mais pas injective", "correct": false, "explication": "C'est l'inverse : $2n = 2m$ donne $n = m$, et les impairs n'ont pas d'antécédent." },
+        { "texte": "bijective", "correct": false, "explication": "$1$ n'a pas d'antécédent dans $\\mathbb{N}$." },
+        { "texte": "ni injective ni surjective", "correct": false, "explication": "Elle est injective : $2n = 2m \\Rightarrow n = m$." }
+      ]
+    },
+    {
+      "id": "composee-injective",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 2,
+      "enonce": "Soient $f : E \\to F$ et $g : F \\to G$ telles que $g \\circ f$ soit injective. Que peut-on affirmer à coup sûr ?",
+      "indice": "Si $f(x) = f(x')$, que vaut $g(f(x))$ ?",
+      "correction": [
+        "Si $f(x) = f(x')$, alors $g(f(x)) = g(f(x'))$, donc $x = x'$ par injectivité de $g \\circ f$ : $f$ est injective.",
+        "$g$ n'est pas forcément injective : $E = \\{0\\}$, $F = \\{0, 1\\}$, $G = \\{0\\}$, $f(0) = 0$ et $g$ constante.",
+        "Rien n'impose la surjectivité de $f$ ni de $g \\circ f$ (même exemple : $1 \\in F$ n'a pas d'antécédent)."
+      ],
+      "choix": [
+        { "texte": "$f$ est injective", "correct": true, "explication": "$f(x) = f(x') \\Rightarrow g(f(x)) = g(f(x')) \\Rightarrow x = x'$." },
+        { "texte": "Pour $x \\neq x'$ dans $E$ : $g(f(x)) \\neq g(f(x'))$", "correct": true, "explication": "C'est la définition (contraposée) de l'injectivité de $g \\circ f$." },
+        { "texte": "$g$ est injective", "correct": false, "explication": "Contre-exemple : $g$ peut écraser des points de $F$ qui ne sont pas atteints par $f$." },
+        { "texte": "$f$ est surjective", "correct": false, "explication": "Aucune information sur la surjectivité : $f$ peut manquer des éléments de $F$." }
+      ]
+    },
+    {
+      "id": "image-reciproque-carre",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Soit $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$. Que vaut $f^{-1}([1, 4])$ ?",
+      "indice": "On cherche tous les $x$ tels que $1 \\leq x^2 \\leq 4$.",
+      "correction": [
+        "$1 \\leq x^2 \\leq 4 \\iff 1 \\leq |x| \\leq 2$.",
+        "$f^{-1}([1, 4]) = [-2, -1] \\cup [1, 2]$."
+      ],
+      "choix": [
+        { "texte": "$[-2, -1] \\cup [1, 2]$", "correct": true, "explication": "$1 \\leq |x| \\leq 2$." },
+        { "texte": "$[1, 2]$", "correct": false, "explication": "Les $x$ négatifs ont aussi leur carré dans $[1, 4]$ : $(-1.5)^2 = 2.25$." },
+        { "texte": "$[1, 16]$", "correct": false, "explication": "C'est l'image directe $f([1, 4])$, pas l'image réciproque." },
+        { "texte": "$[-2, 2]$", "correct": false, "explication": "$0 \\in [-2, 2]$ mais $0^2 = 0 \\notin [1, 4]$." }
+      ]
+    },
+    {
+      "id": "nombre-applications",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Combien y a-t-il d'applications d'un ensemble à 3 éléments dans un ensemble à 2 éléments ?",
+      "indice": "Chaque élément de départ choisit son image.",
+      "correction": [
+        "Chacun des 3 éléments de départ a 2 images possibles, indépendamment.",
+        "Il y a $2 \\times 2 \\times 2 = 2^3 = 8$ applications."
+      ],
+      "choix": [
+        { "texte": "$8$", "correct": true, "explication": "$|F|^{|E|} = 2^3$." },
+        { "texte": "$9$", "correct": false, "explication": "C'est $3^2$ : on a inversé, il faut $|F|^{|E|}$." },
+        { "texte": "$6$", "correct": false, "explication": "$3 \\times 2$ : les choix se multiplient pour CHAQUE élément, d'où une puissance." },
+        { "texte": "$0$", "correct": false, "explication": "Il n'y a pas d'injection (3 > 2), mais il y a bien des applications." }
+      ]
+    },
+    {
+      "id": "nombre-injections",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Combien y a-t-il d'injections d'un ensemble à 3 éléments dans un ensemble à 5 éléments ?",
+      "indice": "Le premier élément a 5 images possibles, le deuxième…",
+      "correction": [
+        "Le 1er élément a 5 images possibles, le 2e en a 4 (image différente), le 3e en a 3.",
+        "$5 \\times 4 \\times 3 = 60$ injections."
+      ],
+      "reponse": 60
+    },
+    {
+      "id": "cardinal-union",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "$A$ et $B$ sont des ensembles finis avec $|A| = 7$, $|B| = 5$ et $|A \\cap B| = 3$. Que vaut $|A \\cup B|$ ?",
+      "correction": [
+        "$|A \\cup B| = |A| + |B| - |A \\cap B|$ (on ne compte pas deux fois l'intersection).",
+        "$|A \\cup B| = 7 + 5 - 3 = 9$."
+      ],
+      "reponse": 9
+    },
+    {
+      "id": "reciproque-affine",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "$f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 3x - 5$ est bijective. Donner $f^{-1}(y)$ en fonction de $y$.",
+      "indice": "Résous $y = 3x - 5$ d'inconnue $x$.",
+      "correction": [
+        "$y = 3x - 5 \\iff x = \\dfrac{y + 5}{3}$.",
+        "Donc $f^{-1}(y) = \\dfrac{y + 5}{3}$."
+      ],
+      "reponse": "(y+5)/3",
+      "variables": ["y"]
+    },
+    {
+      "id": "reciproque-carre-negatif",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "$f : \\left]-\\infty, 0\\right] \\to [1, +\\infty[$, $f(x) = x^2 + 1$ est bijective. Donner $f^{-1}(y)$ pour $y \\geq 1$.",
+      "indice": "Attention au signe : l'antécédent doit être $\\leq 0$.",
+      "correction": [
+        "$y = x^2 + 1 \\iff x^2 = y - 1 \\iff x = \\pm\\sqrt{y - 1}$.",
+        "Comme $x \\leq 0$, on garde $x = -\\sqrt{y - 1}$.",
+        "$f^{-1}(y) = -\\sqrt{y - 1}$."
+      ],
+      "reponse": "-sqrt(y-1)",
+      "variables": ["y"],
+      "domaine": [1, 6]
+    },
+    {
+      "id": "vf-de-morgan",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour toutes parties $A, B$ de $E$ : $\\overline{A \\cup B} = \\bar A \\cup \\bar B$.",
+      "correction": [
+        "Faux. Loi de De Morgan : $\\overline{A \\cup B} = \\bar A \\cap \\bar B$.",
+        "Contre-exemple : $E = \\{1, 2\\}$, $A = \\{1\\}$, $B = \\{2\\}$ : $\\overline{A \\cup B} = \\emptyset$ mais $\\bar A \\cup \\bar B = E$."
+      ],
+      "reponse": false,
+      "justifications": [
+        { "texte": "De Morgan : $\\overline{A \\cup B} = \\bar A \\cap \\bar B$, qui diffère en général.", "correct": true, "explication": "Le complémentaire échange $\\cup$ et $\\cap$." },
+        { "texte": "Vrai : le complémentaire se distribue sur la réunion.", "correct": false, "explication": "Il se distribue en ÉCHANGEANT réunion et intersection." },
+        { "texte": "Vrai par définition du complémentaire.", "correct": false, "explication": "Le contre-exemple $A = \\{1\\}$, $B = \\{2\\}$ dans $\\{1, 2\\}$ le contredit." }
+      ]
+    },
+    {
+      "id": "vf-image-reciproque-image",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Pour toute application $f : E \\to F$ et toute partie $A \\subset E$ : $f^{-1}(f(A)) = A$.",
+      "correction": [
+        "On a toujours $A \\subset f^{-1}(f(A))$, mais pas l'égalité.",
+        "Contre-exemple : $f(x) = x^2$ sur $\\mathbb{R}$ et $A = \\{1\\}$ : $f(A) = \\{1\\}$ et $f^{-1}(\\{1\\}) = \\{-1, 1\\} \\neq A$.",
+        "L'égalité est vraie pour tout $A$ si et seulement si $f$ est injective."
+      ],
+      "reponse": false,
+      "justifications": [
+        { "texte": "Avec $f(x) = x^2$ et $A = \\{1\\}$, on obtient $\\{-1, 1\\}$.", "correct": true, "explication": "Seule l'inclusion $A \\subset f^{-1}(f(A))$ est toujours vraie." },
+        { "texte": "Vrai : $f^{-1}$ annule l'effet de $f$.", "correct": false, "explication": "Ici $f^{-1}$ désigne l'image réciproque, définie même si $f$ n'est pas bijective : ce n'est pas une réciproque." },
+        { "texte": "Faux : on a seulement $f^{-1}(f(A)) \\subset A$.", "correct": false, "explication": "C'est l'inclusion inverse qui est vraie : $A \\subset f^{-1}(f(A))$." }
+      ]
+    },
+    {
+      "id": "erreur-injectivite",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "« Démonstration » que $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2 + x$ est injective. Où est l'erreur ?",
+      "correction": [
+        "Un produit nul a l'un de ses facteurs nul : on peut avoir $x + x' + 1 = 0$.",
+        "D'ailleurs $f(0) = f(-1) = 0$ : $f$ n'est pas injective."
+      ],
+      "etapes": [
+        "Soient $x, x'$ réels tels que $f(x) = f(x')$.",
+        "Alors $x^2 - x'^2 + x - x' = 0$.",
+        "Donc $(x - x')(x + x' + 1) = 0$.",
+        "Donc $x - x' = 0$, c'est-à-dire $x = x'$.",
+        "Donc $f$ est injective."
+      ],
+      "etapeFausse": 3,
+      "explication": "Un produit est nul si L'UN des facteurs est nul : le cas $x + x' + 1 = 0$ est oublié. Contre-exemple : $f(0) = f(-1) = 0$."
+    }
+  ]
+}

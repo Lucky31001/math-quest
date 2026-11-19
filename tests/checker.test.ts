@@ -40,6 +40,9 @@ describe('expressions équivalentes', () => {
     expect(v.message).toMatch(/sinx/);
     expect(verifierExpression('y+1', 'x+1').statut).toBe('invalide');
   });
+  it('accepte X (notation des polynômes) pour x', () => {
+    expect(ok('X^2+X+1', 'x^2+x+1')).toBe('correct');
+  });
   it('gère plusieurs variables', () => {
     expect(ok('(a+b)^2', 'a^2+2a*b+b^2', { variables: ['a', 'b'] })).toBe('correct');
   });

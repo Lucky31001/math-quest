@@ -61,8 +61,10 @@ type Analyse = { ok: true; node: MathNode; code: EvalFunction } | { ok: false; m
  * `x(x+1)` est lu comme `x*(x+1)` (math.js y verrait un appel de fonction).
  */
 export function analyser(saisie: string, variables: readonly string[] = []): Analyse {
-  const texte = normaliser(saisie);
+  let texte = normaliser(saisie);
   if (!texte) return { ok: false, message: 'Réponse vide.' };
+  // Notation des polynômes : « X » est accepté pour la variable x.
+  if (variables.includes('x') && !variables.includes('X')) texte = texte.replace(/\bX\b/g, 'x');
   let node: MathNode;
   try {
     node = math.parse(texte);
