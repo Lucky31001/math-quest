@@ -1,0 +1,532 @@
+{
+  "title": "Chapitre Math Quest",
+  "$ref": "#/definitions/Chapitre",
+  "definitions": {
+    "Chapitre": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "errorMessage": {
+            "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+          }
+        },
+        "monde": {
+          "type": "string",
+          "enum": [
+            "algebre",
+            "analyse"
+          ]
+        },
+        "ordre": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "titre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "icone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resume": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "titre": {
+                "type": "string",
+                "minLength": 1
+              },
+              "blocs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "definition",
+                        "theoreme",
+                        "propriete",
+                        "methode",
+                        "remarque",
+                        "exemple"
+                      ]
+                    },
+                    "titre": {
+                      "type": "string"
+                    },
+                    "texte": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "texte"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "titre",
+              "blocs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "flashcards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+$",
+                "errorMessage": {
+                  "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                }
+              },
+              "recto": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verso": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "recto",
+              "verso"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "exercices": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "errorMessage": {
+                      "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                    }
+                  },
+                  "difficulte": {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "enonce": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "indice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "correction": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "qcm"
+                  },
+                  "multiple": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "choix": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "texte": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "correct": {
+                          "type": "boolean"
+                        },
+                        "explication": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "texte",
+                        "correct",
+                        "explication"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 2,
+                    "maxItems": 6
+                  }
+                },
+                "required": [
+                  "id",
+                  "difficulte",
+                  "enonce",
+                  "correction",
+                  "type",
+                  "choix"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "errorMessage": {
+                      "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                    }
+                  },
+                  "difficulte": {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "enonce": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "indice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "correction": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "numerique"
+                  },
+                  "reponse": {
+                    "anyOf": [
+                      {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          ]
+                        },
+                        "minItems": 1
+                      }
+                    ]
+                  },
+                  "tolerance": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "id",
+                  "difficulte",
+                  "enonce",
+                  "correction",
+                  "type",
+                  "reponse"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "errorMessage": {
+                      "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                    }
+                  },
+                  "difficulte": {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "enonce": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "indice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "correction": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "expression"
+                  },
+                  "reponse": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "variables": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z]\\w*$"
+                    },
+                    "default": [
+                      "x"
+                    ]
+                  },
+                  "domaine": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "aConstantePres": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "difficulte",
+                  "enonce",
+                  "correction",
+                  "type",
+                  "reponse"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "errorMessage": {
+                      "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                    }
+                  },
+                  "difficulte": {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "enonce": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "indice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "correction": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "vrai-faux"
+                  },
+                  "reponse": {
+                    "type": "boolean"
+                  },
+                  "justifications": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "texte": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "correct": {
+                          "type": "boolean"
+                        },
+                        "explication": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "texte",
+                        "correct",
+                        "explication"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 2,
+                    "maxItems": 5
+                  }
+                },
+                "required": [
+                  "id",
+                  "difficulte",
+                  "enonce",
+                  "correction",
+                  "type",
+                  "reponse",
+                  "justifications"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "errorMessage": {
+                      "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                    }
+                  },
+                  "difficulte": {
+                    "type": "number",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "enonce": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "indice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "correction": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "trouve-erreur"
+                  },
+                  "etapes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 2
+                  },
+                  "etapeFausse": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "explication": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "difficulte",
+                  "enonce",
+                  "correction",
+                  "type",
+                  "etapes",
+                  "etapeFausse",
+                  "explication"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "monde",
+        "ordre",
+        "titre",
+        "icone",
+        "resume",
+        "cours",
+        "flashcards",
+        "exercices"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

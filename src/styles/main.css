@@ -605,6 +605,31 @@ a:focus-visible {
   color: var(--texte-doux);
 }
 
+.monde-boss {
+  white-space: nowrap;
+}
+
+/* Téléphone : chemin vertical à gauche, textes en pleine largeur */
+@media (max-width: 520px) {
+  .chemin::before {
+    left: 31px;
+  }
+  .zone.gauche,
+  .zone.droite {
+    padding: 0;
+    justify-content: flex-start;
+  }
+  .zone.gauche .zone-lien,
+  .zone.droite .zone-lien {
+    flex-direction: row;
+    text-align: left;
+    transform: none;
+  }
+  .zone-texte strong {
+    overflow-wrap: anywhere;
+  }
+}
+
 /* ----------------------------- Chapitre ---------------------------- */
 
 .chapitre-entete {
