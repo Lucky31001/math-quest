@@ -65,7 +65,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 ## Décor et effets
 
-- **Fond** : thème sombre global (jetons sur `:root`, plus de mode clair) avec deux lueurs radiales très diffuses sur `body`.
+- **Fond** : thème sombre global (jetons sur `:root`, plus de mode clair) avec une grille de points très légère sur `body` (opacité réglable via `--points`).
 - **Effets de survol** : uniquement sous `@media (hover: hover) and (pointer: fine)`. L'état `:active` (enfoncé) reste prioritaire.
 - **Ne pas mettre de `backdrop-filter` ni de `transform` sur `.hud`** : la barre d'onglets mobile (`position: fixed`) ne serait plus collée en bas.
 - **Icône d'onglet** : `public/favicon.svg`. Le Σ y est un tracé vectoriel, sans dépendance à une police.

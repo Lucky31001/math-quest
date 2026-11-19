@@ -1,5 +1,7 @@
 # Σ Math Quest
 
+**👉 Essayer en ligne : [lucky31001.github.io/math-quest](https://lucky31001.github.io/math-quest/)**
+
 Application web **gamifiée** de révision de mathématiques pour la prépa intégrée (pré-ing 1), centrée sur l'**algèbre** et l'**analyse**. Tout fonctionne dans le navigateur, sans serveur, et sur téléphone.
 
 - **14 chapitres** (7 en algèbre, 7 en analyse) : fiche de cours, 15 flashcards et 18 à 23 exercices écrits à la main par chapitre (≈ 300 au total).
