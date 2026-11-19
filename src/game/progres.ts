@@ -9,16 +9,33 @@ import { apresReponse } from './leitner';
 import { XP_PAR_DIFFICULTE, XP_FLASHCARD, COUT_INDICE } from './xp';
 import { ecartJours } from './dates';
 
-/** Met à jour le streak quotidien (appelé à chaque activité). */
-export function majStreak(p: Progression, aujourdhui: string): void {
+/**
+ * Met à jour le streak quotidien. Renvoie true si le streak vient d'augmenter
+ * (premier jour validé aujourd'hui).
+ */
+export function majStreak(p: Progression, aujourdhui: string): boolean {
   const s = p.streak;
-  if (s.dernierJour === aujourdhui) return;
+  if (s.dernierJour === aujourdhui) return false;
   s.courant = s.dernierJour && ecartJours(s.dernierJour, aujourdhui) === 1 ? s.courant + 1 : 1;
   s.dernierJour = aujourdhui;
   s.record = Math.max(s.record, s.courant);
+  return true;
 }
 
-/** Streak affiché : il retombe à 0 si l'on a sauté un jour (sans attendre la prochaine activité). */
+/** Nombre de réponses qui forment une « série » en mode infini. */
+export const TAILLE_SERIE_INFINIE = 10;
+
+/**
+ * Une série d'exercices vient d'être TERMINÉE (bilan atteint, ou 10 réponses en mode
+ * infini) : c'est la seule chose qui fait avancer le streak quotidien.
+ * Renvoie true si le streak a augmenté aujourd'hui.
+ */
+export function validerSerie(p: Progression, aujourdhui: string): boolean {
+  p.compteurs.series++;
+  return majStreak(p, aujourdhui);
+}
+
+/** Streak affiché : il retombe à 0 si l'on a sauté un jour (sans attendre la prochaine série). */
 export function streakActuel(p: Progression, aujourdhui: string): number {
   const d = p.streak.dernierJour;
   if (!d) return 0;
@@ -38,7 +55,7 @@ export interface InfoReponse {
 
 /** Enregistre une réponse ; renvoie les XP gagnés. */
 export function enregistrerReponse(p: Progression, r: InfoReponse, aujourdhui: string): number {
-  majStreak(p, aujourdhui);
+  // (Le streak n'avance plus à chaque réponse : voir validerSerie.)
   p.compteurs.reponses++;
   p.journal[aujourdhui] = (p.journal[aujourdhui] ?? 0) + 1;
   compterStat(p, r.chapitre, r.type, r.correct);
@@ -61,7 +78,6 @@ export function payerIndice(p: Progression): number {
 
 /** Auto-évaluation d'une flashcard. */
 export function enregistrerFlashcard(p: Progression, cle: string, connue: boolean, aujourdhui: string): number {
-  majStreak(p, aujourdhui);
   p.compteurs.flashcards++;
   p.journal[aujourdhui] = (p.journal[aujourdhui] ?? 0) + 1;
   p.flashcards[cle] = apresReponse(p.flashcards[cle], connue, aujourdhui);

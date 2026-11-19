@@ -737,18 +737,36 @@ body[data-ecran='jouer'] .hud {
   margin: 0.2em 0;
 }
 
-.chapitre-entete .lien-retour {
-  color: #fff;
-  opacity: 0.9;
-}
-
+/* Retour au menu : pilule avec un chevron SVG (bien aligné, quelle que soit la police) */
 .lien-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 14px 4px 8px;
+  border: 2px solid var(--bord);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--texte-doux);
   font-size: 0.85rem;
   font-weight: 900;
-  color: var(--texte-doux);
+  line-height: 1;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    transform 0.12s;
+}
+
+.lien-retour .icone {
+  width: 18px;
+  height: 18px;
+}
+
+.chapitre-entete .lien-retour {
+  border-color: transparent;
+  background: rgb(0 0 0 / 0.18);
+  color: #fff;
 }
 
 .resume {
@@ -1376,17 +1394,24 @@ body[data-ecran='jouer'] .hud {
   display: none;
 }
 
-.verdict-icone {
+/* Pastille du verdict : rond plein en relief, icône SVG blanche */
+.icone.verdict-icone {
   display: grid;
   place-items: center;
   flex: none;
   width: 56px;
   height: 56px;
+  padding: 13px;
   border-radius: 50%;
-  background: var(--fond);
-  font-size: 1.7rem;
-  font-weight: 900;
+  background: var(--vert);
+  box-shadow: 0 4px 0 var(--vert-fonce);
+  color: #fff;
   animation: pop 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+
+.pied-faux .icone.verdict-icone {
+  background: var(--rouge);
+  box-shadow: 0 4px 0 var(--rouge-fonce);
 }
 
 .verdict {
@@ -1450,11 +1475,22 @@ body[data-ecran='jouer'] .hud {
 }
 
 .quitter {
+  display: grid;
+  place-items: center;
   flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   color: var(--texte-pale);
-  font-size: 1.5rem;
-  line-height: 1;
   text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.quitter .icone {
+  width: 22px;
+  height: 22px;
 }
 
 .session-barre .progression {
@@ -1495,32 +1531,58 @@ body[data-ecran='jouer'] .hud {
   margin: 0 0 6px;
 }
 
+/* Chronomètre : icône, barre, puis le temps restant en secondes À CÔTÉ de la barre */
 .chrono {
-  position: relative;
-  height: 8px;
-  margin: -6px 0 16px 38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -4px 0 16px;
+  color: var(--bleu);
+}
+
+.chrono[hidden] {
+  display: none;
+}
+
+.icone.chrono-icone {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.chrono-piste {
+  flex: 1;
+  height: 10px;
   border-radius: 999px;
   background: var(--bord);
   overflow: hidden;
 }
 
-.chrono::after {
-  content: attr(data-reste);
-  position: absolute;
-  right: 6px;
-  top: -4px;
-  font-size: 0.6rem;
-  font-weight: 900;
-}
-
 .chrono-rempli {
   height: 100%;
+  border-radius: inherit;
   background: var(--bleu);
   transition: width 0.2s linear;
 }
 
+.chrono-texte {
+  flex: none;
+  min-width: 3.4em;
+  text-align: right;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.chrono.urgent {
+  color: var(--rouge);
+}
+
 .chrono.urgent .chrono-rempli {
   background: var(--rouge);
+}
+
+.chrono.urgent .chrono-texte {
+  animation: pop 0.6s ease-in-out infinite alternate;
 }
 
 .bilan {
@@ -2038,18 +2100,38 @@ a.stat-ligne:hover {
   }
 }
 
+/* Erreur : seule la zone de réponse tremble, brièvement et doucement… */
 .secoue {
-  animation: secousse 0.4s;
+  animation: secousse 0.35s ease-in-out;
 }
 
 @keyframes secousse {
-  20%,
-  60% {
-    transform: translateX(-7px);
+  25% {
+    transform: translateX(-5px);
   }
-  40%,
-  80% {
-    transform: translateX(7px);
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+/* … et la mauvaise réponse émet un halo rouge qui s'estompe. */
+.choix-item.faux,
+.etape.faux-cible,
+.btn-vf.faux {
+  animation: halo-faux 0.7s ease-out;
+}
+
+@keyframes halo-faux {
+  from {
+    outline: 0 solid rgb(255 75 75 / 0.6);
+    outline-offset: 0;
+  }
+  to {
+    outline: 10px solid rgb(255 75 75 / 0);
+    outline-offset: 2px;
   }
 }
 
@@ -2443,11 +2525,6 @@ main {
     transform: translateX(3px);
   }
 
-  .quitter:hover,
-  .lien-retour:hover {
-    opacity: 0.75;
-  }
-
   /* L'appui garde la priorité sur le survol */
   .btn:active:not(:disabled),
   .carte-action:active,
@@ -2471,4 +2548,192 @@ main {
     box-shadow 0.12s,
     border-color 0.12s,
     background 0.12s;
+}
+
+/* =====================================================================
+   Icônes SVG, bouton Indice, évaluation des flashcards, légende du cours
+   ===================================================================== */
+
+.icone {
+  display: inline-flex;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.icone svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Bouton Indice : libellé explicite + étiquette de coût */
+.btn-indice {
+  --relief: var(--bord);
+  color: var(--jaune);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+
+.btn-indice .cout {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgb(255 200 0 / 0.16);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.btn-indice:disabled .cout {
+  display: none;
+}
+
+.indice-titre {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* « À revoir » / « Je savais » : icône + libellé + rappel de touche discret */
+.eval .btn {
+  flex: 1;
+  max-width: 240px;
+  gap: 8px;
+}
+
+.eval .btn kbd {
+  min-width: 1.6em;
+  height: 1.6em;
+  border: 0;
+  background: rgb(0 0 0 / 0.22);
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.72rem;
+}
+
+@media (hover: none), (max-width: 640px) {
+  .eval .btn kbd {
+    display: none;
+  }
+}
+
+/* Légende des couleurs du cours */
+.legende-cours {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  padding: 10px 12px;
+  border: 2px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--surface);
+}
+
+.legende-titre {
+  margin-right: 4px;
+  color: var(--texte-doux);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pastille-bloc {
+  --c: var(--violet);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  color: var(--texte);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.puce {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--c);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lien-retour:hover {
+    color: var(--texte);
+    background: var(--surface-2);
+    transform: translateX(-2px);
+    opacity: 1;
+  }
+  .chapitre-entete .lien-retour:hover {
+    color: #fff;
+    background: rgb(0 0 0 / 0.3);
+  }
+  .quitter:hover {
+    background: var(--surface-2);
+    color: var(--texte);
+    opacity: 1;
+  }
+}
+
+/* Téléphone */
+@media (max-width: 640px) {
+  .pied .btn-indice {
+    flex: 0 0 auto;
+    padding-inline: 14px;
+  }
+  .legende-cours {
+    gap: 6px;
+  }
+  .pastille-bloc {
+    font-size: 0.74rem;
+  }
+}
+
+/* Les zones à formules défilent horizontalement si besoin, mais jamais verticalement
+   (sinon une barre de défilement apparaît pour un débordement d'un pixel). */
+.enonce,
+.choix-texte,
+.correction li,
+.bloc,
+.attendu,
+.apercu,
+.face-texte,
+.etape,
+.explication,
+.katex-display {
+  overflow-y: hidden;
+}
+
+/* Barres de défilement assorties au thème sombre */
+* {
+  scrollbar-color: var(--bord) transparent;
+  scrollbar-width: thin;
+}
+
+/* Onglets du chapitre : tiennent sur un téléphone, sans barre de défilement */
+.onglets {
+  scrollbar-width: none;
+}
+
+.onglets::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .onglets {
+    gap: 6px;
+  }
+  .onglets a {
+    padding: 9px 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+  .icone.verdict-icone {
+    width: 46px;
+    height: 46px;
+    padding: 11px;
+  }
 }

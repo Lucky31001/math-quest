@@ -8,7 +8,8 @@ import { createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
 import { etat } from '../etat';
 import { afficherQuestion, type ControleurQuestion } from '../components/question';
-import { enregistrerReponse, payerIndice } from '../../game/progres';
+import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE } from '../../game/progres';
+import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
 import {
   serieEntrainement,
@@ -128,7 +129,16 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
   let avanceAuto: ReturnType<typeof setTimeout> | null = null;
 
   const barre = h('div', { class: 'session-barre' });
-  const chrono = h('div', { class: 'chrono', hidden: !cfg.chronoGlobal && !cfg.chronoQuestion }, h('div', { class: 'chrono-rempli' }));
+  // Chronomètre : barre + temps restant affiché À CÔTÉ (pas dans la barre).
+  const chronoRempli = h('div', { class: 'chrono-rempli' });
+  const chronoTexte = h('span', { class: 'chrono-texte', 'aria-live': 'off' });
+  const chrono = h(
+    'div',
+    { class: 'chrono', hidden: !cfg.chronoGlobal && !cfg.chronoQuestion },
+    icone('horloge', 'chrono-icone'),
+    h('div', { class: 'chrono-piste' }, chronoRempli),
+    chronoTexte,
+  );
   const scene = h('div', { class: 'session-scene' });
   main.append(h('div', { class: `session mode-${cfg.mode}` }, barre, chrono, h('h1', { class: 'session-titre' }, cfg.titre), scene));
 
@@ -137,7 +147,7 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
     // Progression : questions faites / total (modes infinis : par paliers de 10).
     const fait = cfg.total ? s.rang / cfg.total : (s.rang % 10) / 10;
     ajouter(barre, [
-      h('a', { class: 'quitter', href: cfg.retour, 'aria-label': 'Quitter la séance', title: 'Quitter' }, '✕'),
+      h('a', { class: 'quitter', href: cfg.retour, 'aria-label': 'Quitter la séance', title: 'Quitter' }, icone('croix')),
       h(
         'div',
         { class: 'progression', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(Math.round(fait * 100)) },
@@ -157,11 +167,10 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
 
   function lancerMinuteur(duree: number, surFin: () => void, fin = Date.now() + duree * 1000) {
     arreterMinuteur();
-    const rempli = chrono.firstElementChild as HTMLElement;
     const tic = () => {
       const reste = Math.max(0, fin - Date.now());
-      rempli.style.width = `${(reste / (duree * 1000)) * 100}%`;
-      chrono.dataset.reste = `${Math.ceil(reste / 1000)} s`;
+      chronoRempli.style.width = `${(reste / (duree * 1000)) * 100}%`;
+      chronoTexte.textContent = `${Math.ceil(reste / 1000)} s`;
       chrono.classList.toggle('urgent', reste < 10_000);
       if (reste <= 0) {
         arreterMinuteur();
@@ -212,13 +221,16 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
         } else {
           s.ratees++;
           jouerSon('faux');
-          secouer(ctrl!.el);
+          // On secoue seulement la zone de réponse (la barre du bas, fixe, ne doit pas bouger).
+          secouer(ctrl!.el.querySelector('.zone-reponse') ?? ctrl!.el);
           if (s.vies !== null) s.vies--;
           if (s.vies === 0) s.fini = true;
         }
         if (info.expire && cfg.chronoGlobal && Date.now() >= finGlobale) s.fini = true;
         s.rang++;
         majBarre();
+        // Mode infini : chaque tranche de 10 réponses compte comme une série terminée.
+        if (cfg.mode === 'infini' && s.rang % TAILLE_SERIE_INFINIE === 0) serieTerminee();
         const bSuivant = ctrl!.el.querySelector('.btn-suivant');
         if (bSuivant && s.fini) bSuivant.textContent = 'Voir le bilan';
         // QCM éclair : on enchaîne automatiquement après une bonne réponse.
@@ -230,6 +242,13 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
     scene.replaceChildren(ctrl.el);
     if (fin) toast('💀 Dernière vie !', 'erreur');
     if (cfg.chronoQuestion) lancerMinuteur(cfg.chronoQuestion(item), () => ctrl?.expirer());
+  }
+
+  /** Série terminée : fait avancer le streak (une fois par jour) et le signale. */
+  function serieTerminee() {
+    const augmente = etat.modifier((p) => validerSerie(p, etat.aujourdhui()));
+    if (augmente) toast(`🔥 Série validée : ${etat.p.streak.courant} jour(s) d'affilée !`, 'niveau');
+    else if (cfg.mode === 'infini') toast(`✅ Série de ${TAILLE_SERIE_INFINIE} terminée !`);
   }
 
   function bilan() {
@@ -276,6 +295,8 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
         titre = '📅 Révision du jour terminée';
       }
     });
+    // Atteindre le bilan = terminer une série (s'il y a eu au moins une réponse).
+    if (s.rang > 0 && cfg.mode !== 'infini') serieTerminee();
     if (gagne && (cfg.mode === 'boss' || records.length)) {
       celebrer(80);
       jouerSon('niveau');

@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { apresReponse, estDue, INTERVALLES } from '../src/game/leitner';
 import { niveauDepuisXp, seuilNiveau, titre, pointsEclair } from '../src/game/xp';
 import { ajouterJours, ecartJours } from '../src/game/dates';
-import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard } from '../src/game/progres';
+import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie } from '../src/game/progres';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
 import { CONTENU, toutesLesMatieres } from '../src/core/loader';
@@ -81,6 +81,25 @@ describe('streak', () => {
     majStreak(p, '2026-03-06');
     expect(p.streak.courant).toBe(1);
     expect(p.streak.record).toBe(3);
+  });
+});
+
+describe('streak : seules les séries terminées comptent', () => {
+  it('une réponse ou une flashcard isolée ne fait pas avancer le streak', () => {
+    const p = progressionVide();
+    enregistrerReponse(p, { chapitre: 'c', cle: null, type: 'qcm', difficulte: 1, correct: true }, J);
+    enregistrerFlashcard(p, 'c/f', true, J);
+    expect(p.streak.courant).toBe(0);
+    expect(p.streak.dernierJour).toBeNull();
+  });
+  it('terminer une série le fait avancer, une seule fois par jour', () => {
+    const p = progressionVide();
+    expect(validerSerie(p, '2026-03-01')).toBe(true);
+    expect(validerSerie(p, '2026-03-01')).toBe(false);
+    expect(p.streak.courant).toBe(1);
+    expect(validerSerie(p, '2026-03-02')).toBe(true);
+    expect(p.streak.courant).toBe(2);
+    expect(p.compteurs.series).toBe(3);
   });
 });
 

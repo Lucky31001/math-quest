@@ -10,6 +10,7 @@ import { riche } from '../texte';
 import { etat } from '../etat';
 import { enregistrerFlashcard } from '../../game/progres';
 import { jouerSon, xpFlottant } from '../effets';
+import { icone } from '../icones';
 
 export interface CarteChapitre {
   chapitre: Chapitre;
@@ -49,8 +50,8 @@ export function paquetFlashcards(cartes: CarteChapitre[], surFin?: (connues: num
     const boutons = h(
       'div',
       { class: 'actions eval', hidden: true },
-      h('button', { class: 'btn btn-rate', type: 'button', onclick: () => noter(false) }, h('kbd', null, '1'), ' À revoir'),
-      h('button', { class: 'btn btn-reussi', type: 'button', onclick: () => noter(true) }, h('kbd', null, '2'), ' Je savais'),
+      h('button', { class: 'btn btn-rate', type: 'button', title: 'À revoir (touche 1)', onclick: () => noter(false) }, icone('croix'), h('span', null, 'À revoir'), h('kbd', null, '1')),
+      h('button', { class: 'btn btn-reussi', type: 'button', title: 'Je savais (touche 2)', onclick: () => noter(true) }, icone('coche'), h('span', null, 'Je savais'), h('kbd', null, '2')),
     );
     const retourner = () => {
       retournee = !retournee;

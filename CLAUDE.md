@@ -47,6 +47,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 ## Conventions et pièges
 
+- **Le streak 🔥 n'avance QUE via `validerSerie`** (bilan d'une séance, ou chaque tranche de 10 réponses en mode infini) — jamais à chaque réponse ni pour une flashcard.
 - **Toute modification de la progression passe par `etat.modifier(p => …)`**. Elle sauvegarde, détecte les passages de niveau et débloque les badges.
 - Les **indices de choix** passés à `corriger` sont ceux du JSON. Le mélange est fait uniquement dans `components/question.ts`.
 - Ids des questions générées : `gen~<générateur>~<graine>~<difficulté>`. Elles ne vont **pas** dans Leitner (`cle: null`), seulement dans les stats.

@@ -17,6 +17,7 @@ import { shuffle, createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
 import { riche, latex, rendreHtml } from '../texte';
 import { COUT_INDICE } from '../../game/xp';
+import { icone } from '../icones';
 
 export interface OptionsQuestion {
   question: Question;
@@ -68,7 +69,13 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
   const blocIndice = h('div', { class: 'indice', hidden: true });
   const btnIndice =
     opts.indices !== false && q.indice
-      ? h('button', { class: 'btn btn-fantome', type: 'button', title: `Indice : coûte ${COUT_INDICE} XP (raccourci H)` }, `💡 −${COUT_INDICE} XP`)
+      ? h(
+          'button',
+          { class: 'btn btn-indice', type: 'button', title: `Afficher un indice — coûte ${COUT_INDICE} XP (raccourci H)`, 'aria-label': `Afficher un indice, coûte ${COUT_INDICE} XP` },
+          icone('ampoule'),
+          h('span', { class: 'btn-indice-texte' }, 'Indice'),
+          h('span', { class: 'cout' }, `−${COUT_INDICE} XP`),
+        )
       : null;
   // Barre du bas (façon « leçon ») : Vérifier, puis verdict coloré + Continuer.
   const verdictZone = h('div', { class: 'verdict-zone' });
@@ -363,7 +370,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     pied.classList.add(juste ? 'pied-juste' : 'pied-faux');
     vider(verdictZone);
     verdictZone.append(
-      h('span', { class: 'verdict-icone', 'aria-hidden': 'true' }, juste ? '✓' : expire ? '⏰' : '✕'),
+      icone(juste ? 'coche' : expire ? 'horloge' : 'croix', 'verdict-icone'),
       h('div', null, h('p', { class: 'verdict' }, titre), h('p', { class: 'verdict-detail' }, detail)),
     );
     afficherCorrectionSpecifique(r);
@@ -405,7 +412,8 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     if (opts.surIndice && !opts.surIndice()) return;
     indiceUtilise = true;
     btnIndice.disabled = true;
-    blocIndice.innerHTML = `💡 ${rendreHtml(q.indice)}`;
+    btnIndice.replaceChildren(icone('ampoule'), h('span', { class: 'btn-indice-texte' }, 'Indice utilisé'));
+    blocIndice.innerHTML = `<span class="indice-titre">💡 Indice</span> ${rendreHtml(q.indice)}`;
     blocIndice.hidden = false;
   }
 

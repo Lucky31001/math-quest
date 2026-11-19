@@ -58,7 +58,7 @@ export function creerHud(): HTMLElement {
           'span',
           {
             class: `streak${streak ? '' : ' eteint'}${aJoueAujourdhui ? ' allume' : ''}`,
-            title: streak ? `${streak} jour(s) d'affilée${aJoueAujourdhui ? '' : " — révise aujourd'hui pour ne pas perdre ta série !"}` : 'Aucune série en cours',
+            title: streak ? `${streak} jour(s) d'affilée${aJoueAujourdhui ? '' : " — termine une série d'exercices aujourd'hui pour la prolonger !"}` : 'Termine une série d\'exercices pour lancer ta série de jours 🔥',
           },
           h('span', { class: 'flamme' }, '🔥'),
           String(streak),

@@ -5,6 +5,7 @@ import { etat } from '../etat';
 import { questionsDues, flashcardsDues, pointsFaibles } from '../../game/modes';
 import { paquetFlashcards } from '../components/flashcards';
 import { INTERVALLES } from '../../game/leitner';
+import { icone } from '../icones';
 
 export function ecranRevision(main: HTMLElement, params: string[]): () => void {
   const p = etat.p;
@@ -15,7 +16,7 @@ export function ecranRevision(main: HTMLElement, params: string[]): () => void {
 
   if (params[0] === 'flashcards' && fs.length) {
     const paquet = paquetFlashcards(fs);
-    main.append(h('h1', null, '🎴 Flashcards du jour'), paquet.el, h('a', { class: 'lien-retour', href: '#/revision' }, '← Révision du jour'));
+    main.append(h('h1', null, '🎴 Flashcards du jour'), paquet.el, h('a', { class: 'lien-retour', href: '#/revision' }, icone('retour'), h('span', null, 'Révision du jour')));
     return paquet.detruire;
   }
 

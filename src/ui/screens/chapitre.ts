@@ -12,6 +12,7 @@ import { afficherQuestion } from '../components/question';
 import { enregistrerReponse, payerIndice } from '../../game/progres';
 import { maitriseChapitre, tauxChapitre } from '../../game/modes';
 import { jouerSon, secouer } from '../effets';
+import { icone } from '../icones';
 
 const LIBELLES_BLOC: Record<string, string> = {
   definition: 'Définition',
@@ -45,7 +46,7 @@ export function ecranChapitre(main: HTMLElement, params: string[]): () => void {
     h(
       'header',
       { class: 'chapitre-entete', style: styleMatiere(matiere) },
-      h('a', { href: '#/', class: 'lien-retour' }, `← ${matiere ? `${matiere.embleme} ${matiere.nom}` : 'Accueil'}`),
+      h('a', { href: '#/', class: 'lien-retour' }, icone('retour'), h('span', null, matiere ? `${matiere.embleme} ${matiere.nom}` : 'Accueil')),
       h('h1', null, h('span', { class: 'icone' }, ch.icone), ` ${ch.titre}`),
       riche('p', ch.resume, 'resume'),
       h(
@@ -85,10 +86,24 @@ export function ecranChapitre(main: HTMLElement, params: string[]): () => void {
   return () => nettoyer();
 }
 
+/** Légende des couleurs des blocs de cours (seulement les types présents dans le chapitre). */
+function legende(ch: Chapitre): HTMLElement {
+  const presents = new Set(ch.cours.flatMap((s) => s.blocs.map((b) => b.type)));
+  return h(
+    'div',
+    { class: 'legende-cours', role: 'note', 'aria-label': 'Légende des couleurs' },
+    h('span', { class: 'legende-titre' }, 'Légende'),
+    Object.keys(LIBELLES_BLOC)
+      .filter((t) => presents.has(t as never))
+      .map((t) => h('span', { class: `pastille-bloc bloc-${t}` }, h('span', { class: 'puce', 'aria-hidden': 'true' }), LIBELLES_BLOC[t])),
+  );
+}
+
 function cours(ch: Chapitre): HTMLElement {
   return h(
     'div',
     { class: 'cours' },
+    legende(ch),
     ch.cours.map((s) =>
       h(
         'section',
@@ -183,7 +198,7 @@ function exercices(ch: Chapitre, conteneur: HTMLElement): () => void {
         const correct = r.statut === 'correct';
         etat.modifier((p) => enregistrerReponse(p, { chapitre: ch.id, cle: cle(ch.id, q.id), type: q.type, difficulte: q.difficulte, correct }, etat.aujourdhui()));
         jouerSon(correct ? 'juste' : 'faux');
-        if (!correct) secouer(c.el);
+        if (!correct) secouer(c.el.querySelector('.zone-reponse') ?? c.el);
       },
       surSuivant: () => {
         nettoyerQuestion();

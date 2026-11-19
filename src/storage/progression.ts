@@ -49,6 +49,8 @@ export const ProgressionSchema = z.object({
       indices: z.number().default(0),
       flashcards: z.number().default(0),
       revisions: z.number().default(0),
+      /** Séries d'exercices terminées (seules elles font avancer le streak). */
+      series: z.number().default(0),
     })
     .default({}),
   reglages: z.object({ sons: z.boolean().default(true), animations: z.boolean().default(true) }).default({}),
