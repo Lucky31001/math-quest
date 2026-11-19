@@ -1,0 +1,222 @@
+{
+  "$schema": "../schema.json",
+  "id": "limites-continuite",
+  "monde": "analyse",
+  "ordre": 3,
+  "titre": "Limites et continuité",
+  "icone": "🎯",
+  "resume": "Limites de fonctions, continuité, théorème des valeurs intermédiaires, théorème des bornes.",
+  "cours": [
+    {
+      "titre": "Limites",
+      "blocs": [
+        { "type": "definition", "texte": "$f(x) \\xrightarrow[x \\to a]{} \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$." },
+        { "type": "theoreme", "titre": "Caractérisation séquentielle", "texte": "$f(x) \\to \\ell$ quand $x \\to a$ ssi pour toute suite $x_n \\to a$, $f(x_n) \\to \\ell$. Utile pour montrer qu'une limite N'existe PAS (deux suites, deux limites)." },
+        { "type": "propriete", "titre": "Limites usuelles en 0", "texte": "$\\dfrac{\\sin x}{x} \\to 1$, $\\dfrac{e^x - 1}{x} \\to 1$, $\\dfrac{\\ln(1 + x)}{x} \\to 1$, $\\dfrac{1 - \\cos x}{x^2} \\to \\dfrac12$." },
+        { "type": "methode", "titre": "Lever une indétermination", "texte": "Factoriser par le terme dominant, multiplier par la quantité conjuguée, utiliser les limites usuelles ou les croissances comparées." }
+      ]
+    },
+    {
+      "titre": "Continuité",
+      "blocs": [
+        { "type": "definition", "texte": "$f$ est continue en $a$ si $f(x) \\to f(a)$ quand $x \\to a$. Si $f$ est définie sur $I \\setminus \\{a\\}$ et $f(x) \\to \\ell$, on la **prolonge par continuité** en posant $f(a) = \\ell$." },
+        { "type": "theoreme", "titre": "Théorème des valeurs intermédiaires", "texte": "Si $f$ est continue sur $[a, b]$, elle prend toute valeur comprise entre $f(a)$ et $f(b)$. En particulier, si $f(a)f(b) < 0$, $f$ s'annule sur $]a, b[$. L'image d'un intervalle par une fonction continue est un intervalle." },
+        { "type": "theoreme", "titre": "Théorème des bornes", "texte": "Une fonction continue sur un **segment** $[a, b]$ est bornée et atteint ses bornes. (Faux sur $]0, 1]$ : $x \\mapsto \\frac1x$.)" },
+        { "type": "theoreme", "titre": "Théorème de la bijection", "texte": "Une fonction continue et strictement monotone sur un intervalle $I$ réalise une bijection de $I$ sur l'intervalle $f(I)$, et sa réciproque est continue." },
+        { "type": "remarque", "texte": "Le TVI donne l'EXISTENCE d'une solution, pas son unicité : pour l'unicité, il faut la stricte monotonie." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-def-limite", "recto": "Définition $\\varepsilon$-$\\eta$ de $\\lim_{x \\to a} f(x) = \\ell$ ?", "verso": "$\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ |x - a| \\leq \\eta \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$" },
+    { "id": "f-sin-x", "recto": "$\\lim_{x \\to 0} \\frac{\\sin x}{x}$ ?", "verso": "$1$" },
+    { "id": "f-cos", "recto": "$\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}$ ?", "verso": "$\\dfrac{1}{2}$" },
+    { "id": "f-exp", "recto": "$\\lim_{x \\to 0} \\frac{e^x - 1}{x}$ ?", "verso": "$1$" },
+    { "id": "f-ln", "recto": "$\\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x}$ ?", "verso": "$1$" },
+    { "id": "f-tvi", "recto": "Énoncé du TVI ?", "verso": "$f$ continue sur $[a, b]$ prend toute valeur entre $f(a)$ et $f(b)$." },
+    { "id": "f-bornes", "recto": "Théorème des bornes ?", "verso": "Une fonction continue sur un segment est bornée et atteint ses bornes." },
+    { "id": "f-bijection", "recto": "Théorème de la bijection ?", "verso": "Continue et strictement monotone sur $I$ $\\Rightarrow$ bijection de $I$ sur $f(I)$, réciproque continue." },
+    { "id": "f-prolongement", "recto": "Quand peut-on prolonger $f$ par continuité en $a$ ?", "verso": "Quand $f$ a une limite FINIE $\\ell$ en $a$ ; on pose $f(a) = \\ell$." },
+    { "id": "f-sequentielle", "recto": "Comment montrer que $\\lim_{x \\to a} f(x)$ n'existe pas ?", "verso": "Trouver deux suites $x_n, y_n \\to a$ avec $f(x_n)$ et $f(y_n)$ de limites différentes." },
+    { "id": "f-image-intervalle", "recto": "Image d'un intervalle par une fonction continue ?", "verso": "Un intervalle (corollaire du TVI)." },
+    { "id": "f-croissances", "recto": "$\\lim_{x \\to 0^+} x\\ln x$ ?", "verso": "$0$ (croissances comparées)." }
+  ],
+  "exercices": [
+    {
+      "id": "sinx-sur-x",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\displaystyle\\lim_{x \\to 0} \\frac{\\sin x}{x}$ ?",
+      "correction": ["C'est le taux d'accroissement de $\\sin$ en 0 : la limite vaut $\\sin'(0) = \\cos 0 = 1$."],
+      "choix": [
+        { "texte": "$1$", "correct": true, "explication": "$\\sin'(0) = 1$." },
+        { "texte": "$0$", "correct": false, "explication": "Forme $\\frac00$ : on ne peut pas conclure directement que c'est 0." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "$\\sin x$ et $x$ tendent vers 0 « à la même vitesse »." },
+        { "texte": "Elle n'existe pas", "correct": false, "explication": "Elle existe : c'est une limite usuelle." }
+      ]
+    },
+    {
+      "id": "x-exp-moins-x",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\displaystyle\\lim_{x \\to +\\infty} x\\,e^{-x}$ ?",
+      "correction": ["$xe^{-x} = \\dfrac{x}{e^x} \\to 0$ par croissances comparées."],
+      "choix": [
+        { "texte": "$0$", "correct": true, "explication": "L'exponentielle l'emporte sur les puissances." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "$x \\to +\\infty$ mais $e^{-x} \\to 0$ beaucoup plus vite." },
+        { "texte": "$1$", "correct": false, "explication": "Aucune compensation exacte : $\\frac{x}{e^x} \\to 0$." },
+        { "texte": "$-\\infty$", "correct": false, "explication": "La fonction est positive pour $x > 0$." }
+      ]
+    },
+    {
+      "id": "conjuguee-0",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\lim_{x \\to 0} \\frac{\\sqrt{1 + x} - 1}{x}$ ?",
+      "indice": "Multiplie par la quantité conjuguée $\\sqrt{1 + x} + 1$.",
+      "correction": [
+        "$\\dfrac{\\sqrt{1 + x} - 1}{x} = \\dfrac{(1 + x) - 1}{x(\\sqrt{1 + x} + 1)} = \\dfrac{1}{\\sqrt{1 + x} + 1}$.",
+        "La limite vaut $\\dfrac{1}{2}$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{1}{2}$", "correct": true, "explication": "Quantité conjuguée (ou dérivée de $\\sqrt{\\cdot}$ en 1)." },
+        { "texte": "$0$", "correct": false, "explication": "Forme $\\frac00$ : il faut lever l'indétermination." },
+        { "texte": "$1$", "correct": false, "explication": "Oubli du facteur 2 au dénominateur ($\\sqrt{1} + 1 = 2$)." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "Le numérateur est de l'ordre de $\\frac{x}{2}$." }
+      ]
+    },
+    {
+      "id": "prolongement-x-sin",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "$f(x) = x\\sin\\left(\\dfrac{1}{x}\\right)$ pour $x \\neq 0$. Peut-on prolonger $f$ par continuité en 0 ?",
+      "indice": "$|\\sin| \\leq 1$.",
+      "correction": [
+        "$|f(x)| \\leq |x| \\to 0$ : par les gendarmes, $f(x) \\to 0$.",
+        "On prolonge par continuité en posant $f(0) = 0$."
+      ],
+      "choix": [
+        { "texte": "Oui, en posant $f(0) = 0$", "correct": true, "explication": "$|x\\sin(1/x)| \\leq |x|$." },
+        { "texte": "Oui, en posant $f(0) = 1$", "correct": false, "explication": "Confusion avec $\\frac{\\sin x}{x}$ ; ici l'argument du sinus est $\\frac1x \\to \\infty$." },
+        { "texte": "Non, car $\\sin\\frac1x$ n'a pas de limite en 0", "correct": false, "explication": "Vrai pour $\\sin\\frac1x$, mais le facteur $x \\to 0$ « écrase » cette oscillation bornée." },
+        { "texte": "Non, car $f$ n'est pas définie en 0", "correct": false, "explication": "C'est justement le principe du prolongement : définir $f(0)$." }
+      ]
+    },
+    {
+      "id": "consequences-tvi-bornes",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "$f$ est continue sur $[0, 1]$, avec $f(0) = -1$ et $f(1) = 2$. Lesquelles de ces affirmations sont certaines ?",
+      "correction": [
+        "TVI : $0$ est entre $-1$ et $2$, donc $f$ s'annule sur $]0, 1[$.",
+        "Théorème des bornes : $f$ est bornée sur le segment $[0, 1]$.",
+        "$f$ peut descendre puis monter : rien n'impose la monotonie.",
+        "$3 > 2$ n'est pas entre $f(0)$ et $f(1)$ : $f(x) = 3x - 1$ ne prend jamais la valeur 3 sur $[0, 1]$."
+      ],
+      "choix": [
+        { "texte": "$f$ s'annule sur $]0, 1[$", "correct": true, "explication": "TVI : $0$ est compris entre $f(0) = -1$ et $f(1) = 2$." },
+        { "texte": "$f$ est bornée sur $[0, 1]$", "correct": true, "explication": "Théorème des bornes (segment)." },
+        { "texte": "$f$ est croissante", "correct": false, "explication": "$f$ peut osciller entre $f(0)$ et $f(1)$." },
+        { "texte": "$f$ prend la valeur 3", "correct": false, "explication": "Le TVI ne garantit que les valeurs entre $-1$ et $2$." }
+      ]
+    },
+    {
+      "id": "bornes-segment",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "$f : ]0, 1] \\to \\mathbb{R}$, $f(x) = \\dfrac{1}{x}$ est continue mais non bornée. Pourquoi cela ne contredit-il pas le théorème des bornes ?",
+      "correction": ["Le théorème des bornes exige un SEGMENT $[a, b]$ (fermé et borné). $]0, 1]$ n'est pas fermé."],
+      "choix": [
+        { "texte": "$]0, 1]$ n'est pas un segment", "correct": true, "explication": "Il manque la borne 0 : l'intervalle n'est pas fermé." },
+        { "texte": "$f$ n'est pas continue en 1", "correct": false, "explication": "$\\frac1x$ est continue sur $]0, 1]$, en particulier en 1." },
+        { "texte": "Le théorème ne concerne que les fonctions monotones", "correct": false, "explication": "Aucune hypothèse de monotonie dans le théorème des bornes." },
+        { "texte": "$f$ est bornée, par 1", "correct": false, "explication": "$f(x) \\to +\\infty$ quand $x \\to 0^+$." }
+      ]
+    },
+    {
+      "id": "limite-quotient-x2",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2}$.",
+      "correction": ["$\\dfrac{x^2 - 4}{x - 2} = x + 2$ pour $x \\neq 2$, donc la limite vaut $4$."],
+      "reponse": 4
+    },
+    {
+      "id": "conjuguee-infini",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to +\\infty} \\left(\\sqrt{x^2 + 3x} - x\\right)$.",
+      "indice": "Quantité conjuguée.",
+      "correction": [
+        "$\\sqrt{x^2 + 3x} - x = \\dfrac{3x}{\\sqrt{x^2 + 3x} + x} = \\dfrac{3}{\\sqrt{1 + \\frac3x} + 1}$ (pour $x > 0$).",
+        "La limite vaut $\\dfrac{3}{2}$."
+      ],
+      "reponse": "3/2"
+    },
+    {
+      "id": "prolongement-sin3x",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Pour quelle valeur de $a$ la fonction $f(x) = \\dfrac{\\sin(3x)}{x}$ ($x \\neq 0$), $f(0) = a$, est-elle continue en 0 ?",
+      "correction": ["$\\dfrac{\\sin 3x}{x} = 3\\,\\dfrac{\\sin 3x}{3x} \\to 3$. Il faut $a = 3$."],
+      "reponse": 3
+    },
+    {
+      "id": "exp-sur-sin",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to 0} \\frac{e^{3x} - 1}{\\sin(2x)}$.",
+      "indice": "Fais apparaître $\\frac{e^u - 1}{u}$ et $\\frac{\\sin v}{v}$.",
+      "correction": [
+        "$\\dfrac{e^{3x} - 1}{\\sin 2x} = \\dfrac{e^{3x} - 1}{3x} \\times \\dfrac{2x}{\\sin 2x} \\times \\dfrac{3x}{2x}$.",
+        "Les deux premiers facteurs tendent vers 1 : la limite vaut $\\dfrac{3}{2}$."
+      ],
+      "reponse": "3/2"
+    },
+    {
+      "id": "vf-tvi",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si $f$ est continue sur $[a, b]$ et $f(a)f(b) < 0$, alors $f$ s'annule sur $]a, b[$.",
+      "correction": ["Vrai : $f(a)$ et $f(b)$ sont de signes contraires, donc 0 est strictement entre eux ; le TVI conclut."],
+      "reponse": true,
+      "justifications": [
+        { "texte": "C'est le théorème des valeurs intermédiaires.", "correct": true, "explication": "0 est compris entre $f(a)$ et $f(b)$." },
+        { "texte": "Faux : $f$ peut « sauter » par-dessus 0.", "correct": false, "explication": "Impossible pour une fonction continue sur un intervalle." },
+        { "texte": "Vrai, même sans continuité.", "correct": false, "explication": "$f = -1$ sur $[0, \\frac12[$, $f = 1$ sur $[\\frac12, 1]$ ne s'annule pas." }
+      ]
+    },
+    {
+      "id": "vf-continue-bornee",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Toute fonction continue sur $]0, 1[$ est bornée.",
+      "correction": ["Faux : $x \\mapsto \\frac1x$ est continue sur $]0, 1[$ et non bornée. Le théorème des bornes exige un segment."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$\\frac{1}{x}$ est continue et non bornée sur $]0, 1[$.", "correct": true, "explication": "Elle tend vers $+\\infty$ en $0^+$." },
+        { "texte": "Vrai par le théorème des bornes.", "correct": false, "explication": "Le théorème des bornes s'applique sur un SEGMENT $[a, b]$." },
+        { "texte": "Vrai car $]0, 1[$ est borné.", "correct": false, "explication": "L'intervalle est borné, mais pas fermé : cela ne suffit pas." }
+      ]
+    },
+    {
+      "id": "erreur-unicite-tvi",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "« L'équation $x^3 + x - 1 = 0$ a une unique solution dans $[0, 1]$. » Où est l'erreur dans cette démonstration ?",
+      "correction": [
+        "Le TVI ne donne que l'existence.",
+        "Pour l'unicité : $f'(x) = 3x^2 + 1 > 0$, donc $f$ est strictement croissante (théorème de la bijection)."
+      ],
+      "etapes": [
+        "$f(x) = x^3 + x - 1$ est continue sur $[0, 1]$, $f(0) = -1 < 0$ et $f(1) = 1 > 0$.",
+        "Par le TVI, $f$ s'annule au moins une fois sur $]0, 1[$.",
+        "Le TVI donne de plus l'unicité de cette solution.",
+        "D'où une unique solution dans $[0, 1]$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Le TVI ne donne aucune unicité. Ici la conclusion est vraie, mais il faut invoquer la stricte monotonie de $f$ ($f' > 0$)."
+    }
+  ]
+}

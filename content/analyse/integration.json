@@ -1,0 +1,244 @@
+{
+  "$schema": "../schema.json",
+  "id": "integration",
+  "monde": "analyse",
+  "ordre": 6,
+  "titre": "Intégration",
+  "icone": "📏",
+  "resume": "Primitives, intégration par parties, changement de variable, sommes de Riemann.",
+  "cours": [
+    {
+      "titre": "Intégrale et primitives",
+      "blocs": [
+        { "type": "propriete", "texte": "Linéarité, relation de Chasles $\\int_a^b + \\int_b^c = \\int_a^c$, positivité ($f \\geq 0$ et $a \\leq b$ $\\Rightarrow \\int_a^b f \\geq 0$), et $\\left|\\int_a^b f\\right| \\leq \\int_a^b |f|$." },
+        { "type": "theoreme", "titre": "Théorème fondamental", "texte": "Si $f$ est continue sur $I$ et $a \\in I$, $F(x) = \\int_a^x f(t)\\,dt$ est l'unique primitive de $f$ qui s'annule en $a$. Pour toute primitive $G$ : $\\int_a^b f = G(b) - G(a)$." },
+        { "type": "propriete", "titre": "Fonction continue positive d'intégrale nulle", "texte": "Si $f$ est continue, positive sur $[a, b]$ ($a < b$) et $\\int_a^b f = 0$, alors $f = 0$ sur $[a, b]$." },
+        { "type": "propriete", "titre": "Primitives usuelles", "texte": "$x^n \\to \\frac{x^{n+1}}{n+1}$ ($n \\neq -1$), $\\frac1x \\to \\ln|x|$, $e^{ax} \\to \\frac{e^{ax}}{a}$, $\\cos \\to \\sin$, $\\sin \\to -\\cos$, $\\frac{1}{1 + x^2} \\to \\arctan$, $\\frac{u'}{u} \\to \\ln|u|$, $u'e^u \\to e^u$." }
+      ]
+    },
+    {
+      "titre": "Techniques de calcul",
+      "blocs": [
+        { "type": "theoreme", "titre": "Intégration par parties", "texte": "Pour $u, v$ de classe $C^1$ : $\\int_a^b u v' = [uv]_a^b - \\int_a^b u'v$. On dérive le facteur qui se simplifie (polynôme, $\\ln$) et on intègre l'autre." },
+        { "type": "theoreme", "titre": "Changement de variable", "texte": "Pour $\\varphi$ de classe $C^1$ : $\\int_a^b f(\\varphi(t))\\varphi'(t)\\,dt = \\int_{\\varphi(a)}^{\\varphi(b)} f(x)\\,dx$. **Ne pas oublier de changer les bornes** et $dx = \\varphi'(t)\\,dt$." },
+        { "type": "methode", "titre": "Fractions rationnelles simples", "texte": "Décomposer : $\\frac{1}{x^2 - 1} = \\frac12\\left(\\frac{1}{x - 1} - \\frac{1}{x + 1}\\right)$, puis intégrer chaque terme en $\\ln$." },
+        { "type": "theoreme", "titre": "Sommes de Riemann", "texte": "Si $f$ est continue sur $[0, 1]$ : $\\dfrac1n\\sum_{k=1}^{n} f\\left(\\dfrac kn\\right) \\xrightarrow[n \\to \\infty]{} \\int_0^1 f(x)\\,dx$." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-ipp", "recto": "Formule d'intégration par parties ?", "verso": "$\\int_a^b uv' = [uv]_a^b - \\int_a^b u'v$" },
+    { "id": "f-cdv", "recto": "Formule du changement de variable ?", "verso": "$\\int_a^b f(\\varphi(t))\\varphi'(t)\\,dt = \\int_{\\varphi(a)}^{\\varphi(b)} f(x)\\,dx$" },
+    { "id": "f-tfa", "recto": "Dérivée de $x \\mapsto \\int_a^x f(t)\\,dt$ ($f$ continue) ?", "verso": "$f(x)$" },
+    { "id": "f-prim-inv", "recto": "Primitive de $\\frac{1}{x}$ ?", "verso": "$\\ln|x|$ (sur un intervalle ne contenant pas 0)." },
+    { "id": "f-prim-u-u", "recto": "Primitive de $\\dfrac{u'}{u}$ ?", "verso": "$\\ln|u|$" },
+    { "id": "f-prim-arctan", "recto": "Primitive de $\\dfrac{1}{1 + x^2}$ ?", "verso": "$\\arctan x$" },
+    { "id": "f-prim-exp", "recto": "Primitive de $e^{ax}$ ($a \\neq 0$) ?", "verso": "$\\dfrac{1}{a}e^{ax}$" },
+    { "id": "f-prim-ln", "recto": "Primitive de $\\ln x$ ?", "verso": "$x\\ln x - x$ (par IPP)." },
+    { "id": "f-riemann", "recto": "Limite de $\\frac1n\\sum_{k=1}^{n} f\\left(\\frac kn\\right)$ ?", "verso": "$\\int_0^1 f(x)\\,dx$ ($f$ continue)." },
+    { "id": "f-chasles", "recto": "Relation de Chasles ?", "verso": "$\\int_a^b f + \\int_b^c f = \\int_a^c f$" },
+    { "id": "f-inegalite", "recto": "Inégalité triangulaire pour les intégrales ?", "verso": "$\\left|\\int_a^b f\\right| \\leq \\int_a^b |f|$ pour $a \\leq b$." },
+    { "id": "f-positive-nulle", "recto": "$f$ continue, $\\geq 0$ et $\\int_a^b f = 0$ ($a < b$) : conclusion ?", "verso": "$f = 0$ sur $[a, b]$." }
+  ],
+  "exercices": [
+    {
+      "id": "integrale-x2",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\displaystyle\\int_0^1 x^2\\,dx$ ?",
+      "correction": ["$\\int_0^1 x^2\\,dx = \\left[\\frac{x^3}{3}\\right]_0^1 = \\frac13$."],
+      "choix": [
+        { "texte": "$\\dfrac{1}{3}$", "correct": true, "explication": "Primitive $\\frac{x^3}{3}$." },
+        { "texte": "$\\dfrac{1}{2}$", "correct": false, "explication": "C'est $\\int_0^1 x\\,dx$." },
+        { "texte": "$2$", "correct": false, "explication": "C'est la dérivée de $x^2$ en 1, pas l'intégrale." },
+        { "texte": "$1$", "correct": false, "explication": "On a évalué $x^2$ en 1 sans primitiver." }
+      ]
+    },
+    {
+      "id": "primitive-inverse",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Une primitive de $x \\mapsto \\dfrac{1}{x}$ sur $]0, +\\infty[$ est :",
+      "correction": ["$(\\ln x)' = \\frac1x$ sur $]0, +\\infty[$."],
+      "choix": [
+        { "texte": "$\\ln x$", "correct": true, "explication": "Sa dérivée est $\\frac1x$." },
+        { "texte": "$-\\dfrac{1}{x^2}$", "correct": false, "explication": "C'est la DÉRIVÉE de $\\frac1x$." },
+        { "texte": "$x\\ln x - x$", "correct": false, "explication": "C'est une primitive de $\\ln x$." },
+        { "texte": "$\\dfrac{x^0}{0}$", "correct": false, "explication": "La formule $\\frac{x^{n+1}}{n+1}$ ne s'applique pas pour $n = -1$." }
+      ]
+    },
+    {
+      "id": "ipp-x-exp",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\int_0^1 xe^x\\,dx$ ?",
+      "indice": "IPP avec $u = x$ et $v' = e^x$.",
+      "correction": [
+        "$\\int_0^1 xe^x\\,dx = [xe^x]_0^1 - \\int_0^1 e^x\\,dx = e - (e - 1)$.",
+        "$= 1$."
+      ],
+      "choix": [
+        { "texte": "$1$", "correct": true, "explication": "$e - (e - 1)$." },
+        { "texte": "$e$", "correct": false, "explication": "On a oublié le terme $-\\int u'v = -(e - 1)$." },
+        { "texte": "$e - 1$", "correct": false, "explication": "C'est $\\int_0^1 e^x\\,dx$ seulement." },
+        { "texte": "$2e - 1$", "correct": false, "explication": "Erreur de signe dans l'IPP : c'est $[uv] - \\int u'v$." }
+      ]
+    },
+    {
+      "id": "cdv-2x-exp",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\int_0^1 2xe^{x^2}\\,dx$ ?",
+      "indice": "Reconnais la forme $u'e^u$.",
+      "correction": [
+        "$2xe^{x^2} = u'e^u$ avec $u = x^2$ : une primitive est $e^{x^2}$.",
+        "$\\int_0^1 2xe^{x^2}\\,dx = e^1 - e^0 = e - 1$."
+      ],
+      "choix": [
+        { "texte": "$e - 1$", "correct": true, "explication": "$[e^{x^2}]_0^1$." },
+        { "texte": "$e$", "correct": false, "explication": "On a oublié la valeur en 0 : $e^0 = 1$." },
+        { "texte": "$2(e - 1)$", "correct": false, "explication": "Le facteur $2x$ est exactement $u'$ : il est absorbé par la primitive." },
+        { "texte": "$\\dfrac{e - 1}{2}$", "correct": false, "explication": "Pas de division : $(e^{x^2})' = 2xe^{x^2}$ exactement." }
+      ]
+    },
+    {
+      "id": "proprietes-integrale",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "$f$ et $g$ sont continues sur $[a, b]$ avec $a < b$. Lesquelles de ces affirmations sont vraies ?",
+      "correction": [
+        "Fonction continue positive d'intégrale nulle : elle est nulle.",
+        "Inégalité triangulaire intégrale.",
+        "$f = g = 1$ sur $[0, 2]$ : $\\int fg = 2 \\neq 4 = \\int f\\int g$.",
+        "$f(x) = x$ sur $[-1, 2]$ : $\\int f = \\frac32 \\geq 0$ mais $f$ prend des valeurs négatives."
+      ],
+      "choix": [
+        { "texte": "Si $f \\geq 0$ et $\\int_a^b f = 0$, alors $f = 0$", "correct": true, "explication": "Grâce à la continuité." },
+        { "texte": "$\\left|\\int_a^b f\\right| \\leq \\int_a^b |f|$", "correct": true, "explication": "Inégalité triangulaire." },
+        { "texte": "$\\int_a^b fg = \\int_a^b f \\times \\int_a^b g$", "correct": false, "explication": "Contre-exemple : $f = g = 1$ sur $[0, 2]$." },
+        { "texte": "Si $\\int_a^b f \\geq 0$, alors $f \\geq 0$", "correct": false, "explication": "$f(x) = x$ sur $[-1, 2]$." }
+      ]
+    },
+    {
+      "id": "riemann-arctan",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Que vaut $\\displaystyle\\lim_{n \\to +\\infty} \\sum_{k=1}^{n} \\frac{n}{n^2 + k^2}$ ?",
+      "indice": "Écris le terme général sous la forme $\\frac1n f\\left(\\frac kn\\right)$.",
+      "correction": [
+        "$\\dfrac{n}{n^2 + k^2} = \\dfrac1n \\cdot \\dfrac{1}{1 + (k/n)^2}$.",
+        "Somme de Riemann de $f(x) = \\frac{1}{1 + x^2}$ sur $[0, 1]$ : la limite vaut $\\int_0^1 \\frac{dx}{1 + x^2} = \\arctan 1 = \\frac\\pi4$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{\\pi}{4}$", "correct": true, "explication": "$\\arctan 1 - \\arctan 0$." },
+        { "texte": "$1$", "correct": false, "explication": "Chaque terme est $< \\frac1n$, mais la somme tend vers $\\frac\\pi4 \\approx 0.785$." },
+        { "texte": "$\\dfrac{\\pi}{2}$", "correct": false, "explication": "C'est $\\lim_{+\\infty} \\arctan$ ; ici on intègre sur $[0, 1]$." },
+        { "texte": "$\\ln 2$", "correct": false, "explication": "C'est la limite pour $\\frac{1}{n + k}$, c'est-à-dire $f(x) = \\frac{1}{1 + x}$." }
+      ]
+    },
+    {
+      "id": "integrale-1-sur-x",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $\\displaystyle\\int_1^e \\frac{dx}{x}$.",
+      "correction": ["$\\int_1^e \\frac{dx}{x} = [\\ln x]_1^e = 1 - 0 = 1$."],
+      "reponse": 1
+    },
+    {
+      "id": "integrale-cos-sin",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\int_0^{\\pi/2} \\cos x\\sin x\\,dx$.",
+      "indice": "Forme $u'u$ avec $u = \\sin x$.",
+      "correction": ["$\\cos x \\sin x = u'u$ avec $u = \\sin x$ : primitive $\\frac{\\sin^2 x}{2}$, d'où $\\frac{1}{2} - 0 = \\frac12$."],
+      "reponse": "1/2"
+    },
+    {
+      "id": "ipp-double",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\int_0^1 x^2e^x\\,dx$.",
+      "indice": "Deux intégrations par parties.",
+      "correction": [
+        "IPP : $\\int x^2e^x = x^2e^x - 2\\int xe^x$, et $\\int xe^x = (x - 1)e^x$.",
+        "Une primitive est $(x^2 - 2x + 2)e^x$.",
+        "$\\int_0^1 x^2e^x\\,dx = (1 - 2 + 2)e - 2 = e - 2$."
+      ],
+      "reponse": "e - 2"
+    },
+    {
+      "id": "primitive-x-ln",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Donner une primitive de $f(x) = x\\ln x$ sur $]0, +\\infty[$.",
+      "indice": "IPP en dérivant $\\ln x$.",
+      "correction": [
+        "IPP avec $u = \\ln x$, $v' = x$ : $u' = \\frac1x$, $v = \\frac{x^2}{2}$.",
+        "$\\int x\\ln x\\,dx = \\frac{x^2}{2}\\ln x - \\int \\frac x2\\,dx = \\frac{x^2}{2}\\ln x - \\frac{x^2}{4}$."
+      ],
+      "reponse": "x^2/2*log(x) - x^2/4",
+      "variables": ["x"],
+      "domaine": [0.2, 3],
+      "aConstantePres": true
+    },
+    {
+      "id": "primitive-fraction",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Donner une primitive de $f(x) = \\dfrac{1}{x^2 - 1}$ sur $]1, +\\infty[$.",
+      "indice": "$\\frac{1}{x^2 - 1} = \\frac{a}{x - 1} + \\frac{b}{x + 1}$.",
+      "correction": [
+        "$\\dfrac{1}{x^2 - 1} = \\dfrac12\\left(\\dfrac{1}{x - 1} - \\dfrac{1}{x + 1}\\right)$.",
+        "Sur $]1, +\\infty[$ : une primitive est $\\frac12\\ln(x - 1) - \\frac12\\ln(x + 1) = \\frac12\\ln\\left(\\frac{x - 1}{x + 1}\\right)$."
+      ],
+      "reponse": "log((x-1)/(x+1))/2",
+      "variables": ["x"],
+      "domaine": [1.2, 5],
+      "aConstantePres": true
+    },
+    {
+      "id": "vf-integrale-produit",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour $f, g$ continues sur $[a, b]$ : $\\displaystyle\\int_a^b f(x)g(x)\\,dx = \\int_a^b f(x)\\,dx \\times \\int_a^b g(x)\\,dx$.",
+      "correction": ["Faux : $f = g = 1$ sur $[0, 2]$ donne $\\int fg = 2$ et $\\int f \\int g = 4$."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$f = g = 1$ sur $[0, 2]$ : $2 \\neq 4$.", "correct": true, "explication": "Un contre-exemple suffit." },
+        { "texte": "Vrai par linéarité de l'intégrale.", "correct": false, "explication": "La linéarité concerne les sommes et les constantes, pas les produits." },
+        { "texte": "Vrai si $f$ et $g$ sont positives.", "correct": false, "explication": "Le contre-exemple utilise des fonctions positives." }
+      ]
+    },
+    {
+      "id": "vf-tfa",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si $f$ est continue sur $\\mathbb{R}$, la fonction $F : x \\mapsto \\displaystyle\\int_0^x f(t)\\,dt$ est dérivable et $F' = f$.",
+      "correction": ["Vrai : c'est le théorème fondamental de l'analyse."],
+      "reponse": true,
+      "justifications": [
+        { "texte": "C'est le théorème fondamental de l'analyse.", "correct": true, "explication": "$F$ est la primitive de $f$ nulle en 0." },
+        { "texte": "Faux : $F'(x) = f(x) - f(0)$.", "correct": false, "explication": "La borne fixe 0 ne contribue pas à la dérivée." },
+        { "texte": "Vrai seulement si $f$ est dérivable.", "correct": false, "explication": "La continuité de $f$ suffit." }
+      ]
+    },
+    {
+      "id": "erreur-integrale-impropre",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Calcul de $\\displaystyle\\int_{-1}^{1} \\frac{dx}{x^2}$. Où est l'erreur ?",
+      "correction": [
+        "$\\frac{1}{x^2}$ n'est pas continue (ni même définie) en $0 \\in [-1, 1]$ : on ne peut pas appliquer $\\int_a^b f = F(b) - F(a)$.",
+        "Indice que c'est faux : on intègre une fonction positive et on trouve un résultat négatif. En fait cette intégrale diverge."
+      ],
+      "etapes": [
+        "Sur $]-\\infty, 0[$ et sur $]0, +\\infty[$, une primitive de $\\frac{1}{x^2}$ est $-\\frac1x$.",
+        "Donc $\\displaystyle\\int_{-1}^{1} \\frac{dx}{x^2} = \\left[-\\frac1x\\right]_{-1}^{1} = -1 - 1 = -2$.",
+        "L'intégrale vaut $-2$."
+      ],
+      "etapeFausse": 1,
+      "explication": "La formule $F(b) - F(a)$ exige une fonction continue sur tout $[a, b]$ ; ici $\\frac{1}{x^2}$ explose en 0. Une fonction positive ne peut pas avoir une intégrale négative."
+    }
+  ]
+}

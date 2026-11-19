@@ -1,0 +1,237 @@
+{
+  "$schema": "../schema.json",
+  "id": "fonctions-usuelles",
+  "monde": "analyse",
+  "ordre": 1,
+  "titre": "Fonctions usuelles",
+  "icone": "📈",
+  "resume": "Exponentielle, logarithme, puissances, trigonométrie et réciproques, fonctions hyperboliques.",
+  "cours": [
+    {
+      "titre": "Exponentielle, logarithme, puissances",
+      "blocs": [
+        { "type": "propriete", "texte": "$\\ln$ est définie sur $]0, +\\infty[$, $\\ln(ab) = \\ln a + \\ln b$, $\\ln(a^n) = n\\ln a$, $(\\ln x)' = \\frac{1}{x}$. $\\exp$ est sa réciproque : $e^{a+b} = e^ae^b$, $(e^x)' = e^x$." },
+        { "type": "definition", "titre": "Puissances réelles", "texte": "Pour $x > 0$ et $a \\in \\mathbb{R}$ : $x^a = e^{a\\ln x}$, et $(x^a)' = a x^{a-1}$." },
+        { "type": "theoreme", "titre": "Croissances comparées", "texte": "Pour $a, b > 0$ : $\\dfrac{(\\ln x)^a}{x^b} \\xrightarrow[x \\to +\\infty]{} 0$, $\\dfrac{x^a}{e^{bx}} \\xrightarrow[x \\to +\\infty]{} 0$, $x^a|\\ln x|^b \\xrightarrow[x \\to 0^+]{} 0$." }
+      ]
+    },
+    {
+      "titre": "Trigonométrie et réciproques",
+      "blocs": [
+        { "type": "propriete", "texte": "$\\cos^2 + \\sin^2 = 1$, $\\tan = \\frac{\\sin}{\\cos}$, $\\tan' = 1 + \\tan^2 = \\frac{1}{\\cos^2}$. $\\cos(a+b) = \\cos a\\cos b - \\sin a\\sin b$, $\\sin(a+b) = \\sin a\\cos b + \\cos a\\sin b$." },
+        { "type": "definition", "titre": "Fonctions réciproques", "texte": "$\\arcsin : [-1, 1] \\to \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$, $\\arccos : [-1, 1] \\to [0, \\pi]$, $\\arctan : \\mathbb{R} \\to \\left]-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right[$." },
+        { "type": "theoreme", "titre": "Dérivées", "texte": "$\\arcsin'(x) = \\dfrac{1}{\\sqrt{1 - x^2}}$, $\\arccos'(x) = -\\dfrac{1}{\\sqrt{1 - x^2}}$ sur $]-1, 1[$, $\\arctan'(x) = \\dfrac{1}{1 + x^2}$." },
+        { "type": "remarque", "titre": "Piège classique", "texte": "$\\arcsin(\\sin x) = x$ **seulement** si $x \\in \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$. Par exemple $\\arcsin(\\sin \\pi) = 0$." },
+        { "type": "propriete", "texte": "$\\arccos x + \\arcsin x = \\frac{\\pi}{2}$ sur $[-1, 1]$ ; $\\arctan x + \\arctan\\frac{1}{x} = \\frac{\\pi}{2}$ pour $x > 0$ (et $-\\frac{\\pi}{2}$ pour $x < 0$)." }
+      ]
+    },
+    {
+      "titre": "Fonctions hyperboliques",
+      "blocs": [
+        { "type": "definition", "texte": "$\\operatorname{ch} x = \\dfrac{e^x + e^{-x}}{2}$, $\\operatorname{sh} x = \\dfrac{e^x - e^{-x}}{2}$, $\\operatorname{th} = \\dfrac{\\operatorname{sh}}{\\operatorname{ch}}$." },
+        { "type": "propriete", "texte": "$\\operatorname{ch}^2 x - \\operatorname{sh}^2 x = 1$, $\\operatorname{ch}' = \\operatorname{sh}$, $\\operatorname{sh}' = \\operatorname{ch}$ (pas de signe moins !). $\\operatorname{ch}$ est paire, $\\operatorname{sh}$ est impaire." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-ln-produit", "recto": "$\\ln(ab) = $ ? ($a, b > 0$)", "verso": "$\\ln a + \\ln b$" },
+    { "id": "f-puissance", "recto": "Définition de $x^a$ pour $x > 0$, $a \\in \\mathbb{R}$ ?", "verso": "$x^a = e^{a\\ln x}$" },
+    { "id": "f-croissances", "recto": "$\\lim_{x \\to +\\infty} \\dfrac{\\ln x}{x}$ et $\\lim_{x \\to +\\infty} \\dfrac{x^3}{e^x}$ ?", "verso": "$0$ et $0$ (croissances comparées)." },
+    { "id": "f-tan-derivee", "recto": "$\\tan'(x) = $ ?", "verso": "$1 + \\tan^2 x = \\dfrac{1}{\\cos^2 x}$" },
+    { "id": "f-arcsin", "recto": "Ensemble d'arrivée de $\\arcsin$ et sa dérivée ?", "verso": "$\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$, $\\arcsin' = \\dfrac{1}{\\sqrt{1 - x^2}}$ sur $]-1, 1[$." },
+    { "id": "f-arccos", "recto": "Ensemble d'arrivée de $\\arccos$ et sa dérivée ?", "verso": "$[0, \\pi]$, $\\arccos' = -\\dfrac{1}{\\sqrt{1 - x^2}}$." },
+    { "id": "f-arctan", "recto": "Ensemble d'arrivée de $\\arctan$ et sa dérivée ?", "verso": "$\\left]-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right[$, $\\arctan' = \\dfrac{1}{1 + x^2}$." },
+    { "id": "f-arccos-arcsin", "recto": "$\\arccos x + \\arcsin x = $ ?", "verso": "$\\dfrac{\\pi}{2}$ pour $x \\in [-1, 1]$." },
+    { "id": "f-ch-sh", "recto": "Définitions de $\\operatorname{ch}$ et $\\operatorname{sh}$ ?", "verso": "$\\operatorname{ch} x = \\frac{e^x + e^{-x}}{2}$, $\\operatorname{sh} x = \\frac{e^x - e^{-x}}{2}$" },
+    { "id": "f-ch2-sh2", "recto": "$\\operatorname{ch}^2 x - \\operatorname{sh}^2 x = $ ?", "verso": "$1$" },
+    { "id": "f-cos-somme", "recto": "$\\cos(a + b) = $ ?", "verso": "$\\cos a\\cos b - \\sin a\\sin b$" },
+    { "id": "f-arctan-inverse", "recto": "$\\arctan x + \\arctan\\frac{1}{x}$ pour $x > 0$ ?", "verso": "$\\dfrac{\\pi}{2}$" }
+  ],
+  "exercices": [
+    {
+      "id": "ln8-ln2",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\dfrac{\\ln 8}{\\ln 2}$ ?",
+      "correction": ["$\\ln 8 = \\ln(2^3) = 3\\ln 2$, donc $\\dfrac{\\ln 8}{\\ln 2} = 3$."],
+      "choix": [
+        { "texte": "$3$", "correct": true, "explication": "$\\ln(2^3) = 3\\ln 2$." },
+        { "texte": "$4$", "correct": false, "explication": "$\\frac{8}{2} = 4$ : on ne simplifie pas « sous » le logarithme." },
+        { "texte": "$\\ln 4$", "correct": false, "explication": "$\\frac{\\ln a}{\\ln b} \\neq \\ln\\frac ab$ : c'est $\\ln a - \\ln b$ qui vaut $\\ln \\frac ab$." },
+        { "texte": "$\\ln 6$", "correct": false, "explication": "Ni quotient ni différence : $\\ln 8 - \\ln 2 = \\ln 4$, et le quotient vaut 3." }
+      ]
+    },
+    {
+      "id": "derivee-arctan",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la dérivée de $\\arctan$ ?",
+      "correction": [
+        "$\\tan' = 1 + \\tan^2$ ; par la dérivée d'une réciproque : $\\arctan'(x) = \\dfrac{1}{1 + \\tan^2(\\arctan x)} = \\dfrac{1}{1 + x^2}$."
+      ],
+      "choix": [
+        { "texte": "$x \\mapsto \\dfrac{1}{1 + x^2}$", "correct": true, "explication": "Dérivée de la réciproque de $\\tan$." },
+        { "texte": "$x \\mapsto \\dfrac{1}{\\sqrt{1 - x^2}}$", "correct": false, "explication": "C'est la dérivée de $\\arcsin$." },
+        { "texte": "$x \\mapsto -\\dfrac{1}{1 + x^2}$", "correct": false, "explication": "$\\arctan$ est croissante : sa dérivée est positive." },
+        { "texte": "$x \\mapsto 1 + x^2$", "correct": false, "explication": "C'est l'inverse : $1 + \\tan^2$ est la dérivée de $\\tan$." }
+      ]
+    },
+    {
+      "id": "arcsin-sin",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\arcsin\\left(\\sin\\dfrac{3\\pi}{4}\\right)$ ?",
+      "indice": "$\\arcsin$ prend ses valeurs dans $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$.",
+      "correction": [
+        "$\\sin\\frac{3\\pi}{4} = \\frac{\\sqrt 2}{2}$.",
+        "L'unique $\\theta \\in \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ avec $\\sin\\theta = \\frac{\\sqrt 2}{2}$ est $\\frac{\\pi}{4}$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{\\pi}{4}$", "correct": true, "explication": "Dans le bon intervalle et $\\sin\\frac\\pi4 = \\sin\\frac{3\\pi}{4}$." },
+        { "texte": "$\\dfrac{3\\pi}{4}$", "correct": false, "explication": "$\\frac{3\\pi}{4} \\notin \\left[-\\frac\\pi2, \\frac\\pi2\\right]$ : ce n'est pas une valeur possible de $\\arcsin$." },
+        { "texte": "$-\\dfrac{\\pi}{4}$", "correct": false, "explication": "$\\sin\\left(-\\frac\\pi4\\right) = -\\frac{\\sqrt2}{2} \\neq \\frac{\\sqrt2}{2}$." },
+        { "texte": "$\\dfrac{\\sqrt{2}}{2}$", "correct": false, "explication": "C'est $\\sin\\frac{3\\pi}{4}$ : il reste à appliquer $\\arcsin$." }
+      ]
+    },
+    {
+      "id": "ch2-sh2",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour tout réel $x$, $\\operatorname{ch}^2 x - \\operatorname{sh}^2 x$ vaut :",
+      "indice": "$\\operatorname{ch}^2 - \\operatorname{sh}^2 = (\\operatorname{ch} - \\operatorname{sh})(\\operatorname{ch} + \\operatorname{sh})$.",
+      "correction": [
+        "$\\operatorname{ch} x + \\operatorname{sh} x = e^x$ et $\\operatorname{ch} x - \\operatorname{sh} x = e^{-x}$.",
+        "Donc $\\operatorname{ch}^2 x - \\operatorname{sh}^2 x = e^x e^{-x} = 1$."
+      ],
+      "choix": [
+        { "texte": "$1$", "correct": true, "explication": "$e^x \\times e^{-x}$." },
+        { "texte": "$-1$", "correct": false, "explication": "Le signe est l'inverse : c'est $\\operatorname{sh}^2 - \\operatorname{ch}^2 = -1$." },
+        { "texte": "$\\operatorname{ch}(2x)$", "correct": false, "explication": "C'est $\\operatorname{ch}^2 + \\operatorname{sh}^2$ qui vaut $\\operatorname{ch}(2x)$." },
+        { "texte": "$0$", "correct": false, "explication": "$\\operatorname{ch} \\neq \\operatorname{sh}$ : en $0$, $1 - 0 = 1$." }
+      ]
+    },
+    {
+      "id": "identites-x-positif",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces égalités sont vraies pour **tout** $x > 0$ ?",
+      "indice": "Attention aux domaines de définition.",
+      "correction": [
+        "$\\arctan x + \\arctan\\frac1x = \\frac\\pi2$ pour $x > 0$ (dériver : la dérivée est nulle, et la valeur en 1 vaut $\\frac\\pi4 + \\frac\\pi4$).",
+        "$\\ln(x^2) = 2\\ln x$ pour $x > 0$.",
+        "$\\arccos x$ et $\\arcsin x$ ne sont pas définis pour $x > 1$.",
+        "$\\ln(x + 1) \\neq \\ln x + \\ln 1 = \\ln x$ (par exemple en $x = 1$ : $\\ln 2 \\neq 0$)."
+      ],
+      "choix": [
+        { "texte": "$\\arctan x + \\arctan\\dfrac{1}{x} = \\dfrac{\\pi}{2}$", "correct": true, "explication": "Dérivée nulle sur $]0, +\\infty[$ et valeur $\\frac\\pi2$ en 1." },
+        { "texte": "$\\ln(x^2) = 2\\ln x$", "correct": true, "explication": "Valable car $x > 0$." },
+        { "texte": "$\\arccos x + \\arcsin x = \\dfrac{\\pi}{2}$", "correct": false, "explication": "Non définie pour $x > 1$ : l'égalité n'a de sens que sur $[-1, 1]$." },
+        { "texte": "$\\ln(x + 1) = \\ln x + \\ln 1$", "correct": false, "explication": "$\\ln$ transforme les produits en sommes, pas les sommes." }
+      ]
+    },
+    {
+      "id": "exp-2ln3",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $e^{2\\ln 3}$.",
+      "correction": ["$e^{2\\ln 3} = e^{\\ln(3^2)} = 9$."],
+      "reponse": 9
+    },
+    {
+      "id": "arccos-moins-demi",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\arccos\\left(-\\dfrac{1}{2}\\right)$ (réponse en fonction de pi, ex. « 3pi/4 »).",
+      "indice": "On cherche $\\theta \\in [0, \\pi]$ tel que $\\cos\\theta = -\\frac12$.",
+      "correction": ["$\\cos\\frac{2\\pi}{3} = -\\frac12$ et $\\frac{2\\pi}{3} \\in [0, \\pi]$, donc $\\arccos\\left(-\\frac12\\right) = \\frac{2\\pi}{3}$."],
+      "reponse": "2*pi/3"
+    },
+    {
+      "id": "equation-ch",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Résoudre $\\operatorname{ch} x = \\dfrac{5}{4}$ avec $x > 0$.",
+      "indice": "Pose $X = e^x$ : on obtient une équation du second degré.",
+      "correction": [
+        "$\\frac{e^x + e^{-x}}{2} = \\frac54 \\iff X + \\frac1X = \\frac52$ avec $X = e^x > 0$.",
+        "$X^2 - \\frac52X + 1 = 0$ : $X = 2$ ou $X = \\frac12$.",
+        "$x > 0 \\iff X > 1$ : $e^x = 2$, donc $x = \\ln 2$."
+      ],
+      "reponse": "ln(2)"
+    },
+    {
+      "id": "derivee-x-puissance-x",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer la dérivée de $f(x) = x^x$ sur $]0, +\\infty[$.",
+      "indice": "Écris $x^x = e^{x\\ln x}$.",
+      "correction": [
+        "$f(x) = e^{x\\ln x}$, donc $f'(x) = (x\\ln x)'\\,e^{x\\ln x}$.",
+        "$(x\\ln x)' = \\ln x + 1$, d'où $f'(x) = (\\ln x + 1)\\,x^x$."
+      ],
+      "reponse": "x^x*(log(x)+1)",
+      "variables": ["x"],
+      "domaine": [0.2, 3]
+    },
+    {
+      "id": "tan-arcsin",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Simplifier $\\tan(\\arcsin x)$ pour $x \\in ]-1, 1[$.",
+      "indice": "Avec $\\theta = \\arcsin x$ : $\\sin\\theta = x$ et $\\cos\\theta \\geq 0$.",
+      "correction": [
+        "Soit $\\theta = \\arcsin x \\in \\left]-\\frac\\pi2, \\frac\\pi2\\right[$ : $\\sin\\theta = x$ et $\\cos\\theta > 0$.",
+        "$\\cos\\theta = \\sqrt{1 - \\sin^2\\theta} = \\sqrt{1 - x^2}$.",
+        "$\\tan(\\arcsin x) = \\dfrac{x}{\\sqrt{1 - x^2}}$."
+      ],
+      "reponse": "x/sqrt(1-x^2)",
+      "variables": ["x"],
+      "domaine": [-0.9, 0.9]
+    },
+    {
+      "id": "vf-ln-somme",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour tous $a, b > 0$ : $\\ln(a + b) = \\ln a + \\ln b$.",
+      "correction": ["Faux : avec $a = b = 1$, $\\ln 2 \\neq 0 = \\ln 1 + \\ln 1$. C'est $\\ln(ab)$ qui vaut $\\ln a + \\ln b$."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$a = b = 1$ : $\\ln 2 \\neq 0$.", "correct": true, "explication": "Un contre-exemple suffit." },
+        { "texte": "Vrai, c'est la propriété fondamentale du logarithme.", "correct": false, "explication": "La propriété fondamentale concerne le PRODUIT : $\\ln(ab) = \\ln a + \\ln b$." },
+        { "texte": "Vrai lorsque $a = b$.", "correct": false, "explication": "$\\ln(2a) = \\ln 2 + \\ln a \\neq 2\\ln a$ (sauf si $a = 2$)." }
+      ]
+    },
+    {
+      "id": "vf-arcsin-sin",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour tout réel $x$ : $\\arcsin(\\sin x) = x$.",
+      "correction": ["Faux : $\\arcsin(\\sin\\pi) = \\arcsin 0 = 0 \\neq \\pi$. L'égalité n'est vraie que pour $x \\in \\left[-\\frac\\pi2, \\frac\\pi2\\right]$."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$x = \\pi$ : $\\arcsin(\\sin\\pi) = 0 \\neq \\pi$.", "correct": true, "explication": "$\\arcsin$ prend ses valeurs dans $\\left[-\\frac\\pi2, \\frac\\pi2\\right]$." },
+        { "texte": "Vrai car $\\arcsin$ est la réciproque de $\\sin$.", "correct": false, "explication": "C'est la réciproque de la RESTRICTION de $\\sin$ à $\\left[-\\frac\\pi2, \\frac\\pi2\\right]$." },
+        { "texte": "Faux car $\\arcsin(\\sin x)$ n'est pas toujours défini.", "correct": false, "explication": "Il est toujours défini ($\\sin x \\in [-1, 1]$) ; c'est l'égalité qui échoue." }
+      ]
+    },
+    {
+      "id": "erreur-domaine-ln",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Résolution de $\\ln(x) + \\ln(x - 2) = \\ln 3$. Où est l'erreur ?",
+      "correction": [
+        "L'équation n'a de sens que pour $x > 2$.",
+        "$x^2 - 2x - 3 = 0$ donne $x = 3$ ou $x = -1$, et seule $x = 3$ convient."
+      ],
+      "etapes": [
+        "On a $\\ln(x(x - 2)) = \\ln 3$.",
+        "Donc $x^2 - 2x = 3$, soit $x^2 - 2x - 3 = 0$.",
+        "Donc $x = 3$ ou $x = -1$.",
+        "Les solutions sont donc $3$ et $-1$."
+      ],
+      "etapeFausse": 3,
+      "explication": "Il faut $x > 0$ et $x - 2 > 0$, donc $x > 2$ : $-1$ est hors du domaine. Seule solution : $x = 3$."
+    }
+  ]
+}

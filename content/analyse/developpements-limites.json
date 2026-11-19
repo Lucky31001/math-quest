@@ -1,0 +1,247 @@
+{
+  "$schema": "../schema.json",
+  "id": "developpements-limites",
+  "monde": "analyse",
+  "ordre": 5,
+  "titre": "Développements limités et équivalents",
+  "icone": "🔬",
+  "resume": "DL usuels, opérations sur les DL, équivalents et calculs de limites.",
+  "cours": [
+    {
+      "titre": "Définition",
+      "blocs": [
+        { "type": "definition", "texte": "$f$ admet un DL à l'ordre $n$ en 0 si $f(x) = a_0 + a_1x + \\dots + a_nx^n + o(x^n)$, où $o(x^n) = x^n\\varepsilon(x)$ avec $\\varepsilon(x) \\to 0$. La partie régulière est **unique**." },
+        { "type": "theoreme", "titre": "Taylor-Young", "texte": "Si $f$ est de classe $C^n$ au voisinage de 0 : $f(x) = \\sum_{k=0}^{n} \\dfrac{f^{(k)}(0)}{k!}x^k + o(x^n)$." }
+      ]
+    },
+    {
+      "titre": "DL usuels en 0",
+      "blocs": [
+        { "type": "theoreme", "texte": "$e^x = 1 + x + \\dfrac{x^2}{2!} + \\dots + \\dfrac{x^n}{n!} + o(x^n)$\n$\\ln(1 + x) = x - \\dfrac{x^2}{2} + \\dfrac{x^3}{3} - \\dots + (-1)^{n-1}\\dfrac{x^n}{n} + o(x^n)$\n$\\dfrac{1}{1 - x} = 1 + x + x^2 + \\dots + x^n + o(x^n)$" },
+        { "type": "theoreme", "texte": "$\\sin x = x - \\dfrac{x^3}{6} + \\dfrac{x^5}{120} + o(x^6)$, $\\cos x = 1 - \\dfrac{x^2}{2} + \\dfrac{x^4}{24} + o(x^5)$\n$\\operatorname{sh} x = x + \\dfrac{x^3}{6} + o(x^4)$, $\\operatorname{ch} x = 1 + \\dfrac{x^2}{2} + o(x^3)$, $\\arctan x = x - \\dfrac{x^3}{3} + o(x^4)$" },
+        { "type": "theoreme", "texte": "$(1 + x)^\\alpha = 1 + \\alpha x + \\dfrac{\\alpha(\\alpha - 1)}{2}x^2 + o(x^2)$ ; en particulier $\\sqrt{1 + x} = 1 + \\dfrac{x}{2} - \\dfrac{x^2}{8} + o(x^2)$." }
+      ]
+    },
+    {
+      "titre": "Opérations",
+      "blocs": [
+        { "type": "methode", "titre": "Somme, produit", "texte": "On additionne ou on multiplie les parties régulières, puis on **tronque** à l'ordre voulu (on ne garde que les termes de degré $\\leq n$)." },
+        { "type": "methode", "titre": "Composition", "texte": "Pour $f(u(x))$ avec $u(x) \\to 0$ : on remplace $u$ dans le DL de $f$, puis on tronque. Exemple : $\\frac{1}{1 + \\sin x}$ via $\\frac{1}{1 + u} = 1 - u + u^2 + o(u^2)$." },
+        { "type": "methode", "titre": "Primitivation", "texte": "Si $f' $ a un DL, on obtient celui de $f$ en primitivant terme à terme, SANS oublier $f(0)$." }
+      ]
+    },
+    {
+      "titre": "Équivalents",
+      "blocs": [
+        { "type": "definition", "texte": "$f \\sim g$ en 0 si $\\frac{f}{g} \\to 1$. Le premier terme non nul d'un DL donne un équivalent." },
+        { "type": "propriete", "texte": "En 0 : $\\sin x \\sim x$, $\\tan x \\sim x$, $\\ln(1 + x) \\sim x$, $e^x - 1 \\sim x$, $1 - \\cos x \\sim \\frac{x^2}{2}$, $(1 + x)^\\alpha - 1 \\sim \\alpha x$." },
+        { "type": "remarque", "titre": "À ne pas faire", "texte": "On peut multiplier et diviser des équivalents, mais **pas les additionner** ni les composer en général. On n'est jamais équivalent à 0 (sauf la fonction nulle). En cas de doute : DL." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-exp", "recto": "DL de $e^x$ en 0 à l'ordre 3 ?", "verso": "$1 + x + \\dfrac{x^2}{2} + \\dfrac{x^3}{6} + o(x^3)$" },
+    { "id": "f-ln", "recto": "DL de $\\ln(1 + x)$ en 0 à l'ordre 3 ?", "verso": "$x - \\dfrac{x^2}{2} + \\dfrac{x^3}{3} + o(x^3)$" },
+    { "id": "f-sin", "recto": "DL de $\\sin x$ en 0 à l'ordre 5 ?", "verso": "$x - \\dfrac{x^3}{6} + \\dfrac{x^5}{120} + o(x^5)$" },
+    { "id": "f-cos", "recto": "DL de $\\cos x$ en 0 à l'ordre 4 ?", "verso": "$1 - \\dfrac{x^2}{2} + \\dfrac{x^4}{24} + o(x^4)$" },
+    { "id": "f-inverse", "recto": "DL de $\\dfrac{1}{1 - x}$ en 0 ?", "verso": "$1 + x + x^2 + \\dots + x^n + o(x^n)$" },
+    { "id": "f-puissance", "recto": "DL de $(1 + x)^\\alpha$ à l'ordre 2 ?", "verso": "$1 + \\alpha x + \\dfrac{\\alpha(\\alpha - 1)}{2}x^2 + o(x^2)$" },
+    { "id": "f-sqrt", "recto": "DL de $\\sqrt{1 + x}$ à l'ordre 2 ?", "verso": "$1 + \\dfrac{x}{2} - \\dfrac{x^2}{8} + o(x^2)$" },
+    { "id": "f-arctan", "recto": "DL de $\\arctan x$ à l'ordre 3 ?", "verso": "$x - \\dfrac{x^3}{3} + o(x^3)$" },
+    { "id": "f-taylor", "recto": "Formule de Taylor-Young ?", "verso": "$f(x) = \\sum_{k=0}^{n} \\dfrac{f^{(k)}(0)}{k!}x^k + o(x^n)$" },
+    { "id": "f-equiv-cos", "recto": "Équivalent de $1 - \\cos x$ en 0 ?", "verso": "$\\dfrac{x^2}{2}$" },
+    { "id": "f-equiv-somme", "recto": "Peut-on additionner des équivalents ?", "verso": "Non ! (On peut les multiplier et les diviser.) En cas de somme : passer par les DL." },
+    { "id": "f-equiv-dl", "recto": "Comment obtenir un équivalent à partir d'un DL ?", "verso": "C'est le premier terme non nul de la partie régulière." }
+  ],
+  "exercices": [
+    {
+      "id": "dl-exp",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quel est le DL à l'ordre 3 en 0 de $e^x$ ?",
+      "correction": ["$e^x = \\sum_{k=0}^{3}\\frac{x^k}{k!} + o(x^3) = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + o(x^3)$."],
+      "choix": [
+        { "texte": "$1 + x + \\dfrac{x^2}{2} + \\dfrac{x^3}{6} + o(x^3)$", "correct": true, "explication": "Coefficients $\\frac{1}{k!}$." },
+        { "texte": "$1 + x + x^2 + x^3 + o(x^3)$", "correct": false, "explication": "Factorielles oubliées : c'est le DL de $\\frac{1}{1 - x}$." },
+        { "texte": "$x + \\dfrac{x^2}{2} + \\dfrac{x^3}{6} + o(x^3)$", "correct": false, "explication": "Il manque le terme constant $e^0 = 1$." },
+        { "texte": "$1 + x + \\dfrac{x^2}{2} + o(x^3)$", "correct": false, "explication": "C'est un DL à l'ordre 2 : le terme en $x^3$ est requis." }
+      ]
+    },
+    {
+      "id": "equivalent-ln",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un équivalent de $\\ln(1 + x)$ en 0 est :",
+      "correction": ["$\\ln(1 + x) = x + o(x)$, donc $\\ln(1 + x) \\sim x$."],
+      "choix": [
+        { "texte": "$x$", "correct": true, "explication": "Premier terme non nul du DL." },
+        { "texte": "$1 + x$", "correct": false, "explication": "$\\frac{\\ln(1 + x)}{1 + x} \\to 0$, pas 1." },
+        { "texte": "$x^2$", "correct": false, "explication": "$\\frac{\\ln(1 + x)}{x^2} \\to \\infty$." },
+        { "texte": "$\\ln x$", "correct": false, "explication": "$\\ln x \\to -\\infty$ en $0^+$ alors que $\\ln(1 + x) \\to 0$." }
+      ]
+    },
+    {
+      "id": "dl-cos-4",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est le DL à l'ordre 4 en 0 de $\\cos x$ ?",
+      "correction": ["$\\cos x = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} + o(x^4) = 1 - \\frac{x^2}{2} + \\frac{x^4}{24} + o(x^4)$."],
+      "choix": [
+        { "texte": "$1 - \\dfrac{x^2}{2} + \\dfrac{x^4}{24} + o(x^4)$", "correct": true, "explication": "Termes pairs, signes alternés, $\\frac{1}{(2k)!}$." },
+        { "texte": "$1 + \\dfrac{x^2}{2} + \\dfrac{x^4}{24} + o(x^4)$", "correct": false, "explication": "Signes non alternés : c'est le DL de $\\operatorname{ch} x$." },
+        { "texte": "$1 - x^2 + x^4 + o(x^4)$", "correct": false, "explication": "Factorielles oubliées." },
+        { "texte": "$x - \\dfrac{x^3}{6} + o(x^4)$", "correct": false, "explication": "C'est le DL de $\\sin x$." }
+      ]
+    },
+    {
+      "id": "limite-exp-x2",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\lim_{x \\to 0} \\frac{e^x - 1 - x}{x^2}$ ?",
+      "indice": "DL de $e^x$ à l'ordre 2.",
+      "correction": ["$e^x - 1 - x = \\frac{x^2}{2} + o(x^2)$, donc le quotient tend vers $\\frac12$."],
+      "choix": [
+        { "texte": "$\\dfrac{1}{2}$", "correct": true, "explication": "Terme $\\frac{x^2}{2}$ du DL." },
+        { "texte": "$0$", "correct": false, "explication": "On a dit « $e^x - 1 \\sim x$ donc $e^x - 1 - x \\sim 0$ » : on n'additionne pas les équivalents." },
+        { "texte": "$1$", "correct": false, "explication": "Le coefficient de $x^2$ est $\\frac{1}{2!}$, pas 1." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "Le numérateur est d'ordre $x^2$, comme le dénominateur." }
+      ]
+    },
+    {
+      "id": "equivalents-vrais",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "En 0, lesquelles de ces affirmations sont vraies ?",
+      "correction": [
+        "$\\sin x \\sim x$ et $1 - \\cos x \\sim \\frac{x^2}{2}$ sont des équivalents usuels.",
+        "$\\sin x - x \\sim -\\frac{x^3}{6}$ : une fonction non nulle n'est jamais équivalente à 0.",
+        "$\\ln(1 + x) - x \\sim -\\frac{x^2}{2}$ : on ne soustrait pas des équivalents."
+      ],
+      "choix": [
+        { "texte": "$\\sin x \\sim x$", "correct": true, "explication": "$\\frac{\\sin x}{x} \\to 1$." },
+        { "texte": "$1 - \\cos x \\sim \\dfrac{x^2}{2}$", "correct": true, "explication": "Premier terme non nul du DL de $1 - \\cos x$." },
+        { "texte": "$\\sin x - x \\sim 0$", "correct": false, "explication": "Être équivalent à 0 signifie être nul au voisinage : en fait $\\sin x - x \\sim -\\frac{x^3}{6}$." },
+        { "texte": "$\\ln(1 + x) - x \\sim x - x = 0$", "correct": false, "explication": "Soustraire des équivalents est interdit ; le DL donne $-\\frac{x^2}{2}$." }
+      ]
+    },
+    {
+      "id": "dl-composee",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quel est le DL à l'ordre 2 en 0 de $\\dfrac{1}{1 + \\sin x}$ ?",
+      "indice": "$\\frac{1}{1 + u} = 1 - u + u^2 + o(u^2)$ avec $u = \\sin x = x + o(x^2)$.",
+      "correction": [
+        "$u = \\sin x = x + o(x^2) \\to 0$ et $u^2 = x^2 + o(x^2)$.",
+        "$\\dfrac{1}{1 + u} = 1 - u + u^2 + o(u^2) = 1 - x + x^2 + o(x^2)$."
+      ],
+      "choix": [
+        { "texte": "$1 - x + x^2 + o(x^2)$", "correct": true, "explication": "Composition puis troncature." },
+        { "texte": "$1 + x + x^2 + o(x^2)$", "correct": false, "explication": "C'est le DL de $\\frac{1}{1 - u}$ : erreur de signe." },
+        { "texte": "$1 - x + \\dfrac{x^2}{2} + o(x^2)$", "correct": false, "explication": "Le terme $u^2$ a pour coefficient 1, et $\\sin^2 x = x^2 + o(x^2)$." },
+        { "texte": "$1 - x + o(x^2)$", "correct": false, "explication": "Il manque le terme $u^2 = x^2$." }
+      ]
+    },
+    {
+      "id": "coeff-sin2x",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Quel est le coefficient de $x^3$ dans le DL en 0 de $\\sin(2x)$ ?",
+      "correction": ["$\\sin u = u - \\frac{u^3}{6} + o(u^3)$ avec $u = 2x$ : le terme en $x^3$ est $-\\frac{(2x)^3}{6} = -\\frac{8x^3}{6} = -\\frac{4}{3}x^3$."],
+      "reponse": "-4/3"
+    },
+    {
+      "id": "limite-sin-x3",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to 0} \\frac{\\sin x - x}{x^3}$.",
+      "correction": ["$\\sin x - x = -\\frac{x^3}{6} + o(x^3)$, donc la limite vaut $-\\frac{1}{6}$."],
+      "reponse": "-1/6"
+    },
+    {
+      "id": "limite-inverse-sin2",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to 0} \\left(\\frac{1}{\\sin^2 x} - \\frac{1}{x^2}\\right)$.",
+      "indice": "Réduis au même dénominateur, puis DL de $\\sin^2 x$ à l'ordre 4.",
+      "correction": [
+        "$\\dfrac{1}{\\sin^2 x} - \\dfrac{1}{x^2} = \\dfrac{x^2 - \\sin^2 x}{x^2\\sin^2 x}$.",
+        "$\\sin^2 x = \\left(x - \\frac{x^3}{6}\\right)^2 + o(x^4) = x^2 - \\frac{x^4}{3} + o(x^4)$.",
+        "Numérateur $\\sim \\frac{x^4}{3}$, dénominateur $\\sim x^4$ : la limite vaut $\\frac13$."
+      ],
+      "reponse": "1/3"
+    },
+    {
+      "id": "dl-exp-sin",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Donner la partie régulière du DL à l'ordre 3 en 0 de $e^x\\sin x$.",
+      "indice": "Multiplie $1 + x + \\frac{x^2}{2}$ par $x - \\frac{x^3}{6}$ et tronque à l'ordre 3.",
+      "correction": [
+        "$e^x = 1 + x + \\frac{x^2}{2} + o(x^2)$ et $\\sin x = x - \\frac{x^3}{6} + o(x^3)$ (comme $\\sin x = O(x)$, l'ordre 2 suffit pour $e^x$).",
+        "Produit tronqué : $x + x^2 + \\frac{x^3}{2} - \\frac{x^3}{6} = x + x^2 + \\frac{x^3}{3}$."
+      ],
+      "reponse": "x + x^2 + x^3/3",
+      "variables": ["x"],
+      "domaine": [-1, 1]
+    },
+    {
+      "id": "dl-sqrt-exp",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Donner la partie régulière du DL à l'ordre 2 en 0 de $\\sqrt{1 + x}\\,e^{-x}$.",
+      "correction": [
+        "$\\sqrt{1 + x} = 1 + \\frac x2 - \\frac{x^2}{8} + o(x^2)$ et $e^{-x} = 1 - x + \\frac{x^2}{2} + o(x^2)$.",
+        "Terme en $x$ : $\\frac12 - 1 = -\\frac12$. Terme en $x^2$ : $\\frac12 - \\frac12 - \\frac18 = -\\frac18$.",
+        "Partie régulière : $1 - \\frac{x}{2} - \\frac{x^2}{8}$."
+      ],
+      "reponse": "1 - x/2 - x^2/8",
+      "variables": ["x"],
+      "domaine": [-0.5, 1]
+    },
+    {
+      "id": "vf-somme-equivalents",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si $f \\sim g$ et $h \\sim k$ en 0, alors $f + h \\sim g + k$ en 0.",
+      "correction": [
+        "Faux. $f = x + x^2 \\sim x = g$ et $h = -x \\sim -x = k$.",
+        "Mais $f + h = x^2$ alors que $g + k = 0$ : $x^2 \\not\\sim 0$."
+      ],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$f = x + x^2$, $g = x$, $h = k = -x$ : $f + h = x^2$ mais $g + k = 0$.", "correct": true, "explication": "Les termes principaux se compensent." },
+        { "texte": "Vrai par linéarité.", "correct": false, "explication": "La relation $\\sim$ n'est pas compatible avec l'addition." },
+        { "texte": "Vrai car on peut multiplier des équivalents.", "correct": false, "explication": "Multiplier, oui ; additionner, non." }
+      ]
+    },
+    {
+      "id": "vf-unicite-dl",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si une fonction admet un DL à l'ordre $n$ en 0, sa partie régulière est unique.",
+      "correction": ["Vrai : si $P(x) - Q(x) = o(x^n)$ avec $\\deg P, \\deg Q \\leq n$, alors $P = Q$ (sinon le premier coefficient non nul de $P - Q$ donnerait un équivalent non négligeable devant $x^n$)."],
+      "reponse": true,
+      "justifications": [
+        { "texte": "Deux polynômes de degré $\\leq n$ qui diffèrent d'un $o(x^n)$ sont égaux.", "correct": true, "explication": "Unicité de la partie régulière." },
+        { "texte": "Faux : on peut toujours ajouter un terme en $x^{n+1}$.", "correct": false, "explication": "Ce terme est absorbé par le $o(x^n)$ : la partie régulière ne change pas." },
+        { "texte": "Vrai seulement pour les polynômes.", "correct": false, "explication": "L'unicité vaut pour toute fonction admettant un DL." }
+      ]
+    },
+    {
+      "id": "erreur-equivalents",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Calcul de $\\displaystyle\\lim_{x \\to 0} \\frac{\\sin x - x}{x^3}$. Où est l'erreur ?",
+      "correction": ["Avec le DL : $\\sin x - x = -\\frac{x^3}{6} + o(x^3)$, donc la limite vaut $-\\frac{1}{6}$."],
+      "etapes": [
+        "En 0, $\\sin x \\sim x$.",
+        "Donc $\\sin x - x \\sim x - x = 0$.",
+        "Donc $\\dfrac{\\sin x - x}{x^3} \\to 0$.",
+        "La limite vaut 0."
+      ],
+      "etapeFausse": 1,
+      "explication": "On ne soustrait pas des équivalents, et aucune fonction non nulle n'est équivalente à 0. Il faut un DL à l'ordre 3."
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "$schema": "../schema.json",
+  "id": "suites",
+  "monde": "analyse",
+  "ordre": 2,
+  "titre": "Suites réelles",
+  "icone": "🔁",
+  "resume": "Limites, suites monotones, adjacentes, extraites et récurrentes.",
+  "cours": [
+    {
+      "titre": "Limites",
+      "blocs": [
+        { "type": "definition", "texte": "$u_n \\to \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists N,\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$. La limite, si elle existe, est unique. Une suite convergente est bornée." },
+        { "type": "theoreme", "titre": "Gendarmes", "texte": "Si $v_n \\leq u_n \\leq w_n$ à partir d'un certain rang et $v_n, w_n \\to \\ell$, alors $u_n \\to \\ell$." },
+        { "type": "remarque", "titre": "Formes indéterminées", "texte": "$\\infty - \\infty$, $0 \\times \\infty$, $\\frac{\\infty}{\\infty}$, $\\frac00$, $1^\\infty$, $0^0$, $\\infty^0$. Pour $1^\\infty$ : écrire $u_n^{v_n} = e^{v_n\\ln u_n}$." }
+      ]
+    },
+    {
+      "titre": "Théorèmes d'existence",
+      "blocs": [
+        { "type": "theoreme", "titre": "Limite monotone", "texte": "Une suite croissante et majorée converge ; une suite croissante non majorée tend vers $+\\infty$." },
+        { "type": "theoreme", "titre": "Suites adjacentes", "texte": "Si $(u_n)$ croît, $(v_n)$ décroît et $v_n - u_n \\to 0$, alors elles convergent vers la même limite $\\ell$, avec $u_n \\leq \\ell \\leq v_n$." },
+        { "type": "theoreme", "titre": "Suites extraites", "texte": "Si $u_n \\to \\ell$, toute suite extraite tend vers $\\ell$. Si $u_{2n} \\to \\ell$ et $u_{2n+1} \\to \\ell$, alors $u_n \\to \\ell$. **Bolzano-Weierstrass** : toute suite bornée admet une suite extraite convergente." }
+      ]
+    },
+    {
+      "titre": "Suites récurrentes",
+      "blocs": [
+        { "type": "methode", "titre": "$u_{n+1} = f(u_n)$", "texte": "Si $u_n \\to \\ell$ et $f$ est continue en $\\ell$, alors $f(\\ell) = \\ell$ (point fixe). On étudie la monotonie de $(u_n)$ (signe de $f(x) - x$, ou $f$ croissante) et on borne la suite." },
+        { "type": "methode", "titre": "Arithmético-géométrique", "texte": "$u_{n+1} = qu_n + r$ ($q \\neq 1$) : avec $\\ell = \\frac{r}{1 - q}$, $(u_n - \\ell)$ est géométrique de raison $q$, d'où $u_n = \\ell + q^n(u_0 - \\ell)$." },
+        { "type": "methode", "titre": "Récurrence linéaire d'ordre 2", "texte": "$u_{n+2} = au_{n+1} + bu_n$ : racines de $r^2 = ar + b$. Deux racines distinctes $r_1, r_2$ : $u_n = \\lambda r_1^n + \\mu r_2^n$ ; racine double $r$ : $u_n = (\\lambda + \\mu n)r^n$." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-def-limite", "recto": "Définition de $u_n \\to \\ell$ ?", "verso": "$\\forall \\varepsilon > 0,\\ \\exists N,\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$" },
+    { "id": "f-monotone", "recto": "Théorème de la limite monotone ?", "verso": "Croissante majorée $\\Rightarrow$ converge ; croissante non majorée $\\Rightarrow$ tend vers $+\\infty$." },
+    { "id": "f-adjacentes", "recto": "Définition de deux suites adjacentes ?", "verso": "L'une croissante, l'autre décroissante, et leur différence tend vers 0." },
+    { "id": "f-bolzano", "recto": "Théorème de Bolzano-Weierstrass ?", "verso": "Toute suite réelle bornée admet une suite extraite convergente." },
+    { "id": "f-extraites", "recto": "$u_{2n} \\to \\ell$ et $u_{2n+1} \\to \\ell$ : conclusion ?", "verso": "$u_n \\to \\ell$" },
+    { "id": "f-point-fixe", "recto": "Si $u_{n+1} = f(u_n)$, $u_n \\to \\ell$ et $f$ continue en $\\ell$ ?", "verso": "$f(\\ell) = \\ell$" },
+    { "id": "f-arith-geo", "recto": "Limite de $u_{n+1} = qu_n + r$ quand $|q| < 1$ ?", "verso": "$\\ell = \\dfrac{r}{1 - q}$, quel que soit $u_0$." },
+    { "id": "f-ordre2", "recto": "Forme de $u_n$ si $u_{n+2} = au_{n+1} + bu_n$ et $r^2 = ar + b$ a deux racines $r_1 \\neq r_2$ ?", "verso": "$u_n = \\lambda r_1^n + \\mu r_2^n$" },
+    { "id": "f-geometrique", "recto": "Limite de $q^n$ selon $q$ ?", "verso": "$0$ si $|q| < 1$, $1$ si $q = 1$, $+\\infty$ si $q > 1$, pas de limite si $q \\leq -1$." },
+    { "id": "f-1-infini", "recto": "Limite de $\\left(1 + \\frac{x}{n}\\right)^n$ ?", "verso": "$e^x$" },
+    { "id": "f-gendarmes", "recto": "Théorème des gendarmes ?", "verso": "$v_n \\leq u_n \\leq w_n$ et $v_n, w_n \\to \\ell$ $\\Rightarrow$ $u_n \\to \\ell$." },
+    { "id": "f-cv-bornee", "recto": "Une suite convergente est-elle bornée ? Et la réciproque ?", "verso": "Oui. Réciproque fausse : $(-1)^n$ est bornée mais diverge." }
+  ],
+  "exercices": [
+    {
+      "id": "limite-rationnelle",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\displaystyle\\lim_{n \\to +\\infty} \\frac{3n^2 + 1}{n^2 + 5}$ ?",
+      "correction": ["On factorise par $n^2$ : $\\dfrac{3 + \\frac{1}{n^2}}{1 + \\frac{5}{n^2}} \\to 3$."],
+      "choix": [
+        { "texte": "$3$", "correct": true, "explication": "Quotient des coefficients dominants." },
+        { "texte": "$\\dfrac{1}{5}$", "correct": false, "explication": "Ce sont les termes constants, négligeables à l'infini." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "Numérateur et dénominateur ont le même degré." },
+        { "texte": "$0$", "correct": false, "explication": "Le numérateur n'est pas négligeable devant le dénominateur." }
+      ]
+    },
+    {
+      "id": "moins-un-puissance-n",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "La suite $\\big((-1)^n\\big)_{n \\in \\mathbb{N}}$ :",
+      "correction": [
+        "Elle prend alternativement les valeurs $1$ et $-1$ : elle est bornée.",
+        "$u_{2n} \\to 1$ et $u_{2n+1} \\to -1$ : deux suites extraites ont des limites différentes, donc elle diverge."
+      ],
+      "choix": [
+        { "texte": "est bornée et diverge", "correct": true, "explication": "Suites extraites de limites $1$ et $-1$." },
+        { "texte": "converge vers $0$", "correct": false, "explication": "$|u_n| = 1$ pour tout $n$ : elle ne s'approche pas de 0." },
+        { "texte": "converge vers $1$", "correct": false, "explication": "Les termes impairs valent $-1$." },
+        { "texte": "tend vers $+\\infty$", "correct": false, "explication": "Elle est bornée par 1." }
+      ]
+    },
+    {
+      "id": "n-sin-1-sur-n",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\lim_{n \\to +\\infty} n\\sin\\left(\\frac{1}{n}\\right)$ ?",
+      "indice": "Pose $x = \\frac1n \\to 0$ : on reconnaît $\\frac{\\sin x}{x}$.",
+      "correction": ["Avec $x = \\frac1n \\to 0^+$ : $n\\sin\\frac1n = \\dfrac{\\sin x}{x} \\to 1$."],
+      "choix": [
+        { "texte": "$1$", "correct": true, "explication": "$\\frac{\\sin x}{x} \\to 1$ en 0." },
+        { "texte": "$0$", "correct": false, "explication": "$\\sin\\frac1n \\to 0$ mais $n \\to +\\infty$ : forme indéterminée $\\infty \\times 0$." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "$\\sin\\frac1n \\sim \\frac1n$ compense exactement $n$." },
+        { "texte": "$\\sin 1$", "correct": false, "explication": "On ne peut pas « faire entrer » $n$ dans le sinus." }
+      ]
+    },
+    {
+      "id": "recurrente-racine",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $u_0 = 0$ et $u_{n+1} = \\sqrt{u_n + 2}$. On admet que $(u_n)$ est croissante et majorée par 2. Quelle est sa limite ?",
+      "indice": "La limite $\\ell$ vérifie $\\ell = \\sqrt{\\ell + 2}$ et $\\ell \\geq 0$.",
+      "correction": [
+        "Croissante et majorée : elle converge vers $\\ell \\in [0, 2]$.",
+        "$f : x \\mapsto \\sqrt{x + 2}$ est continue, donc $\\ell = \\sqrt{\\ell + 2}$, soit $\\ell^2 - \\ell - 2 = 0$ : $\\ell = 2$ ou $\\ell = -1$.",
+        "$\\ell \\geq 0$, donc $\\ell = 2$."
+      ],
+      "choix": [
+        { "texte": "$2$", "correct": true, "explication": "Point fixe positif." },
+        { "texte": "$-1$", "correct": false, "explication": "Point fixe de l'équation $\\ell^2 = \\ell + 2$, mais $\\ell \\geq 0$ (racine carrée)." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "La suite est majorée par 2." },
+        { "texte": "$\\sqrt{2}$", "correct": false, "explication": "C'est $u_1$, pas la limite." }
+      ]
+    },
+    {
+      "id": "conditions-convergence",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces hypothèses garantissent que $(u_n)$ converge ?",
+      "correction": [
+        "Croissante et majorée : théorème de la limite monotone.",
+        "$(u_{2n})$ et $(u_{2n+1})$ de même limite : $(u_n)$ converge vers cette limite.",
+        "$(-1)^n$ est bornée mais diverge.",
+        "$u_n = \\ln n$ : $u_{n+1} - u_n = \\ln\\left(1 + \\frac1n\\right) \\to 0$, mais $u_n \\to +\\infty$."
+      ],
+      "choix": [
+        { "texte": "$(u_n)$ est croissante et majorée", "correct": true, "explication": "Limite monotone." },
+        { "texte": "$(u_{2n})$ et $(u_{2n+1})$ convergent vers la même limite", "correct": true, "explication": "Les termes pairs et impairs recouvrent toute la suite." },
+        { "texte": "$(u_n)$ est bornée", "correct": false, "explication": "Contre-exemple $(-1)^n$ (Bolzano-Weierstrass ne donne qu'une suite EXTRAITE convergente)." },
+        { "texte": "$u_{n+1} - u_n \\to 0$", "correct": false, "explication": "Contre-exemple $\\ln n$, qui tend vers $+\\infty$." }
+      ]
+    },
+    {
+      "id": "adjacentes-e",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Les suites $u_n = \\displaystyle\\sum_{k=0}^{n} \\frac{1}{k!}$ et $v_n = u_n + \\dfrac{1}{n \\cdot n!}$ ($n \\geq 1$) sont adjacentes. Quelle est leur limite commune ?",
+      "indice": "Pense au développement en série de l'exponentielle.",
+      "correction": [
+        "$(u_n)$ croît, $(v_n)$ décroît et $v_n - u_n = \\frac{1}{n \\cdot n!} \\to 0$ : elles ont une limite commune.",
+        "Par la formule de Taylor, $\\sum_{k=0}^{n}\\frac{1}{k!} \\to e^1 = e$."
+      ],
+      "choix": [
+        { "texte": "$e$", "correct": true, "explication": "$\\sum \\frac{1}{k!} = e^1$." },
+        { "texte": "$2$", "correct": false, "explication": "$u_1 = 2$, mais la suite continue de croître : $u_2 = 2.5$." },
+        { "texte": "$+\\infty$", "correct": false, "explication": "Deux suites adjacentes convergent toujours." },
+        { "texte": "$1$", "correct": false, "explication": "$u_0 = 1$ et la suite est croissante." }
+      ]
+    },
+    {
+      "id": "limite-2-5",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $\\displaystyle\\lim_{n \\to +\\infty} \\frac{2n + 3}{5n - 1}$.",
+      "correction": ["$\\dfrac{2 + \\frac3n}{5 - \\frac1n} \\to \\dfrac{2}{5}$."],
+      "reponse": "2/5"
+    },
+    {
+      "id": "recurrence-ordre2",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Soit $u_0 = 0$, $u_1 = 3$ et $u_{n+2} = u_{n+1} + 2u_n$. Calculer $u_{10}$.",
+      "indice": "Équation caractéristique $r^2 = r + 2$.",
+      "correction": [
+        "$r^2 - r - 2 = 0$ : $r = 2$ ou $r = -1$, donc $u_n = \\lambda 2^n + \\mu(-1)^n$.",
+        "$u_0 = \\lambda + \\mu = 0$ et $u_1 = 2\\lambda - \\mu = 3$ : $\\lambda = 1$, $\\mu = -1$.",
+        "$u_n = 2^n - (-1)^n$, donc $u_{10} = 1024 - 1 = 1023$."
+      ],
+      "reponse": 1023
+    },
+    {
+      "id": "limite-1-plus-2-sur-n",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\lim_{n \\to +\\infty} \\left(1 + \\frac{2}{n}\\right)^n$.",
+      "indice": "Forme $1^\\infty$ : écris $e^{n\\ln(1 + 2/n)}$.",
+      "correction": [
+        "$\\left(1 + \\frac2n\\right)^n = e^{n\\ln\\left(1 + \\frac2n\\right)}$.",
+        "$\\ln\\left(1 + \\frac2n\\right) \\sim \\frac2n$, donc $n\\ln\\left(1 + \\frac2n\\right) \\to 2$.",
+        "Par continuité de $\\exp$, la limite vaut $e^2$."
+      ],
+      "reponse": "e^2"
+    },
+    {
+      "id": "arith-geo-formule",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Soit $u_0 = 5$ et $u_{n+1} = 2u_n - 3$. Exprimer $u_n$ en fonction de $n$.",
+      "indice": "Cherche le point fixe $\\ell = 2\\ell - 3$, puis étudie $u_n - \\ell$.",
+      "correction": [
+        "Point fixe : $\\ell = 2\\ell - 3 \\iff \\ell = 3$.",
+        "$v_n = u_n - 3$ vérifie $v_{n+1} = 2v_n$, donc $v_n = 2^n v_0 = 2^n \\times 2 = 2^{n+1}$.",
+        "$u_n = 3 + 2^{n+1}$."
+      ],
+      "reponse": "3 + 2^(n+1)",
+      "variables": ["n"],
+      "domaine": [0, 8]
+    },
+    {
+      "id": "vf-croissante-infini",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Toute suite croissante tend vers $+\\infty$.",
+      "correction": ["Faux : $u_n = -\\frac{1}{n+1}$ est croissante et converge vers 0. Une suite croissante tend vers $+\\infty$ seulement si elle n'est pas majorée."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$-\\frac{1}{n+1}$ est croissante et tend vers 0.", "correct": true, "explication": "Croissante et majorée (par 0), donc convergente." },
+        { "texte": "Vrai par le théorème de la limite monotone.", "correct": false, "explication": "Ce théorème distingue majorée (convergence) et non majorée ($+\\infty$)." },
+        { "texte": "Faux car une suite croissante est toujours bornée.", "correct": false, "explication": "$u_n = n$ est croissante et non bornée." }
+      ]
+    },
+    {
+      "id": "vf-signe-limite",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si $(u_n)$ converge vers $\\ell > 0$, alors $u_n > 0$ à partir d'un certain rang.",
+      "correction": ["Vrai : avec $\\varepsilon = \\frac\\ell2$, il existe $N$ tel que pour $n \\geq N$, $u_n \\geq \\ell - \\frac\\ell2 = \\frac\\ell2 > 0$."],
+      "reponse": true,
+      "justifications": [
+        { "texte": "On applique la définition avec $\\varepsilon = \\frac{\\ell}{2}$.", "correct": true, "explication": "À partir d'un rang, $u_n \\geq \\frac\\ell2 > 0$." },
+        { "texte": "Faux : $u_0$ peut être négatif.", "correct": false, "explication": "« À partir d'un certain rang » autorise les premiers termes négatifs." },
+        { "texte": "Vrai, et même pour tout $n$.", "correct": false, "explication": "$u_n = 1 - \\frac{2}{n+1}$ tend vers 1 mais $u_0 = -1 < 0$." }
+      ]
+    },
+    {
+      "id": "erreur-1-infini",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Calcul de $\\displaystyle\\lim_{n \\to +\\infty} \\left(1 + \\frac{1}{n}\\right)^n$. Où est l'erreur ?",
+      "correction": [
+        "$1^\\infty$ est une forme indéterminée : on écrit $e^{n\\ln(1 + 1/n)}$.",
+        "$n\\ln\\left(1 + \\frac1n\\right) \\to 1$, donc la limite vaut $e$."
+      ],
+      "etapes": [
+        "Pour tout $n \\geq 1$ : $1 + \\frac1n > 1$.",
+        "Quand $n \\to +\\infty$ : $1 + \\frac1n \\to 1$.",
+        "Donc $\\left(1 + \\frac1n\\right)^n \\to 1^\\infty = 1$.",
+        "La limite vaut 1."
+      ],
+      "etapeFausse": 2,
+      "explication": "$1^\\infty$ est une forme indéterminée : la base tend vers 1 mais l'exposant tend vers l'infini. La vraie limite est $e$."
+    }
+  ]
+}

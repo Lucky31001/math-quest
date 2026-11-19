@@ -1,0 +1,238 @@
+{
+  "$schema": "../schema.json",
+  "id": "equations-differentielles",
+  "monde": "analyse",
+  "ordre": 7,
+  "titre": "Équations différentielles linéaires",
+  "icone": "🌊",
+  "resume": "Équations d'ordre 1, équations d'ordre 2 à coefficients constants, problèmes de Cauchy.",
+  "cours": [
+    {
+      "titre": "Ordre 1 : $y' + a(x)y = b(x)$",
+      "blocs": [
+        { "type": "theoreme", "titre": "Équation homogène", "texte": "Si $a$ est continue sur $I$ et $A$ est une primitive de $a$, les solutions de $y' + a(x)y = 0$ sont $x \\mapsto Ce^{-A(x)}$, $C \\in \\mathbb{R}$." },
+        { "type": "theoreme", "titre": "Structure", "texte": "Solution générale = solution particulière + solutions de l'équation homogène. Principe de superposition : si $y_1$ résout avec $b_1$ et $y_2$ avec $b_2$, $y_1 + y_2$ résout avec $b_1 + b_2$." },
+        { "type": "methode", "titre": "Solution particulière", "texte": "Chercher une solution évidente (constante si $a$ et $b$ sont constants : $y_p = \\frac ba$), ou utiliser la **variation de la constante** : $y = C(x)e^{-A(x)}$." },
+        { "type": "theoreme", "titre": "Cauchy", "texte": "Pour tout $x_0 \\in I$ et $y_0 \\in \\mathbb{R}$, il existe une unique solution avec $y(x_0) = y_0$. **On fixe la constante à la fin**, sur la solution générale." }
+      ]
+    },
+    {
+      "titre": "Ordre 2 : $y'' + ay' + by = f(x)$",
+      "blocs": [
+        { "type": "theoreme", "titre": "Équation homogène", "texte": "Équation caractéristique $r^2 + ar + b = 0$, discriminant $\\Delta$ :\n• $\\Delta > 0$, racines $r_1 \\neq r_2$ : $y = \\lambda e^{r_1x} + \\mu e^{r_2x}$ ;\n• $\\Delta = 0$, racine double $r_0$ : $y = (\\lambda x + \\mu)e^{r_0x}$ ;\n• $\\Delta < 0$, racines $\\alpha \\pm i\\beta$ : $y = e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$." },
+        { "type": "methode", "titre": "Second membre $Pe^{mx}$", "texte": "Chercher $y_p = Q(x)e^{mx}$ avec $\\deg Q = \\deg P$ si $m$ n'est pas racine, $\\deg P + 1$ si $m$ est racine simple, $\\deg P + 2$ si $m$ est racine double." },
+        { "type": "theoreme", "titre": "Cauchy", "texte": "Pour l'ordre 2, une solution est déterminée de façon unique par $y(x_0)$ ET $y'(x_0)$." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-homogene-1", "recto": "Solutions de $y' + a(x)y = 0$ ?", "verso": "$Ce^{-A(x)}$ où $A$ est une primitive de $a$." },
+    { "id": "f-y-ay", "recto": "Solutions de $y' = ky$ ($k$ constant) ?", "verso": "$Ce^{kx}$, $C \\in \\mathbb{R}$." },
+    { "id": "f-structure", "recto": "Structure des solutions d'une équation linéaire ?", "verso": "Solution particulière + solutions de l'équation homogène." },
+    { "id": "f-variation", "recto": "Principe de la variation de la constante (ordre 1) ?", "verso": "Chercher $y = C(x)e^{-A(x)}$ : on obtient $C'(x) = b(x)e^{A(x)}$." },
+    { "id": "f-caracteristique", "recto": "Équation caractéristique de $y'' + ay' + by = 0$ ?", "verso": "$r^2 + ar + b = 0$" },
+    { "id": "f-delta-positif", "recto": "Solutions si $\\Delta > 0$ (racines $r_1, r_2$) ?", "verso": "$\\lambda e^{r_1x} + \\mu e^{r_2x}$" },
+    { "id": "f-delta-nul", "recto": "Solutions si $\\Delta = 0$ (racine double $r_0$) ?", "verso": "$(\\lambda x + \\mu)e^{r_0x}$" },
+    { "id": "f-delta-negatif", "recto": "Solutions réelles si $\\Delta < 0$ (racines $\\alpha \\pm i\\beta$) ?", "verso": "$e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$" },
+    { "id": "f-cauchy-2", "recto": "Conditions qui déterminent une solution d'ordre 2 ?", "verso": "$y(x_0)$ et $y'(x_0)$." },
+    { "id": "f-second-membre", "recto": "Forme de $y_p$ pour un second membre $e^{mx}$, $m$ racine double ?", "verso": "$y_p = ax^2e^{mx}$" },
+    { "id": "f-y-cst", "recto": "Solution particulière de $y' + ay = b$ ($a \\neq 0$, constants) ?", "verso": "La constante $y_p = \\dfrac{b}{a}$." },
+    { "id": "f-superposition", "recto": "Principe de superposition ?", "verso": "Si $y_1$ résout avec $f_1$ et $y_2$ avec $f_2$, alors $y_1 + y_2$ résout avec $f_1 + f_2$." }
+  ],
+  "exercices": [
+    {
+      "id": "y-prime-3y",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Les solutions sur $\\mathbb{R}$ de $y' = 3y$ sont ($C \\in \\mathbb{R}$) :",
+      "correction": ["$y' - 3y = 0$ : solutions $Ce^{3x}$."],
+      "choix": [
+        { "texte": "$x \\mapsto Ce^{3x}$", "correct": true, "explication": "$(Ce^{3x})' = 3Ce^{3x}$." },
+        { "texte": "$x \\mapsto Ce^{-3x}$", "correct": false, "explication": "Erreur de signe : c'est la solution de $y' = -3y$." },
+        { "texte": "$x \\mapsto e^{3x} + C$", "correct": false, "explication": "La constante est un facteur multiplicatif : $(e^{3x} + C)' = 3e^{3x} \\neq 3(e^{3x} + C)$." },
+        { "texte": "$x \\mapsto 3Ce^{x}$", "correct": false, "explication": "$(3Ce^x)' = 3Ce^x$ : ce n'est pas $3y$ (sauf $C = 0$)." }
+      ]
+    },
+    {
+      "id": "equation-caracteristique",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est l'équation caractéristique de $y'' - 5y' + 6y = 0$ ?",
+      "correction": ["$y'' \\to r^2$, $y' \\to r$, $y \\to 1$ : $r^2 - 5r + 6 = 0$ (racines 2 et 3)."],
+      "choix": [
+        { "texte": "$r^2 - 5r + 6 = 0$", "correct": true, "explication": "On remplace $y^{(k)}$ par $r^k$." },
+        { "texte": "$r^2 + 5r + 6 = 0$", "correct": false, "explication": "Signe de $-5y'$ oublié." },
+        { "texte": "$6r^2 - 5r + 1 = 0$", "correct": false, "explication": "Coefficients dans le mauvais ordre." },
+        { "texte": "$r^2 - 5r - 6 = 0$", "correct": false, "explication": "Signe du coefficient de $y$ faux." }
+      ]
+    },
+    {
+      "id": "y-prime-2xy",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Les solutions sur $\\mathbb{R}$ de $y' + 2xy = 0$ sont ($C \\in \\mathbb{R}$) :",
+      "indice": "Solutions $Ce^{-A(x)}$ où $A$ est une primitive de $a(x) = 2x$.",
+      "correction": ["$a(x) = 2x$ a pour primitive $A(x) = x^2$ : solutions $Ce^{-x^2}$."],
+      "choix": [
+        { "texte": "$x \\mapsto Ce^{-x^2}$", "correct": true, "explication": "$A(x) = x^2$." },
+        { "texte": "$x \\mapsto Ce^{-2x}$", "correct": false, "explication": "On a pris $a$ au lieu de sa primitive : il faut $e^{-A(x)}$." },
+        { "texte": "$x \\mapsto Ce^{x^2}$", "correct": false, "explication": "Signe oublié : $e^{-A}$." },
+        { "texte": "$x \\mapsto Ce^{-2x^2}$", "correct": false, "explication": "La primitive de $2x$ est $x^2$, pas $2x^2$." }
+      ]
+    },
+    {
+      "id": "y-seconde-4y",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Les solutions réelles de $y'' + 4y = 0$ sont ($\\lambda, \\mu \\in \\mathbb{R}$) :",
+      "correction": ["$r^2 + 4 = 0$ : $r = \\pm 2i$ ($\\alpha = 0$, $\\beta = 2$), donc $y = \\lambda\\cos 2x + \\mu\\sin 2x$."],
+      "choix": [
+        { "texte": "$\\lambda\\cos(2x) + \\mu\\sin(2x)$", "correct": true, "explication": "Racines $\\pm 2i$." },
+        { "texte": "$\\lambda e^{2x} + \\mu e^{-2x}$", "correct": false, "explication": "Ce sont les solutions de $y'' - 4y = 0$ (racines $\\pm 2$)." },
+        { "texte": "$\\lambda\\cos(4x) + \\mu\\sin(4x)$", "correct": false, "explication": "$\\beta = \\sqrt4 = 2$, pas 4." },
+        { "texte": "$(\\lambda x + \\mu)e^{2x}$", "correct": false, "explication": "Forme du cas $\\Delta = 0$ ; ici $\\Delta = -16 < 0$." }
+      ]
+    },
+    {
+      "id": "solutions-y-plus-y-x",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces fonctions sont solutions de $y'' + y = x$ ?",
+      "indice": "Calcule $y'' + y$ pour chacune.",
+      "correction": [
+        "$y = x$ : $0 + x = x$. Solution.",
+        "$y = x + \\cos x$ : $y'' = -\\cos x$, $y'' + y = x$. Solution (particulière + homogène).",
+        "$y = x + e^x$ : $y'' + y = e^x + x + e^x \\neq x$.",
+        "$y = x\\sin x$ : $y'' = 2\\cos x - x\\sin x$, $y'' + y = 2\\cos x \\neq x$."
+      ],
+      "choix": [
+        { "texte": "$y = x$", "correct": true, "explication": "$y'' + y = 0 + x$." },
+        { "texte": "$y = x + \\cos x$", "correct": true, "explication": "$\\cos$ est solution de l'équation homogène." },
+        { "texte": "$y = x + e^x$", "correct": false, "explication": "$e^x$ n'est pas solution de $y'' + y = 0$ : il reste $2e^x$." },
+        { "texte": "$y = x\\sin x$", "correct": false, "explication": "$y'' + y = 2\\cos x$." }
+      ]
+    },
+    {
+      "id": "solution-particuliere-double",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Une solution particulière de $y'' - 2y' + y = e^x$ est :",
+      "indice": "$1$ est racine double de l'équation caractéristique.",
+      "correction": [
+        "$r^2 - 2r + 1 = (r - 1)^2$ : $1$ est racine double, on cherche $y_p = ax^2e^x$.",
+        "$y_p' = a(x^2 + 2x)e^x$, $y_p'' = a(x^2 + 4x + 2)e^x$, donc $y_p'' - 2y_p' + y_p = 2ae^x$.",
+        "$2a = 1$ : $y_p = \\frac{x^2}{2}e^x$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{x^2}{2}e^x$", "correct": true, "explication": "$y_p = ax^2e^x$ avec $a = \\frac12$." },
+        { "texte": "$e^x$", "correct": false, "explication": "$e^x$ est solution de l'équation HOMOGÈNE : on obtient 0, pas $e^x$." },
+        { "texte": "$xe^x$", "correct": false, "explication": "Aussi solution de l'équation homogène (racine double)." },
+        { "texte": "$x^2e^x$", "correct": false, "explication": "Le coefficient est faux : on obtient $2e^x$." }
+      ]
+    },
+    {
+      "id": "cauchy-y-2y",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Soit $y$ la solution de $y' = 2y$ avec $y(0) = 3$. Que vaut $y(1)$ ?",
+      "correction": ["$y = Ce^{2x}$ et $y(0) = C = 3$, donc $y(1) = 3e^2$."],
+      "reponse": "3*e^2"
+    },
+    {
+      "id": "cauchy-y-plus-y",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Soit $y$ la solution de $y' + y = 1$ avec $y(0) = 0$. Que vaut $y(\\ln 2)$ ?",
+      "correction": [
+        "Homogène : $Ce^{-x}$. Solution particulière : $1$. Donc $y = 1 + Ce^{-x}$.",
+        "$y(0) = 1 + C = 0$, $C = -1$ : $y = 1 - e^{-x}$.",
+        "$y(\\ln 2) = 1 - \\frac12 = \\frac12$."
+      ],
+      "reponse": "1/2"
+    },
+    {
+      "id": "cauchy-ordre2",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Soit $y$ la solution de $y'' - 3y' + 2y = 0$ avec $y(0) = 0$ et $y'(0) = 1$. Que vaut $y(\\ln 3)$ ?",
+      "correction": [
+        "$r^2 - 3r + 2 = 0$ : $r = 1$ ou $r = 2$, $y = \\lambda e^x + \\mu e^{2x}$.",
+        "$\\lambda + \\mu = 0$ et $\\lambda + 2\\mu = 1$ : $\\mu = 1$, $\\lambda = -1$.",
+        "$y = e^{2x} - e^x$, donc $y(\\ln 3) = 9 - 3 = 6$."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "resoudre-y-moins-y-x",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Résoudre $y' - y = x$ avec $y(0) = 0$. Donne $y(x)$.",
+      "indice": "Cherche une solution particulière affine $ax + b$.",
+      "correction": [
+        "Homogène : $Ce^x$.",
+        "$y_p = ax + b$ : $a - (ax + b) = x$ donne $a = -1$, $b = -1$, soit $y_p = -x - 1$.",
+        "$y = Ce^x - x - 1$ et $y(0) = C - 1 = 0$ : $y = e^x - x - 1$."
+      ],
+      "reponse": "exp(x) - x - 1",
+      "variables": ["x"]
+    },
+    {
+      "id": "resoudre-y-seconde-plus-y",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Résoudre $y'' + y = 0$ avec $y(0) = 1$ et $y'(0) = 2$. Donne $y(x)$.",
+      "correction": [
+        "Racines $\\pm i$ : $y = \\lambda\\cos x + \\mu\\sin x$.",
+        "$y(0) = \\lambda = 1$ et $y'(0) = \\mu = 2$.",
+        "$y = \\cos x + 2\\sin x$."
+      ],
+      "reponse": "cos(x) + 2*sin(x)",
+      "variables": ["x"]
+    },
+    {
+      "id": "vf-somme-solutions",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si $y_1$ et $y_2$ sont solutions de $y' + ay = b$ avec $b \\neq 0$, alors $y_1 + y_2$ est aussi solution.",
+      "correction": ["Faux : $(y_1 + y_2)' + a(y_1 + y_2) = b + b = 2b \\neq b$. La stabilité par somme ne vaut que pour l'équation homogène."],
+      "reponse": false,
+      "justifications": [
+        { "texte": "$(y_1 + y_2)' + a(y_1 + y_2) = 2b \\neq b$.", "correct": true, "explication": "Le second membre est compté deux fois." },
+        { "texte": "Vrai par linéarité.", "correct": false, "explication": "La linéarité donne $2b$ au second membre ; seul l'ensemble des solutions de l'équation HOMOGÈNE est stable par somme." },
+        { "texte": "Vrai si $a$ est constant.", "correct": false, "explication": "Le calcul $b + b = 2b$ est le même." }
+      ]
+    },
+    {
+      "id": "vf-cauchy",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Le problème $y' = y$, $y(0) = 1$ admet une unique solution sur $\\mathbb{R}$.",
+      "correction": ["Vrai : les solutions sont $Ce^x$ et $y(0) = 1$ impose $C = 1$. L'unique solution est $\\exp$."],
+      "reponse": true,
+      "justifications": [
+        { "texte": "Théorème de Cauchy : la condition $y(0) = 1$ fixe $C = 1$.", "correct": true, "explication": "L'unique solution est $x \\mapsto e^x$." },
+        { "texte": "Faux : $Ce^x$ convient pour tout $C$.", "correct": false, "explication": "Seulement sans condition initiale ; $y(0) = 1$ impose $C = 1$." },
+        { "texte": "Faux : il faut aussi connaître $y'(0)$.", "correct": false, "explication": "Pour l'ordre 1, $y(x_0)$ suffit." }
+      ]
+    },
+    {
+      "id": "erreur-constante-trop-tot",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Résolution de $y' + y = 2$ avec $y(0) = 5$. Où est l'erreur ?",
+      "correction": [
+        "Solution générale : $y = 2 + Ce^{-x}$ ; puis $y(0) = 2 + C = 5$ donne $C = 3$.",
+        "$y = 2 + 3e^{-x}$ (on vérifie $y(0) = 5$)."
+      ],
+      "etapes": [
+        "Solutions de l'équation homogène : $y_h = Ce^{-x}$.",
+        "Avec $y(0) = 5$, on obtient $C = 5$, donc $y_h = 5e^{-x}$.",
+        "Solution particulière constante : $y_p = 2$.",
+        "Donc $y = 5e^{-x} + 2$."
+      ],
+      "etapeFausse": 1,
+      "explication": "La condition initiale s'applique à la solution GÉNÉRALE (particulière + homogène), pas à la partie homogène. Ici $y(0) = 7 \\neq 5$."
+    }
+  ]
+}
