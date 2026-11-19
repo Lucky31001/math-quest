@@ -958,8 +958,14 @@ body[data-ecran='jouer'] .hud {
   margin-top: 1.4em;
 }
 
-.bloc {
+/* Couleur par type de bloc, partagée par les blocs de cours et les pastilles de la légende.
+   Le violet par défaut (définition) doit précéder les couleurs par type. */
+.bloc,
+.pastille-bloc {
   --c: var(--violet);
+}
+
+.bloc {
   margin: 12px 0;
   padding: 12px 16px;
   border: 2px solid var(--bord);
@@ -2804,7 +2810,6 @@ main {
 }
 
 .pastille-bloc {
-  --c: var(--violet);
   display: inline-flex;
   align-items: center;
   gap: 6px;
