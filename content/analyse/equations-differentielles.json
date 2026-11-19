@@ -10,34 +10,125 @@
     {
       "titre": "Ordre 1 : $y' + a(x)y = b(x)$",
       "blocs": [
-        { "type": "theoreme", "titre": "Équation homogène", "texte": "Si $a$ est continue sur $I$ et $A$ est une primitive de $a$, les solutions de $y' + a(x)y = 0$ sont $x \\mapsto Ce^{-A(x)}$, $C \\in \\mathbb{R}$." },
-        { "type": "theoreme", "titre": "Structure", "texte": "Solution générale = solution particulière + solutions de l'équation homogène. Principe de superposition : si $y_1$ résout avec $b_1$ et $y_2$ avec $b_2$, $y_1 + y_2$ résout avec $b_1 + b_2$." },
-        { "type": "methode", "titre": "Solution particulière", "texte": "Chercher une solution évidente (constante si $a$ et $b$ sont constants : $y_p = \\frac ba$), ou utiliser la **variation de la constante** : $y = C(x)e^{-A(x)}$." },
-        { "type": "theoreme", "titre": "Cauchy", "texte": "Pour tout $x_0 \\in I$ et $y_0 \\in \\mathbb{R}$, il existe une unique solution avec $y(x_0) = y_0$. **On fixe la constante à la fin**, sur la solution générale." }
+        {
+          "type": "theoreme",
+          "titre": "Équation homogène",
+          "texte": "Si $a$ est continue sur $I$ et $A$ est une primitive de $a$, les solutions de $y' + a(x)y = 0$ sont $x \\mapsto Ce^{-A(x)}$, $C \\in \\mathbb{R}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Structure",
+          "texte": "Solution générale = solution particulière + solutions de l'équation homogène. Principe de superposition : si $y_1$ résout avec $b_1$ et $y_2$ avec $b_2$, $y_1 + y_2$ résout avec $b_1 + b_2$."
+        },
+        {
+          "type": "methode",
+          "titre": "Solution particulière",
+          "texte": "Chercher une solution évidente (constante si $a$ et $b$ sont constants : $y_p = \\frac ba$), ou utiliser la **variation de la constante** : $y = C(x)e^{-A(x)}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Cauchy",
+          "texte": "Pour tout $x_0 \\in I$ et $y_0 \\in \\mathbb{R}$, il existe une unique solution avec $y(x_0) = y_0$. **On fixe la constante à la fin**, sur la solution générale."
+        }
       ]
     },
     {
       "titre": "Ordre 2 : $y'' + ay' + by = f(x)$",
       "blocs": [
-        { "type": "theoreme", "titre": "Équation homogène", "texte": "Équation caractéristique $r^2 + ar + b = 0$, discriminant $\\Delta$ :\n• $\\Delta > 0$, racines $r_1 \\neq r_2$ : $y = \\lambda e^{r_1x} + \\mu e^{r_2x}$ ;\n• $\\Delta = 0$, racine double $r_0$ : $y = (\\lambda x + \\mu)e^{r_0x}$ ;\n• $\\Delta < 0$, racines $\\alpha \\pm i\\beta$ : $y = e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$." },
-        { "type": "methode", "titre": "Second membre $Pe^{mx}$", "texte": "Chercher $y_p = Q(x)e^{mx}$ avec $\\deg Q = \\deg P$ si $m$ n'est pas racine, $\\deg P + 1$ si $m$ est racine simple, $\\deg P + 2$ si $m$ est racine double." },
-        { "type": "theoreme", "titre": "Cauchy", "texte": "Pour l'ordre 2, une solution est déterminée de façon unique par $y(x_0)$ ET $y'(x_0)$." }
+        {
+          "type": "theoreme",
+          "titre": "Équation homogène",
+          "texte": "Équation caractéristique $r^2 + ar + b = 0$, discriminant $\\Delta$ :\n• $\\Delta > 0$, racines $r_1 \\neq r_2$ : $y = \\lambda e^{r_1x} + \\mu e^{r_2x}$ ;\n• $\\Delta = 0$, racine double $r_0$ : $y = (\\lambda x + \\mu)e^{r_0x}$ ;\n• $\\Delta < 0$, racines $\\alpha \\pm i\\beta$ : $y = e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$."
+        },
+        {
+          "type": "methode",
+          "titre": "Second membre $Pe^{mx}$",
+          "texte": "Chercher $y_p = Q(x)e^{mx}$ avec $\\deg Q = \\deg P$ si $m$ n'est pas racine, $\\deg P + 1$ si $m$ est racine simple, $\\deg P + 2$ si $m$ est racine double."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Cauchy",
+          "texte": "Pour l'ordre 2, une solution est déterminée de façon unique par $y(x_0)$ ET $y'(x_0)$."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-homogene-1", "recto": "Solutions de $y' + a(x)y = 0$ ?", "verso": "$Ce^{-A(x)}$ où $A$ est une primitive de $a$." },
-    { "id": "f-y-ay", "recto": "Solutions de $y' = ky$ ($k$ constant) ?", "verso": "$Ce^{kx}$, $C \\in \\mathbb{R}$." },
-    { "id": "f-structure", "recto": "Structure des solutions d'une équation linéaire ?", "verso": "Solution particulière + solutions de l'équation homogène." },
-    { "id": "f-variation", "recto": "Principe de la variation de la constante (ordre 1) ?", "verso": "Chercher $y = C(x)e^{-A(x)}$ : on obtient $C'(x) = b(x)e^{A(x)}$." },
-    { "id": "f-caracteristique", "recto": "Équation caractéristique de $y'' + ay' + by = 0$ ?", "verso": "$r^2 + ar + b = 0$" },
-    { "id": "f-delta-positif", "recto": "Solutions si $\\Delta > 0$ (racines $r_1, r_2$) ?", "verso": "$\\lambda e^{r_1x} + \\mu e^{r_2x}$" },
-    { "id": "f-delta-nul", "recto": "Solutions si $\\Delta = 0$ (racine double $r_0$) ?", "verso": "$(\\lambda x + \\mu)e^{r_0x}$" },
-    { "id": "f-delta-negatif", "recto": "Solutions réelles si $\\Delta < 0$ (racines $\\alpha \\pm i\\beta$) ?", "verso": "$e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$" },
-    { "id": "f-cauchy-2", "recto": "Conditions qui déterminent une solution d'ordre 2 ?", "verso": "$y(x_0)$ et $y'(x_0)$." },
-    { "id": "f-second-membre", "recto": "Forme de $y_p$ pour un second membre $e^{mx}$, $m$ racine double ?", "verso": "$y_p = ax^2e^{mx}$" },
-    { "id": "f-y-cst", "recto": "Solution particulière de $y' + ay = b$ ($a \\neq 0$, constants) ?", "verso": "La constante $y_p = \\dfrac{b}{a}$." },
-    { "id": "f-superposition", "recto": "Principe de superposition ?", "verso": "Si $y_1$ résout avec $f_1$ et $y_2$ avec $f_2$, alors $y_1 + y_2$ résout avec $f_1 + f_2$." }
+    {
+      "id": "f-homogene-1",
+      "recto": "Solutions de $y' + a(x)y = 0$ ?",
+      "verso": "$Ce^{-A(x)}$ où $A$ est une primitive de $a$."
+    },
+    {
+      "id": "f-y-ay",
+      "recto": "Solutions de $y' = ky$ ($k$ constant) ?",
+      "verso": "$Ce^{kx}$, $C \\in \\mathbb{R}$."
+    },
+    {
+      "id": "f-structure",
+      "recto": "Structure des solutions d'une équation linéaire ?",
+      "verso": "Solution particulière + solutions de l'équation homogène."
+    },
+    {
+      "id": "f-variation",
+      "recto": "Principe de la variation de la constante (ordre 1) ?",
+      "verso": "Chercher $y = C(x)e^{-A(x)}$ : on obtient $C'(x) = b(x)e^{A(x)}$."
+    },
+    {
+      "id": "f-caracteristique",
+      "recto": "Équation caractéristique de $y'' + ay' + by = 0$ ?",
+      "verso": "$r^2 + ar + b = 0$"
+    },
+    {
+      "id": "f-delta-positif",
+      "recto": "Solutions si $\\Delta > 0$ (racines $r_1, r_2$) ?",
+      "verso": "$\\lambda e^{r_1x} + \\mu e^{r_2x}$"
+    },
+    {
+      "id": "f-delta-nul",
+      "recto": "Solutions si $\\Delta = 0$ (racine double $r_0$) ?",
+      "verso": "$(\\lambda x + \\mu)e^{r_0x}$"
+    },
+    {
+      "id": "f-delta-negatif",
+      "recto": "Solutions réelles si $\\Delta < 0$ (racines $\\alpha \\pm i\\beta$) ?",
+      "verso": "$e^{\\alpha x}(\\lambda\\cos\\beta x + \\mu\\sin\\beta x)$"
+    },
+    {
+      "id": "f-cauchy-2",
+      "recto": "Conditions qui déterminent une solution d'ordre 2 ?",
+      "verso": "$y(x_0)$ et $y'(x_0)$."
+    },
+    {
+      "id": "f-second-membre",
+      "recto": "Forme de $y_p$ pour un second membre $e^{mx}$, $m$ racine double ?",
+      "verso": "$y_p = ax^2e^{mx}$"
+    },
+    {
+      "id": "f-y-cst",
+      "recto": "Solution particulière de $y' + ay = b$ ($a \\neq 0$, constants) ?",
+      "verso": "La constante $y_p = \\dfrac{b}{a}$."
+    },
+    {
+      "id": "f-superposition",
+      "recto": "Principe de superposition ?",
+      "verso": "Si $y_1$ résout avec $f_1$ et $y_2$ avec $f_2$, alors $y_1 + y_2$ résout avec $f_1 + f_2$."
+    },
+    {
+      "id": "f-second-membre-constant",
+      "recto": "Solution particulière de $y'' + ay' + by = c$ ($b \\neq 0$, constantes) ?",
+      "verso": "La constante $y_p = \\dfrac{c}{b}$."
+    },
+    {
+      "id": "f-oscillateur",
+      "recto": "Solutions de $y'' + \\omega^2 y = 0$ ($\\omega > 0$) ?",
+      "verso": "$\\lambda\\cos(\\omega x) + \\mu\\sin(\\omega x)$"
+    },
+    {
+      "id": "f-y-moins-omega",
+      "recto": "Solutions de $y'' - \\omega^2 y = 0$ ($\\omega > 0$) ?",
+      "verso": "$\\lambda e^{\\omega x} + \\mu e^{-\\omega x}$ (ou $\\alpha\\operatorname{ch}(\\omega x) + \\beta\\operatorname{sh}(\\omega x)$)."
+    }
   ],
   "exercices": [
     {
@@ -45,12 +136,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Les solutions sur $\\mathbb{R}$ de $y' = 3y$ sont ($C \\in \\mathbb{R}$) :",
-      "correction": ["$y' - 3y = 0$ : solutions $Ce^{3x}$."],
+      "correction": [
+        "$y' - 3y = 0$ : solutions $Ce^{3x}$."
+      ],
       "choix": [
-        { "texte": "$x \\mapsto Ce^{3x}$", "correct": true, "explication": "$(Ce^{3x})' = 3Ce^{3x}$." },
-        { "texte": "$x \\mapsto Ce^{-3x}$", "correct": false, "explication": "Erreur de signe : c'est la solution de $y' = -3y$." },
-        { "texte": "$x \\mapsto e^{3x} + C$", "correct": false, "explication": "La constante est un facteur multiplicatif : $(e^{3x} + C)' = 3e^{3x} \\neq 3(e^{3x} + C)$." },
-        { "texte": "$x \\mapsto 3Ce^{x}$", "correct": false, "explication": "$(3Ce^x)' = 3Ce^x$ : ce n'est pas $3y$ (sauf $C = 0$)." }
+        {
+          "texte": "$x \\mapsto Ce^{3x}$",
+          "correct": true,
+          "explication": "$(Ce^{3x})' = 3Ce^{3x}$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{-3x}$",
+          "correct": false,
+          "explication": "Erreur de signe : c'est la solution de $y' = -3y$."
+        },
+        {
+          "texte": "$x \\mapsto e^{3x} + C$",
+          "correct": false,
+          "explication": "La constante est un facteur multiplicatif : $(e^{3x} + C)' = 3e^{3x} \\neq 3(e^{3x} + C)$."
+        },
+        {
+          "texte": "$x \\mapsto 3Ce^{x}$",
+          "correct": false,
+          "explication": "$(3Ce^x)' = 3Ce^x$ : ce n'est pas $3y$ (sauf $C = 0$)."
+        }
       ]
     },
     {
@@ -58,12 +167,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Quelle est l'équation caractéristique de $y'' - 5y' + 6y = 0$ ?",
-      "correction": ["$y'' \\to r^2$, $y' \\to r$, $y \\to 1$ : $r^2 - 5r + 6 = 0$ (racines 2 et 3)."],
+      "correction": [
+        "$y'' \\to r^2$, $y' \\to r$, $y \\to 1$ : $r^2 - 5r + 6 = 0$ (racines 2 et 3)."
+      ],
       "choix": [
-        { "texte": "$r^2 - 5r + 6 = 0$", "correct": true, "explication": "On remplace $y^{(k)}$ par $r^k$." },
-        { "texte": "$r^2 + 5r + 6 = 0$", "correct": false, "explication": "Signe de $-5y'$ oublié." },
-        { "texte": "$6r^2 - 5r + 1 = 0$", "correct": false, "explication": "Coefficients dans le mauvais ordre." },
-        { "texte": "$r^2 - 5r - 6 = 0$", "correct": false, "explication": "Signe du coefficient de $y$ faux." }
+        {
+          "texte": "$r^2 - 5r + 6 = 0$",
+          "correct": true,
+          "explication": "On remplace $y^{(k)}$ par $r^k$."
+        },
+        {
+          "texte": "$r^2 + 5r + 6 = 0$",
+          "correct": false,
+          "explication": "Signe de $-5y'$ oublié."
+        },
+        {
+          "texte": "$6r^2 - 5r + 1 = 0$",
+          "correct": false,
+          "explication": "Coefficients dans le mauvais ordre."
+        },
+        {
+          "texte": "$r^2 - 5r - 6 = 0$",
+          "correct": false,
+          "explication": "Signe du coefficient de $y$ faux."
+        }
       ]
     },
     {
@@ -72,12 +199,30 @@
       "difficulte": 2,
       "enonce": "Les solutions sur $\\mathbb{R}$ de $y' + 2xy = 0$ sont ($C \\in \\mathbb{R}$) :",
       "indice": "Solutions $Ce^{-A(x)}$ où $A$ est une primitive de $a(x) = 2x$.",
-      "correction": ["$a(x) = 2x$ a pour primitive $A(x) = x^2$ : solutions $Ce^{-x^2}$."],
+      "correction": [
+        "$a(x) = 2x$ a pour primitive $A(x) = x^2$ : solutions $Ce^{-x^2}$."
+      ],
       "choix": [
-        { "texte": "$x \\mapsto Ce^{-x^2}$", "correct": true, "explication": "$A(x) = x^2$." },
-        { "texte": "$x \\mapsto Ce^{-2x}$", "correct": false, "explication": "On a pris $a$ au lieu de sa primitive : il faut $e^{-A(x)}$." },
-        { "texte": "$x \\mapsto Ce^{x^2}$", "correct": false, "explication": "Signe oublié : $e^{-A}$." },
-        { "texte": "$x \\mapsto Ce^{-2x^2}$", "correct": false, "explication": "La primitive de $2x$ est $x^2$, pas $2x^2$." }
+        {
+          "texte": "$x \\mapsto Ce^{-x^2}$",
+          "correct": true,
+          "explication": "$A(x) = x^2$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{-2x}$",
+          "correct": false,
+          "explication": "On a pris $a$ au lieu de sa primitive : il faut $e^{-A(x)}$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{x^2}$",
+          "correct": false,
+          "explication": "Signe oublié : $e^{-A}$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{-2x^2}$",
+          "correct": false,
+          "explication": "La primitive de $2x$ est $x^2$, pas $2x^2$."
+        }
       ]
     },
     {
@@ -85,12 +230,30 @@
       "type": "qcm",
       "difficulte": 2,
       "enonce": "Les solutions réelles de $y'' + 4y = 0$ sont ($\\lambda, \\mu \\in \\mathbb{R}$) :",
-      "correction": ["$r^2 + 4 = 0$ : $r = \\pm 2i$ ($\\alpha = 0$, $\\beta = 2$), donc $y = \\lambda\\cos 2x + \\mu\\sin 2x$."],
+      "correction": [
+        "$r^2 + 4 = 0$ : $r = \\pm 2i$ ($\\alpha = 0$, $\\beta = 2$), donc $y = \\lambda\\cos 2x + \\mu\\sin 2x$."
+      ],
       "choix": [
-        { "texte": "$\\lambda\\cos(2x) + \\mu\\sin(2x)$", "correct": true, "explication": "Racines $\\pm 2i$." },
-        { "texte": "$\\lambda e^{2x} + \\mu e^{-2x}$", "correct": false, "explication": "Ce sont les solutions de $y'' - 4y = 0$ (racines $\\pm 2$)." },
-        { "texte": "$\\lambda\\cos(4x) + \\mu\\sin(4x)$", "correct": false, "explication": "$\\beta = \\sqrt4 = 2$, pas 4." },
-        { "texte": "$(\\lambda x + \\mu)e^{2x}$", "correct": false, "explication": "Forme du cas $\\Delta = 0$ ; ici $\\Delta = -16 < 0$." }
+        {
+          "texte": "$\\lambda\\cos(2x) + \\mu\\sin(2x)$",
+          "correct": true,
+          "explication": "Racines $\\pm 2i$."
+        },
+        {
+          "texte": "$\\lambda e^{2x} + \\mu e^{-2x}$",
+          "correct": false,
+          "explication": "Ce sont les solutions de $y'' - 4y = 0$ (racines $\\pm 2$)."
+        },
+        {
+          "texte": "$\\lambda\\cos(4x) + \\mu\\sin(4x)$",
+          "correct": false,
+          "explication": "$\\beta = \\sqrt4 = 2$, pas 4."
+        },
+        {
+          "texte": "$(\\lambda x + \\mu)e^{2x}$",
+          "correct": false,
+          "explication": "Forme du cas $\\Delta = 0$ ; ici $\\Delta = -16 < 0$."
+        }
       ]
     },
     {
@@ -107,10 +270,26 @@
         "$y = x\\sin x$ : $y'' = 2\\cos x - x\\sin x$, $y'' + y = 2\\cos x \\neq x$."
       ],
       "choix": [
-        { "texte": "$y = x$", "correct": true, "explication": "$y'' + y = 0 + x$." },
-        { "texte": "$y = x + \\cos x$", "correct": true, "explication": "$\\cos$ est solution de l'équation homogène." },
-        { "texte": "$y = x + e^x$", "correct": false, "explication": "$e^x$ n'est pas solution de $y'' + y = 0$ : il reste $2e^x$." },
-        { "texte": "$y = x\\sin x$", "correct": false, "explication": "$y'' + y = 2\\cos x$." }
+        {
+          "texte": "$y = x$",
+          "correct": true,
+          "explication": "$y'' + y = 0 + x$."
+        },
+        {
+          "texte": "$y = x + \\cos x$",
+          "correct": true,
+          "explication": "$\\cos$ est solution de l'équation homogène."
+        },
+        {
+          "texte": "$y = x + e^x$",
+          "correct": false,
+          "explication": "$e^x$ n'est pas solution de $y'' + y = 0$ : il reste $2e^x$."
+        },
+        {
+          "texte": "$y = x\\sin x$",
+          "correct": false,
+          "explication": "$y'' + y = 2\\cos x$."
+        }
       ]
     },
     {
@@ -125,10 +304,26 @@
         "$2a = 1$ : $y_p = \\frac{x^2}{2}e^x$."
       ],
       "choix": [
-        { "texte": "$\\dfrac{x^2}{2}e^x$", "correct": true, "explication": "$y_p = ax^2e^x$ avec $a = \\frac12$." },
-        { "texte": "$e^x$", "correct": false, "explication": "$e^x$ est solution de l'équation HOMOGÈNE : on obtient 0, pas $e^x$." },
-        { "texte": "$xe^x$", "correct": false, "explication": "Aussi solution de l'équation homogène (racine double)." },
-        { "texte": "$x^2e^x$", "correct": false, "explication": "Le coefficient est faux : on obtient $2e^x$." }
+        {
+          "texte": "$\\dfrac{x^2}{2}e^x$",
+          "correct": true,
+          "explication": "$y_p = ax^2e^x$ avec $a = \\frac12$."
+        },
+        {
+          "texte": "$e^x$",
+          "correct": false,
+          "explication": "$e^x$ est solution de l'équation HOMOGÈNE : on obtient 0, pas $e^x$."
+        },
+        {
+          "texte": "$xe^x$",
+          "correct": false,
+          "explication": "Aussi solution de l'équation homogène (racine double)."
+        },
+        {
+          "texte": "$x^2e^x$",
+          "correct": false,
+          "explication": "Le coefficient est faux : on obtient $2e^x$."
+        }
       ]
     },
     {
@@ -136,7 +331,9 @@
       "type": "numerique",
       "difficulte": 1,
       "enonce": "Soit $y$ la solution de $y' = 2y$ avec $y(0) = 3$. Que vaut $y(1)$ ?",
-      "correction": ["$y = Ce^{2x}$ et $y(0) = C = 3$, donc $y(1) = 3e^2$."],
+      "correction": [
+        "$y = Ce^{2x}$ et $y(0) = C = 3$, donc $y(1) = 3e^2$."
+      ],
       "reponse": "3*e^2"
     },
     {
@@ -175,7 +372,9 @@
         "$y = Ce^x - x - 1$ et $y(0) = C - 1 = 0$ : $y = e^x - x - 1$."
       ],
       "reponse": "exp(x) - x - 1",
-      "variables": ["x"]
+      "variables": [
+        "x"
+      ]
     },
     {
       "id": "resoudre-y-seconde-plus-y",
@@ -188,19 +387,35 @@
         "$y = \\cos x + 2\\sin x$."
       ],
       "reponse": "cos(x) + 2*sin(x)",
-      "variables": ["x"]
+      "variables": [
+        "x"
+      ]
     },
     {
       "id": "vf-somme-solutions",
       "type": "vrai-faux",
       "difficulte": 1,
       "enonce": "Si $y_1$ et $y_2$ sont solutions de $y' + ay = b$ avec $b \\neq 0$, alors $y_1 + y_2$ est aussi solution.",
-      "correction": ["Faux : $(y_1 + y_2)' + a(y_1 + y_2) = b + b = 2b \\neq b$. La stabilité par somme ne vaut que pour l'équation homogène."],
+      "correction": [
+        "Faux : $(y_1 + y_2)' + a(y_1 + y_2) = b + b = 2b \\neq b$. La stabilité par somme ne vaut que pour l'équation homogène."
+      ],
       "reponse": false,
       "justifications": [
-        { "texte": "$(y_1 + y_2)' + a(y_1 + y_2) = 2b \\neq b$.", "correct": true, "explication": "Le second membre est compté deux fois." },
-        { "texte": "Vrai par linéarité.", "correct": false, "explication": "La linéarité donne $2b$ au second membre ; seul l'ensemble des solutions de l'équation HOMOGÈNE est stable par somme." },
-        { "texte": "Vrai si $a$ est constant.", "correct": false, "explication": "Le calcul $b + b = 2b$ est le même." }
+        {
+          "texte": "$(y_1 + y_2)' + a(y_1 + y_2) = 2b \\neq b$.",
+          "correct": true,
+          "explication": "Le second membre est compté deux fois."
+        },
+        {
+          "texte": "Vrai par linéarité.",
+          "correct": false,
+          "explication": "La linéarité donne $2b$ au second membre ; seul l'ensemble des solutions de l'équation HOMOGÈNE est stable par somme."
+        },
+        {
+          "texte": "Vrai si $a$ est constant.",
+          "correct": false,
+          "explication": "Le calcul $b + b = 2b$ est le même."
+        }
       ]
     },
     {
@@ -208,12 +423,26 @@
       "type": "vrai-faux",
       "difficulte": 2,
       "enonce": "Le problème $y' = y$, $y(0) = 1$ admet une unique solution sur $\\mathbb{R}$.",
-      "correction": ["Vrai : les solutions sont $Ce^x$ et $y(0) = 1$ impose $C = 1$. L'unique solution est $\\exp$."],
+      "correction": [
+        "Vrai : les solutions sont $Ce^x$ et $y(0) = 1$ impose $C = 1$. L'unique solution est $\\exp$."
+      ],
       "reponse": true,
       "justifications": [
-        { "texte": "Théorème de Cauchy : la condition $y(0) = 1$ fixe $C = 1$.", "correct": true, "explication": "L'unique solution est $x \\mapsto e^x$." },
-        { "texte": "Faux : $Ce^x$ convient pour tout $C$.", "correct": false, "explication": "Seulement sans condition initiale ; $y(0) = 1$ impose $C = 1$." },
-        { "texte": "Faux : il faut aussi connaître $y'(0)$.", "correct": false, "explication": "Pour l'ordre 1, $y(x_0)$ suffit." }
+        {
+          "texte": "Théorème de Cauchy : la condition $y(0) = 1$ fixe $C = 1$.",
+          "correct": true,
+          "explication": "L'unique solution est $x \\mapsto e^x$."
+        },
+        {
+          "texte": "Faux : $Ce^x$ convient pour tout $C$.",
+          "correct": false,
+          "explication": "Seulement sans condition initiale ; $y(0) = 1$ impose $C = 1$."
+        },
+        {
+          "texte": "Faux : il faut aussi connaître $y'(0)$.",
+          "correct": false,
+          "explication": "Pour l'ordre 1, $y(x_0)$ suffit."
+        }
       ]
     },
     {
@@ -233,6 +462,217 @@
       ],
       "etapeFausse": 1,
       "explication": "La condition initiale s'applique à la solution GÉNÉRALE (particulière + homogène), pas à la partie homogène. Ici $y(0) = 7 \\neq 5$."
+    },
+    {
+      "id": "y-prime-plus-2y",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Les solutions de $y' + 2y = 0$ sont ($C \\in \\mathbb{R}$) :",
+      "correction": [
+        "$y' = -2y$ : $y = Ce^{-2x}$."
+      ],
+      "choix": [
+        {
+          "texte": "$x \\mapsto Ce^{-2x}$",
+          "correct": true,
+          "explication": "$(Ce^{-2x})' = -2Ce^{-2x}$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{2x}$",
+          "correct": false,
+          "explication": "Signe : $y' = -2y$."
+        },
+        {
+          "texte": "$x \\mapsto Ce^{-x^2}$",
+          "correct": false,
+          "explication": "C'est pour $y' + 2xy = 0$ (coefficient non constant)."
+        },
+        {
+          "texte": "$x \\mapsto -2Ce^{x}$",
+          "correct": false,
+          "explication": "$(-2Ce^x)' = -2Ce^x \\neq -2y$."
+        }
+      ]
+    },
+    {
+      "id": "y-seconde-moins-4y",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Les solutions réelles de $y'' - 4y = 0$ sont :",
+      "correction": [
+        "$r^2 - 4 = 0$ : $r = \\pm 2$, donc $y = \\lambda e^{2x} + \\mu e^{-2x}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\lambda e^{2x} + \\mu e^{-2x}$",
+          "correct": true,
+          "explication": "Deux racines réelles $\\pm 2$."
+        },
+        {
+          "texte": "$\\lambda\\cos(2x) + \\mu\\sin(2x)$",
+          "correct": false,
+          "explication": "C'est pour $y'' + 4y = 0$."
+        },
+        {
+          "texte": "$(\\lambda x + \\mu)e^{2x}$",
+          "correct": false,
+          "explication": "Il n'y a pas de racine double ici."
+        },
+        {
+          "texte": "$\\lambda e^{4x} + \\mu e^{-4x}$",
+          "correct": false,
+          "explication": "Les racines sont $\\pm\\sqrt4 = \\pm 2$."
+        }
+      ]
+    },
+    {
+      "id": "racine-double-moins-1",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Les solutions réelles de $y'' + 2y' + y = 0$ sont :",
+      "correction": [
+        "$r^2 + 2r + 1 = (r + 1)^2$ : racine double $-1$, donc $y = (\\lambda x + \\mu)e^{-x}$."
+      ],
+      "choix": [
+        {
+          "texte": "$(\\lambda x + \\mu)e^{-x}$",
+          "correct": true,
+          "explication": "Racine double $-1$."
+        },
+        {
+          "texte": "$(\\lambda x + \\mu)e^{x}$",
+          "correct": false,
+          "explication": "La racine double est $-1$, pas $1$."
+        },
+        {
+          "texte": "$\\lambda e^{-x}$",
+          "correct": false,
+          "explication": "Il manque la solution $xe^{-x}$ (espace de dimension 2)."
+        },
+        {
+          "texte": "$\\lambda e^{x} + \\mu e^{-x}$",
+          "correct": false,
+          "explication": "Ce sont les solutions de $y'' - y = 0$."
+        }
+      ]
+    },
+    {
+      "id": "proprietes-ordre-1",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "$a$ et $b$ sont des constantes non nulles. Lesquelles de ces affirmations sur $y' = ay + b$ sont vraies ?",
+      "correction": [
+        "$y = -\\frac ba$ : $y' = 0 = a\\left(-\\frac ba\\right) + b$. Solution constante.",
+        "Solution générale : $Ce^{ax} - \\frac ba$.",
+        "$y = e^{ax}$ : $y' = ae^{ax}$ alors que $ay + b = ae^{ax} + b \\neq ae^{ax}$ car $b \\neq 0$.",
+        "L'ensemble des solutions n'est pas stable par somme ($b \\neq 0$) : ce n'est pas un espace vectoriel."
+      ],
+      "choix": [
+        {
+          "texte": "$x \\mapsto -\\dfrac{b}{a}$ est solution",
+          "correct": true,
+          "explication": "Solution particulière constante."
+        },
+        {
+          "texte": "Les solutions sont les $x \\mapsto Ce^{ax} - \\dfrac{b}{a}$",
+          "correct": true,
+          "explication": "Particulière + homogène."
+        },
+        {
+          "texte": "$x \\mapsto e^{ax}$ est solution",
+          "correct": false,
+          "explication": "C'est une solution de l'équation HOMOGÈNE $y' = ay$ ; il manque la solution particulière."
+        },
+        {
+          "texte": "Les solutions forment un espace vectoriel",
+          "correct": false,
+          "explication": "La somme de deux solutions résout $y' = ay + 2b$."
+        }
+      ]
+    },
+    {
+      "id": "cauchy-oscillateur",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Soit $y$ la solution de $y'' + y = 0$ avec $y(0) = 0$ et $y'(0) = 3$. Que vaut $y\\left(\\frac{\\pi}{2}\\right)$ ?",
+      "correction": [
+        "$y = \\lambda\\cos x + \\mu\\sin x$, $y(0) = \\lambda = 0$, $y'(0) = \\mu = 3$.",
+        "$y = 3\\sin x$, donc $y\\left(\\frac\\pi2\\right) = 3$."
+      ],
+      "reponse": 3
+    },
+    {
+      "id": "cauchy-y-plus-x",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Soit $y$ la solution de $y' = y + x$ avec $y(0) = 1$. Que vaut $y(1)$ ?",
+      "indice": "Cherche une solution particulière affine.",
+      "correction": [
+        "Solution particulière $y_p = -x - 1$ (car $-1 = -x - 1 + x$).",
+        "$y = Ce^x - x - 1$ et $y(0) = C - 1 = 1$, donc $C = 2$.",
+        "$y(1) = 2e - 2$."
+      ],
+      "reponse": "2*e - 2"
+    },
+    {
+      "id": "resoudre-second-membre-constant",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Résoudre $y'' - 3y' + 2y = 2$ avec $y(0) = 2$ et $y'(0) = 0$. Donne $y(x)$.",
+      "correction": [
+        "Solution particulière constante : $2y_p = 2$, $y_p = 1$.",
+        "Homogène : $r^2 - 3r + 2 = 0$, $r = 1$ ou $2$. Donc $y = 1 + \\lambda e^x + \\mu e^{2x}$.",
+        "$y(0) = 1 + \\lambda + \\mu = 2$ et $y'(0) = \\lambda + 2\\mu = 0$ : $\\mu = -1$, $\\lambda = 2$.",
+        "$y = 1 + 2e^x - e^{2x}$."
+      ],
+      "reponse": "1 + 2*exp(x) - exp(2*x)",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "vf-solution-ne-s-annule-pas",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Une solution non nulle de $y' + a(x)y = 0$ ($a$ continue sur un intervalle $I$) ne s'annule jamais sur $I$.",
+      "correction": [
+        "Vrai : les solutions sont $Ce^{-A(x)}$ ; si $C \\neq 0$, elles ne s'annulent pas (une exponentielle est $> 0$)."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Les solutions sont $Ce^{-A(x)}$ et une exponentielle ne s'annule pas.",
+          "correct": true,
+          "explication": "$C \\neq 0$ pour une solution non nulle."
+        },
+        {
+          "texte": "Faux : $\\sin$ est solution d'une telle équation.",
+          "correct": false,
+          "explication": "$\\sin$ s'annule ; elle n'est solution d'aucune équation $y' + a(x)y = 0$ avec $a$ continue sur $\\mathbb{R}$."
+        },
+        {
+          "texte": "Vrai seulement si $a$ est constante.",
+          "correct": false,
+          "explication": "Vrai pour toute $a$ continue."
+        }
+      ]
+    },
+    {
+      "id": "erreur-racines-complexes",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Résolution de $y'' + y = 0$. Où est l'erreur ?",
+      "correction": [
+        "$r^2 + 1 = 0$ donne $r = \\pm i$ : les solutions réelles sont $\\lambda\\cos x + \\mu\\sin x$."
+      ],
+      "etapes": [
+        "Équation caractéristique : $r^2 + 1 = 0$.",
+        "Racines : $r = \\pm 1$.",
+        "Solutions : $\\lambda e^{x} + \\mu e^{-x}$."
+      ],
+      "etapeFausse": 1,
+      "explication": "$r^2 = -1$ n'a pas de racine réelle : $r = \\pm i$. (Les racines $\\pm 1$ sont celles de $r^2 - 1 = 0$.)"
     }
   ]
 }

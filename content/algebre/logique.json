@@ -10,43 +10,148 @@
     {
       "titre": "Connecteurs et quantificateurs",
       "blocs": [
-        { "type": "definition", "titre": "Implication", "texte": "$P \\Rightarrow Q$ est fausse uniquement lorsque $P$ est vraie et $Q$ fausse. Elle est équivalente à $(\\text{non } P) \\text{ ou } Q$." },
-        { "type": "propriete", "titre": "Négations", "texte": "$\\text{non}(P \\text{ et } Q) \\equiv (\\text{non } P) \\text{ ou } (\\text{non } Q)$ ; $\\text{non}(P \\text{ ou } Q) \\equiv (\\text{non } P) \\text{ et } (\\text{non } Q)$ ; $\\text{non}(P \\Rightarrow Q) \\equiv P \\text{ et } (\\text{non } Q)$." },
-        { "type": "propriete", "titre": "Quantificateurs", "texte": "$\\text{non}(\\forall x,\\ P(x)) \\equiv \\exists x,\\ \\text{non } P(x)$ et $\\text{non}(\\exists x,\\ P(x)) \\equiv \\forall x,\\ \\text{non } P(x)$. On nie en échangeant $\\forall$ et $\\exists$ et en niant la propriété finale." },
-        { "type": "remarque", "texte": "L'**ordre des quantificateurs** compte : $\\forall x\\ \\exists y,\\ y > x$ est vraie dans $\\mathbb{R}$, mais $\\exists y\\ \\forall x,\\ y > x$ est fausse." }
+        {
+          "type": "definition",
+          "titre": "Implication",
+          "texte": "$P \\Rightarrow Q$ est fausse uniquement lorsque $P$ est vraie et $Q$ fausse. Elle est équivalente à $(\\text{non } P) \\text{ ou } Q$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Négations",
+          "texte": "$\\text{non}(P \\text{ et } Q) \\equiv (\\text{non } P) \\text{ ou } (\\text{non } Q)$ ; $\\text{non}(P \\text{ ou } Q) \\equiv (\\text{non } P) \\text{ et } (\\text{non } Q)$ ; $\\text{non}(P \\Rightarrow Q) \\equiv P \\text{ et } (\\text{non } Q)$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Quantificateurs",
+          "texte": "$\\text{non}(\\forall x,\\ P(x)) \\equiv \\exists x,\\ \\text{non } P(x)$ et $\\text{non}(\\exists x,\\ P(x)) \\equiv \\forall x,\\ \\text{non } P(x)$. On nie en échangeant $\\forall$ et $\\exists$ et en niant la propriété finale."
+        },
+        {
+          "type": "remarque",
+          "texte": "L'**ordre des quantificateurs** compte : $\\forall x\\ \\exists y,\\ y > x$ est vraie dans $\\mathbb{R}$, mais $\\exists y\\ \\forall x,\\ y > x$ est fausse."
+        }
       ]
     },
     {
       "titre": "Types de raisonnement",
       "blocs": [
-        { "type": "propriete", "titre": "Contraposée", "texte": "$P \\Rightarrow Q$ est équivalente à sa contraposée $(\\text{non } Q) \\Rightarrow (\\text{non } P)$. La **réciproque** $Q \\Rightarrow P$, elle, n'est pas équivalente." },
-        { "type": "methode", "titre": "Raisonnement par l'absurde", "texte": "Pour montrer $P$, on suppose $\\text{non } P$ et on aboutit à une contradiction. Exemple classique : l'irrationalité de $\\sqrt{2}$." },
-        { "type": "methode", "titre": "Contre-exemple", "texte": "Pour montrer qu'une propriété « $\\forall x,\\ P(x)$ » est fausse, il suffit d'exhiber **un** $x$ tel que $P(x)$ soit fausse." },
-        { "type": "methode", "titre": "Analyse-synthèse", "texte": "Analyse : on suppose qu'une solution existe et on en déduit sa forme (conditions nécessaires). Synthèse : on vérifie que les candidats trouvés conviennent." }
+        {
+          "type": "propriete",
+          "titre": "Contraposée",
+          "texte": "$P \\Rightarrow Q$ est équivalente à sa contraposée $(\\text{non } Q) \\Rightarrow (\\text{non } P)$. La **réciproque** $Q \\Rightarrow P$, elle, n'est pas équivalente."
+        },
+        {
+          "type": "methode",
+          "titre": "Raisonnement par l'absurde",
+          "texte": "Pour montrer $P$, on suppose $\\text{non } P$ et on aboutit à une contradiction. Exemple classique : l'irrationalité de $\\sqrt{2}$."
+        },
+        {
+          "type": "methode",
+          "titre": "Contre-exemple",
+          "texte": "Pour montrer qu'une propriété « $\\forall x,\\ P(x)$ » est fausse, il suffit d'exhiber **un** $x$ tel que $P(x)$ soit fausse."
+        },
+        {
+          "type": "methode",
+          "titre": "Analyse-synthèse",
+          "texte": "Analyse : on suppose qu'une solution existe et on en déduit sa forme (conditions nécessaires). Synthèse : on vérifie que les candidats trouvés conviennent."
+        }
       ]
     },
     {
       "titre": "Récurrence",
       "blocs": [
-        { "type": "theoreme", "titre": "Récurrence simple", "texte": "Si $P(n_0)$ est vraie (**initialisation**) et si, pour tout $n \\geq n_0$, $P(n) \\Rightarrow P(n+1)$ (**hérédité**), alors $P(n)$ est vraie pour tout $n \\geq n_0$." },
-        { "type": "theoreme", "titre": "Récurrences double et forte", "texte": "Double : on initialise $P(n_0)$ et $P(n_0 + 1)$, puis $P(n) \\text{ et } P(n+1) \\Rightarrow P(n+2)$. Forte : on suppose $P(n_0), \\dots, P(n)$ toutes vraies pour montrer $P(n+1)$." },
-        { "type": "remarque", "texte": "L'hérédité doit fonctionner pour **tout** $n \\geq n_0$, y compris le premier : c'est là que se cachent les erreurs (voir le paradoxe des chevaux)." }
+        {
+          "type": "theoreme",
+          "titre": "Récurrence simple",
+          "texte": "Si $P(n_0)$ est vraie (**initialisation**) et si, pour tout $n \\geq n_0$, $P(n) \\Rightarrow P(n+1)$ (**hérédité**), alors $P(n)$ est vraie pour tout $n \\geq n_0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Récurrences double et forte",
+          "texte": "Double : on initialise $P(n_0)$ et $P(n_0 + 1)$, puis $P(n) \\text{ et } P(n+1) \\Rightarrow P(n+2)$. Forte : on suppose $P(n_0), \\dots, P(n)$ toutes vraies pour montrer $P(n+1)$."
+        },
+        {
+          "type": "remarque",
+          "texte": "L'hérédité doit fonctionner pour **tout** $n \\geq n_0$, y compris le premier : c'est là que se cachent les erreurs (voir le paradoxe des chevaux)."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-neg-pour-tout", "recto": "Négation de $\\forall x \\in E,\\ P(x)$ ?", "verso": "$\\exists x \\in E,\\ \\text{non } P(x)$" },
-    { "id": "f-neg-implication", "recto": "Négation de $P \\Rightarrow Q$ ?", "verso": "$P \\text{ et } (\\text{non } Q)$" },
-    { "id": "f-implication", "recto": "$P \\Rightarrow Q$ équivaut à… (avec « ou ») ?", "verso": "$(\\text{non } P) \\text{ ou } Q$" },
-    { "id": "f-contraposee", "recto": "Contraposée de $P \\Rightarrow Q$ ?", "verso": "$(\\text{non } Q) \\Rightarrow (\\text{non } P)$, équivalente à $P \\Rightarrow Q$." },
-    { "id": "f-reciproque", "recto": "Réciproque de $P \\Rightarrow Q$ ? Est-elle équivalente ?", "verso": "$Q \\Rightarrow P$ : **non**, elle n'est pas équivalente en général." },
-    { "id": "f-de-morgan", "recto": "Lois de De Morgan ?", "verso": "$\\text{non}(P \\text{ et } Q) \\equiv \\text{non } P \\text{ ou non } Q$ ; $\\text{non}(P \\text{ ou } Q) \\equiv \\text{non } P \\text{ et non } Q$." },
-    { "id": "f-absurde", "recto": "Principe du raisonnement par l'absurde ?", "verso": "Supposer la négation de ce qu'on veut montrer et aboutir à une contradiction." },
-    { "id": "f-recurrence", "recto": "Les deux étapes d'une récurrence simple ?", "verso": "Initialisation $P(n_0)$, puis hérédité : $\\forall n \\geq n_0,\\ P(n) \\Rightarrow P(n+1)$." },
-    { "id": "f-recurrence-forte", "recto": "Hypothèse d'une récurrence forte ?", "verso": "$P(n_0), P(n_0+1), \\dots, P(n)$ sont toutes vraies ; on en déduit $P(n+1)$." },
-    { "id": "f-cn-cs", "recto": "Dans $P \\Rightarrow Q$, qui est la condition nécessaire, qui est la condition suffisante ?", "verso": "$P$ est une condition **suffisante** pour $Q$ ; $Q$ est une condition **nécessaire** pour $P$." },
-    { "id": "f-analyse-synthese", "recto": "Les deux phases d'un raisonnement par analyse-synthèse ?", "verso": "Analyse : conditions nécessaires sur une solution. Synthèse : vérifier que les candidats conviennent." },
-    { "id": "f-ordre-quantif", "recto": "$\\forall x\\ \\exists y$ et $\\exists y\\ \\forall x$ : même sens ?", "verso": "Non. Dans $\\forall x\\ \\exists y$, $y$ peut dépendre de $x$ ; dans $\\exists y\\ \\forall x$, le même $y$ doit convenir pour tous les $x$." }
+    {
+      "id": "f-neg-pour-tout",
+      "recto": "Négation de $\\forall x \\in E,\\ P(x)$ ?",
+      "verso": "$\\exists x \\in E,\\ \\text{non } P(x)$"
+    },
+    {
+      "id": "f-neg-implication",
+      "recto": "Négation de $P \\Rightarrow Q$ ?",
+      "verso": "$P \\text{ et } (\\text{non } Q)$"
+    },
+    {
+      "id": "f-implication",
+      "recto": "$P \\Rightarrow Q$ équivaut à… (avec « ou ») ?",
+      "verso": "$(\\text{non } P) \\text{ ou } Q$"
+    },
+    {
+      "id": "f-contraposee",
+      "recto": "Contraposée de $P \\Rightarrow Q$ ?",
+      "verso": "$(\\text{non } Q) \\Rightarrow (\\text{non } P)$, équivalente à $P \\Rightarrow Q$."
+    },
+    {
+      "id": "f-reciproque",
+      "recto": "Réciproque de $P \\Rightarrow Q$ ? Est-elle équivalente ?",
+      "verso": "$Q \\Rightarrow P$ : **non**, elle n'est pas équivalente en général."
+    },
+    {
+      "id": "f-de-morgan",
+      "recto": "Lois de De Morgan ?",
+      "verso": "$\\text{non}(P \\text{ et } Q) \\equiv \\text{non } P \\text{ ou non } Q$ ; $\\text{non}(P \\text{ ou } Q) \\equiv \\text{non } P \\text{ et non } Q$."
+    },
+    {
+      "id": "f-absurde",
+      "recto": "Principe du raisonnement par l'absurde ?",
+      "verso": "Supposer la négation de ce qu'on veut montrer et aboutir à une contradiction."
+    },
+    {
+      "id": "f-recurrence",
+      "recto": "Les deux étapes d'une récurrence simple ?",
+      "verso": "Initialisation $P(n_0)$, puis hérédité : $\\forall n \\geq n_0,\\ P(n) \\Rightarrow P(n+1)$."
+    },
+    {
+      "id": "f-recurrence-forte",
+      "recto": "Hypothèse d'une récurrence forte ?",
+      "verso": "$P(n_0), P(n_0+1), \\dots, P(n)$ sont toutes vraies ; on en déduit $P(n+1)$."
+    },
+    {
+      "id": "f-cn-cs",
+      "recto": "Dans $P \\Rightarrow Q$, qui est la condition nécessaire, qui est la condition suffisante ?",
+      "verso": "$P$ est une condition **suffisante** pour $Q$ ; $Q$ est une condition **nécessaire** pour $P$."
+    },
+    {
+      "id": "f-analyse-synthese",
+      "recto": "Les deux phases d'un raisonnement par analyse-synthèse ?",
+      "verso": "Analyse : conditions nécessaires sur une solution. Synthèse : vérifier que les candidats conviennent."
+    },
+    {
+      "id": "f-ordre-quantif",
+      "recto": "$\\forall x\\ \\exists y$ et $\\exists y\\ \\forall x$ : même sens ?",
+      "verso": "Non. Dans $\\forall x\\ \\exists y$, $y$ peut dépendre de $x$ ; dans $\\exists y\\ \\forall x$, le même $y$ doit convenir pour tous les $x$."
+    },
+    {
+      "id": "f-cns",
+      "recto": "Que signifie « $P$ est une condition nécessaire et suffisante pour $Q$ » ?",
+      "verso": "$P \\iff Q$"
+    },
+    {
+      "id": "f-neg-existe",
+      "recto": "Négation de $\\exists x \\in E,\\ P(x)$ ?",
+      "verso": "$\\forall x \\in E,\\ \\text{non } P(x)$"
+    },
+    {
+      "id": "f-disjonction",
+      "recto": "Principe de la disjonction de cas ?",
+      "verso": "On sépare en cas qui recouvrent toutes les possibilités (ex. $n$ pair / $n$ impair) et on conclut dans chacun."
+    }
   ],
   "exercices": [
     {
@@ -61,10 +166,26 @@
         "Négation : $\\exists x \\in \\mathbb{R},\\ f(x) \\leq 0$."
       ],
       "choix": [
-        { "texte": "$\\exists x \\in \\mathbb{R},\\ f(x) \\leq 0$", "correct": true, "explication": "Quantificateur échangé et propriété niée." },
-        { "texte": "$\\forall x \\in \\mathbb{R},\\ f(x) \\leq 0$", "correct": false, "explication": "Il faut aussi transformer $\\forall$ en $\\exists$." },
-        { "texte": "$\\exists x \\in \\mathbb{R},\\ f(x) < 0$", "correct": false, "explication": "La négation de $>$ est $\\leq$, pas $<$ : le cas $f(x) = 0$ est oublié." },
-        { "texte": "$\\forall x \\in \\mathbb{R},\\ f(x) < 0$", "correct": false, "explication": "Deux erreurs : quantificateur non échangé et négation de $>$ incorrecte." }
+        {
+          "texte": "$\\exists x \\in \\mathbb{R},\\ f(x) \\leq 0$",
+          "correct": true,
+          "explication": "Quantificateur échangé et propriété niée."
+        },
+        {
+          "texte": "$\\forall x \\in \\mathbb{R},\\ f(x) \\leq 0$",
+          "correct": false,
+          "explication": "Il faut aussi transformer $\\forall$ en $\\exists$."
+        },
+        {
+          "texte": "$\\exists x \\in \\mathbb{R},\\ f(x) < 0$",
+          "correct": false,
+          "explication": "La négation de $>$ est $\\leq$, pas $<$ : le cas $f(x) = 0$ est oublié."
+        },
+        {
+          "texte": "$\\forall x \\in \\mathbb{R},\\ f(x) < 0$",
+          "correct": false,
+          "explication": "Deux erreurs : quantificateur non échangé et négation de $>$ incorrecte."
+        }
       ]
     },
     {
@@ -78,10 +199,26 @@
         "Contraposée : $\\text{non } Q \\Rightarrow \\text{non } P$, soit « si $n$ est impair, alors $n^2$ est impair »."
       ],
       "choix": [
-        { "texte": "Si $n$ est impair, alors $n^2$ est impair.", "correct": true, "explication": "C'est $\\text{non } Q \\Rightarrow \\text{non } P$." },
-        { "texte": "Si $n$ est pair, alors $n^2$ est pair.", "correct": false, "explication": "C'est la réciproque $Q \\Rightarrow P$ (vraie ici, mais ce n'est pas la contraposée)." },
-        { "texte": "Si $n^2$ est impair, alors $n$ est impair.", "correct": false, "explication": "On a nié sans échanger : c'est $\\text{non } P \\Rightarrow \\text{non } Q$, la contraposée de la réciproque." },
-        { "texte": "$n^2$ est pair et $n$ est impair.", "correct": false, "explication": "C'est la NÉGATION de l'implication, pas sa contraposée." }
+        {
+          "texte": "Si $n$ est impair, alors $n^2$ est impair.",
+          "correct": true,
+          "explication": "C'est $\\text{non } Q \\Rightarrow \\text{non } P$."
+        },
+        {
+          "texte": "Si $n$ est pair, alors $n^2$ est pair.",
+          "correct": false,
+          "explication": "C'est la réciproque $Q \\Rightarrow P$ (vraie ici, mais ce n'est pas la contraposée)."
+        },
+        {
+          "texte": "Si $n^2$ est impair, alors $n$ est impair.",
+          "correct": false,
+          "explication": "On a nié sans échanger : c'est $\\text{non } P \\Rightarrow \\text{non } Q$, la contraposée de la réciproque."
+        },
+        {
+          "texte": "$n^2$ est pair et $n$ est impair.",
+          "correct": false,
+          "explication": "C'est la NÉGATION de l'implication, pas sa contraposée."
+        }
       ]
     },
     {
@@ -95,10 +232,26 @@
         "Par De Morgan : $\\text{non}(P \\Rightarrow Q) \\equiv P \\text{ et } (\\text{non } Q)$."
       ],
       "choix": [
-        { "texte": "$P$ et (non $Q$)", "correct": true, "explication": "Le seul cas où l'implication est fausse." },
-        { "texte": "(non $P$) $\\Rightarrow$ (non $Q$)", "correct": false, "explication": "Une négation d'implication n'est pas une implication." },
-        { "texte": "$Q \\Rightarrow P$", "correct": false, "explication": "C'est la réciproque, qui peut être vraie en même temps que $P \\Rightarrow Q$." },
-        { "texte": "(non $P$) ou $Q$", "correct": false, "explication": "C'est une formulation équivalente à $P \\Rightarrow Q$ elle-même, pas sa négation." }
+        {
+          "texte": "$P$ et (non $Q$)",
+          "correct": true,
+          "explication": "Le seul cas où l'implication est fausse."
+        },
+        {
+          "texte": "(non $P$) $\\Rightarrow$ (non $Q$)",
+          "correct": false,
+          "explication": "Une négation d'implication n'est pas une implication."
+        },
+        {
+          "texte": "$Q \\Rightarrow P$",
+          "correct": false,
+          "explication": "C'est la réciproque, qui peut être vraie en même temps que $P \\Rightarrow Q$."
+        },
+        {
+          "texte": "(non $P$) ou $Q$",
+          "correct": false,
+          "explication": "C'est une formulation équivalente à $P \\Rightarrow Q$ elle-même, pas sa négation."
+        }
       ]
     },
     {
@@ -114,10 +267,26 @@
         "La réciproque et l'« inverse » ne le sont pas : avec $P$ faux et $Q$ vrai, $P \\Rightarrow Q$ est vraie mais $Q \\Rightarrow P$ est fausse."
       ],
       "choix": [
-        { "texte": "(non $Q$) $\\Rightarrow$ (non $P$)", "correct": true, "explication": "C'est la contraposée." },
-        { "texte": "(non $P$) ou $Q$", "correct": true, "explication": "Même table de vérité que $P \\Rightarrow Q$." },
-        { "texte": "$Q \\Rightarrow P$", "correct": false, "explication": "Réciproque : $P$ faux, $Q$ vrai la rend fausse alors que $P \\Rightarrow Q$ est vraie." },
-        { "texte": "(non $P$) $\\Rightarrow$ (non $Q$)", "correct": false, "explication": "C'est la contraposée de la réciproque, donc équivalente à $Q \\Rightarrow P$." }
+        {
+          "texte": "(non $Q$) $\\Rightarrow$ (non $P$)",
+          "correct": true,
+          "explication": "C'est la contraposée."
+        },
+        {
+          "texte": "(non $P$) ou $Q$",
+          "correct": true,
+          "explication": "Même table de vérité que $P \\Rightarrow Q$."
+        },
+        {
+          "texte": "$Q \\Rightarrow P$",
+          "correct": false,
+          "explication": "Réciproque : $P$ faux, $Q$ vrai la rend fausse alors que $P \\Rightarrow Q$ est vraie."
+        },
+        {
+          "texte": "(non $P$) $\\Rightarrow$ (non $Q$)",
+          "correct": false,
+          "explication": "C'est la contraposée de la réciproque, donc équivalente à $Q \\Rightarrow P$."
+        }
       ]
     },
     {
@@ -132,10 +301,26 @@
         "Négation : $\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| \\geq \\varepsilon$."
       ],
       "choix": [
-        { "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| \\geq \\varepsilon$", "correct": true, "explication": "Tous les quantificateurs échangés, implication niée en « et non »." },
-        { "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\Rightarrow |f(x) - f(a)| \\geq \\varepsilon$", "correct": false, "explication": "La négation d'une implication n'est pas une implication : $\\text{non}(A \\Rightarrow B) \\equiv A \\text{ et non } B$." },
-        { "texte": "$\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| \\geq \\varepsilon$", "correct": false, "explication": "Les deux premiers quantificateurs n'ont pas été échangés." },
-        { "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| > \\varepsilon$", "correct": false, "explication": "La négation de $< \\varepsilon$ est $\\geq \\varepsilon$, pas $> \\varepsilon$." }
+        {
+          "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| \\geq \\varepsilon$",
+          "correct": true,
+          "explication": "Tous les quantificateurs échangés, implication niée en « et non »."
+        },
+        {
+          "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\Rightarrow |f(x) - f(a)| \\geq \\varepsilon$",
+          "correct": false,
+          "explication": "La négation d'une implication n'est pas une implication : $\\text{non}(A \\Rightarrow B) \\equiv A \\text{ et non } B$."
+        },
+        {
+          "texte": "$\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| \\geq \\varepsilon$",
+          "correct": false,
+          "explication": "Les deux premiers quantificateurs n'ont pas été échangés."
+        },
+        {
+          "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x,\\ |x - a| < \\eta \\text{ et } |f(x) - f(a)| > \\varepsilon$",
+          "correct": false,
+          "explication": "La négation de $< \\varepsilon$ est $\\geq \\varepsilon$, pas $> \\varepsilon$."
+        }
       ]
     },
     {
@@ -148,10 +333,26 @@
         "C'est un raisonnement par l'absurde."
       ],
       "choix": [
-        { "texte": "Par l'absurde", "correct": true, "explication": "On suppose la négation et on aboutit à une contradiction." },
-        { "texte": "Par contraposée", "correct": false, "explication": "Une contraposée montre $\\text{non } Q \\Rightarrow \\text{non } P$ ; ici il n'y a pas d'implication à contraposer." },
-        { "texte": "Par récurrence", "correct": false, "explication": "Il n'y a ni initialisation ni hérédité sur un entier $n$." },
-        { "texte": "Par analyse-synthèse", "correct": false, "explication": "On ne cherche pas la forme des solutions d'un problème." }
+        {
+          "texte": "Par l'absurde",
+          "correct": true,
+          "explication": "On suppose la négation et on aboutit à une contradiction."
+        },
+        {
+          "texte": "Par contraposée",
+          "correct": false,
+          "explication": "Une contraposée montre $\\text{non } Q \\Rightarrow \\text{non } P$ ; ici il n'y a pas d'implication à contraposer."
+        },
+        {
+          "texte": "Par récurrence",
+          "correct": false,
+          "explication": "Il n'y a ni initialisation ni hérédité sur un entier $n$."
+        },
+        {
+          "texte": "Par analyse-synthèse",
+          "correct": false,
+          "explication": "On ne cherche pas la forme des solutions d'un problème."
+        }
       ]
     },
     {
@@ -192,8 +393,13 @@
         "Hérédité : $\\frac{n^2(n+1)^2}{4} + (n+1)^3 = \\frac{(n+1)^2(n^2 + 4n + 4)}{4} = \\frac{(n+1)^2(n+2)^2}{4}$."
       ],
       "reponse": "(n*(n+1)/2)^2",
-      "variables": ["n"],
-      "domaine": [1, 10]
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        10
+      ]
     },
     {
       "id": "vf-reciproque-multiple4",
@@ -206,9 +412,21 @@
       ],
       "reponse": false,
       "justifications": [
-        { "texte": "$n = 2$ est pair mais n'est pas multiple de 4.", "correct": true, "explication": "Un contre-exemple suffit à réfuter la réciproque." },
-        { "texte": "La réciproque d'une implication vraie est toujours vraie.", "correct": false, "explication": "Non : une implication et sa réciproque sont indépendantes." },
-        { "texte": "C'est la contraposée, donc elle est vraie.", "correct": false, "explication": "La contraposée serait « si $n$ est impair, $n$ n'est pas multiple de 4 », ce n'est pas la réciproque." }
+        {
+          "texte": "$n = 2$ est pair mais n'est pas multiple de 4.",
+          "correct": true,
+          "explication": "Un contre-exemple suffit à réfuter la réciproque."
+        },
+        {
+          "texte": "La réciproque d'une implication vraie est toujours vraie.",
+          "correct": false,
+          "explication": "Non : une implication et sa réciproque sont indépendantes."
+        },
+        {
+          "texte": "C'est la contraposée, donc elle est vraie.",
+          "correct": false,
+          "explication": "La contraposée serait « si $n$ est impair, $n$ n'est pas multiple de 4 », ce n'est pas la réciproque."
+        }
       ]
     },
     {
@@ -222,9 +440,21 @@
       ],
       "reponse": false,
       "justifications": [
-        { "texte": "Pour tout $y$, $x = y + 1$ ne vérifie pas $x < y$.", "correct": true, "explication": "Aucun $y$ ne majore strictement $\\mathbb{R}$." },
-        { "texte": "Vrai : pour chaque $x$, on prend $y = x + 1$.", "correct": false, "explication": "Ici $y$ dépend de $x$ : cela démontre $\\forall x\\ \\exists y$, pas $\\exists y\\ \\forall x$." },
-        { "texte": "Faux car $\\mathbb{R}$ n'est pas dénombrable.", "correct": false, "explication": "La dénombrabilité n'a rien à voir : c'est le fait que $\\mathbb{R}$ n'est pas majoré qui compte." }
+        {
+          "texte": "Pour tout $y$, $x = y + 1$ ne vérifie pas $x < y$.",
+          "correct": true,
+          "explication": "Aucun $y$ ne majore strictement $\\mathbb{R}$."
+        },
+        {
+          "texte": "Vrai : pour chaque $x$, on prend $y = x + 1$.",
+          "correct": false,
+          "explication": "Ici $y$ dépend de $x$ : cela démontre $\\forall x\\ \\exists y$, pas $\\exists y\\ \\forall x$."
+        },
+        {
+          "texte": "Faux car $\\mathbb{R}$ n'est pas dénombrable.",
+          "correct": false,
+          "explication": "La dénombrabilité n'a rien à voir : c'est le fait que $\\mathbb{R}$ n'est pas majoré qui compte."
+        }
       ]
     },
     {
@@ -245,6 +475,166 @@
       ],
       "etapeFausse": 3,
       "explication": "Pour $n = 1$, les groupes $\\{c_1\\}$ et $\\{c_2\\}$ sont disjoints : il n'existe pas de cheval commun « $c_2$ » aux deux groupes. L'hérédité échoue de 1 à 2."
+    },
+    {
+      "id": "negation-et",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la négation de « $P$ et $Q$ » ?",
+      "indice": "Loi de De Morgan.",
+      "correction": [
+        "$\\text{non}(P \\text{ et } Q) \\equiv (\\text{non } P) \\text{ ou } (\\text{non } Q)$ : il suffit que l'une des deux soit fausse."
+      ],
+      "choix": [
+        {
+          "texte": "(non $P$) ou (non $Q$)",
+          "correct": true,
+          "explication": "De Morgan : « et » devient « ou »."
+        },
+        {
+          "texte": "(non $P$) et (non $Q$)",
+          "correct": false,
+          "explication": "Le connecteur change aussi : « et » devient « ou »."
+        },
+        {
+          "texte": "$P$ ou $Q$",
+          "correct": false,
+          "explication": "Les propositions doivent être niées."
+        },
+        {
+          "texte": "(non $P$) et $Q$",
+          "correct": false,
+          "explication": "Ce n'est qu'un des cas où « $P$ et $Q$ » est faux."
+        }
+      ]
+    },
+    {
+      "id": "condition-necessaire",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour un réel $x$, la condition « $x > 2$ » est, pour « $x^2 > 4$ », une condition :",
+      "indice": "Teste $x = -3$.",
+      "correction": [
+        "$x > 2 \\Rightarrow x^2 > 4$ : la condition est suffisante.",
+        "$x = -3$ vérifie $x^2 > 4$ sans vérifier $x > 2$ : elle n'est pas nécessaire."
+      ],
+      "choix": [
+        {
+          "texte": "suffisante mais pas nécessaire",
+          "correct": true,
+          "explication": "$x > 2$ suffit, mais $x = -3$ montre qu'elle n'est pas nécessaire."
+        },
+        {
+          "texte": "nécessaire mais pas suffisante",
+          "correct": false,
+          "explication": "C'est l'inverse : $x > 2$ implique $x^2 > 4$."
+        },
+        {
+          "texte": "nécessaire et suffisante",
+          "correct": false,
+          "explication": "$x^2 > 4 \\iff |x| > 2$, pas $x > 2$."
+        },
+        {
+          "texte": "ni nécessaire ni suffisante",
+          "correct": false,
+          "explication": "Elle est suffisante : si $x > 2$, alors $x^2 > 4$."
+        }
+      ]
+    },
+    {
+      "id": "quantificateurs-vrais",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces propositions sont vraies ?",
+      "correction": [
+        "$\\forall x\\ \\exists y,\\ y > x$ : prendre $y = x + 1$. Vrai.",
+        "$\\exists y\\ \\forall x,\\ y > x$ : $x = y$ contredit. Faux.",
+        "$\\forall x\\ \\exists y,\\ y^2 = x$ : faux pour $x = -1$.",
+        "$\\exists x\\ \\forall y,\\ xy = 0$ : $x = 0$ convient. Vrai."
+      ],
+      "choix": [
+        {
+          "texte": "$\\forall x \\in \\mathbb{R},\\ \\exists y \\in \\mathbb{R},\\ y > x$",
+          "correct": true,
+          "explication": "$y = x + 1$ ($y$ dépend de $x$)."
+        },
+        {
+          "texte": "$\\exists x \\in \\mathbb{R},\\ \\forall y \\in \\mathbb{R},\\ xy = 0$",
+          "correct": true,
+          "explication": "$x = 0$ convient pour tout $y$."
+        },
+        {
+          "texte": "$\\exists y \\in \\mathbb{R},\\ \\forall x \\in \\mathbb{R},\\ y > x$",
+          "correct": false,
+          "explication": "Aucun réel ne majore strictement $\\mathbb{R}$ (prendre $x = y$)."
+        },
+        {
+          "texte": "$\\forall x \\in \\mathbb{R},\\ \\exists y \\in \\mathbb{R},\\ y^2 = x$",
+          "correct": false,
+          "explication": "Faux pour $x = -1$ : un carré réel est positif."
+        }
+      ]
+    },
+    {
+      "id": "recurrence-forte-somme",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Soit $u_0 = 1$ et, pour $n \\geq 0$, $u_{n+1} = u_0 + u_1 + \\dots + u_n$. Calculer $u_6$.",
+      "indice": "Calcule les premiers termes ; on peut prouver par récurrence forte que $u_n = 2^{n-1}$ pour $n \\geq 1$.",
+      "correction": [
+        "$u_1 = 1$, $u_2 = 2$, $u_3 = 4$, $u_4 = 8$, $u_5 = 16$.",
+        "Récurrence forte : si $u_k = 2^{k-1}$ pour $1 \\leq k \\leq n$, alors $u_{n+1} = 1 + (1 + 2 + \\dots + 2^{n-1}) = 2^n$.",
+        "$u_6 = 32$."
+      ],
+      "reponse": 32
+    },
+    {
+      "id": "vf-contraposee-carre",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "« Si $n^2$ est pair, alors $n$ est pair » se démontre commodément par contraposée.",
+      "correction": [
+        "Vrai. La contraposée est « si $n$ est impair, alors $n^2$ est impair ».",
+        "Avec $n = 2k + 1$ : $n^2 = 2(2k^2 + 2k) + 1$ est impair."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "La contraposée « $n$ impair $\\Rightarrow n^2$ impair » se vérifie directement avec $n = 2k + 1$.",
+          "correct": true,
+          "explication": "$(2k+1)^2 = 2(2k^2 + 2k) + 1$."
+        },
+        {
+          "texte": "Faux : il faut un raisonnement par récurrence.",
+          "correct": false,
+          "explication": "Aucune récurrence n'est nécessaire ici."
+        },
+        {
+          "texte": "Faux : la contraposée est « $n^2$ impair $\\Rightarrow$ $n$ impair », qui n'aide pas.",
+          "correct": false,
+          "explication": "Ça, c'est la contraposée de la réciproque ; la vraie contraposée est « $n$ impair $\\Rightarrow n^2$ impair »."
+        }
+      ]
+    },
+    {
+      "id": "erreur-initialisation",
+      "type": "trouve-erreur",
+      "difficulte": 3,
+      "enonce": "« Pour tout $n \\geq 1$, $2^n > n^2$. » Où est l'erreur dans cette récurrence ?",
+      "correction": [
+        "L'hérédité n'est valable que pour $n \\geq 3$, et $P(3)$ est fausse ($8 < 9$), comme $P(2)$ et $P(4)$.",
+        "En initialisant en $n = 5$ ($32 > 25$), on obtient : $2^n > n^2$ pour tout $n \\geq 5$."
+      ],
+      "etapes": [
+        "Hérédité : supposons $2^n > n^2$.",
+        "Alors $2^{n+1} = 2 \\times 2^n > 2n^2$.",
+        "Or $2n^2 \\geq (n+1)^2$ pour $n \\geq 3$.",
+        "Donc $2^{n+1} > (n+1)^2$ : $P(n+1)$ est vraie.",
+        "$P(1)$ est vraie ($2 > 1$), donc $P(n)$ est vraie pour tout $n \\geq 1$."
+      ],
+      "etapeFausse": 4,
+      "explication": "L'hérédité n'a été prouvée que pour $n \\geq 3$ : il faut initialiser à un rang $\\geq 3$ où la propriété est vraie. Or $P(2)$, $P(3)$, $P(4)$ sont fausses ; elle est vraie à partir de $n = 5$."
     }
   ]
 }

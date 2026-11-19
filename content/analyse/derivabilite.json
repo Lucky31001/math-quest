@@ -10,36 +10,133 @@
     {
       "titre": "Dérivée",
       "blocs": [
-        { "type": "definition", "texte": "$f$ est dérivable en $a$ si $\\dfrac{f(x) - f(a)}{x - a}$ a une limite finie $f'(a)$ quand $x \\to a$. Tangente : $y = f(a) + f'(a)(x - a)$." },
-        { "type": "propriete", "texte": "Dérivable en $a$ $\\Rightarrow$ continue en $a$. La réciproque est fausse : $|x|$ est continue mais non dérivable en 0." },
-        { "type": "theoreme", "titre": "Opérations", "texte": "$(uv)' = u'v + uv'$, $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$, $(g \\circ f)' = f' \\times g' \\circ f$. Réciproque : $(f^{-1})'(y) = \\dfrac{1}{f'(f^{-1}(y))}$ si $f'(f^{-1}(y)) \\neq 0$." },
-        { "type": "theoreme", "titre": "Formule de Leibniz", "texte": "$(uv)^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k} u^{(k)} v^{(n-k)}$." }
+        {
+          "type": "definition",
+          "texte": "$f$ est dérivable en $a$ si $\\dfrac{f(x) - f(a)}{x - a}$ a une limite finie $f'(a)$ quand $x \\to a$. Tangente : $y = f(a) + f'(a)(x - a)$."
+        },
+        {
+          "type": "propriete",
+          "texte": "Dérivable en $a$ $\\Rightarrow$ continue en $a$. La réciproque est fausse : $|x|$ est continue mais non dérivable en 0."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Opérations",
+          "texte": "$(uv)' = u'v + uv'$, $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$, $(g \\circ f)' = f' \\times g' \\circ f$. Réciproque : $(f^{-1})'(y) = \\dfrac{1}{f'(f^{-1}(y))}$ si $f'(f^{-1}(y)) \\neq 0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Formule de Leibniz",
+          "texte": "$(uv)^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k} u^{(k)} v^{(n-k)}$."
+        }
       ]
     },
     {
       "titre": "Théorèmes fondamentaux",
       "blocs": [
-        { "type": "theoreme", "titre": "Extremum local", "texte": "Si $f$ est dérivable en $a$ intérieur à $I$ et y admet un extremum local, alors $f'(a) = 0$. La réciproque est fausse : $x^3$ en 0." },
-        { "type": "theoreme", "titre": "Rolle", "texte": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$, $f(a) = f(b)$ $\\Rightarrow$ $\\exists c \\in ]a, b[,\\ f'(c) = 0$." },
-        { "type": "theoreme", "titre": "Accroissements finis (TAF)", "texte": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$ $\\Rightarrow$ $\\exists c \\in ]a, b[,\\ f(b) - f(a) = f'(c)(b - a)$." },
-        { "type": "theoreme", "titre": "Inégalité des accroissements finis", "texte": "Si $|f'| \\leq M$ sur $I$, alors $|f(x) - f(y)| \\leq M|x - y|$ pour tous $x, y \\in I$." },
-        { "type": "theoreme", "titre": "Monotonie", "texte": "Sur un INTERVALLE : $f' \\geq 0 \\iff f$ croissante ; $f' > 0$ (sauf en un nombre fini de points) $\\Rightarrow f$ strictement croissante." }
+        {
+          "type": "theoreme",
+          "titre": "Extremum local",
+          "texte": "Si $f$ est dérivable en $a$ intérieur à $I$ et y admet un extremum local, alors $f'(a) = 0$. La réciproque est fausse : $x^3$ en 0."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Rolle",
+          "texte": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$, $f(a) = f(b)$ $\\Rightarrow$ $\\exists c \\in ]a, b[,\\ f'(c) = 0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Accroissements finis (TAF)",
+          "texte": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$ $\\Rightarrow$ $\\exists c \\in ]a, b[,\\ f(b) - f(a) = f'(c)(b - a)$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Inégalité des accroissements finis",
+          "texte": "Si $|f'| \\leq M$ sur $I$, alors $|f(x) - f(y)| \\leq M|x - y|$ pour tous $x, y \\in I$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Monotonie",
+          "texte": "Sur un INTERVALLE : $f' \\geq 0 \\iff f$ croissante ; $f' > 0$ (sauf en un nombre fini de points) $\\Rightarrow f$ strictement croissante."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-def", "recto": "Définition de $f'(a)$ ?", "verso": "$\\lim_{x \\to a} \\dfrac{f(x) - f(a)}{x - a}$ (si elle existe et est finie)." },
-    { "id": "f-tangente", "recto": "Équation de la tangente en $a$ ?", "verso": "$y = f(a) + f'(a)(x - a)$" },
-    { "id": "f-quotient", "recto": "$\\left(\\dfrac{u}{v}\\right)' = $ ?", "verso": "$\\dfrac{u'v - uv'}{v^2}$" },
-    { "id": "f-composee", "recto": "$(g \\circ f)' = $ ?", "verso": "$f' \\times (g' \\circ f)$" },
-    { "id": "f-reciproque", "recto": "Dérivée de $f^{-1}$ en $y$ ?", "verso": "$\\dfrac{1}{f'(f^{-1}(y))}$, si $f'(f^{-1}(y)) \\neq 0$." },
-    { "id": "f-rolle", "recto": "Théorème de Rolle ?", "verso": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$, $f(a) = f(b)$ $\\Rightarrow$ $f'$ s'annule sur $]a, b[$." },
-    { "id": "f-taf", "recto": "Théorème des accroissements finis ?", "verso": "$\\exists c \\in ]a, b[,\\ f(b) - f(a) = f'(c)(b - a)$" },
-    { "id": "f-iaf", "recto": "Inégalité des accroissements finis ?", "verso": "$|f'| \\leq M$ $\\Rightarrow$ $|f(x) - f(y)| \\leq M|x - y|$" },
-    { "id": "f-leibniz", "recto": "Formule de Leibniz ?", "verso": "$(uv)^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k} u^{(k)} v^{(n-k)}$" },
-    { "id": "f-extremum", "recto": "Extremum local en $a$ intérieur et $f$ dérivable : conséquence ?", "verso": "$f'(a) = 0$ (réciproque fausse : $x^3$ en 0)." },
-    { "id": "f-derivable-continue", "recto": "Dérivable $\\Rightarrow$ continue : et la réciproque ?", "verso": "Fausse : $|x|$ est continue mais pas dérivable en 0." },
-    { "id": "f-monotonie", "recto": "$f' > 0$ sur un intervalle $\\Rightarrow$ ?", "verso": "$f$ strictement croissante sur cet intervalle." }
+    {
+      "id": "f-def",
+      "recto": "Définition de $f'(a)$ ?",
+      "verso": "$\\lim_{x \\to a} \\dfrac{f(x) - f(a)}{x - a}$ (si elle existe et est finie)."
+    },
+    {
+      "id": "f-tangente",
+      "recto": "Équation de la tangente en $a$ ?",
+      "verso": "$y = f(a) + f'(a)(x - a)$"
+    },
+    {
+      "id": "f-quotient",
+      "recto": "$\\left(\\dfrac{u}{v}\\right)' = $ ?",
+      "verso": "$\\dfrac{u'v - uv'}{v^2}$"
+    },
+    {
+      "id": "f-composee",
+      "recto": "$(g \\circ f)' = $ ?",
+      "verso": "$f' \\times (g' \\circ f)$"
+    },
+    {
+      "id": "f-reciproque",
+      "recto": "Dérivée de $f^{-1}$ en $y$ ?",
+      "verso": "$\\dfrac{1}{f'(f^{-1}(y))}$, si $f'(f^{-1}(y)) \\neq 0$."
+    },
+    {
+      "id": "f-rolle",
+      "recto": "Théorème de Rolle ?",
+      "verso": "$f$ continue sur $[a, b]$, dérivable sur $]a, b[$, $f(a) = f(b)$ $\\Rightarrow$ $f'$ s'annule sur $]a, b[$."
+    },
+    {
+      "id": "f-taf",
+      "recto": "Théorème des accroissements finis ?",
+      "verso": "$\\exists c \\in ]a, b[,\\ f(b) - f(a) = f'(c)(b - a)$"
+    },
+    {
+      "id": "f-iaf",
+      "recto": "Inégalité des accroissements finis ?",
+      "verso": "$|f'| \\leq M$ $\\Rightarrow$ $|f(x) - f(y)| \\leq M|x - y|$"
+    },
+    {
+      "id": "f-leibniz",
+      "recto": "Formule de Leibniz ?",
+      "verso": "$(uv)^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k} u^{(k)} v^{(n-k)}$"
+    },
+    {
+      "id": "f-extremum",
+      "recto": "Extremum local en $a$ intérieur et $f$ dérivable : conséquence ?",
+      "verso": "$f'(a) = 0$ (réciproque fausse : $x^3$ en 0)."
+    },
+    {
+      "id": "f-derivable-continue",
+      "recto": "Dérivable $\\Rightarrow$ continue : et la réciproque ?",
+      "verso": "Fausse : $|x|$ est continue mais pas dérivable en 0."
+    },
+    {
+      "id": "f-monotonie",
+      "recto": "$f' > 0$ sur un intervalle $\\Rightarrow$ ?",
+      "verso": "$f$ strictement croissante sur cet intervalle."
+    },
+    {
+      "id": "f-derivee-un",
+      "recto": "$(u^n)' = $ ?",
+      "verso": "$n\\,u'\\,u^{n-1}$"
+    },
+    {
+      "id": "f-derivee-eu",
+      "recto": "$(e^u)' = $ ?",
+      "verso": "$u'e^u$"
+    },
+    {
+      "id": "f-derivee-racine-u",
+      "recto": "$(\\sqrt{u})' = $ ?",
+      "verso": "$\\dfrac{u'}{2\\sqrt u}$ (là où $u > 0$)."
+    }
   ],
   "exercices": [
     {
@@ -47,12 +144,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Quelle est la dérivée de $f(x) = x^2e^x$ ?",
-      "correction": ["$(uv)' = u'v + uv'$ avec $u = x^2$, $v = e^x$ : $f'(x) = 2xe^x + x^2e^x = (x^2 + 2x)e^x$."],
+      "correction": [
+        "$(uv)' = u'v + uv'$ avec $u = x^2$, $v = e^x$ : $f'(x) = 2xe^x + x^2e^x = (x^2 + 2x)e^x$."
+      ],
       "choix": [
-        { "texte": "$(x^2 + 2x)e^x$", "correct": true, "explication": "$u'v + uv'$." },
-        { "texte": "$2xe^x$", "correct": false, "explication": "$(uv)' \\neq u'v'$ : c'est le produit des dérivées." },
-        { "texte": "$x^2e^x$", "correct": false, "explication": "Il manque le terme $u'v = 2xe^x$." },
-        { "texte": "$2xe^x + x^2$", "correct": false, "explication": "Dans $uv'$, $v' = e^x$ : il manque le facteur $e^x$ devant $x^2$." }
+        {
+          "texte": "$(x^2 + 2x)e^x$",
+          "correct": true,
+          "explication": "$u'v + uv'$."
+        },
+        {
+          "texte": "$2xe^x$",
+          "correct": false,
+          "explication": "$(uv)' \\neq u'v'$ : c'est le produit des dérivées."
+        },
+        {
+          "texte": "$x^2e^x$",
+          "correct": false,
+          "explication": "Il manque le terme $u'v = 2xe^x$."
+        },
+        {
+          "texte": "$2xe^x + x^2$",
+          "correct": false,
+          "explication": "Dans $uv'$, $v' = e^x$ : il manque le facteur $e^x$ devant $x^2$."
+        }
       ]
     },
     {
@@ -65,10 +180,26 @@
         "$\\frac{|x| - 0}{x - 0}$ vaut $1$ à droite et $-1$ à gauche : pas de limite, donc pas dérivable."
       ],
       "choix": [
-        { "texte": "continue mais pas dérivable", "correct": true, "explication": "Taux d'accroissement : $\\pm 1$ selon le côté." },
-        { "texte": "dérivable, de dérivée nulle", "correct": false, "explication": "Le taux d'accroissement n'a pas de limite (point anguleux)." },
-        { "texte": "ni continue ni dérivable", "correct": false, "explication": "$|x| \\to 0$ quand $x \\to 0$ : elle est continue." },
-        { "texte": "dérivable, de dérivée 1", "correct": false, "explication": "À gauche, le taux d'accroissement vaut $-1$." }
+        {
+          "texte": "continue mais pas dérivable",
+          "correct": true,
+          "explication": "Taux d'accroissement : $\\pm 1$ selon le côté."
+        },
+        {
+          "texte": "dérivable, de dérivée nulle",
+          "correct": false,
+          "explication": "Le taux d'accroissement n'a pas de limite (point anguleux)."
+        },
+        {
+          "texte": "ni continue ni dérivable",
+          "correct": false,
+          "explication": "$|x| \\to 0$ quand $x \\to 0$ : elle est continue."
+        },
+        {
+          "texte": "dérivable, de dérivée 1",
+          "correct": false,
+          "explication": "À gauche, le taux d'accroissement vaut $-1$."
+        }
       ]
     },
     {
@@ -81,10 +212,26 @@
         "$f'(c) = 2c - 4 = 0 \\iff c = 2$."
       ],
       "choix": [
-        { "texte": "$c = 2$", "correct": true, "explication": "$f'(2) = 0$ et $2 \\in ]0, 4[$." },
-        { "texte": "$c = 0$", "correct": false, "explication": "$c$ doit être dans l'intervalle OUVERT, et $f'(0) = -4 \\neq 0$." },
-        { "texte": "$c = 4$", "correct": false, "explication": "$f'(4) = 4 \\neq 0$, et $4$ est une borne." },
-        { "texte": "$c = -4$", "correct": false, "explication": "C'est $f'(0)$, pas le point $c$ ; de plus $-4 \\notin ]0, 4[$." }
+        {
+          "texte": "$c = 2$",
+          "correct": true,
+          "explication": "$f'(2) = 0$ et $2 \\in ]0, 4[$."
+        },
+        {
+          "texte": "$c = 0$",
+          "correct": false,
+          "explication": "$c$ doit être dans l'intervalle OUVERT, et $f'(0) = -4 \\neq 0$."
+        },
+        {
+          "texte": "$c = 4$",
+          "correct": false,
+          "explication": "$f'(4) = 4 \\neq 0$, et $4$ est une borne."
+        },
+        {
+          "texte": "$c = -4$",
+          "correct": false,
+          "explication": "C'est $f'(0)$, pas le point $c$ ; de plus $-4 \\notin ]0, 4[$."
+        }
       ]
     },
     {
@@ -98,10 +245,26 @@
         "$f'(c) = 3c^2 = 9 \\iff c^2 = 3 \\iff c = \\sqrt{3}$ (car $c > 0$)."
       ],
       "choix": [
-        { "texte": "$\\sqrt{3}$", "correct": true, "explication": "$3c^2 = 9$." },
-        { "texte": "$\\dfrac{3}{2}$", "correct": false, "explication": "Le milieu ne convient pas en général : $f'(3/2) = 6.75 \\neq 9$." },
-        { "texte": "$9$", "correct": false, "explication": "C'est la valeur de $f'(c)$, et $9 \\notin ]0, 3[$." },
-        { "texte": "$1$", "correct": false, "explication": "$f'(1) = 3 \\neq 9$." }
+        {
+          "texte": "$\\sqrt{3}$",
+          "correct": true,
+          "explication": "$3c^2 = 9$."
+        },
+        {
+          "texte": "$\\dfrac{3}{2}$",
+          "correct": false,
+          "explication": "Le milieu ne convient pas en général : $f'(3/2) = 6.75 \\neq 9$."
+        },
+        {
+          "texte": "$9$",
+          "correct": false,
+          "explication": "C'est la valeur de $f'(c)$, et $9 \\notin ]0, 3[$."
+        },
+        {
+          "texte": "$1$",
+          "correct": false,
+          "explication": "$f'(1) = 3 \\neq 9$."
+        }
       ]
     },
     {
@@ -117,10 +280,26 @@
         "$x^3$ : $f'(0) = 0$ mais pas d'extremum en 0."
       ],
       "choix": [
-        { "texte": "Si $f' > 0$ sur $\\mathbb{R}$, $f$ est strictement croissante", "correct": true, "explication": "Conséquence du TAF sur un intervalle." },
-        { "texte": "$f$ est continue sur $\\mathbb{R}$", "correct": true, "explication": "Dérivable $\\Rightarrow$ continue." },
-        { "texte": "Si $f$ est strictement croissante, alors $f' > 0$", "correct": false, "explication": "$x^3$ : strictement croissante, mais $f'(0) = 0$." },
-        { "texte": "Si $f'(a) = 0$, $f$ admet un extremum en $a$", "correct": false, "explication": "$x^3$ en 0 : point d'inflexion, pas d'extremum." }
+        {
+          "texte": "Si $f' > 0$ sur $\\mathbb{R}$, $f$ est strictement croissante",
+          "correct": true,
+          "explication": "Conséquence du TAF sur un intervalle."
+        },
+        {
+          "texte": "$f$ est continue sur $\\mathbb{R}$",
+          "correct": true,
+          "explication": "Dérivable $\\Rightarrow$ continue."
+        },
+        {
+          "texte": "Si $f$ est strictement croissante, alors $f' > 0$",
+          "correct": false,
+          "explication": "$x^3$ : strictement croissante, mais $f'(0) = 0$."
+        },
+        {
+          "texte": "Si $f'(a) = 0$, $f$ admet un extremum en $a$",
+          "correct": false,
+          "explication": "$x^3$ en 0 : point d'inflexion, pas d'extremum."
+        }
       ]
     },
     {
@@ -135,10 +314,26 @@
         "$(f^{-1})'(2) = \\dfrac{1}{f'(f^{-1}(2))} = \\dfrac{1}{4}$."
       ],
       "choix": [
-        { "texte": "$\\dfrac{1}{4}$", "correct": true, "explication": "$\\frac{1}{f'(1)}$." },
-        { "texte": "$\\dfrac{1}{13}$", "correct": false, "explication": "C'est $\\frac{1}{f'(2)}$ : il faut évaluer $f'$ en $f^{-1}(2) = 1$, pas en 2." },
-        { "texte": "$4$", "correct": false, "explication": "C'est $f'(1)$ : la dérivée de la réciproque est son INVERSE." },
-        { "texte": "$\\dfrac{1}{2}$", "correct": false, "explication": "C'est $\\frac{1}{f(1)}$ : il faut $f'$, pas $f$." }
+        {
+          "texte": "$\\dfrac{1}{4}$",
+          "correct": true,
+          "explication": "$\\frac{1}{f'(1)}$."
+        },
+        {
+          "texte": "$\\dfrac{1}{13}$",
+          "correct": false,
+          "explication": "C'est $\\frac{1}{f'(2)}$ : il faut évaluer $f'$ en $f^{-1}(2) = 1$, pas en 2."
+        },
+        {
+          "texte": "$4$",
+          "correct": false,
+          "explication": "C'est $f'(1)$ : la dérivée de la réciproque est son INVERSE."
+        },
+        {
+          "texte": "$\\dfrac{1}{2}$",
+          "correct": false,
+          "explication": "C'est $\\frac{1}{f(1)}$ : il faut $f'$, pas $f$."
+        }
       ]
     },
     {
@@ -146,7 +341,9 @@
       "type": "numerique",
       "difficulte": 1,
       "enonce": "Soit $f(x) = 3x^2 - 5x + 1$. Calculer $f'(2)$.",
-      "correction": ["$f'(x) = 6x - 5$, donc $f'(2) = 12 - 5 = 7$."],
+      "correction": [
+        "$f'(x) = 6x - 5$, donc $f'(2) = 12 - 5 = 7$."
+      ],
       "reponse": 7
     },
     {
@@ -154,7 +351,9 @@
       "type": "numerique",
       "difficulte": 2,
       "enonce": "Quel est le coefficient directeur de la tangente à la courbe de $f(x) = \\sqrt{x}$ au point d'abscisse $4$ ?",
-      "correction": ["$f'(x) = \\dfrac{1}{2\\sqrt x}$, donc $f'(4) = \\dfrac{1}{4}$."],
+      "correction": [
+        "$f'(x) = \\dfrac{1}{2\\sqrt x}$, donc $f'(4) = \\dfrac{1}{4}$."
+      ],
       "reponse": "1/4"
     },
     {
@@ -174,31 +373,56 @@
       "type": "expression",
       "difficulte": 2,
       "enonce": "Calculer la dérivée de $f(x) = \\ln(\\cos x)$ sur $\\left]-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right[$.",
-      "correction": ["$(\\ln u)' = \\frac{u'}{u}$ avec $u = \\cos x$ : $f'(x) = \\dfrac{-\\sin x}{\\cos x} = -\\tan x$."],
+      "correction": [
+        "$(\\ln u)' = \\frac{u'}{u}$ avec $u = \\cos x$ : $f'(x) = \\dfrac{-\\sin x}{\\cos x} = -\\tan x$."
+      ],
       "reponse": "-tan(x)",
-      "variables": ["x"],
-      "domaine": [-1.2, 1.2]
+      "variables": [
+        "x"
+      ],
+      "domaine": [
+        -1.2,
+        1.2
+      ]
     },
     {
       "id": "derivee-arctan-exp",
       "type": "expression",
       "difficulte": 3,
       "enonce": "Calculer la dérivée de $f(x) = \\arctan(e^x)$.",
-      "correction": ["$(\\arctan u)' = \\dfrac{u'}{1 + u^2}$ avec $u = e^x$ : $f'(x) = \\dfrac{e^x}{1 + e^{2x}}$."],
+      "correction": [
+        "$(\\arctan u)' = \\dfrac{u'}{1 + u^2}$ avec $u = e^x$ : $f'(x) = \\dfrac{e^x}{1 + e^{2x}}$."
+      ],
       "reponse": "exp(x)/(1+exp(2*x))",
-      "variables": ["x"]
+      "variables": [
+        "x"
+      ]
     },
     {
       "id": "vf-continue-derivable",
       "type": "vrai-faux",
       "difficulte": 1,
       "enonce": "Toute fonction continue en $a$ est dérivable en $a$.",
-      "correction": ["Faux : $|x|$ est continue en 0 mais n'y est pas dérivable. C'est la réciproque (dérivable $\\Rightarrow$ continue) qui est vraie."],
+      "correction": [
+        "Faux : $|x|$ est continue en 0 mais n'y est pas dérivable. C'est la réciproque (dérivable $\\Rightarrow$ continue) qui est vraie."
+      ],
       "reponse": false,
       "justifications": [
-        { "texte": "$x \\mapsto |x|$ en 0 est un contre-exemple.", "correct": true, "explication": "Point anguleux : taux d'accroissement $\\pm 1$." },
-        { "texte": "Vrai : continuité et dérivabilité sont équivalentes.", "correct": false, "explication": "Seule l'implication dérivable $\\Rightarrow$ continue est vraie." },
-        { "texte": "Faux : une fonction dérivable n'est jamais continue.", "correct": false, "explication": "Au contraire, toute fonction dérivable est continue." }
+        {
+          "texte": "$x \\mapsto |x|$ en 0 est un contre-exemple.",
+          "correct": true,
+          "explication": "Point anguleux : taux d'accroissement $\\pm 1$."
+        },
+        {
+          "texte": "Vrai : continuité et dérivabilité sont équivalentes.",
+          "correct": false,
+          "explication": "Seule l'implication dérivable $\\Rightarrow$ continue est vraie."
+        },
+        {
+          "texte": "Faux : une fonction dérivable n'est jamais continue.",
+          "correct": false,
+          "explication": "Au contraire, toute fonction dérivable est continue."
+        }
       ]
     },
     {
@@ -206,12 +430,26 @@
       "type": "vrai-faux",
       "difficulte": 2,
       "enonce": "Si $f$ est continue sur $[a, b]$, dérivable sur $]a, b[$ et $f(a) = f(b)$, alors $f'$ s'annule sur $]a, b[$.",
-      "correction": ["Vrai : c'est exactement le théorème de Rolle."],
+      "correction": [
+        "Vrai : c'est exactement le théorème de Rolle."
+      ],
       "reponse": true,
       "justifications": [
-        { "texte": "C'est le théorème de Rolle.", "correct": true, "explication": "Toutes ses hypothèses sont réunies." },
-        { "texte": "Faux : il faut aussi $f(a) = f(b) = 0$.", "correct": false, "explication": "Il suffit que $f(a) = f(b)$, quelle que soit la valeur commune." },
-        { "texte": "Faux : $f'$ pourrait ne s'annuler qu'en $a$ ou en $b$.", "correct": false, "explication": "Rolle garantit un point $c$ dans l'intervalle OUVERT." }
+        {
+          "texte": "C'est le théorème de Rolle.",
+          "correct": true,
+          "explication": "Toutes ses hypothèses sont réunies."
+        },
+        {
+          "texte": "Faux : il faut aussi $f(a) = f(b) = 0$.",
+          "correct": false,
+          "explication": "Il suffit que $f(a) = f(b)$, quelle que soit la valeur commune."
+        },
+        {
+          "texte": "Faux : $f'$ pourrait ne s'annuler qu'en $a$ ou en $b$.",
+          "correct": false,
+          "explication": "Rolle garantit un point $c$ dans l'intervalle OUVERT."
+        }
       ]
     },
     {
@@ -231,6 +469,201 @@
       ],
       "etapeFausse": 2,
       "explication": "Un trinôme de coefficient dominant positif est NÉGATIF entre ses racines : $f'(0) = -3 < 0$."
+    },
+    {
+      "id": "derivee-ln",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la dérivée de $\\ln$ sur $]0, +\\infty[$ ?",
+      "correction": [
+        "$(\\ln x)' = \\dfrac1x$."
+      ],
+      "choix": [
+        {
+          "texte": "$x \\mapsto \\dfrac{1}{x}$",
+          "correct": true,
+          "explication": "Dérivée usuelle."
+        },
+        {
+          "texte": "$x \\mapsto -\\dfrac{1}{x^2}$",
+          "correct": false,
+          "explication": "C'est la dérivée de $\\frac1x$."
+        },
+        {
+          "texte": "$x \\mapsto \\dfrac{\\ln x}{x}$",
+          "correct": false,
+          "explication": "Le logarithme disparaît en dérivant."
+        },
+        {
+          "texte": "$x \\mapsto x\\ln x - x$",
+          "correct": false,
+          "explication": "C'est une PRIMITIVE de $\\ln$."
+        }
+      ]
+    },
+    {
+      "id": "derivee-cos-3x",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la dérivée de $x \\mapsto \\cos(3x)$ ?",
+      "correction": [
+        "$(\\cos u)' = -u'\\sin u$ avec $u = 3x$ : $-3\\sin(3x)$."
+      ],
+      "choix": [
+        {
+          "texte": "$-3\\sin(3x)$",
+          "correct": true,
+          "explication": "Signe moins et facteur $u' = 3$."
+        },
+        {
+          "texte": "$3\\sin(3x)$",
+          "correct": false,
+          "explication": "$(\\cos)' = -\\sin$ : signe oublié."
+        },
+        {
+          "texte": "$-\\sin(3x)$",
+          "correct": false,
+          "explication": "Oubli de $u' = 3$."
+        },
+        {
+          "texte": "$-3\\cos(3x)$",
+          "correct": false,
+          "explication": "Le cosinus devient un sinus en dérivant."
+        }
+      ]
+    },
+    {
+      "id": "tangente-exp",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est l'équation de la tangente à la courbe de $\\exp$ au point d'abscisse 0 ?",
+      "correction": [
+        "$y = \\exp'(0)(x - 0) + \\exp(0) = x + 1$."
+      ],
+      "choix": [
+        {
+          "texte": "$y = x + 1$",
+          "correct": true,
+          "explication": "Pente $e^0 = 1$, passe par $(0, 1)$."
+        },
+        {
+          "texte": "$y = x$",
+          "correct": false,
+          "explication": "La courbe passe par $(0, 1)$, pas par l'origine."
+        },
+        {
+          "texte": "$y = ex$",
+          "correct": false,
+          "explication": "La pente vaut $e^0 = 1$, pas $e$."
+        },
+        {
+          "texte": "$y = x - 1$",
+          "correct": false,
+          "explication": "Erreur de signe sur l'ordonnée à l'origine."
+        }
+      ]
+    },
+    {
+      "id": "x-valeur-absolue-x",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Soit $f(x) = x|x|$. Lesquelles de ces affirmations sont vraies ?",
+      "correction": [
+        "$\\dfrac{f(x) - f(0)}{x - 0} = |x| \\to 0$ : $f$ est dérivable en 0 et $f'(0) = 0$.",
+        "$f'(x) = 2|x|$, qui n'est pas dérivable en 0 : $f$ n'est pas deux fois dérivable en 0, donc pas $C^2$.",
+        "$f$ est continue (produit de fonctions continues)."
+      ],
+      "choix": [
+        {
+          "texte": "$f$ est dérivable en 0",
+          "correct": true,
+          "explication": "Taux d'accroissement $|x| \\to 0$."
+        },
+        {
+          "texte": "$f'(0) = 0$",
+          "correct": true,
+          "explication": "Limite du taux d'accroissement."
+        },
+        {
+          "texte": "$f$ est de classe $C^2$ sur $\\mathbb{R}$",
+          "correct": false,
+          "explication": "$f' = 2|\\cdot|$ n'est pas dérivable en 0."
+        },
+        {
+          "texte": "$f$ n'est pas continue en 0",
+          "correct": false,
+          "explication": "$x|x| \\to 0 = f(0)$."
+        }
+      ]
+    },
+    {
+      "id": "maximum-x-exp",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Soit $f(x) = xe^{-x}$ sur $\\mathbb{R}$. En quelle abscisse $f$ atteint-elle son maximum ?",
+      "correction": [
+        "$f'(x) = (1 - x)e^{-x}$ : positive avant 1, négative après.",
+        "$f$ atteint son maximum en $x = 1$ (valeur $\\frac1e$)."
+      ],
+      "reponse": 1
+    },
+    {
+      "id": "nombre-racines-cubique",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Combien l'équation $x^3 - 3x + 1 = 0$ a-t-elle de solutions réelles ?",
+      "indice": "Étudie les variations : $f'(x) = 3(x^2 - 1)$.",
+      "correction": [
+        "$f$ croît sur $]-\\infty, -1]$, décroît sur $[-1, 1]$, croît sur $[1, +\\infty[$.",
+        "$f(-1) = 3 > 0$, $f(1) = -1 < 0$, et $f \\to \\mp\\infty$ en $\\mp\\infty$.",
+        "Théorème de la bijection sur chacun des 3 intervalles : 3 solutions."
+      ],
+      "reponse": 3
+    },
+    {
+      "id": "vf-derivee-nulle-extremum",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si $f$ est dérivable et $f'(a) = 0$, alors $f$ admet un extremum local en $a$.",
+      "correction": [
+        "Faux : $f(x) = x^3$ vérifie $f'(0) = 0$ mais est strictement croissante (pas d'extremum en 0)."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "$x^3$ en 0 : dérivée nulle, pas d'extremum.",
+          "correct": true,
+          "explication": "La réciproque du théorème de l'extremum est fausse."
+        },
+        {
+          "texte": "Vrai : c'est le théorème de l'extremum local.",
+          "correct": false,
+          "explication": "Ce théorème dit : extremum (intérieur) $\\Rightarrow f'(a) = 0$, pas l'inverse."
+        },
+        {
+          "texte": "Vrai si $f$ est de classe $C^1$.",
+          "correct": false,
+          "explication": "$x^3$ est $C^\\infty$."
+        }
+      ]
+    },
+    {
+      "id": "erreur-derivee-composee",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Calcul de la dérivée de $f(x) = \\sin(x^2)$. Où est l'erreur ?",
+      "correction": [
+        "$(g \\circ u)' = u' \\times g' \\circ u$ : $f'(x) = 2x\\cos(x^2)$."
+      ],
+      "etapes": [
+        "$f = g \\circ u$ avec $u(x) = x^2$ et $g = \\sin$.",
+        "$u'(x) = 2x$ et $g' = \\cos$.",
+        "$f'(x) = \\cos(2x)$.",
+        "Donc $f'(0) = 1$."
+      ],
+      "etapeFausse": 2,
+      "explication": "On a composé $g'$ avec $u'$ au lieu de multiplier : $f'(x) = u'(x)\\,g'(u(x)) = 2x\\cos(x^2)$."
     }
   ]
 }

@@ -440,6 +440,123 @@ const verifs: Record<string, () => void> = {
     const [y1] = rk4((_x, [v, vp]) => [vp, -v], [1, 2], 0, 2.1);
     expect(y(2.1)).toBeCloseTo(y1, 6);
   },
+  /* ---------------- Ajouts (2e vague) ---------------- */
+  'logique/recurrence-forte-somme': () => {
+    const u = [1];
+    for (let n = 0; n < 6; n++) u.push(u.reduce((a, b) => a + b, 0));
+    expect(attendu(question('logique', 'recurrence-forte-somme')).re).toBe(u[6]);
+  },
+  'ensembles/parties-produit': () => expect(attendu(question('ensembles', 'parties-produit')).re).toBe(2 ** (2 * 3)),
+  'ensembles/reciproque-exp-affine': () => {
+    const g = fonction(question('ensembles', 'reciproque-exp-affine'));
+    for (const y of [0.5, 1, 7]) expect(Math.exp(2 * g(y) + 1)).toBeCloseTo(y, 10);
+  },
+  'complexes/argument-quotient': () => {
+    const z = math.divide(math.complex(1, 1), math.complex(1, -1)) as unknown as C;
+    expect(attendu(question('complexes', 'argument-quotient')).re).toBeCloseTo(Math.atan2(z.im, z.re), 12);
+  },
+  'complexes/linearisation-sin2cos2': () => {
+    const f = fonction(question('complexes', 'linearisation-sin2cos2'));
+    for (const x of POINTS) expect(f(x)).toBeCloseTo(Math.sin(x) ** 2 * Math.cos(x) ** 2, 12);
+  },
+  'sommes/somme-alternee': () => {
+    let s = 0;
+    for (let k = 1; k <= 20; k++) s += (-1) ** k * k;
+    expect(attendu(question('sommes', 'somme-alternee')).re).toBe(s);
+  },
+  'sommes/somme-k-factorielle': () => {
+    let s = 0;
+    for (let k = 1; k <= 5; k++) s += k * fact(k);
+    expect(attendu(question('sommes', 'somme-k-factorielle')).re).toBe(s);
+  },
+  'polynomes/reste-x-plus-2': () => expect(attendu(question('polynomes', 'reste-x-plus-2')).re).toBe((-2) ** 4 + -2 + 1),
+  'polynomes/quotient-x4-1': () => {
+    const Q = fonction(question('polynomes', 'quotient-x4-1'));
+    for (const x of POINTS) expect(Q(x) * (x * x + 1)).toBeCloseTo(x ** 4 - 1, 10);
+  },
+  'matrices/coefficient-inverse': () => expect(attendu(question('matrices', 'coefficient-inverse')).re).toBeCloseTo((math.inv([[2, 1], [5, 3]]) as number[][])[0][1], 10),
+  'matrices/vandermonde': () => expect(attendu(question('matrices', 'vandermonde')).re).toBeCloseTo(math.det([[1, 1, 1], [1, 2, 4], [1, 3, 9]]), 10),
+  'espaces-vectoriels/dim-matrices-2-3': () => expect(attendu(question('espaces-vectoriels', 'dim-matrices-2-3')).re).toBe(2 * 3),
+  'espaces-vectoriels/dim-intersection': () => expect(attendu(question('espaces-vectoriels', 'dim-intersection')).re).toBe(3 - rang([[1, 1, 1], [1, -1, 0]])),
+  'fonctions-usuelles/somme-arctan': () => expect(attendu(question('fonctions-usuelles', 'somme-arctan')).re).toBeCloseTo(Math.atan(1) + Math.atan(Math.sqrt(3)), 12),
+  'fonctions-usuelles/equation-ln-somme': () => {
+    const x = attendu(question('fonctions-usuelles', 'equation-ln-somme')).re;
+    expect(x).toBeGreaterThan(0);
+    expect(Math.log(x) + Math.log(x + 1)).toBeCloseTo(Math.log(6), 12);
+  },
+  'suites/limite-n-racine': () => {
+    const n = 1e6;
+    expect(attendu(question('suites', 'limite-n-racine')).re).toBeCloseTo(n * (Math.sqrt(1 + 1 / n) - 1), 5);
+  },
+  'suites/heron': () => {
+    let u = 1;
+    for (let i = 0; i < 50; i++) u = (u + 2 / u) / 2;
+    expect(attendu(question('suites', 'heron')).re).toBeCloseTo(u, 12);
+  },
+  'suites/geometrique-formule': () => {
+    const f = fonction(question('suites', 'geometrique-formule'));
+    let u = 5;
+    for (let n = 0; n <= 8; n++) {
+      expect(f(n)).toBeCloseTo(u, 12);
+      u /= 3;
+    }
+  },
+  'limites-continuite/tan-3x': () => {
+    const f = (x: number) => Math.tan(3 * x) / x;
+    expect(attendu(question('limites-continuite', 'tan-3x')).re).toBeCloseTo((f(1e-5) + f(-1e-5)) / 2, 8);
+  },
+  'limites-continuite/x-exp-inverse': () => {
+    const x = 1e6;
+    expect(attendu(question('limites-continuite', 'x-exp-inverse')).re).toBeCloseTo(x * Math.expm1(1 / x), 5);
+  },
+  'derivabilite/maximum-x-exp': () => {
+    // maximum par balayage fin
+    let best = -Infinity;
+    let argmax = 0;
+    for (let x = -2; x <= 5; x += 1e-4) {
+      const v = x * Math.exp(-x);
+      if (v > best) [best, argmax] = [v, x];
+    }
+    expect(attendu(question('derivabilite', 'maximum-x-exp')).re).toBeCloseTo(argmax, 3);
+  },
+  'derivabilite/nombre-racines-cubique': () => {
+    // changements de signe sur une grille fine (les racines sont dans [-3, 3])
+    const f = (x: number) => x ** 3 - 3 * x + 1;
+    let n = 0;
+    for (let x = -3; x < 3; x += 1e-3) if (f(x) * f(x + 1e-3) < 0) n++;
+    expect(attendu(question('derivabilite', 'nombre-racines-cubique')).re).toBe(n);
+  },
+  'developpements-limites/limite-ln-dl': () => {
+    const f = (x: number) => (Math.log1p(x) - x) / (x * x);
+    expect(attendu(question('developpements-limites', 'limite-ln-dl')).re).toBeCloseTo((f(1e-4) + f(-1e-4)) / 2, 6);
+  },
+  'developpements-limites/limite-exp-sin': () => {
+    const f = (x: number) => (Math.expm1(x) - Math.sin(x)) / (x * x);
+    expect(attendu(question('developpements-limites', 'limite-exp-sin')).re).toBeCloseTo((f(1e-4) + f(-1e-4)) / 2, 6);
+  },
+  'developpements-limites/dl-cos-exp': () => {
+    const P = fonction(question('developpements-limites', 'dl-cos-exp'));
+    for (const h of [1e-4, -1e-4]) expect(Math.abs((Math.exp(h) * Math.cos(h) - P(h)) / h ** 2)).toBeLessThan(0.01);
+  },
+  'integration/integrale-x-1-moins-x': () => expect(attendu(question('integration', 'integrale-x-1-moins-x')).re).toBeCloseTo(simpson((x) => x * (1 - x), 0, 1), 10),
+  'integration/integrale-ln': () => expect(attendu(question('integration', 'integrale-ln')).re).toBeCloseTo(simpson(Math.log, 1, Math.E), 10),
+  'integration/primitive-x-sur-1-plus-x2': () => {
+    const F = fonction(question('integration', 'primitive-x-sur-1-plus-x2'));
+    for (const x of [-1.5, 0.5, 2]) expect(derivee(F, x)).toBeCloseTo(x / (1 + x * x), 6);
+  },
+  'equations-differentielles/cauchy-oscillateur': () => {
+    const [y1] = rk4((_x, [y, yp]) => [yp, -y], [0, 3], 0, Math.PI / 2);
+    expect(attendu(question('equations-differentielles', 'cauchy-oscillateur')).re).toBeCloseTo(y1, 6);
+  },
+  'equations-differentielles/cauchy-y-plus-x': () => {
+    const [y1] = rk4((x, [y]) => [y + x], [1], 0, 1);
+    expect(attendu(question('equations-differentielles', 'cauchy-y-plus-x')).re).toBeCloseTo(y1, 6);
+  },
+  'equations-differentielles/resoudre-second-membre-constant': () => {
+    const y = fonction(question('equations-differentielles', 'resoudre-second-membre-constant'));
+    const [y1] = rk4((_x, [v, vp]) => [vp, 2 + 3 * vp - 2 * v], [2, 0], 0, 0.9);
+    expect(y(0.9)).toBeCloseTo(y1, 6);
+  },
 };
 
 describe('exactitude mathématique du contenu', () => {

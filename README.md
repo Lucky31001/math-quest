@@ -2,9 +2,9 @@
 
 Application web **gamifiée** de révision de mathématiques pour la prépa intégrée (pré-ing 1), centrée sur l'**algèbre** et l'**analyse**. Tout fonctionne dans le navigateur, sans serveur, et sur téléphone.
 
-- **14 chapitres** (7 en algèbre, 7 en analyse) : fiche de cours, flashcards, exercices.
+- **14 chapitres** (7 en algèbre, 7 en analyse) : fiche de cours, 15 flashcards et 18 à 23 exercices écrits à la main par chapitre (≈ 300 au total).
 - **5 types de questions** : QCM (réponse unique ou multiple), réponse numérique, réponse expression (`2x+2` = `2(x+1)`), vrai/faux justifié, « trouve l'erreur ».
-- **19 générateurs** d'exercices aléatoires (dérivées, DL, racines complexes, inverse 2×2, primitives, EDO…) : exercices infinis, en QCM ou à saisir.
+- **32 générateurs** d'exercices aléatoires (tables de vérité, négations, dénombrement, dérivées, tangentes, DL, racines complexes, matrices, systèmes, primitives, EDO…) : exercices infinis, en QCM ou à saisir.
 - **Gamification** : XP, niveaux et titres, streak 🔥, badges, carte de progression, modes **Boss**, **Survie** et **QCM éclair**.
 - **Révision efficace** : répétition espacée (Leitner, 5 boîtes), « Révision du jour », tableau de bord avec points faibles.
 - Progression sauvegardée dans le navigateur, **export / import JSON**.

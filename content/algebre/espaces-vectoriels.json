@@ -10,42 +10,138 @@
     {
       "titre": "Sous-espaces vectoriels",
       "blocs": [
-        { "type": "definition", "texte": "$F \\subset E$ est un sous-espace vectoriel si $0_E \\in F$ et $F$ est stable par combinaison linéaire : $\\forall u, v \\in F,\\ \\forall \\lambda \\in \\mathbb{K},\\ \\lambda u + v \\in F$." },
-        { "type": "propriete", "texte": "Une intersection de sous-espaces est un sous-espace. Une **réunion** n'en est pas un en général. $F + G = \\{u + v,\\ u \\in F,\\ v \\in G\\}$ est le plus petit sous-espace contenant $F \\cup G$." },
-        { "type": "definition", "titre": "Somme directe, supplémentaires", "texte": "La somme $F + G$ est directe ($F \\oplus G$) si $F \\cap G = \\{0\\}$. $F$ et $G$ sont supplémentaires dans $E$ si $F \\oplus G = E$." },
-        { "type": "methode", "texte": "Pour montrer qu'un ensemble est un sous-espace : vérifier qu'il contient $0$ et qu'il est stable par combinaison linéaire, ou l'écrire comme $\\mathrm{Vect}(\\dots)$ ou comme noyau d'une application linéaire." }
+        {
+          "type": "definition",
+          "texte": "$F \\subset E$ est un sous-espace vectoriel si $0_E \\in F$ et $F$ est stable par combinaison linéaire : $\\forall u, v \\in F,\\ \\forall \\lambda \\in \\mathbb{K},\\ \\lambda u + v \\in F$."
+        },
+        {
+          "type": "propriete",
+          "texte": "Une intersection de sous-espaces est un sous-espace. Une **réunion** n'en est pas un en général. $F + G = \\{u + v,\\ u \\in F,\\ v \\in G\\}$ est le plus petit sous-espace contenant $F \\cup G$."
+        },
+        {
+          "type": "definition",
+          "titre": "Somme directe, supplémentaires",
+          "texte": "La somme $F + G$ est directe ($F \\oplus G$) si $F \\cap G = \\{0\\}$. $F$ et $G$ sont supplémentaires dans $E$ si $F \\oplus G = E$."
+        },
+        {
+          "type": "methode",
+          "texte": "Pour montrer qu'un ensemble est un sous-espace : vérifier qu'il contient $0$ et qu'il est stable par combinaison linéaire, ou l'écrire comme $\\mathrm{Vect}(\\dots)$ ou comme noyau d'une application linéaire."
+        }
       ]
     },
     {
       "titre": "Familles de vecteurs",
       "blocs": [
-        { "type": "definition", "texte": "$(v_1, \\dots, v_p)$ est **libre** si $\\sum \\lambda_i v_i = 0 \\Rightarrow$ tous les $\\lambda_i$ sont nuls ; **génératrice** de $E$ si tout vecteur de $E$ est combinaison linéaire des $v_i$ ; une **base** si elle est libre et génératrice." },
-        { "type": "propriete", "texte": "Une famille contenant le vecteur nul, ou deux vecteurs colinéaires, est liée. Dans une base, chaque vecteur a des coordonnées uniques." }
+        {
+          "type": "definition",
+          "texte": "$(v_1, \\dots, v_p)$ est **libre** si $\\sum \\lambda_i v_i = 0 \\Rightarrow$ tous les $\\lambda_i$ sont nuls ; **génératrice** de $E$ si tout vecteur de $E$ est combinaison linéaire des $v_i$ ; une **base** si elle est libre et génératrice."
+        },
+        {
+          "type": "propriete",
+          "texte": "Une famille contenant le vecteur nul, ou deux vecteurs colinéaires, est liée. Dans une base, chaque vecteur a des coordonnées uniques."
+        }
       ]
     },
     {
       "titre": "Dimension",
       "blocs": [
-        { "type": "theoreme", "texte": "Toutes les bases d'un espace de dimension finie ont le même cardinal : la dimension. $\\dim \\mathbb{K}^n = n$, $\\dim \\mathbb{K}_n[X] = n + 1$, $\\dim \\mathcal{M}_{n,p}(\\mathbb{K}) = np$." },
-        { "type": "theoreme", "titre": "En dimension $n$", "texte": "Une famille libre a au plus $n$ vecteurs ; une famille génératrice en a au moins $n$. Pour une famille de **exactement** $n$ vecteurs : libre $\\iff$ génératrice $\\iff$ base." },
-        { "type": "theoreme", "titre": "Formule de Grassmann", "texte": "$\\dim(F + G) = \\dim F + \\dim G - \\dim(F \\cap G)$." },
-        { "type": "methode", "texte": "Un sous-espace de $\\mathbb{R}^n$ défini par $p$ équations linéaires indépendantes est de dimension $n - p$." }
+        {
+          "type": "theoreme",
+          "texte": "Toutes les bases d'un espace de dimension finie ont le même cardinal : la dimension. $\\dim \\mathbb{K}^n = n$, $\\dim \\mathbb{K}_n[X] = n + 1$, $\\dim \\mathcal{M}_{n,p}(\\mathbb{K}) = np$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "En dimension $n$",
+          "texte": "Une famille libre a au plus $n$ vecteurs ; une famille génératrice en a au moins $n$. Pour une famille de **exactement** $n$ vecteurs : libre $\\iff$ génératrice $\\iff$ base."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Formule de Grassmann",
+          "texte": "$\\dim(F + G) = \\dim F + \\dim G - \\dim(F \\cap G)$."
+        },
+        {
+          "type": "methode",
+          "texte": "Un sous-espace de $\\mathbb{R}^n$ défini par $p$ équations linéaires indépendantes est de dimension $n - p$."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-sev", "recto": "Critère de sous-espace vectoriel ?", "verso": "$0 \\in F$ et $\\forall u, v \\in F,\\ \\forall \\lambda,\\ \\lambda u + v \\in F$." },
-    { "id": "f-libre", "recto": "Définition d'une famille libre ?", "verso": "$\\sum \\lambda_i v_i = 0 \\Rightarrow \\lambda_1 = \\dots = \\lambda_p = 0$." },
-    { "id": "f-generatrice", "recto": "Définition d'une famille génératrice de $E$ ?", "verso": "Tout vecteur de $E$ est combinaison linéaire des vecteurs de la famille." },
-    { "id": "f-base", "recto": "Définition d'une base ?", "verso": "Famille libre et génératrice (coordonnées uniques)." },
-    { "id": "f-dim-kn", "recto": "$\\dim \\mathbb{K}_n[X]$ ?", "verso": "$n + 1$ (base $1, X, \\dots, X^n$)." },
-    { "id": "f-dim-matrices", "recto": "$\\dim \\mathcal{M}_{n,p}(\\mathbb{K})$ ?", "verso": "$np$" },
-    { "id": "f-grassmann", "recto": "Formule de Grassmann ?", "verso": "$\\dim(F + G) = \\dim F + \\dim G - \\dim(F \\cap G)$" },
-    { "id": "f-n-vecteurs", "recto": "$n$ vecteurs en dimension $n$ : quand forment-ils une base ?", "verso": "Dès qu'ils sont libres, OU dès qu'ils sont générateurs." },
-    { "id": "f-reunion", "recto": "La réunion de deux sous-espaces est-elle un sous-espace ?", "verso": "Pas en général (seulement si l'un contient l'autre)." },
-    { "id": "f-somme-directe", "recto": "Quand la somme $F + G$ est-elle directe ?", "verso": "Quand $F \\cap G = \\{0\\}$." },
-    { "id": "f-vecteur-nul", "recto": "Une famille contenant $0$ est-elle libre ?", "verso": "Non, elle est liée : $1 \\cdot 0 = 0$." },
-    { "id": "f-equations", "recto": "Dimension d'un sous-espace de $\\mathbb{R}^n$ défini par $p$ équations indépendantes ?", "verso": "$n - p$" }
+    {
+      "id": "f-sev",
+      "recto": "Critère de sous-espace vectoriel ?",
+      "verso": "$0 \\in F$ et $\\forall u, v \\in F,\\ \\forall \\lambda,\\ \\lambda u + v \\in F$."
+    },
+    {
+      "id": "f-libre",
+      "recto": "Définition d'une famille libre ?",
+      "verso": "$\\sum \\lambda_i v_i = 0 \\Rightarrow \\lambda_1 = \\dots = \\lambda_p = 0$."
+    },
+    {
+      "id": "f-generatrice",
+      "recto": "Définition d'une famille génératrice de $E$ ?",
+      "verso": "Tout vecteur de $E$ est combinaison linéaire des vecteurs de la famille."
+    },
+    {
+      "id": "f-base",
+      "recto": "Définition d'une base ?",
+      "verso": "Famille libre et génératrice (coordonnées uniques)."
+    },
+    {
+      "id": "f-dim-kn",
+      "recto": "$\\dim \\mathbb{K}_n[X]$ ?",
+      "verso": "$n + 1$ (base $1, X, \\dots, X^n$)."
+    },
+    {
+      "id": "f-dim-matrices",
+      "recto": "$\\dim \\mathcal{M}_{n,p}(\\mathbb{K})$ ?",
+      "verso": "$np$"
+    },
+    {
+      "id": "f-grassmann",
+      "recto": "Formule de Grassmann ?",
+      "verso": "$\\dim(F + G) = \\dim F + \\dim G - \\dim(F \\cap G)$"
+    },
+    {
+      "id": "f-n-vecteurs",
+      "recto": "$n$ vecteurs en dimension $n$ : quand forment-ils une base ?",
+      "verso": "Dès qu'ils sont libres, OU dès qu'ils sont générateurs."
+    },
+    {
+      "id": "f-reunion",
+      "recto": "La réunion de deux sous-espaces est-elle un sous-espace ?",
+      "verso": "Pas en général (seulement si l'un contient l'autre)."
+    },
+    {
+      "id": "f-somme-directe",
+      "recto": "Quand la somme $F + G$ est-elle directe ?",
+      "verso": "Quand $F \\cap G = \\{0\\}$."
+    },
+    {
+      "id": "f-vecteur-nul",
+      "recto": "Une famille contenant $0$ est-elle libre ?",
+      "verso": "Non, elle est liée : $1 \\cdot 0 = 0$."
+    },
+    {
+      "id": "f-equations",
+      "recto": "Dimension d'un sous-espace de $\\mathbb{R}^n$ défini par $p$ équations indépendantes ?",
+      "verso": "$n - p$"
+    },
+    {
+      "id": "f-vect",
+      "recto": "Qu'est-ce que $\\mathrm{Vect}(v_1, \\dots, v_p)$ ?",
+      "verso": "L'ensemble des combinaisons linéaires des $v_i$ : le plus petit sous-espace qui les contient."
+    },
+    {
+      "id": "f-supplementaires-dim",
+      "recto": "En dimension finie, $F$ et $G$ supplémentaires dans $E$ ssi… ?",
+      "verso": "$F \\cap G = \\{0\\}$ et $\\dim F + \\dim G = \\dim E$."
+    },
+    {
+      "id": "f-libre-dim-n",
+      "recto": "$n$ vecteurs libres dans un espace de dimension $n$ ?",
+      "verso": "Ils forment une base."
+    }
   ],
   "exercices": [
     {
@@ -59,10 +155,26 @@
         "Les autres échouent : $(0,0)$ absent, ou instabilité par somme ou par multiplication."
       ],
       "choix": [
-        { "texte": "$\\{(x, y) \\mid x + 2y = 0\\}$", "correct": true, "explication": "Équation linéaire homogène : c'est une droite vectorielle." },
-        { "texte": "$\\{(x, y) \\mid x + 2y = 1\\}$", "correct": false, "explication": "$(0, 0)$ n'y appartient pas : c'est une droite affine." },
-        { "texte": "$\\{(x, y) \\mid xy = 0\\}$", "correct": false, "explication": "$(1, 0)$ et $(0, 1)$ y sont, pas leur somme $(1, 1)$." },
-        { "texte": "$\\{(x, y) \\mid x \\geq 0\\}$", "correct": false, "explication": "$(1, 0)$ y est, mais pas $-1 \\cdot (1, 0)$." }
+        {
+          "texte": "$\\{(x, y) \\mid x + 2y = 0\\}$",
+          "correct": true,
+          "explication": "Équation linéaire homogène : c'est une droite vectorielle."
+        },
+        {
+          "texte": "$\\{(x, y) \\mid x + 2y = 1\\}$",
+          "correct": false,
+          "explication": "$(0, 0)$ n'y appartient pas : c'est une droite affine."
+        },
+        {
+          "texte": "$\\{(x, y) \\mid xy = 0\\}$",
+          "correct": false,
+          "explication": "$(1, 0)$ et $(0, 1)$ y sont, pas leur somme $(1, 1)$."
+        },
+        {
+          "texte": "$\\{(x, y) \\mid x \\geq 0\\}$",
+          "correct": false,
+          "explication": "$(1, 0)$ y est, mais pas $-1 \\cdot (1, 0)$."
+        }
       ]
     },
     {
@@ -70,12 +182,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Quelle est la dimension de $\\mathbb{R}_n[X]$ (polynômes de degré $\\leq n$) ?",
-      "correction": ["La base canonique $(1, X, X^2, \\dots, X^n)$ compte $n + 1$ vecteurs."],
+      "correction": [
+        "La base canonique $(1, X, X^2, \\dots, X^n)$ compte $n + 1$ vecteurs."
+      ],
       "choix": [
-        { "texte": "$n + 1$", "correct": true, "explication": "$1, X, \\dots, X^n$ : $n + 1$ vecteurs." },
-        { "texte": "$n$", "correct": false, "explication": "Oubli du polynôme constant $1$ (degré 0)." },
-        { "texte": "infinie", "correct": false, "explication": "C'est $\\mathbb{R}[X]$ tout entier qui est de dimension infinie." },
-        { "texte": "$n^2$", "correct": false, "explication": "Confusion avec $\\dim \\mathcal{M}_n(\\mathbb{R}) = n^2$." }
+        {
+          "texte": "$n + 1$",
+          "correct": true,
+          "explication": "$1, X, \\dots, X^n$ : $n + 1$ vecteurs."
+        },
+        {
+          "texte": "$n$",
+          "correct": false,
+          "explication": "Oubli du polynôme constant $1$ (degré 0)."
+        },
+        {
+          "texte": "infinie",
+          "correct": false,
+          "explication": "C'est $\\mathbb{R}[X]$ tout entier qui est de dimension infinie."
+        },
+        {
+          "texte": "$n^2$",
+          "correct": false,
+          "explication": "Confusion avec $\\dim \\mathcal{M}_n(\\mathbb{R}) = n^2$."
+        }
       ]
     },
     {
@@ -88,10 +218,26 @@
         "Elle engendre seulement la droite $\\mathrm{Vect}((1, 2))$ : elle n'est pas génératrice de $\\mathbb{R}^2$."
       ],
       "choix": [
-        { "texte": "liée", "correct": true, "explication": "$2(1, 2) - (2, 4) = 0$." },
-        { "texte": "libre", "correct": false, "explication": "Il existe une combinaison nulle non triviale : $2v_1 - v_2 = 0$." },
-        { "texte": "une base de $\\mathbb{R}^2$", "correct": false, "explication": "Deux vecteurs colinéaires ne forment pas une base." },
-        { "texte": "génératrice de $\\mathbb{R}^2$", "correct": false, "explication": "Elle n'engendre qu'une droite : $(1, 0)$ n'est pas atteint." }
+        {
+          "texte": "liée",
+          "correct": true,
+          "explication": "$2(1, 2) - (2, 4) = 0$."
+        },
+        {
+          "texte": "libre",
+          "correct": false,
+          "explication": "Il existe une combinaison nulle non triviale : $2v_1 - v_2 = 0$."
+        },
+        {
+          "texte": "une base de $\\mathbb{R}^2$",
+          "correct": false,
+          "explication": "Deux vecteurs colinéaires ne forment pas une base."
+        },
+        {
+          "texte": "génératrice de $\\mathbb{R}^2$",
+          "correct": false,
+          "explication": "Elle n'engendre qu'une droite : $(1, 0)$ n'est pas atteint."
+        }
       ]
     },
     {
@@ -106,10 +252,26 @@
         "Le complémentaire de $F$ ne contient pas $0$."
       ],
       "choix": [
-        { "texte": "$F \\cap G$", "correct": true, "explication": "Contient 0 et stable par combinaison linéaire." },
-        { "texte": "$F + G$", "correct": true, "explication": "C'est le sous-espace engendré par $F \\cup G$." },
-        { "texte": "$F \\cup G$", "correct": false, "explication": "Deux droites distinctes : leur réunion n'est pas stable par somme." },
-        { "texte": "$\\mathbb{R}^3 \\setminus F$", "correct": false, "explication": "$0 \\in F$, donc $0 \\notin \\mathbb{R}^3 \\setminus F$." }
+        {
+          "texte": "$F \\cap G$",
+          "correct": true,
+          "explication": "Contient 0 et stable par combinaison linéaire."
+        },
+        {
+          "texte": "$F + G$",
+          "correct": true,
+          "explication": "C'est le sous-espace engendré par $F \\cup G$."
+        },
+        {
+          "texte": "$F \\cup G$",
+          "correct": false,
+          "explication": "Deux droites distinctes : leur réunion n'est pas stable par somme."
+        },
+        {
+          "texte": "$\\mathbb{R}^3 \\setminus F$",
+          "correct": false,
+          "explication": "$0 \\in F$, donc $0 \\notin \\mathbb{R}^3 \\setminus F$."
+        }
       ]
     },
     {
@@ -123,10 +285,26 @@
         "Or $F + G \\subset \\mathbb{R}^4$, donc $\\dim(F + G) \\leq 4$ et $\\dim(F \\cap G) \\geq 2$."
       ],
       "choix": [
-        { "texte": "$\\dim(F \\cap G) \\geq 2$", "correct": true, "explication": "$6 - \\dim(F + G) \\geq 6 - 4$." },
-        { "texte": "$\\dim(F \\cap G) \\geq 3$", "correct": false, "explication": "Seulement si $F = G$ ; si $F \\neq G$, $\\dim(F+G) = 4$ et l'intersection est de dimension 2." },
-        { "texte": "$F \\cap G$ peut être réduit à $\\{0\\}$", "correct": false, "explication": "Il faudrait $\\dim(F + G) = 6 > 4$ : impossible." },
-        { "texte": "$\\dim(F \\cap G) = 1$ est possible", "correct": false, "explication": "Il faudrait $\\dim(F + G) = 5 > 4$ : impossible, Grassmann impose $\\geq 2$." }
+        {
+          "texte": "$\\dim(F \\cap G) \\geq 2$",
+          "correct": true,
+          "explication": "$6 - \\dim(F + G) \\geq 6 - 4$."
+        },
+        {
+          "texte": "$\\dim(F \\cap G) \\geq 3$",
+          "correct": false,
+          "explication": "Seulement si $F = G$ ; si $F \\neq G$, $\\dim(F+G) = 4$ et l'intersection est de dimension 2."
+        },
+        {
+          "texte": "$F \\cap G$ peut être réduit à $\\{0\\}$",
+          "correct": false,
+          "explication": "Il faudrait $\\dim(F + G) = 6 > 4$ : impossible."
+        },
+        {
+          "texte": "$\\dim(F \\cap G) = 1$ est possible",
+          "correct": false,
+          "explication": "Il faudrait $\\dim(F + G) = 5 > 4$ : impossible, Grassmann impose $\\geq 2$."
+        }
       ]
     },
     {
@@ -140,10 +318,26 @@
         "$(1, -1, 0)$ et $(1, 0, -1)$ sont dans $F$ et non colinéaires : c'est une base de $F$."
       ],
       "choix": [
-        { "texte": "$\\big((1, -1, 0), (1, 0, -1)\\big)$", "correct": true, "explication": "Deux vecteurs de $F$ libres, et $\\dim F = 2$." },
-        { "texte": "$\\big((1, 1, 1)\\big)$", "correct": false, "explication": "$1 + 1 + 1 \\neq 0$ : ce vecteur n'est pas dans $F$ (il est orthogonal au plan)." },
-        { "texte": "$\\big((1, -1, 0), (0, 1, -1), (1, 0, -1)\\big)$", "correct": false, "explication": "Liée : le 3e vecteur est la somme des deux premiers." },
-        { "texte": "$\\big((1, -1, 0)\\big)$", "correct": false, "explication": "Libre mais pas génératrice : $\\dim F = 2$." }
+        {
+          "texte": "$\\big((1, -1, 0), (1, 0, -1)\\big)$",
+          "correct": true,
+          "explication": "Deux vecteurs de $F$ libres, et $\\dim F = 2$."
+        },
+        {
+          "texte": "$\\big((1, 1, 1)\\big)$",
+          "correct": false,
+          "explication": "$1 + 1 + 1 \\neq 0$ : ce vecteur n'est pas dans $F$ (il est orthogonal au plan)."
+        },
+        {
+          "texte": "$\\big((1, -1, 0), (0, 1, -1), (1, 0, -1)\\big)$",
+          "correct": false,
+          "explication": "Liée : le 3e vecteur est la somme des deux premiers."
+        },
+        {
+          "texte": "$\\big((1, -1, 0)\\big)$",
+          "correct": false,
+          "explication": "Libre mais pas génératrice : $\\dim F = 2$."
+        }
       ]
     },
     {
@@ -191,19 +385,36 @@
         "En additionnant : $2\\alpha = x + y$, donc $\\alpha = \\dfrac{x + y}{2}$ (et $\\beta = \\dfrac{x - y}{2}$)."
       ],
       "reponse": "(x+y)/2",
-      "variables": ["x", "y"]
+      "variables": [
+        "x",
+        "y"
+      ]
     },
     {
       "id": "vf-vecteur-nul",
       "type": "vrai-faux",
       "difficulte": 1,
       "enonce": "Toute famille contenant le vecteur nul est liée.",
-      "correction": ["Vrai : si $v_1 = 0$, alors $1 \\cdot v_1 + 0 \\cdot v_2 + \\dots = 0$ est une combinaison nulle à coefficients non tous nuls."],
+      "correction": [
+        "Vrai : si $v_1 = 0$, alors $1 \\cdot v_1 + 0 \\cdot v_2 + \\dots = 0$ est une combinaison nulle à coefficients non tous nuls."
+      ],
       "reponse": true,
       "justifications": [
-        { "texte": "$1 \\cdot 0 = 0$ est une combinaison linéaire nulle non triviale.", "correct": true, "explication": "Le coefficient 1 n'est pas nul." },
-        { "texte": "Faux : le vecteur nul ne compte pas.", "correct": false, "explication": "Il compte : il suffit à rendre la famille liée." },
-        { "texte": "Vrai seulement si la famille a au moins 2 vecteurs.", "correct": false, "explication": "La famille $(0)$ à un seul vecteur est déjà liée." }
+        {
+          "texte": "$1 \\cdot 0 = 0$ est une combinaison linéaire nulle non triviale.",
+          "correct": true,
+          "explication": "Le coefficient 1 n'est pas nul."
+        },
+        {
+          "texte": "Faux : le vecteur nul ne compte pas.",
+          "correct": false,
+          "explication": "Il compte : il suffit à rendre la famille liée."
+        },
+        {
+          "texte": "Vrai seulement si la famille a au moins 2 vecteurs.",
+          "correct": false,
+          "explication": "La famille $(0)$ à un seul vecteur est déjà liée."
+        }
       ]
     },
     {
@@ -217,9 +428,21 @@
       ],
       "reponse": false,
       "justifications": [
-        { "texte": "Quatre vecteurs d'un même plan n'engendrent que ce plan.", "correct": true, "explication": "Ex. $(1,0,0), (0,1,0), (1,1,0), (2,0,0)$." },
-        { "texte": "Vrai car $4 > 3 = \\dim \\mathbb{R}^3$.", "correct": false, "explication": "Plus de vecteurs que la dimension implique « liée », pas « génératrice »." },
-        { "texte": "Faux car 4 vecteurs sont toujours libres.", "correct": false, "explication": "C'est l'inverse : une famille libre de $\\mathbb{R}^3$ a au plus 3 vecteurs." }
+        {
+          "texte": "Quatre vecteurs d'un même plan n'engendrent que ce plan.",
+          "correct": true,
+          "explication": "Ex. $(1,0,0), (0,1,0), (1,1,0), (2,0,0)$."
+        },
+        {
+          "texte": "Vrai car $4 > 3 = \\dim \\mathbb{R}^3$.",
+          "correct": false,
+          "explication": "Plus de vecteurs que la dimension implique « liée », pas « génératrice »."
+        },
+        {
+          "texte": "Faux car 4 vecteurs sont toujours libres.",
+          "correct": false,
+          "explication": "C'est l'inverse : une famille libre de $\\mathbb{R}^3$ a au plus 3 vecteurs."
+        }
       ]
     },
     {
@@ -239,6 +462,197 @@
       ],
       "etapeFausse": 2,
       "explication": "$x^2 = y^2$ et $x'^2 = y'^2$ n'impliquent pas $xx' = yy'$ : avec $(1, 1)$ et $(1, -1)$, $xx' = 1$ mais $yy' = -1$."
+    },
+    {
+      "id": "vect-plan",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Dans $\\mathbb{R}^3$, $\\mathrm{Vect}\\big((1, 0, 0), (0, 1, 0)\\big)$ est :",
+      "correction": [
+        "$\\alpha(1,0,0) + \\beta(0,1,0) = (\\alpha, \\beta, 0)$ : c'est le plan d'équation $z = 0$."
+      ],
+      "choix": [
+        {
+          "texte": "le plan d'équation $z = 0$",
+          "correct": true,
+          "explication": "Vecteurs de la forme $(\\alpha, \\beta, 0)$."
+        },
+        {
+          "texte": "$\\mathbb{R}^3$ tout entier",
+          "correct": false,
+          "explication": "Deux vecteurs engendrent au plus un plan."
+        },
+        {
+          "texte": "la droite d'équations $x = y$, $z = 0$",
+          "correct": false,
+          "explication": "Les deux vecteurs ne sont pas colinéaires : on obtient un plan."
+        },
+        {
+          "texte": "le plan d'équation $x = 0$",
+          "correct": false,
+          "explication": "$(1, 0, 0)$ n'est pas dans ce plan."
+        }
+      ]
+    },
+    {
+      "id": "sev-polynomes",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Lequel de ces ensembles est un sous-espace vectoriel de $\\mathbb{R}[X]$ ?",
+      "correction": [
+        "$\\{P \\mid P(0) = 0\\}$ contient le polynôme nul et est stable par combinaison linéaire.",
+        "Les autres ne contiennent pas 0 ou ne sont pas stables."
+      ],
+      "choix": [
+        {
+          "texte": "$\\{P \\mid P(0) = 0\\}$",
+          "correct": true,
+          "explication": "$(\\lambda P + Q)(0) = \\lambda P(0) + Q(0) = 0$."
+        },
+        {
+          "texte": "$\\{P \\mid P(0) = 1\\}$",
+          "correct": false,
+          "explication": "Le polynôme nul n'y est pas."
+        },
+        {
+          "texte": "$\\{P \\mid \\deg P = 3\\}$",
+          "correct": false,
+          "explication": "Ne contient pas 0, et $X^3 + (-X^3) = 0$ sort de l'ensemble."
+        },
+        {
+          "texte": "$\\{P \\mid P(x) \\geq 0 \\text{ pour tout réel } x\\}$",
+          "correct": false,
+          "explication": "Pas stable par multiplication par $-1$."
+        }
+      ]
+    },
+    {
+      "id": "base-r2",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Dans $\\mathbb{R}^2$, la famille $\\big((1, 2), (3, 4)\\big)$ est :",
+      "correction": [
+        "$\\begin{vmatrix} 1 & 3 \\\\ 2 & 4 \\end{vmatrix} = 4 - 6 = -2 \\neq 0$ : famille libre de 2 vecteurs en dimension 2, donc une base."
+      ],
+      "choix": [
+        {
+          "texte": "une base de $\\mathbb{R}^2$",
+          "correct": true,
+          "explication": "Déterminant non nul."
+        },
+        {
+          "texte": "liée",
+          "correct": false,
+          "explication": "Les vecteurs ne sont pas colinéaires ($\\frac31 \\neq \\frac42$)."
+        },
+        {
+          "texte": "libre mais pas génératrice",
+          "correct": false,
+          "explication": "En dimension 2, deux vecteurs libres forment une base."
+        },
+        {
+          "texte": "génératrice mais pas libre",
+          "correct": false,
+          "explication": "Deux vecteurs générateurs en dimension 2 sont aussi libres."
+        }
+      ]
+    },
+    {
+      "id": "caracterisation-base",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "$E$ est de dimension 4 et $(v_1, v_2, v_3, v_4)$ une famille de $E$. Lesquelles de ces conditions suffisent, chacune à elle seule, pour que ce soit une base ?",
+      "correction": [
+        "Pour exactement $n = \\dim E$ vecteurs : libre $\\iff$ génératrice $\\iff$ base.",
+        "Une famille contenant 0 est liée ; deux vecteurs non colinéaires ne disent rien des autres."
+      ],
+      "choix": [
+        {
+          "texte": "La famille est libre",
+          "correct": true,
+          "explication": "4 vecteurs libres en dimension 4."
+        },
+        {
+          "texte": "La famille est génératrice de $E$",
+          "correct": true,
+          "explication": "4 vecteurs générateurs en dimension 4."
+        },
+        {
+          "texte": "La famille contient le vecteur nul",
+          "correct": false,
+          "explication": "Elle serait alors liée, donc pas une base."
+        },
+        {
+          "texte": "$v_1$ et $v_2$ ne sont pas colinéaires",
+          "correct": false,
+          "explication": "Cela ne dit rien de $v_3$ et $v_4$."
+        }
+      ]
+    },
+    {
+      "id": "dim-matrices-2-3",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quelle est la dimension de $\\mathcal{M}_{2,3}(\\mathbb{R})$ ?",
+      "correction": [
+        "Base canonique : les 6 matrices élémentaires $E_{ij}$. Dimension $2 \\times 3 = 6$."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "dim-intersection",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Dans $\\mathbb{R}^3$, soient $F = \\{x + y + z = 0\\}$ et $G = \\{x - y = 0\\}$. Quelle est la dimension de $F \\cap G$ ?",
+      "correction": [
+        "$F \\cap G$ : $x = y$ et $z = -2x$, donc $F \\cap G = \\mathrm{Vect}\\big((1, 1, -2)\\big)$.",
+        "$\\dim(F \\cap G) = 1$ (deux équations indépendantes dans $\\mathbb{R}^3$)."
+      ],
+      "reponse": 1
+    },
+    {
+      "id": "vf-reunion-droites",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "La réunion de deux droites vectorielles distinctes de $\\mathbb{R}^2$ est un sous-espace vectoriel.",
+      "correction": [
+        "Faux : avec les deux axes, $(1, 0)$ et $(0, 1)$ sont dans la réunion mais pas leur somme $(1, 1)$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Les deux axes : $(1, 0) + (0, 1) = (1, 1)$ n'est sur aucun des deux.",
+          "correct": true,
+          "explication": "La réunion n'est pas stable par addition."
+        },
+        {
+          "texte": "Vrai : c'est la somme $F + G$.",
+          "correct": false,
+          "explication": "$F + G = \\mathbb{R}^2$ est bien plus gros que $F \\cup G$."
+        },
+        {
+          "texte": "Vrai car elle contient le vecteur nul.",
+          "correct": false,
+          "explication": "Contenir 0 est nécessaire mais pas suffisant."
+        }
+      ]
+    },
+    {
+      "id": "erreur-base-generatrice",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "« $\\big((1, 1), (2, 2), (0, 1)\\big)$ est une base de $\\mathbb{R}^2$. » Où est l'erreur ?",
+      "correction": [
+        "Une base doit être libre ET génératrice. Ici $(2, 2) = 2(1, 1)$ : la famille est liée (3 vecteurs en dimension 2 le sont toujours)."
+      ],
+      "etapes": [
+        "La famille engendre $\\mathbb{R}^2$ car $(1, 1)$ et $(0, 1)$ ne sont pas colinéaires.",
+        "Une famille génératrice de $\\mathbb{R}^2$ est une base.",
+        "Donc c'est une base de $\\mathbb{R}^2$."
+      ],
+      "etapeFausse": 1,
+      "explication": "Génératrice ne suffit pas : une base doit aussi être libre. Ce n'est vrai que pour exactement $\\dim E$ vecteurs."
     }
   ]
 }

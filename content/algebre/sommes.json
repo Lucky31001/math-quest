@@ -10,42 +10,142 @@
     {
       "titre": "Manipuler les sommes",
       "blocs": [
-        { "type": "propriete", "titre": "Linéarité", "texte": "$\\sum_{k} (\\lambda a_k + \\mu b_k) = \\lambda \\sum_k a_k + \\mu \\sum_k b_k$. **Attention** : $\\sum a_k b_k \\neq \\left(\\sum a_k\\right)\\left(\\sum b_k\\right)$ en général." },
-        { "type": "methode", "titre": "Changement d'indice", "texte": "Avec $j = k + 1$ : $\\sum_{k=0}^{n-1} a_{k+1} = \\sum_{j=1}^{n} a_j$. Les **bornes** changent aussi !" },
-        { "type": "theoreme", "titre": "Télescopage", "texte": "$\\sum_{k=0}^{n} (u_{k+1} - u_k) = u_{n+1} - u_0$." },
-        { "type": "methode", "titre": "Sommes doubles", "texte": "$\\sum_{1 \\leq i \\leq j \\leq n} a_{ij} = \\sum_{j=1}^{n} \\sum_{i=1}^{j} a_{ij} = \\sum_{i=1}^{n} \\sum_{j=i}^{n} a_{ij}$." }
+        {
+          "type": "propriete",
+          "titre": "Linéarité",
+          "texte": "$\\sum_{k} (\\lambda a_k + \\mu b_k) = \\lambda \\sum_k a_k + \\mu \\sum_k b_k$. **Attention** : $\\sum a_k b_k \\neq \\left(\\sum a_k\\right)\\left(\\sum b_k\\right)$ en général."
+        },
+        {
+          "type": "methode",
+          "titre": "Changement d'indice",
+          "texte": "Avec $j = k + 1$ : $\\sum_{k=0}^{n-1} a_{k+1} = \\sum_{j=1}^{n} a_j$. Les **bornes** changent aussi !"
+        },
+        {
+          "type": "theoreme",
+          "titre": "Télescopage",
+          "texte": "$\\sum_{k=0}^{n} (u_{k+1} - u_k) = u_{n+1} - u_0$."
+        },
+        {
+          "type": "methode",
+          "titre": "Sommes doubles",
+          "texte": "$\\sum_{1 \\leq i \\leq j \\leq n} a_{ij} = \\sum_{j=1}^{n} \\sum_{i=1}^{j} a_{ij} = \\sum_{i=1}^{n} \\sum_{j=i}^{n} a_{ij}$."
+        }
       ]
     },
     {
       "titre": "Sommes usuelles",
       "blocs": [
-        { "type": "theoreme", "texte": "$\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}$, $\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}$, $\\sum_{k=1}^{n} k^3 = \\left(\\dfrac{n(n+1)}{2}\\right)^2$." },
-        { "type": "theoreme", "titre": "Somme géométrique", "texte": "Pour $q \\neq 1$ : $\\sum_{k=0}^{n} q^k = \\dfrac{1 - q^{n+1}}{1 - q}$. Plus généralement : premier terme $\\times \\dfrac{1 - q^{\\text{nombre de termes}}}{1 - q}$." },
-        { "type": "propriete", "titre": "Factorisation", "texte": "$a^n - b^n = (a - b)\\sum_{k=0}^{n-1} a^k b^{n-1-k}$." }
+        {
+          "type": "theoreme",
+          "texte": "$\\sum_{k=1}^{n} k = \\dfrac{n(n+1)}{2}$, $\\sum_{k=1}^{n} k^2 = \\dfrac{n(n+1)(2n+1)}{6}$, $\\sum_{k=1}^{n} k^3 = \\left(\\dfrac{n(n+1)}{2}\\right)^2$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Somme géométrique",
+          "texte": "Pour $q \\neq 1$ : $\\sum_{k=0}^{n} q^k = \\dfrac{1 - q^{n+1}}{1 - q}$. Plus généralement : premier terme $\\times \\dfrac{1 - q^{\\text{nombre de termes}}}{1 - q}$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Factorisation",
+          "texte": "$a^n - b^n = (a - b)\\sum_{k=0}^{n-1} a^k b^{n-1-k}$."
+        }
       ]
     },
     {
       "titre": "Coefficients binomiaux",
       "blocs": [
-        { "type": "definition", "texte": "$n! = \\prod_{k=1}^{n} k$ (et $0! = 1$). Pour $0 \\leq k \\leq n$ : $\\dbinom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$, nombre de parties à $k$ éléments d'un ensemble à $n$ éléments." },
-        { "type": "propriete", "texte": "Symétrie : $\\binom{n}{k} = \\binom{n}{n-k}$. Formule de Pascal : $\\binom{n}{k} + \\binom{n}{k+1} = \\binom{n+1}{k+1}$." },
-        { "type": "theoreme", "titre": "Binôme de Newton", "texte": "$(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}$ (dans $\\mathbb{C}$, ou pour des matrices qui commutent). Avec $a = b = 1$ : $\\sum_{k=0}^{n}\\binom{n}{k} = 2^n$." }
+        {
+          "type": "definition",
+          "texte": "$n! = \\prod_{k=1}^{n} k$ (et $0! = 1$). Pour $0 \\leq k \\leq n$ : $\\dbinom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$, nombre de parties à $k$ éléments d'un ensemble à $n$ éléments."
+        },
+        {
+          "type": "propriete",
+          "texte": "Symétrie : $\\binom{n}{k} = \\binom{n}{n-k}$. Formule de Pascal : $\\binom{n}{k} + \\binom{n}{k+1} = \\binom{n+1}{k+1}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Binôme de Newton",
+          "texte": "$(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}$ (dans $\\mathbb{C}$, ou pour des matrices qui commutent). Avec $a = b = 1$ : $\\sum_{k=0}^{n}\\binom{n}{k} = 2^n$."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-somme-k", "recto": "$\\sum_{k=1}^{n} k = $ ?", "verso": "$\\dfrac{n(n+1)}{2}$" },
-    { "id": "f-somme-k2", "recto": "$\\sum_{k=1}^{n} k^2 = $ ?", "verso": "$\\dfrac{n(n+1)(2n+1)}{6}$" },
-    { "id": "f-somme-k3", "recto": "$\\sum_{k=1}^{n} k^3 = $ ?", "verso": "$\\left(\\dfrac{n(n+1)}{2}\\right)^2$" },
-    { "id": "f-geometrique", "recto": "$\\sum_{k=0}^{n} q^k$ pour $q \\neq 1$ ?", "verso": "$\\dfrac{1 - q^{n+1}}{1 - q}$" },
-    { "id": "f-telescopage", "recto": "$\\sum_{k=0}^{n} (u_{k+1} - u_k) = $ ?", "verso": "$u_{n+1} - u_0$ (télescopage)." },
-    { "id": "f-binomial", "recto": "$\\dbinom{n}{k} = $ ?", "verso": "$\\dfrac{n!}{k!\\,(n-k)!}$" },
-    { "id": "f-pascal", "recto": "Formule de Pascal ?", "verso": "$\\dbinom{n}{k} + \\dbinom{n}{k+1} = \\dbinom{n+1}{k+1}$" },
-    { "id": "f-newton", "recto": "Formule du binôme de Newton ?", "verso": "$(a+b)^n = \\sum_{k=0}^{n} \\dbinom{n}{k} a^k b^{n-k}$" },
-    { "id": "f-somme-binomiaux", "recto": "$\\sum_{k=0}^{n} \\dbinom{n}{k} = $ ?", "verso": "$2^n$ (binôme avec $a = b = 1$)." },
-    { "id": "f-alterne", "recto": "$\\sum_{k=0}^{n} (-1)^k \\dbinom{n}{k}$ pour $n \\geq 1$ ?", "verso": "$0$ (binôme avec $a = -1$, $b = 1$)." },
-    { "id": "f-an-bn", "recto": "Factoriser $a^n - b^n$ ?", "verso": "$(a - b)\\sum_{k=0}^{n-1} a^k b^{n-1-k}$" },
-    { "id": "f-symetrie", "recto": "$\\dbinom{n}{n-k} = $ ?", "verso": "$\\dbinom{n}{k}$ (symétrie)." }
+    {
+      "id": "f-somme-k",
+      "recto": "$\\sum_{k=1}^{n} k = $ ?",
+      "verso": "$\\dfrac{n(n+1)}{2}$"
+    },
+    {
+      "id": "f-somme-k2",
+      "recto": "$\\sum_{k=1}^{n} k^2 = $ ?",
+      "verso": "$\\dfrac{n(n+1)(2n+1)}{6}$"
+    },
+    {
+      "id": "f-somme-k3",
+      "recto": "$\\sum_{k=1}^{n} k^3 = $ ?",
+      "verso": "$\\left(\\dfrac{n(n+1)}{2}\\right)^2$"
+    },
+    {
+      "id": "f-geometrique",
+      "recto": "$\\sum_{k=0}^{n} q^k$ pour $q \\neq 1$ ?",
+      "verso": "$\\dfrac{1 - q^{n+1}}{1 - q}$"
+    },
+    {
+      "id": "f-telescopage",
+      "recto": "$\\sum_{k=0}^{n} (u_{k+1} - u_k) = $ ?",
+      "verso": "$u_{n+1} - u_0$ (télescopage)."
+    },
+    {
+      "id": "f-binomial",
+      "recto": "$\\dbinom{n}{k} = $ ?",
+      "verso": "$\\dfrac{n!}{k!\\,(n-k)!}$"
+    },
+    {
+      "id": "f-pascal",
+      "recto": "Formule de Pascal ?",
+      "verso": "$\\dbinom{n}{k} + \\dbinom{n}{k+1} = \\dbinom{n+1}{k+1}$"
+    },
+    {
+      "id": "f-newton",
+      "recto": "Formule du binôme de Newton ?",
+      "verso": "$(a+b)^n = \\sum_{k=0}^{n} \\dbinom{n}{k} a^k b^{n-k}$"
+    },
+    {
+      "id": "f-somme-binomiaux",
+      "recto": "$\\sum_{k=0}^{n} \\dbinom{n}{k} = $ ?",
+      "verso": "$2^n$ (binôme avec $a = b = 1$)."
+    },
+    {
+      "id": "f-alterne",
+      "recto": "$\\sum_{k=0}^{n} (-1)^k \\dbinom{n}{k}$ pour $n \\geq 1$ ?",
+      "verso": "$0$ (binôme avec $a = -1$, $b = 1$)."
+    },
+    {
+      "id": "f-an-bn",
+      "recto": "Factoriser $a^n - b^n$ ?",
+      "verso": "$(a - b)\\sum_{k=0}^{n-1} a^k b^{n-1-k}$"
+    },
+    {
+      "id": "f-symetrie",
+      "recto": "$\\dbinom{n}{n-k} = $ ?",
+      "verso": "$\\dbinom{n}{k}$ (symétrie)."
+    },
+    {
+      "id": "f-factorielle",
+      "recto": "$\\prod_{k=1}^{n} k = $ ?",
+      "verso": "$n!$"
+    },
+    {
+      "id": "f-somme-1",
+      "recto": "$\\sum_{k=0}^{n} 1 = $ ?",
+      "verso": "$n + 1$ (il y a $n + 1$ termes)."
+    },
+    {
+      "id": "f-indice-renverse",
+      "recto": "Changement d'indice $j = n - k$ dans $\\sum_{k=0}^{n} a_{n-k}$ ?",
+      "verso": "$\\sum_{j=0}^{n} a_j$ (on parcourt les mêmes termes à l'envers)."
+    }
   ],
   "exercices": [
     {
@@ -54,12 +154,30 @@
       "difficulte": 1,
       "enonce": "Que vaut $\\displaystyle\\sum_{k=1}^{100} k$ ?",
       "indice": "$\\sum_{k=1}^{n} k = \\frac{n(n+1)}{2}$.",
-      "correction": ["$\\sum_{k=1}^{100} k = \\dfrac{100 \\times 101}{2} = 5050$."],
+      "correction": [
+        "$\\sum_{k=1}^{100} k = \\dfrac{100 \\times 101}{2} = 5050$."
+      ],
       "choix": [
-        { "texte": "$5050$", "correct": true, "explication": "$\\frac{100 \\times 101}{2}$." },
-        { "texte": "$10100$", "correct": false, "explication": "Oubli de la division par 2." },
-        { "texte": "$4950$", "correct": false, "explication": "C'est $\\frac{n(n-1)}{2}$ : la somme de 1 à 99." },
-        { "texte": "$5000$", "correct": false, "explication": "$\\frac{n^2}{2}$ n'est qu'une approximation : il manque $\\frac{n}{2} = 50$." }
+        {
+          "texte": "$5050$",
+          "correct": true,
+          "explication": "$\\frac{100 \\times 101}{2}$."
+        },
+        {
+          "texte": "$10100$",
+          "correct": false,
+          "explication": "Oubli de la division par 2."
+        },
+        {
+          "texte": "$4950$",
+          "correct": false,
+          "explication": "C'est $\\frac{n(n-1)}{2}$ : la somme de 1 à 99."
+        },
+        {
+          "texte": "$5000$",
+          "correct": false,
+          "explication": "$\\frac{n^2}{2}$ n'est qu'une approximation : il manque $\\frac{n}{2} = 50$."
+        }
       ]
     },
     {
@@ -67,12 +185,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Que vaut $\\dbinom{5}{2}$ ?",
-      "correction": ["$\\dbinom{5}{2} = \\dfrac{5!}{2!\\,3!} = \\dfrac{5 \\times 4}{2} = 10$."],
+      "correction": [
+        "$\\dbinom{5}{2} = \\dfrac{5!}{2!\\,3!} = \\dfrac{5 \\times 4}{2} = 10$."
+      ],
       "choix": [
-        { "texte": "$10$", "correct": true, "explication": "$\\frac{5 \\times 4}{2!}$." },
-        { "texte": "$20$", "correct": false, "explication": "$5 \\times 4$ compte les choix ORDONNÉS : il faut diviser par $2! = 2$." },
-        { "texte": "$25$", "correct": false, "explication": "$5^2$ compte les couples avec répétition." },
-        { "texte": "$5$", "correct": false, "explication": "C'est $\\binom{5}{1}$." }
+        {
+          "texte": "$10$",
+          "correct": true,
+          "explication": "$\\frac{5 \\times 4}{2!}$."
+        },
+        {
+          "texte": "$20$",
+          "correct": false,
+          "explication": "$5 \\times 4$ compte les choix ORDONNÉS : il faut diviser par $2! = 2$."
+        },
+        {
+          "texte": "$25$",
+          "correct": false,
+          "explication": "$5^2$ compte les couples avec répétition."
+        },
+        {
+          "texte": "$5$",
+          "correct": false,
+          "explication": "C'est $\\binom{5}{1}$."
+        }
       ]
     },
     {
@@ -81,12 +217,30 @@
       "difficulte": 2,
       "enonce": "Pour $n \\in \\mathbb{N}$, $\\displaystyle\\sum_{k=0}^{n} \\binom{n}{k}$ vaut :",
       "indice": "Binôme de Newton avec $a = b = 1$.",
-      "correction": ["$(1 + 1)^n = \\sum_{k=0}^{n} \\binom{n}{k} 1^k 1^{n-k}$, donc la somme vaut $2^n$."],
+      "correction": [
+        "$(1 + 1)^n = \\sum_{k=0}^{n} \\binom{n}{k} 1^k 1^{n-k}$, donc la somme vaut $2^n$."
+      ],
       "choix": [
-        { "texte": "$2^n$", "correct": true, "explication": "$(1+1)^n$ par le binôme." },
-        { "texte": "$n!$", "correct": false, "explication": "$n!$ compte les permutations, pas les parties." },
-        { "texte": "$2^{n+1}$", "correct": false, "explication": "Il y a $n + 1$ termes, mais la somme vaut $(1+1)^n$." },
-        { "texte": "$n\\,2^{n-1}$", "correct": false, "explication": "C'est $\\sum_k k\\binom{n}{k}$ (dérivée du binôme)." }
+        {
+          "texte": "$2^n$",
+          "correct": true,
+          "explication": "$(1+1)^n$ par le binôme."
+        },
+        {
+          "texte": "$n!$",
+          "correct": false,
+          "explication": "$n!$ compte les permutations, pas les parties."
+        },
+        {
+          "texte": "$2^{n+1}$",
+          "correct": false,
+          "explication": "Il y a $n + 1$ termes, mais la somme vaut $(1+1)^n$."
+        },
+        {
+          "texte": "$n\\,2^{n-1}$",
+          "correct": false,
+          "explication": "C'est $\\sum_k k\\binom{n}{k}$ (dérivée du binôme)."
+        }
       ]
     },
     {
@@ -100,10 +254,26 @@
         "Par télescopage : $\\sum_{k=1}^{n} \\left(\\frac{1}{k} - \\frac{1}{k+1}\\right) = 1 - \\dfrac{1}{n+1}$."
       ],
       "choix": [
-        { "texte": "$1 - \\dfrac{1}{n+1}$", "correct": true, "explication": "Premier terme $\\frac11$ moins dernier $\\frac{1}{n+1}$." },
-        { "texte": "$1 - \\dfrac{1}{n}$", "correct": false, "explication": "Le dernier terme qui reste est $\\frac{1}{n+1}$ (pour $k = n$)." },
-        { "texte": "$\\dfrac{1}{n(n+1)}$", "correct": false, "explication": "C'est le dernier terme de la somme, pas la somme." },
-        { "texte": "$1 + \\dfrac{1}{n+1}$", "correct": false, "explication": "Erreur de signe : c'est $\\frac1k - \\frac{1}{k+1}$." }
+        {
+          "texte": "$1 - \\dfrac{1}{n+1}$",
+          "correct": true,
+          "explication": "Premier terme $\\frac11$ moins dernier $\\frac{1}{n+1}$."
+        },
+        {
+          "texte": "$1 - \\dfrac{1}{n}$",
+          "correct": false,
+          "explication": "Le dernier terme qui reste est $\\frac{1}{n+1}$ (pour $k = n$)."
+        },
+        {
+          "texte": "$\\dfrac{1}{n(n+1)}$",
+          "correct": false,
+          "explication": "C'est le dernier terme de la somme, pas la somme."
+        },
+        {
+          "texte": "$1 + \\dfrac{1}{n+1}$",
+          "correct": false,
+          "explication": "Erreur de signe : c'est $\\frac1k - \\frac{1}{k+1}$."
+        }
       ]
     },
     {
@@ -120,10 +290,26 @@
         "$\\prod_{k=1}^{n} k = n!$ : pour $n = 4$, $4! = 24 \\neq \\frac{4 \\times 5}{2} = 10$ : faux."
       ],
       "choix": [
-        { "texte": "$\\sum_{k=1}^{n} (2k - 1) = n^2$", "correct": true, "explication": "La somme des $n$ premiers impairs vaut $n^2$." },
-        { "texte": "$\\prod_{k=1}^{n} 2 = 2^n$", "correct": true, "explication": "Produit de $n$ facteurs égaux à 2." },
-        { "texte": "$\\sum_{k=1}^{n} k^2 = \\left(\\sum_{k=1}^{n} k\\right)^2$", "correct": false, "explication": "$n = 2$ : $5 \\neq 9$. (C'est $\\sum k^3$ qui vaut $(\\sum k)^2$.)" },
-        { "texte": "$\\prod_{k=1}^{n} k = \\dfrac{n(n+1)}{2}$", "correct": false, "explication": "Le produit vaut $n!$ ; $\\frac{n(n+1)}{2}$ est la SOMME. Pour $n = 4$ : $24 \\neq 10$." }
+        {
+          "texte": "$\\sum_{k=1}^{n} (2k - 1) = n^2$",
+          "correct": true,
+          "explication": "La somme des $n$ premiers impairs vaut $n^2$."
+        },
+        {
+          "texte": "$\\prod_{k=1}^{n} 2 = 2^n$",
+          "correct": true,
+          "explication": "Produit de $n$ facteurs égaux à 2."
+        },
+        {
+          "texte": "$\\sum_{k=1}^{n} k^2 = \\left(\\sum_{k=1}^{n} k\\right)^2$",
+          "correct": false,
+          "explication": "$n = 2$ : $5 \\neq 9$. (C'est $\\sum k^3$ qui vaut $(\\sum k)^2$.)"
+        },
+        {
+          "texte": "$\\prod_{k=1}^{n} k = \\dfrac{n(n+1)}{2}$",
+          "correct": false,
+          "explication": "Le produit vaut $n!$ ; $\\frac{n(n+1)}{2}$ est la SOMME. Pour $n = 4$ : $24 \\neq 10$."
+        }
       ]
     },
     {
@@ -131,7 +317,9 @@
       "type": "numerique",
       "difficulte": 1,
       "enonce": "Calculer $\\displaystyle\\sum_{k=1}^{10} k^2$.",
-      "correction": ["$\\sum_{k=1}^{10} k^2 = \\dfrac{10 \\times 11 \\times 21}{6} = 385$."],
+      "correction": [
+        "$\\sum_{k=1}^{10} k^2 = \\dfrac{10 \\times 11 \\times 21}{6} = 385$."
+      ],
       "reponse": 385
     },
     {
@@ -169,8 +357,13 @@
         "$= n^2 + 2n$."
       ],
       "reponse": "n^2 + 2*n",
-      "variables": ["n"],
-      "domaine": [1, 10]
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        10
+      ]
     },
     {
       "id": "somme-k-binomial",
@@ -183,8 +376,13 @@
         "$\\sum_{k=1}^{n} n\\binom{n-1}{k-1} = n\\sum_{j=0}^{n-1}\\binom{n-1}{j} = n\\,2^{n-1}$."
       ],
       "reponse": "n*2^(n-1)",
-      "variables": ["n"],
-      "domaine": [1, 8]
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        8
+      ]
     },
     {
       "id": "vf-somme-produit",
@@ -197,9 +395,21 @@
       ],
       "reponse": false,
       "justifications": [
-        { "texte": "Contre-exemple : $n = 2$, $a_k = b_k = 1$ donne $2 \\neq 4$.", "correct": true, "explication": "Il manque les termes croisés $a_1 b_2 + a_2 b_1$." },
-        { "texte": "Vrai par linéarité de la somme.", "correct": false, "explication": "La linéarité concerne les sommes et les constantes, pas le produit de deux suites." },
-        { "texte": "Vrai si tous les $a_k$ sont positifs.", "correct": false, "explication": "Le contre-exemple utilise des nombres positifs." }
+        {
+          "texte": "Contre-exemple : $n = 2$, $a_k = b_k = 1$ donne $2 \\neq 4$.",
+          "correct": true,
+          "explication": "Il manque les termes croisés $a_1 b_2 + a_2 b_1$."
+        },
+        {
+          "texte": "Vrai par linéarité de la somme.",
+          "correct": false,
+          "explication": "La linéarité concerne les sommes et les constantes, pas le produit de deux suites."
+        },
+        {
+          "texte": "Vrai si tous les $a_k$ sont positifs.",
+          "correct": false,
+          "explication": "Le contre-exemple utilise des nombres positifs."
+        }
       ]
     },
     {
@@ -213,9 +423,21 @@
       ],
       "reponse": true,
       "justifications": [
-        { "texte": "Choisir $k$ éléments revient à choisir les $n - k$ éléments non choisis.", "correct": true, "explication": "Bijection $A \\mapsto \\bar A$ entre parties à $k$ et à $n-k$ éléments." },
-        { "texte": "Car $n!$ est symétrique en $n$.", "correct": false, "explication": "Cela ne veut rien dire : c'est le dénominateur $k!(n-k)!$ qui est symétrique en $k \\leftrightarrow n-k$." },
-        { "texte": "Seulement si $n$ est pair.", "correct": false, "explication": "Vrai pour tout $n$ : $\\binom{5}{2} = \\binom{5}{3} = 10$." }
+        {
+          "texte": "Choisir $k$ éléments revient à choisir les $n - k$ éléments non choisis.",
+          "correct": true,
+          "explication": "Bijection $A \\mapsto \\bar A$ entre parties à $k$ et à $n-k$ éléments."
+        },
+        {
+          "texte": "Car $n!$ est symétrique en $n$.",
+          "correct": false,
+          "explication": "Cela ne veut rien dire : c'est le dénominateur $k!(n-k)!$ qui est symétrique en $k \\leftrightarrow n-k$."
+        },
+        {
+          "texte": "Seulement si $n$ est pair.",
+          "correct": false,
+          "explication": "Vrai pour tout $n$ : $\\binom{5}{2} = \\binom{5}{3} = 10$."
+        }
       ]
     },
     {
@@ -235,6 +457,201 @@
       ],
       "etapeFausse": 1,
       "explication": "Les bornes doivent être décalées aussi : $k = 1 \\Rightarrow j = 2$ et $k = n \\Rightarrow j = n + 1$."
+    },
+    {
+      "id": "somme-de-un",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Pour $n \\in \\mathbb{N}$, que vaut $\\displaystyle\\sum_{k=0}^{n} 1$ ?",
+      "correction": [
+        "On ajoute $1$ autant de fois qu'il y a de termes : de $0$ à $n$, il y en a $n + 1$."
+      ],
+      "choix": [
+        {
+          "texte": "$n + 1$",
+          "correct": true,
+          "explication": "$n + 1$ termes égaux à 1."
+        },
+        {
+          "texte": "$n$",
+          "correct": false,
+          "explication": "L'indice commence à 0 : il y a $n + 1$ termes."
+        },
+        {
+          "texte": "$1$",
+          "correct": false,
+          "explication": "Chaque terme vaut 1, mais on en ajoute plusieurs."
+        },
+        {
+          "texte": "$k$",
+          "correct": false,
+          "explication": "$k$ est l'indice muet : il ne peut pas apparaître dans le résultat."
+        }
+      ]
+    },
+    {
+      "id": "telescopage-general",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour une suite $(u_k)$ et $n \\geq 1$, que vaut $\\displaystyle\\sum_{k=1}^{n} (u_k - u_{k-1})$ ?",
+      "correction": [
+        "Télescopage : $(u_1 - u_0) + (u_2 - u_1) + \\dots + (u_n - u_{n-1}) = u_n - u_0$."
+      ],
+      "choix": [
+        {
+          "texte": "$u_n - u_0$",
+          "correct": true,
+          "explication": "Il ne reste que le dernier et le premier terme."
+        },
+        {
+          "texte": "$u_n - u_1$",
+          "correct": false,
+          "explication": "Le premier terme est $u_1 - u_0$ : c'est $u_0$ qui reste."
+        },
+        {
+          "texte": "$u_{n+1} - u_0$",
+          "correct": false,
+          "explication": "Le dernier terme est $u_n - u_{n-1}$ : c'est $u_n$ qui reste."
+        },
+        {
+          "texte": "$0$",
+          "correct": false,
+          "explication": "Tous les termes ne s'annulent pas : $u_n$ et $u_0$ restent."
+        }
+      ]
+    },
+    {
+      "id": "produit-pairs",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $\\displaystyle\\prod_{k=1}^{n} 2k$ ?",
+      "indice": "Sépare les facteurs 2.",
+      "correction": [
+        "$\\prod_{k=1}^{n} 2k = \\left(\\prod_{k=1}^{n} 2\\right)\\left(\\prod_{k=1}^{n} k\\right) = 2^n\\,n!$."
+      ],
+      "choix": [
+        {
+          "texte": "$2^n\\,n!$",
+          "correct": true,
+          "explication": "$n$ facteurs 2, et le produit des $k$."
+        },
+        {
+          "texte": "$2\\,n!$",
+          "correct": false,
+          "explication": "Le facteur 2 apparaît dans CHACUN des $n$ facteurs : $2^n$."
+        },
+        {
+          "texte": "$(2n)!$",
+          "correct": false,
+          "explication": "$(2n)!$ contient aussi les facteurs impairs."
+        },
+        {
+          "texte": "$2^n$",
+          "correct": false,
+          "explication": "Il manque le produit $1 \\times 2 \\times \\dots \\times n$."
+        }
+      ]
+    },
+    {
+      "id": "egal-2-puissance-n",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Lesquelles de ces expressions valent $2^n$ pour TOUT $n \\geq 1$ ?",
+      "correction": [
+        "$\\sum_{k=0}^{n}\\binom nk = (1 + 1)^n = 2^n$ et $\\prod_{k=1}^{n} 2 = 2^n$.",
+        "$\\sum_{k=0}^{n-1} 2^k = 2^n - 1$.",
+        "$\\binom{2n}{n}$ : pour $n = 2$, $6 \\neq 4$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\sum_{k=0}^{n} \\binom{n}{k}$",
+          "correct": true,
+          "explication": "Binôme avec $a = b = 1$."
+        },
+        {
+          "texte": "$\\prod_{k=1}^{n} 2$",
+          "correct": true,
+          "explication": "$n$ facteurs égaux à 2."
+        },
+        {
+          "texte": "$\\sum_{k=0}^{n-1} 2^k$",
+          "correct": false,
+          "explication": "Somme géométrique : $2^n - 1$."
+        },
+        {
+          "texte": "$\\binom{2n}{n}$",
+          "correct": false,
+          "explication": "Égal pour $n = 1$ seulement : $\\binom42 = 6 \\neq 4$."
+        }
+      ]
+    },
+    {
+      "id": "somme-alternee",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\sum_{k=1}^{20} (-1)^k k$.",
+      "indice": "Regroupe les termes deux par deux.",
+      "correction": [
+        "$(-1 + 2) + (-3 + 4) + \\dots + (-19 + 20)$ : 10 paires valant chacune 1.",
+        "La somme vaut $10$."
+      ],
+      "reponse": 10
+    },
+    {
+      "id": "somme-k-factorielle",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\sum_{k=1}^{5} k \\cdot k!$.",
+      "indice": "$k \\cdot k! = (k + 1)! - k!$.",
+      "correction": [
+        "$k \\cdot k! = (k + 1)\\,k! - k! = (k + 1)! - k!$ : somme télescopique.",
+        "$\\sum_{k=1}^{5} k\\cdot k! = 6! - 1! = 719$."
+      ],
+      "reponse": 719
+    },
+    {
+      "id": "vf-binome-matrices",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "La formule du binôme $(A + B)^n = \\sum_{k=0}^{n}\\binom nk A^kB^{n-k}$ est vraie pour deux matrices carrées $A, B$ qui commutent ($AB = BA$).",
+      "correction": [
+        "Vrai : la preuve par récurrence n'utilise que l'associativité, la distributivité et $AB = BA$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "La démonstration n'utilise que la commutation $AB = BA$.",
+          "correct": true,
+          "explication": "C'est exactement l'hypothèse nécessaire."
+        },
+        {
+          "texte": "Faux : la formule n'existe pas pour les matrices.",
+          "correct": false,
+          "explication": "Elle est vraie dès que $A$ et $B$ commutent."
+        },
+        {
+          "texte": "Vrai, même si $A$ et $B$ ne commutent pas.",
+          "correct": false,
+          "explication": "$(A + B)^2 = A^2 + AB + BA + B^2 \\neq A^2 + 2AB + B^2$ si $AB \\neq BA$."
+        }
+      ]
+    },
+    {
+      "id": "erreur-telescopage",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Calcul de $S = \\displaystyle\\sum_{k=1}^{n}\\left(\\frac1k - \\frac{1}{k+1}\\right)$. Où est l'erreur ?",
+      "correction": [
+        "Après simplification, il reste $\\frac11$ et $-\\frac{1}{n+1}$ : $S = 1 - \\frac{1}{n+1}$."
+      ],
+      "etapes": [
+        "$S = \\sum_{k=1}^{n} \\frac1k - \\sum_{k=1}^{n}\\frac{1}{k+1}$.",
+        "Avec $j = k + 1$ : $\\sum_{k=1}^{n}\\frac{1}{k+1} = \\sum_{j=2}^{n+1}\\frac1j$.",
+        "Les termes de $2$ à $n$ se simplifient : $S = 1 - \\frac1n$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Le terme restant de la 2e somme est $\\frac{1}{n+1}$ (pour $j = n + 1$), pas $\\frac1n$."
     }
   ]
 }

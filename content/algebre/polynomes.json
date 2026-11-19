@@ -10,41 +10,138 @@
     {
       "titre": "Degré et division euclidienne",
       "blocs": [
-        { "type": "propriete", "titre": "Degré", "texte": "$\\deg(PQ) = \\deg P + \\deg Q$ et $\\deg(P + Q) \\leq \\max(\\deg P, \\deg Q)$ (inégalité stricte possible si les termes dominants se compensent). Par convention $\\deg 0 = -\\infty$." },
-        { "type": "theoreme", "titre": "Division euclidienne", "texte": "Pour $A, B \\in \\mathbb{K}[X]$ avec $B \\neq 0$, il existe un unique couple $(Q, R)$ tel que $A = BQ + R$ et $\\deg R < \\deg B$." },
-        { "type": "methode", "titre": "Reste sans poser la division", "texte": "Le reste de $A$ par $X - a$ est $A(a)$. Par $(X - a)(X - b)$ avec $a \\neq b$ : $R = \\alpha X + \\beta$, et on évalue $A = BQ + R$ en $a$ et en $b$." }
+        {
+          "type": "propriete",
+          "titre": "Degré",
+          "texte": "$\\deg(PQ) = \\deg P + \\deg Q$ et $\\deg(P + Q) \\leq \\max(\\deg P, \\deg Q)$ (inégalité stricte possible si les termes dominants se compensent). Par convention $\\deg 0 = -\\infty$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Division euclidienne",
+          "texte": "Pour $A, B \\in \\mathbb{K}[X]$ avec $B \\neq 0$, il existe un unique couple $(Q, R)$ tel que $A = BQ + R$ et $\\deg R < \\deg B$."
+        },
+        {
+          "type": "methode",
+          "titre": "Reste sans poser la division",
+          "texte": "Le reste de $A$ par $X - a$ est $A(a)$. Par $(X - a)(X - b)$ avec $a \\neq b$ : $R = \\alpha X + \\beta$, et on évalue $A = BQ + R$ en $a$ et en $b$."
+        }
       ]
     },
     {
       "titre": "Racines",
       "blocs": [
-        { "type": "theoreme", "texte": "$a$ est racine de $P$ ssi $(X - a)$ divise $P$. Un polynôme non nul de degré $n$ a au plus $n$ racines (comptées avec multiplicité)." },
-        { "type": "theoreme", "titre": "Multiplicité", "texte": "$a$ est racine de multiplicité $m$ ssi $P(a) = P'(a) = \\dots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \\neq 0$, ssi $(X - a)^m$ divise $P$ mais pas $(X - a)^{m+1}$." },
-        { "type": "theoreme", "titre": "Relations coefficients-racines", "texte": "Si $P = a_n X^n + \\dots + a_0$ a pour racines $x_1, \\dots, x_n$ (avec multiplicité) : $\\sum x_i = -\\dfrac{a_{n-1}}{a_n}$ et $\\prod x_i = (-1)^n \\dfrac{a_0}{a_n}$. Degré 2 : $S = -\\frac{b}{a}$, $P = \\frac{c}{a}$." }
+        {
+          "type": "theoreme",
+          "texte": "$a$ est racine de $P$ ssi $(X - a)$ divise $P$. Un polynôme non nul de degré $n$ a au plus $n$ racines (comptées avec multiplicité)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Multiplicité",
+          "texte": "$a$ est racine de multiplicité $m$ ssi $P(a) = P'(a) = \\dots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \\neq 0$, ssi $(X - a)^m$ divise $P$ mais pas $(X - a)^{m+1}$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Relations coefficients-racines",
+          "texte": "Si $P = a_n X^n + \\dots + a_0$ a pour racines $x_1, \\dots, x_n$ (avec multiplicité) : $\\sum x_i = -\\dfrac{a_{n-1}}{a_n}$ et $\\prod x_i = (-1)^n \\dfrac{a_0}{a_n}$. Degré 2 : $S = -\\frac{b}{a}$, $P = \\frac{c}{a}$."
+        }
       ]
     },
     {
       "titre": "Factorisation",
       "blocs": [
-        { "type": "theoreme", "titre": "D'Alembert-Gauss", "texte": "Tout polynôme non constant de $\\mathbb{C}[X]$ admet une racine : il se factorise en produit de facteurs de degré 1." },
-        { "type": "theoreme", "titre": "Dans $\\mathbb{R}[X]$", "texte": "Les irréductibles sont les polynômes de degré 1 et ceux de degré 2 à discriminant $< 0$. Si $P \\in \\mathbb{R}[X]$ et $z$ est racine, $\\bar z$ aussi (même multiplicité)." },
-        { "type": "exemple", "texte": "$X^4 - 1 = (X - 1)(X + 1)(X^2 + 1)$ dans $\\mathbb{R}[X]$, et $(X - 1)(X + 1)(X - i)(X + i)$ dans $\\mathbb{C}[X]$." }
+        {
+          "type": "theoreme",
+          "titre": "D'Alembert-Gauss",
+          "texte": "Tout polynôme non constant de $\\mathbb{C}[X]$ admet une racine : il se factorise en produit de facteurs de degré 1."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Dans $\\mathbb{R}[X]$",
+          "texte": "Les irréductibles sont les polynômes de degré 1 et ceux de degré 2 à discriminant $< 0$. Si $P \\in \\mathbb{R}[X]$ et $z$ est racine, $\\bar z$ aussi (même multiplicité)."
+        },
+        {
+          "type": "exemple",
+          "texte": "$X^4 - 1 = (X - 1)(X + 1)(X^2 + 1)$ dans $\\mathbb{R}[X]$, et $(X - 1)(X + 1)(X - i)(X + i)$ dans $\\mathbb{C}[X]$."
+        }
       ]
     }
   ],
   "flashcards": [
-    { "id": "f-deg-produit", "recto": "$\\deg(PQ) = $ ?", "verso": "$\\deg P + \\deg Q$" },
-    { "id": "f-deg-somme", "recto": "$\\deg(P + Q)$ ?", "verso": "$\\leq \\max(\\deg P, \\deg Q)$, avec égalité si les degrés sont différents." },
-    { "id": "f-division", "recto": "Énoncé de la division euclidienne ?", "verso": "$A = BQ + R$ avec $\\deg R < \\deg B$, et $(Q, R)$ unique." },
-    { "id": "f-reste-x-a", "recto": "Reste de la division de $P$ par $X - a$ ?", "verso": "$P(a)$" },
-    { "id": "f-racine-facteur", "recto": "$a$ racine de $P$ équivaut à… ?", "verso": "$(X - a)$ divise $P$." },
-    { "id": "f-multiplicite", "recto": "Caractérisation de « $a$ racine de multiplicité $m$ » par les dérivées ?", "verso": "$P(a) = \\dots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \\neq 0$." },
-    { "id": "f-nb-racines", "recto": "Nombre maximal de racines d'un polynôme non nul de degré $n$ ?", "verso": "$n$ (comptées avec multiplicité)." },
-    { "id": "f-irred-r", "recto": "Irréductibles de $\\mathbb{R}[X]$ ?", "verso": "Degré 1, et degré 2 à discriminant strictement négatif." },
-    { "id": "f-conjuguee", "recto": "$P \\in \\mathbb{R}[X]$ et $z \\in \\mathbb{C}$ racine : que dire de $\\bar z$ ?", "verso": "$\\bar z$ est aussi racine, avec la même multiplicité." },
-    { "id": "f-somme-racines", "recto": "Somme des racines de $a_nX^n + a_{n-1}X^{n-1} + \\dots + a_0$ ?", "verso": "$-\\dfrac{a_{n-1}}{a_n}$" },
-    { "id": "f-produit-racines", "recto": "Produit des racines de $a_nX^n + \\dots + a_0$ ?", "verso": "$(-1)^n \\dfrac{a_0}{a_n}$" },
-    { "id": "f-dalembert", "recto": "Théorème de d'Alembert-Gauss ?", "verso": "Tout polynôme non constant à coefficients complexes a au moins une racine dans $\\mathbb{C}$." }
+    {
+      "id": "f-deg-produit",
+      "recto": "$\\deg(PQ) = $ ?",
+      "verso": "$\\deg P + \\deg Q$"
+    },
+    {
+      "id": "f-deg-somme",
+      "recto": "$\\deg(P + Q)$ ?",
+      "verso": "$\\leq \\max(\\deg P, \\deg Q)$, avec égalité si les degrés sont différents."
+    },
+    {
+      "id": "f-division",
+      "recto": "Énoncé de la division euclidienne ?",
+      "verso": "$A = BQ + R$ avec $\\deg R < \\deg B$, et $(Q, R)$ unique."
+    },
+    {
+      "id": "f-reste-x-a",
+      "recto": "Reste de la division de $P$ par $X - a$ ?",
+      "verso": "$P(a)$"
+    },
+    {
+      "id": "f-racine-facteur",
+      "recto": "$a$ racine de $P$ équivaut à… ?",
+      "verso": "$(X - a)$ divise $P$."
+    },
+    {
+      "id": "f-multiplicite",
+      "recto": "Caractérisation de « $a$ racine de multiplicité $m$ » par les dérivées ?",
+      "verso": "$P(a) = \\dots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \\neq 0$."
+    },
+    {
+      "id": "f-nb-racines",
+      "recto": "Nombre maximal de racines d'un polynôme non nul de degré $n$ ?",
+      "verso": "$n$ (comptées avec multiplicité)."
+    },
+    {
+      "id": "f-irred-r",
+      "recto": "Irréductibles de $\\mathbb{R}[X]$ ?",
+      "verso": "Degré 1, et degré 2 à discriminant strictement négatif."
+    },
+    {
+      "id": "f-conjuguee",
+      "recto": "$P \\in \\mathbb{R}[X]$ et $z \\in \\mathbb{C}$ racine : que dire de $\\bar z$ ?",
+      "verso": "$\\bar z$ est aussi racine, avec la même multiplicité."
+    },
+    {
+      "id": "f-somme-racines",
+      "recto": "Somme des racines de $a_nX^n + a_{n-1}X^{n-1} + \\dots + a_0$ ?",
+      "verso": "$-\\dfrac{a_{n-1}}{a_n}$"
+    },
+    {
+      "id": "f-produit-racines",
+      "recto": "Produit des racines de $a_nX^n + \\dots + a_0$ ?",
+      "verso": "$(-1)^n \\dfrac{a_0}{a_n}$"
+    },
+    {
+      "id": "f-dalembert",
+      "recto": "Théorème de d'Alembert-Gauss ?",
+      "verso": "Tout polynôme non constant à coefficients complexes a au moins une racine dans $\\mathbb{C}$."
+    },
+    {
+      "id": "f-racines-j",
+      "recto": "Racines complexes de $X^2 + X + 1$ ?",
+      "verso": "$j = e^{2i\\pi/3}$ et $j^2 = \\bar j = e^{-2i\\pi/3}$, soit $\\dfrac{-1 \\pm i\\sqrt3}{2}$."
+    },
+    {
+      "id": "f-divisible-carre",
+      "recto": "$(X - a)^2$ divise $P$ ssi… ?",
+      "verso": "$P(a) = 0$ et $P'(a) = 0$."
+    },
+    {
+      "id": "f-degre-impair",
+      "recto": "Un polynôme réel de degré impair a-t-il une racine réelle ?",
+      "verso": "Oui, toujours (TVI : limites infinies de signes opposés)."
+    }
   ],
   "exercices": [
     {
@@ -52,12 +149,30 @@
       "type": "qcm",
       "difficulte": 1,
       "enonce": "Quel est le degré de $(X^2 + 1)(X^3 - X)$ ?",
-      "correction": ["$\\deg(PQ) = \\deg P + \\deg Q = 2 + 3 = 5$."],
+      "correction": [
+        "$\\deg(PQ) = \\deg P + \\deg Q = 2 + 3 = 5$."
+      ],
       "choix": [
-        { "texte": "$5$", "correct": true, "explication": "Les degrés s'ajoutent." },
-        { "texte": "$6$", "correct": false, "explication": "On ajoute les degrés, on ne les multiplie pas : $X^2 \\cdot X^3 = X^5$." },
-        { "texte": "$3$", "correct": false, "explication": "C'est le degré du plus grand facteur seulement." },
-        { "texte": "$4$", "correct": false, "explication": "Le terme dominant est $X^2 \\cdot X^3 = X^5$." }
+        {
+          "texte": "$5$",
+          "correct": true,
+          "explication": "Les degrés s'ajoutent."
+        },
+        {
+          "texte": "$6$",
+          "correct": false,
+          "explication": "On ajoute les degrés, on ne les multiplie pas : $X^2 \\cdot X^3 = X^5$."
+        },
+        {
+          "texte": "$3$",
+          "correct": false,
+          "explication": "C'est le degré du plus grand facteur seulement."
+        },
+        {
+          "texte": "$4$",
+          "correct": false,
+          "explication": "Le terme dominant est $X^2 \\cdot X^3 = X^5$."
+        }
       ]
     },
     {
@@ -71,10 +186,26 @@
         "$P(1) = 1 + 2 - 1 = 2$."
       ],
       "choix": [
-        { "texte": "$2$", "correct": true, "explication": "$P(1) = 2$." },
-        { "texte": "$-4$", "correct": false, "explication": "C'est $P(-1)$ : la racine de $X - 1$ est $1$, pas $-1$." },
-        { "texte": "$-1$", "correct": false, "explication": "C'est $P(0)$, le coefficient constant." },
-        { "texte": "$0$", "correct": false, "explication": "Le reste est nul seulement si $1$ est racine, or $P(1) = 2$." }
+        {
+          "texte": "$2$",
+          "correct": true,
+          "explication": "$P(1) = 2$."
+        },
+        {
+          "texte": "$-4$",
+          "correct": false,
+          "explication": "C'est $P(-1)$ : la racine de $X - 1$ est $1$, pas $-1$."
+        },
+        {
+          "texte": "$-1$",
+          "correct": false,
+          "explication": "C'est $P(0)$, le coefficient constant."
+        },
+        {
+          "texte": "$0$",
+          "correct": false,
+          "explication": "Le reste est nul seulement si $1$ est racine, or $P(1) = 2$."
+        }
       ]
     },
     {
@@ -90,10 +221,26 @@
         "En effet $P = (X - 1)^2(X + 2)$."
       ],
       "choix": [
-        { "texte": "$2$", "correct": true, "explication": "$P(1) = P'(1) = 0$ et $P''(1) \\neq 0$." },
-        { "texte": "$1$", "correct": false, "explication": "$P'(1) = 0$ aussi : la racine est au moins double." },
-        { "texte": "$3$", "correct": false, "explication": "$P''(1) = 6 \\neq 0$ : la multiplicité n'est pas 3." },
-        { "texte": "$0$", "correct": false, "explication": "$P(1) = 0$ : $1$ est bien racine." }
+        {
+          "texte": "$2$",
+          "correct": true,
+          "explication": "$P(1) = P'(1) = 0$ et $P''(1) \\neq 0$."
+        },
+        {
+          "texte": "$1$",
+          "correct": false,
+          "explication": "$P'(1) = 0$ aussi : la racine est au moins double."
+        },
+        {
+          "texte": "$3$",
+          "correct": false,
+          "explication": "$P''(1) = 6 \\neq 0$ : la multiplicité n'est pas 3."
+        },
+        {
+          "texte": "$0$",
+          "correct": false,
+          "explication": "$P(1) = 0$ : $1$ est bien racine."
+        }
       ]
     },
     {
@@ -107,10 +254,26 @@
         "$X^2 + 1$ a un discriminant $-4 < 0$ : il est irréductible dans $\\mathbb{R}[X]$."
       ],
       "choix": [
-        { "texte": "$(X - 1)(X + 1)(X^2 + 1)$", "correct": true, "explication": "$X^2 + 1$ est irréductible sur $\\mathbb{R}$." },
-        { "texte": "$(X - 1)(X + 1)(X - i)(X + i)$", "correct": false, "explication": "C'est la factorisation dans $\\mathbb{C}[X]$ : $X - i \\notin \\mathbb{R}[X]$." },
-        { "texte": "$(X^2 - 1)^2$", "correct": false, "explication": "$(X^2 - 1)^2 = X^4 - 2X^2 + 1 \\neq X^4 - 1$." },
-        { "texte": "$(X - 1)^4$", "correct": false, "explication": "$(X - 1)^4 = X^4 - 4X^3 + \\dots$ ; de plus $-1$ est aussi racine de $X^4 - 1$." }
+        {
+          "texte": "$(X - 1)(X + 1)(X^2 + 1)$",
+          "correct": true,
+          "explication": "$X^2 + 1$ est irréductible sur $\\mathbb{R}$."
+        },
+        {
+          "texte": "$(X - 1)(X + 1)(X - i)(X + i)$",
+          "correct": false,
+          "explication": "C'est la factorisation dans $\\mathbb{C}[X]$ : $X - i \\notin \\mathbb{R}[X]$."
+        },
+        {
+          "texte": "$(X^2 - 1)^2$",
+          "correct": false,
+          "explication": "$(X^2 - 1)^2 = X^4 - 2X^2 + 1 \\neq X^4 - 1$."
+        },
+        {
+          "texte": "$(X - 1)^4$",
+          "correct": false,
+          "explication": "$(X - 1)^4 = X^4 - 4X^3 + \\dots$ ; de plus $-1$ est aussi racine de $X^4 - 1$."
+        }
       ]
     },
     {
@@ -127,10 +290,26 @@
         "Un polynôme réel de degré 3 a une racine réelle, donc un facteur de degré 1 : il n'est jamais irréductible."
       ],
       "choix": [
-        { "texte": "$P$ admet au moins une racine réelle.", "correct": true, "explication": "Degré impair + TVI." },
-        { "texte": "Si $2 + i$ est racine de $P$, alors $2 - i$ aussi.", "correct": true, "explication": "Les racines non réelles d'un polynôme réel vont par paires conjuguées." },
-        { "texte": "$P$ a exactement 3 racines réelles (avec multiplicité).", "correct": false, "explication": "$X^3 + X$ n'a que $0$ comme racine réelle." },
-        { "texte": "$P$ peut être irréductible dans $\\mathbb{R}[X]$.", "correct": false, "explication": "Il a une racine réelle $a$, donc $(X - a)$ le divise." }
+        {
+          "texte": "$P$ admet au moins une racine réelle.",
+          "correct": true,
+          "explication": "Degré impair + TVI."
+        },
+        {
+          "texte": "Si $2 + i$ est racine de $P$, alors $2 - i$ aussi.",
+          "correct": true,
+          "explication": "Les racines non réelles d'un polynôme réel vont par paires conjuguées."
+        },
+        {
+          "texte": "$P$ a exactement 3 racines réelles (avec multiplicité).",
+          "correct": false,
+          "explication": "$X^3 + X$ n'a que $0$ comme racine réelle."
+        },
+        {
+          "texte": "$P$ peut être irréductible dans $\\mathbb{R}[X]$.",
+          "correct": false,
+          "explication": "Il a une racine réelle $a$, donc $(X - a)$ le divise."
+        }
       ]
     },
     {
@@ -144,10 +323,26 @@
         "Par identification : $x_1 + x_2 + x_3 = 2$."
       ],
       "choix": [
-        { "texte": "$2$", "correct": true, "explication": "$-\\frac{a_2}{a_3} = -\\frac{-2}{1}$." },
-        { "texte": "$-2$", "correct": false, "explication": "Signe oublié : la somme vaut $-\\frac{a_{n-1}}{a_n}$." },
-        { "texte": "$7$", "correct": false, "explication": "C'est le produit $x_1x_2x_3 = (-1)^3\\frac{-7}{1} = 7$." },
-        { "texte": "$5$", "correct": false, "explication": "C'est $x_1x_2 + x_1x_3 + x_2x_3$." }
+        {
+          "texte": "$2$",
+          "correct": true,
+          "explication": "$-\\frac{a_2}{a_3} = -\\frac{-2}{1}$."
+        },
+        {
+          "texte": "$-2$",
+          "correct": false,
+          "explication": "Signe oublié : la somme vaut $-\\frac{a_{n-1}}{a_n}$."
+        },
+        {
+          "texte": "$7$",
+          "correct": false,
+          "explication": "C'est le produit $x_1x_2x_3 = (-1)^3\\frac{-7}{1} = 7$."
+        },
+        {
+          "texte": "$5$",
+          "correct": false,
+          "explication": "C'est $x_1x_2 + x_1x_3 + x_2x_3$."
+        }
       ]
     },
     {
@@ -155,7 +350,9 @@
       "type": "numerique",
       "difficulte": 1,
       "enonce": "Soit $P = 2X^3 - X + 4$. Calculer $P(-2)$.",
-      "correction": ["$P(-2) = 2 \\times (-8) - (-2) + 4 = -16 + 2 + 4 = -10$."],
+      "correction": [
+        "$P(-2) = 2 \\times (-8) - (-2) + 4 = -16 + 2 + 4 = -10$."
+      ],
       "reponse": -10
     },
     {
@@ -182,7 +379,9 @@
         "Le quotient est $X^2 + X + 1$."
       ],
       "reponse": "x^2 + x + 1",
-      "variables": ["x"]
+      "variables": [
+        "x"
+      ]
     },
     {
       "id": "reste-x5",
@@ -196,7 +395,9 @@
         "Donc $\\beta = 0$, $\\alpha = 1$ : le reste est $X$."
       ],
       "reponse": "x",
-      "variables": ["x"]
+      "variables": [
+        "x"
+      ]
     },
     {
       "id": "vf-degre-somme",
@@ -209,9 +410,21 @@
       ],
       "reponse": false,
       "justifications": [
-        { "texte": "$P = X^2 + 1$ et $Q = -X^2$ donnent $\\deg(P + Q) = 0$.", "correct": true, "explication": "On a seulement $\\deg(P + Q) \\leq \\max(\\deg P, \\deg Q)$." },
-        { "texte": "Vrai : c'est la règle sur les degrés.", "correct": false, "explication": "La règle est une inégalité $\\leq$." },
-        { "texte": "Faux : c'est $\\deg P + \\deg Q$.", "correct": false, "explication": "$\\deg P + \\deg Q$ est le degré du PRODUIT." }
+        {
+          "texte": "$P = X^2 + 1$ et $Q = -X^2$ donnent $\\deg(P + Q) = 0$.",
+          "correct": true,
+          "explication": "On a seulement $\\deg(P + Q) \\leq \\max(\\deg P, \\deg Q)$."
+        },
+        {
+          "texte": "Vrai : c'est la règle sur les degrés.",
+          "correct": false,
+          "explication": "La règle est une inégalité $\\leq$."
+        },
+        {
+          "texte": "Faux : c'est $\\deg P + \\deg Q$.",
+          "correct": false,
+          "explication": "$\\deg P + \\deg Q$ est le degré du PRODUIT."
+        }
       ]
     },
     {
@@ -224,9 +437,21 @@
       ],
       "reponse": true,
       "justifications": [
-        { "texte": "Chaque racine $a$ fournit un facteur $(X - a)$, et le degré limite leur nombre.", "correct": true, "explication": "Le produit des $(X - a_i)$ divise $P$, donc son degré $p$ est $\\leq n$." },
-        { "texte": "Faux : $X^2 + 1$ n'a aucune racine réelle.", "correct": false, "explication": "« Au plus » $n$ : zéro racine est compatible." },
-        { "texte": "Vrai, mais seulement dans $\\mathbb{C}$.", "correct": false, "explication": "C'est vrai sur tout corps, en particulier $\\mathbb{R}$." }
+        {
+          "texte": "Chaque racine $a$ fournit un facteur $(X - a)$, et le degré limite leur nombre.",
+          "correct": true,
+          "explication": "Le produit des $(X - a_i)$ divise $P$, donc son degré $p$ est $\\leq n$."
+        },
+        {
+          "texte": "Faux : $X^2 + 1$ n'a aucune racine réelle.",
+          "correct": false,
+          "explication": "« Au plus » $n$ : zéro racine est compatible."
+        },
+        {
+          "texte": "Vrai, mais seulement dans $\\mathbb{C}$.",
+          "correct": false,
+          "explication": "C'est vrai sur tout corps, en particulier $\\mathbb{R}$."
+        }
       ]
     },
     {
@@ -246,6 +471,204 @@
       ],
       "etapeFausse": 3,
       "explication": "La conclusion ne vaudrait que si $\\deg P < 3$. Ici $P = (X - 1)(X - 2)(X - 3)$ est non nul et convient."
+    },
+    {
+      "id": "nombre-racines-complexes",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien $P = X^5 + 3X + 1$ a-t-il de racines dans $\\mathbb{C}$, comptées avec multiplicité ?",
+      "correction": [
+        "D'Alembert-Gauss : dans $\\mathbb{C}[X]$, un polynôme de degré $n$ se factorise en $n$ facteurs de degré 1. Il a exactement 5 racines (avec multiplicité)."
+      ],
+      "choix": [
+        {
+          "texte": "$5$",
+          "correct": true,
+          "explication": "Exactement le degré, dans $\\mathbb{C}$."
+        },
+        {
+          "texte": "$1$",
+          "correct": false,
+          "explication": "C'est le nombre de racines RÉELLES ici, pas complexes."
+        },
+        {
+          "texte": "$3$",
+          "correct": false,
+          "explication": "Le degré est 5 (le terme $3X$ n'est pas le terme dominant)."
+        },
+        {
+          "texte": "Au plus 5, peut-être moins",
+          "correct": false,
+          "explication": "« Au plus » vaut dans $\\mathbb{R}$ ; dans $\\mathbb{C}$ il y en a exactement 5."
+        }
+      ]
+    },
+    {
+      "id": "racines-x2-x-1",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelles sont les racines complexes de $X^2 + X + 1$ ?",
+      "correction": [
+        "$\\Delta = 1 - 4 = -3 = (i\\sqrt3)^2$.",
+        "Racines : $\\dfrac{-1 \\pm i\\sqrt3}{2}$, c'est-à-dire $j$ et $\\bar j$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{-1 \\pm i\\sqrt{3}}{2}$",
+          "correct": true,
+          "explication": "$\\frac{-b \\pm i\\sqrt{-\\Delta}}{2a}$."
+        },
+        {
+          "texte": "$\\dfrac{1 \\pm i\\sqrt{3}}{2}$",
+          "correct": false,
+          "explication": "Signe : c'est $-b = -1$ au numérateur (ce sont les racines de $X^2 - X + 1$)."
+        },
+        {
+          "texte": "$\\dfrac{-1 \\pm \\sqrt{3}}{2}$",
+          "correct": false,
+          "explication": "$\\Delta < 0$ : la racine carrée de $\\Delta$ est $i\\sqrt3$."
+        },
+        {
+          "texte": "Il n'y a pas de racine",
+          "correct": false,
+          "explication": "Pas de racine RÉELLE, mais deux racines complexes."
+        }
+      ]
+    },
+    {
+      "id": "divisible-parametre",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Pour quelle valeur de $a$ le polynôme $X^3 + aX + 2$ est-il divisible par $X - 1$ ?",
+      "correction": [
+        "Divisible par $X - 1$ $\\iff P(1) = 0 \\iff 1 + a + 2 = 0 \\iff a = -3$."
+      ],
+      "choix": [
+        {
+          "texte": "$a = -3$",
+          "correct": true,
+          "explication": "$P(1) = 3 + a = 0$."
+        },
+        {
+          "texte": "$a = 3$",
+          "correct": false,
+          "explication": "Erreur de signe : $1 + a + 2 = 0$ donne $a = -3$."
+        },
+        {
+          "texte": "$a = -1$",
+          "correct": false,
+          "explication": "On a oublié le terme constant 2."
+        },
+        {
+          "texte": "$a = -2$",
+          "correct": false,
+          "explication": "On a oublié le terme $X^3$ (qui vaut 1 en $X = 1$)."
+        }
+      ]
+    },
+    {
+      "id": "lecture-factorisation",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 2,
+      "enonce": "Soit $P = (X - 1)^2(X + 2)^3$. Lesquelles de ces affirmations sont vraies ?",
+      "correction": [
+        "$\\deg P = 2 + 3 = 5$.",
+        "$-2$ est racine de multiplicité 3.",
+        "$1$ est racine double, donc $P'(1) = 0$.",
+        "$P(0) = (-1)^2 \\times 2^3 = 8$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\deg P = 5$",
+          "correct": true,
+          "explication": "$2 + 3$."
+        },
+        {
+          "texte": "$-2$ est racine de multiplicité 3",
+          "correct": true,
+          "explication": "Facteur $(X + 2)^3$."
+        },
+        {
+          "texte": "$P'(1) \\neq 0$",
+          "correct": false,
+          "explication": "$1$ est racine double : $P(1) = P'(1) = 0$."
+        },
+        {
+          "texte": "$P(0) = -8$",
+          "correct": false,
+          "explication": "$(0 - 1)^2 = 1$ et $2^3 = 8$ : $P(0) = 8$."
+        }
+      ]
+    },
+    {
+      "id": "reste-x-plus-2",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quel est le reste de la division euclidienne de $X^4 + X + 1$ par $X + 2$ ?",
+      "correction": [
+        "Le reste est $P(-2) = 16 - 2 + 1 = 15$."
+      ],
+      "reponse": 15
+    },
+    {
+      "id": "quotient-x4-1",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Donner le quotient de la division euclidienne de $X^4 - 1$ par $X^2 + 1$.",
+      "correction": [
+        "$X^4 - 1 = (X^2 - 1)(X^2 + 1)$ : quotient $X^2 - 1$, reste nul."
+      ],
+      "reponse": "x^2 - 1",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "vf-degre-4-sans-racine",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Un polynôme réel de degré 4 sans racine réelle est le produit de deux trinômes irréductibles de $\\mathbb{R}[X]$.",
+      "correction": [
+        "Vrai : il se factorise en irréductibles de $\\mathbb{R}[X]$, de degré 1 ou 2.",
+        "Sans racine réelle, aucun facteur de degré 1 : il reste deux facteurs de degré 2 (à $\\Delta < 0$)."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Les irréductibles réels sont de degré 1 ou 2, et il n'y a pas de facteur de degré 1.",
+          "correct": true,
+          "explication": "Donc $4 = 2 + 2$."
+        },
+        {
+          "texte": "Faux : il est lui-même irréductible.",
+          "correct": false,
+          "explication": "Aucun polynôme réel de degré $\\geq 3$ n'est irréductible."
+        },
+        {
+          "texte": "Faux : il peut avoir un facteur irréductible de degré 3.",
+          "correct": false,
+          "explication": "Un polynôme réel de degré 3 a toujours une racine réelle."
+        }
+      ]
+    },
+    {
+      "id": "erreur-multiplicite",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Multiplicité de $1$ comme racine de $P = X^3 - 3X^2 + 3X - 1$. Où est l'erreur ?",
+      "correction": [
+        "$P'' = 6X - 6$, donc $P''(1) = 0$ aussi : la racine est au moins triple.",
+        "En fait $P = (X - 1)^3$ : multiplicité 3."
+      ],
+      "etapes": [
+        "$P(1) = 1 - 3 + 3 - 1 = 0$ : $1$ est racine.",
+        "$P' = 3X^2 - 6X + 3$ et $P'(1) = 0$.",
+        "Donc $1$ est racine de multiplicité exactement 2.",
+        "On peut écrire $P = (X - 1)^2Q$ avec $Q(1) \\neq 0$."
+      ],
+      "etapeFausse": 2,
+      "explication": "Pour conclure « exactement 2 », il faut vérifier $P''(1) \\neq 0$ ; or $P''(1) = 0$ : la racine est triple."
     }
   ]
 }
