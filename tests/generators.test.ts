@@ -50,6 +50,8 @@ describe('structure de tous les générateurs', () => {
               const textes = q.choix.map((c) => c.texte);
               expect(new Set(textes).size, textes.join(' | ')).toBe(textes.length);
               for (const c of q.choix) expect(c.texte + c.explication).not.toMatch(/undefined|NaN|\[object/);
+              // Pas de coefficient « 1 » inutile : 1x, 1e^{…}, 1\sin…
+              for (const c of q.choix) expect(c.texte, c.texte).not.toMatch(/(?<![\d.{^_])1(?=[a-z]|\\(sin|cos|tan|ln|sqrt|arctan))/);
             }
             if (q.type === 'expression') expect(verifierExpression(q.reponse, q.reponse, q).statut).toBe('correct');
             if (q.type === 'numerique') expect(verifierNumerique(Array.isArray(q.reponse) ? q.reponse.join(';') : String(q.reponse), q.reponse).statut).toBe('correct');

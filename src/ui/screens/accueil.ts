@@ -55,7 +55,7 @@ export function ecranAccueil(main: HTMLElement): void {
   );
 
   const carte = h('section', { class: 'carte-mondes', 'aria-label': 'Carte de progression' });
-  for (const monde of ['algebre', 'analyse'] as const) {
+  (['algebre', 'analyse'] as const).forEach((monde, numero) => {
     const chapitres = CONTENU.chapitres.filter((c) => c.monde === monde);
     const recommande = chapitres.find((c) => maitriseChapitre(p, c) < 0.5);
     const vaincus = chapitres.filter((c) => p.records.boss[c.id]?.vaincu).length;
@@ -66,29 +66,43 @@ export function ecranAccueil(main: HTMLElement): void {
         h(
           'header',
           { class: 'monde-entete' },
-          h('span', { class: 'monde-embleme' }, MONDES[monde].embleme),
-          h('div', null, h('h2', null, MONDES[monde].nom), h('p', null, MONDES[monde].sousTitre)),
-          h('span', { class: 'monde-boss', title: 'Boss vaincus' }, `👑 ${vaincus}/${chapitres.length}`),
+          h(
+            'div',
+            null,
+            h('p', { class: 'monde-section' }, `Section ${numero + 1} · 👑 ${vaincus}/${chapitres.length} boss`),
+            h('h2', null, `${MONDES[monde].embleme} ${MONDES[monde].nom}`),
+            h('p', null, MONDES[monde].sousTitre),
+          ),
         ),
         h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande))),
       ),
     );
-  }
+  });
   main.append(carte);
 }
+
+/** Décalage horizontal des nœuds : le chemin serpente comme une rivière. */
+const DECALAGES = [0, 44, 66, 44, 0, -44, -66, -44];
 
 function zone(c: Chapitre, i: number, recommande: boolean): HTMLElement {
   const p = etat.p;
   const m = Math.round(maitriseChapitre(p, c) * 100);
   const boss = p.records.boss[c.id];
+  const etatZone = boss?.vaincu ? 'conquise' : m >= 50 ? 'avancee' : recommande ? 'recommandee' : 'a-venir';
   return h(
     'li',
-    { class: `zone ${i % 2 ? 'droite' : 'gauche'} ${recommande ? 'recommandee' : ''} ${boss?.vaincu ? 'conquise' : ''}` },
+    { class: `zone ${etatZone}`, style: `--decalage:${DECALAGES[i % DECALAGES.length]}px` },
     h(
       'a',
       { href: `#/chapitre/${c.id}`, class: 'zone-lien', 'aria-label': `${c.titre}, maîtrise ${m} %` },
-      h('span', { class: 'zone-noeud', style: `--maitrise:${m}` }, h('span', { class: 'zone-icone' }, c.icone), boss?.vaincu ? h('span', { class: 'couronne', title: 'Boss vaincu' }, '👑') : null),
-      h('span', { class: 'zone-texte' }, h('strong', null, `${c.ordre}. ${c.titre}`), h('span', null, recommande ? `${m} % · ▶ recommandé` : `${m} % maîtrisé`)),
+      recommande ? h('span', { class: 'bulle' }, 'Commencer') : null,
+      h(
+        'span',
+        { class: 'zone-anneau', style: `--maitrise:${m}` },
+        h('span', { class: 'zone-noeud' }, h('span', { class: 'zone-icone' }, c.icone)),
+        boss?.vaincu ? h('span', { class: 'couronne', title: 'Boss vaincu' }, '👑') : null,
+      ),
+      h('span', { class: 'zone-texte' }, h('strong', null, c.titre), h('span', null, `${m} % maîtrisé`)),
     ),
   );
 }

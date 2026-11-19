@@ -130,14 +130,22 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
   const barre = h('div', { class: 'session-barre' });
   const chrono = h('div', { class: 'chrono', hidden: !cfg.chronoGlobal && !cfg.chronoQuestion }, h('div', { class: 'chrono-rempli' }));
   const scene = h('div', { class: 'session-scene' });
-  main.append(h('div', { class: `session mode-${cfg.mode}` }, h('h1', { class: 'session-titre' }, cfg.titre), barre, chrono, scene));
+  main.append(h('div', { class: `session mode-${cfg.mode}` }, barre, chrono, h('h1', { class: 'session-titre' }, cfg.titre), scene));
 
   function majBarre() {
     vider(barre);
+    // Progression : questions faites / total (modes infinis : par paliers de 10).
+    const fait = cfg.total ? s.rang / cfg.total : (s.rang % 10) / 10;
     ajouter(barre, [
+      h('a', { class: 'quitter', href: cfg.retour, 'aria-label': 'Quitter la séance', title: 'Quitter' }, '✕'),
+      h(
+        'div',
+        { class: 'progression', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(Math.round(fait * 100)) },
+        h('div', { class: 'progression-remplie', style: `width:${Math.max(fait * 100, 2)}%` }),
+      ),
       h('span', { class: 'compteur' }, cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `Question ${s.rang + 1}`),
-      cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': `${s.vies} vie(s)` }, '❤️'.repeat(Math.max(0, s.vies!)) + '🖤'.repeat(Math.max(0, cfg.vies - s.vies!))) : null,
-      cfg.mode === 'eclair' ? h('span', { class: 'score' }, `${s.score} pts`) : h('span', { class: 'score' }, `✅ ${s.bonnes}`),
+      cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': `${s.vies} vie(s)` }, `❤️ ${Math.max(0, s.vies!)}`) : null,
+      cfg.mode === 'eclair' ? h('span', { class: 'score' }, `⚡ ${s.score}`) : null,
       s.combo >= 2 ? h('span', { class: 'combo' }, `🔥 ×${s.combo}`) : null,
     ]);
   }
@@ -217,7 +225,7 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
         if (cfg.mode === 'eclair' && correct && !s.fini) avanceAuto = setTimeout(suivante, 650);
       },
       surSuivant: () => suivante(),
-      libelleSuivant: s.fini || (cfg.total !== null && s.rang + 1 >= cfg.total) ? 'Voir le bilan' : 'Suivant →',
+      libelleSuivant: s.fini || (cfg.total !== null && s.rang + 1 >= cfg.total) ? 'Voir le bilan' : 'Continuer',
     });
     scene.replaceChildren(ctrl.el);
     if (fin) toast('💀 Dernière vie !', 'erreur');
@@ -280,14 +288,21 @@ export function ecranSession(main: HTMLElement, params: string[]): () => void {
       h(
         'section',
         { class: `bilan ${gagne ? 'bilan-gagne' : ''}` },
+        h('div', { class: 'bilan-embleme', 'aria-hidden': 'true' }, gagne ? '🏆' : cfg.mode === 'boss' ? '💀' : '💪'),
         h('h2', null, titre),
         h(
           'div',
           { class: 'bilan-stats' },
-          h('div', null, h('strong', null, `${s.bonnes}/${Math.max(total, s.rang)}`), h('span', null, 'bonnes réponses')),
-          h('div', null, h('strong', null, `+${s.xp}`), h('span', null, 'XP gagnés')),
-          h('div', null, h('strong', null, `×${s.meilleurCombo}`), h('span', null, 'meilleur combo')),
+          h('div', { class: 'tuile tuile-xp' }, h('span', null, 'XP gagnés'), h('strong', null, `⚡ ${s.xp}`)),
+          h(
+            'div',
+            { class: 'tuile tuile-precision' },
+            h('span', null, 'Précision'),
+            h('strong', null, `🎯 ${s.rang ? Math.round((100 * s.bonnes) / s.rang) : 0} %`),
+          ),
+          h('div', { class: 'tuile tuile-combo' }, h('span', null, 'Combo max'), h('strong', null, `🔥 ${s.meilleurCombo}`)),
         ),
+        h('p', { class: 'bilan-score' }, `${s.bonnes} bonne(s) réponse(s) sur ${Math.max(total, s.rang)}`),
         records.map((r) => h('p', { class: 'record' }, r)),
         s.ratees ? h('p', { class: 'note' }, `Les ${s.ratees} question(s) ratée(s) reviendront dans ta révision du jour.`) : null,
         h(

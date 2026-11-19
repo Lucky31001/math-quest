@@ -65,6 +65,9 @@ describe('écrans', () => {
     expect(main.querySelector('.question.type-qcm')).toBeTruthy();
     expect(main.querySelector('.session-barre')!.textContent).toContain('Question 1/20');
     touche('1');
+    // QCM unique : « 1 » valide directement ; QCM multiple : « 1 » coche, Entrée valide.
+    if (!main.querySelector('.pied-juste, .pied-faux')) touche('Enter');
+    expect(main.querySelector('.pied-juste, .pied-faux')).toBeTruthy();
     expect(main.querySelector('.retour:not([hidden])')).toBeTruthy();
   });
 
@@ -72,7 +75,7 @@ describe('écrans', () => {
     vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date'] });
     await aller(`#/jouer/boss/${CONTENU.chapitres[0].id}`);
     const main = document.getElementById('contenu')!;
-    expect(main.querySelector('.vies')!.textContent).toBe('❤️❤️❤️');
+    expect(main.querySelector('.vies')!.textContent).toBe('❤️ 3');
     // Trois fois le temps écoulé → défaite
     for (let k = 0; k < 3; k++) {
       vi.advanceTimersByTime(200_000);
@@ -87,7 +90,7 @@ describe('écrans', () => {
     const main = document.getElementById('contenu')!;
     const q = main.querySelector('.question')!;
     // On donne une réponse forcément fausse ou invalide selon le type, puis on vérifie le compteur de vies.
-    expect(main.querySelector('.vies')!.textContent).toBe('❤️');
+    expect(main.querySelector('.vies')!.textContent).toBe('❤️ 1');
     expect(q).toBeTruthy();
   });
 });
@@ -101,7 +104,7 @@ describe('composant question : chaque type se corrige', () => {
       el.querySelectorAll<HTMLInputElement>('.choix input').forEach((i) => {
         if (pred(Number(i.value))) {
           i.checked = true;
-          i.dispatchEvent(new Event('change'));
+          i.dispatchEvent(new Event('change', { bubbles: true }));
         }
       });
     if (q.type === 'qcm') cliquerChoix((k) => q.choix[k].correct === juste || (!juste && !q.multiple && k === q.choix.findIndex((c) => !c.correct)));
@@ -116,7 +119,7 @@ describe('composant question : chaque type se corrige', () => {
       const input = el.querySelector<HTMLInputElement>('.saisie')!;
       const rep = q.type === 'numerique' ? (Array.isArray(q.reponse) ? q.reponse.join(' ; ') : String(q.reponse)) : q.reponse;
       input.value = juste ? rep : `${q.type === 'numerique' && Array.isArray(q.reponse) ? q.reponse.map(() => '12345').join(';') : '12345'}`;
-      input.dispatchEvent(new Event('input'));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     }
     (el.querySelector('.actions .btn-primaire') as HTMLButtonElement).click();
   }
@@ -157,6 +160,7 @@ describe('composant question : chaque type se corrige', () => {
     document.body.append(c.el);
     const input = c.el.querySelector<HTMLInputElement>('.saisie')!;
     input.value = '2+';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
     (c.el.querySelector('.actions .btn-primaire') as HTMLButtonElement).click();
     expect(appels).toBe(0);
     expect(c.el.querySelector('.msg-invalide')!.textContent).not.toBe('');

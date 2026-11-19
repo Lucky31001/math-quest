@@ -99,7 +99,7 @@ function produitExp(rng: Rng): Gabarit {
     erreurs: [
       { tex: `${monomeTex(new Q(n * a), n - 1)}${e}`, str: `${n * a}*x^${n - 1}*${ex}`, explication: "$(uv)' \\neq u'v'$ : on a fait le produit des dérivées." },
       { ...facteur(somme(monome(1, n), monome(n, n - 1))), explication: `Oubli du facteur $${a}$ : $(e^{${a}x})' = ${a}e^{${a}x}$.` },
-      { tex: `${monomeTex(new Q(n), n - 1)}${e}`, str: `${n}*x^${n - 1}*${ex}`, explication: "On n'a dérivé que $x^n$ : il manque le terme $uv'$." },
+      { tex: n === 1 ? e : `${monomeTex(new Q(n), n - 1)}${e}`, str: `${n}*x^${n - 1}*${ex}`, explication: "On n'a dérivé que $x^n$ : il manque le terme $uv'$." },
     ],
   };
 }

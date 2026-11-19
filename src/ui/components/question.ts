@@ -43,6 +43,7 @@ export interface ControleurQuestion {
 }
 
 const ETOILES = ['', '★☆☆', '★★☆', '★★★'];
+const BRAVOS = ['Excellent !', 'Bien joué !', 'Parfait !', 'Bravo !', 'Tu gères !', 'Impeccable !', 'Exact !'];
 
 /** Réponse attendue en LaTeX lisible (« (2)+(3)*i » → « 2+3i »). */
 function attenduTex(v: string | number): string {
@@ -63,12 +64,16 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
   const zone = h('div', { class: 'zone-reponse' });
   const msg = h('p', { class: 'msg-invalide', role: 'alert' });
   const retour = h('section', { class: 'retour', hidden: true, 'aria-live': 'polite' });
-  const btnValider = h('button', { class: 'btn btn-primaire', type: 'button' }, 'Valider');
+  const btnValider = h('button', { class: 'btn btn-primaire', type: 'button', disabled: true }, 'Vérifier');
   const blocIndice = h('div', { class: 'indice', hidden: true });
   const btnIndice =
     opts.indices !== false && q.indice
-      ? h('button', { class: 'btn btn-fantome', type: 'button', title: `Raccourci : H` }, `💡 Indice (−${COUT_INDICE} XP)`)
+      ? h('button', { class: 'btn btn-fantome', type: 'button', title: `Indice : coûte ${COUT_INDICE} XP (raccourci H)` }, `💡 −${COUT_INDICE} XP`)
       : null;
+  // Barre du bas (façon « leçon ») : Vérifier, puis verdict coloré + Continuer.
+  const verdictZone = h('div', { class: 'verdict-zone' });
+  const actions = h('div', { class: 'actions' }, btnIndice, btnValider);
+  const pied = h('div', { class: 'pied' }, h('div', { class: 'pied-contenu' }, verdictZone, actions));
 
   const el = h(
     'article',
@@ -84,9 +89,16 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     zone,
     msg,
     blocIndice,
-    h('div', { class: 'actions' }, btnIndice, btnValider),
     retour,
+    pied,
   );
+  /** Active « Vérifier » dès qu'une réponse complète est saisie. */
+  const majPret = () => {
+    if (!repondu) btnValider.disabled = typeof lireReponse() === 'string';
+  };
+  el.addEventListener('input', majPret);
+  el.addEventListener('change', majPret);
+  el.addEventListener('click', majPret);
 
   /* ------------------- construction selon le type ------------------ */
   let lireReponse: () => Reponse | string; // string = message d'erreur
@@ -333,17 +345,27 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     msg.textContent = '';
     el.classList.add(r.statut === 'correct' ? 'reussie' : 'ratee');
     vider(retour);
-    const verdict =
-      r.statut === 'correct'
-        ? '✅ Bonne réponse !'
-        : expire
-          ? '⏰ Temps écoulé !'
-          : r.partiel
-            ? '🟠 Presque : la valeur ou la justification est fausse.'
-            : r.bienTraites !== undefined && q.type === 'qcm' && q.multiple
-              ? `❌ Raté (${r.bienTraites}/${q.choix.length} choix bien traités).`
-              : '❌ Raté.';
-    retour.append(h('p', { class: 'verdict' }, verdict));
+    const juste = r.statut === 'correct';
+    const titre = juste
+      ? BRAVOS[Math.floor(Math.random() * BRAVOS.length)]
+      : expire
+        ? 'Temps écoulé !'
+        : r.partiel
+          ? 'Presque !'
+          : 'Pas tout à fait…';
+    const detail = juste
+      ? 'Bonne réponse.'
+      : r.partiel
+        ? 'La valeur ou la justification est fausse.'
+        : r.bienTraites !== undefined && q.type === 'qcm' && q.multiple
+          ? `${r.bienTraites}/${q.choix.length} choix bien traités. Regarde la correction.`
+          : 'Regarde la correction juste au-dessus.';
+    pied.classList.add(juste ? 'pied-juste' : 'pied-faux');
+    vider(verdictZone);
+    verdictZone.append(
+      h('span', { class: 'verdict-icone', 'aria-hidden': 'true' }, juste ? '✓' : expire ? '⏰' : '✕'),
+      h('div', null, h('p', { class: 'verdict' }, titre), h('p', { class: 'verdict-detail' }, detail)),
+    );
     afficherCorrectionSpecifique(r);
     const details = h(
       'details',
@@ -353,9 +375,9 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     );
     retour.append(details);
     if (opts.surSuivant) {
-      const b = h('button', { class: 'btn btn-primaire btn-suivant', type: 'button' }, opts.libelleSuivant ?? 'Suivant →');
+      const b = h('button', { class: `btn btn-suivant ${juste ? 'btn-primaire' : 'btn-danger-plein'}`, type: 'button' }, opts.libelleSuivant ?? 'Continuer');
       b.onclick = () => opts.surSuivant?.();
-      retour.append(b);
+      actions.replaceChildren(b);
       setTimeout(() => b.focus({ preventScroll: true }), 30);
     }
     retour.hidden = false;
@@ -406,7 +428,11 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       demanderIndice();
       return;
     }
-    for (const f of clavier) if (f(e)) return void e.preventDefault();
+    for (const f of clavier)
+      if (f(e)) {
+        majPret();
+        return void e.preventDefault();
+      }
   };
   document.addEventListener('keydown', surTouche);
 

@@ -34,6 +34,8 @@ function rendre(main: HTMLElement | null = mainCourant): void {
   const morceaux = chemin.split('/').filter(Boolean).map(decodeURIComponent);
   const nom = morceaux[0] ?? '';
   const trouve = routes.find(([p]) => p === nom) ?? routes.find(([p]) => p === '')!;
+  // Permet au CSS d'adapter la mise en page (ex. en-tête masqué pendant une séance).
+  document.body.dataset.ecran = trouve[0] || 'accueil';
   if (typeof nettoyage === 'function') nettoyage();
   main.replaceChildren();
   window.scrollTo({ top: 0 });
