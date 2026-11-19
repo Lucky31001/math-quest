@@ -1,0 +1,260 @@
+{
+  "$schema": "../schema.json",
+  "id": "complexes",
+  "monde": "algebre",
+  "ordre": 3,
+  "titre": "Nombres complexes",
+  "icone": "🌀",
+  "resume": "Forme algébrique, module, forme exponentielle, racines $n$-ièmes et trigonométrie.",
+  "cours": [
+    {
+      "titre": "Forme algébrique",
+      "blocs": [
+        { "type": "definition", "titre": "Nombre complexe", "texte": "Tout $z \\in \\mathbb{C}$ s'écrit de façon unique $z = a + ib$ avec $a = \\mathrm{Re}(z) \\in \\mathbb{R}$, $b = \\mathrm{Im}(z) \\in \\mathbb{R}$ et $i^2 = -1$." },
+        { "type": "definition", "titre": "Conjugué et module", "texte": "$\\bar z = a - ib$ et $|z| = \\sqrt{a^2 + b^2}$. On a $z\\bar z = |z|^2$, donc pour $z \\neq 0$ : $\\dfrac{1}{z} = \\dfrac{\\bar z}{|z|^2}$." },
+        { "type": "propriete", "texte": "$\\overline{z + z'} = \\bar z + \\bar z'$, $\\overline{zz'} = \\bar z\\,\\bar z'$, $|zz'| = |z|\\,|z'|$ et **inégalité triangulaire** : $|z + z'| \\leq |z| + |z'|$ (égalité ssi $z$ et $z'$ sont positivement colinéaires)." }
+      ]
+    },
+    {
+      "titre": "Forme trigonométrique et exponentielle",
+      "blocs": [
+        { "type": "definition", "texte": "Pour $\\theta \\in \\mathbb{R}$ : $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Tout $z \\neq 0$ s'écrit $z = r e^{i\\theta}$ avec $r = |z| > 0$ et $\\theta$ **un** argument de $z$ (défini modulo $2\\pi$)." },
+        { "type": "propriete", "titre": "Produit", "texte": "$e^{i\\theta}e^{i\\theta'} = e^{i(\\theta + \\theta')}$ : dans un produit, les modules se multiplient et les arguments s'ajoutent. $\\overline{e^{i\\theta}} = e^{-i\\theta} = \\dfrac{1}{e^{i\\theta}}$." },
+        { "type": "theoreme", "titre": "Formules d'Euler et de Moivre", "texte": "$\\cos\\theta = \\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$, $\\sin\\theta = \\dfrac{e^{i\\theta} - e^{-i\\theta}}{2i}$ et $(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$." },
+        { "type": "methode", "titre": "Trouver un argument de $a + ib$", "texte": "Calculer $r = |z|$ puis chercher $\\theta$ tel que $\\cos\\theta = \\frac{a}{r}$ et $\\sin\\theta = \\frac{b}{r}$. **Attention** : $\\arctan\\frac{b}{a}$ ne convient que si $a > 0$." }
+      ]
+    },
+    {
+      "titre": "Racines $n$-ièmes et équations",
+      "blocs": [
+        { "type": "theoreme", "titre": "Racines $n$-ièmes de l'unité", "texte": "Les solutions de $z^n = 1$ sont les $n$ nombres $\\omega_k = e^{2ik\\pi/n}$, $k \\in \\{0, \\dots, n-1\\}$. Pour $n \\geq 2$ : $\\sum_{k=0}^{n-1} \\omega_k = 0$." },
+        { "type": "theoreme", "titre": "Racines $n$-ièmes de $a = \\rho e^{i\\alpha}$", "texte": "Les solutions de $z^n = a$ sont les $n$ nombres $\\rho^{1/n} e^{i(\\alpha + 2k\\pi)/n}$, $k \\in \\{0, \\dots, n-1\\}$." },
+        { "type": "methode", "titre": "Racines carrées sous forme algébrique", "texte": "Pour $z^2 = w$ avec $z = x + iy$ : identifier $x^2 - y^2 = \\mathrm{Re}(w)$, $2xy = \\mathrm{Im}(w)$, et utiliser $x^2 + y^2 = |w|$." },
+        { "type": "theoreme", "titre": "Équation du second degré", "texte": "$az^2 + bz + c = 0$ ($a \\neq 0$, coefficients complexes) : si $\\delta^2 = \\Delta = b^2 - 4ac$, les solutions sont $\\dfrac{-b \\pm \\delta}{2a}$. Si les coefficients sont réels et $\\Delta < 0$ : $\\delta = i\\sqrt{-\\Delta}$." }
+      ]
+    },
+    {
+      "titre": "Trigonométrie",
+      "blocs": [
+        { "type": "methode", "titre": "Linéariser $\\cos^n$ et $\\sin^n$", "texte": "Écrire $\\cos x = \\frac{e^{ix} + e^{-ix}}{2}$, développer avec le binôme, regrouper les termes conjugués. Ex. : $\\cos^2 x = \\frac{1 + \\cos 2x}{2}$, $\\cos^3 x = \\frac{\\cos 3x + 3\\cos x}{4}$." },
+        { "type": "methode", "titre": "Angle moitié", "texte": "$e^{ia} + e^{ib} = e^{i\\frac{a+b}{2}}\\left(e^{i\\frac{a-b}{2}} + e^{-i\\frac{a-b}{2}}\\right) = 2\\cos\\left(\\frac{a-b}{2}\\right)e^{i\\frac{a+b}{2}}$. En particulier $1 + e^{i\\theta} = 2\\cos\\frac{\\theta}{2}\\,e^{i\\theta/2}$." }
+      ]
+    }
+  ],
+  "flashcards": [
+    { "id": "f-module", "recto": "Module de $z = a + ib$ ?", "verso": "$|z| = \\sqrt{a^2 + b^2}$" },
+    { "id": "f-zzbar", "recto": "Que vaut $z\\bar z$ ?", "verso": "$z\\bar z = |z|^2$ (un réel positif)." },
+    { "id": "f-inverse", "recto": "Forme algébrique de $\\dfrac{1}{z}$ pour $z \\neq 0$ ?", "verso": "$\\dfrac{1}{z} = \\dfrac{\\bar z}{|z|^2}$ : on multiplie par le conjugué." },
+    { "id": "f-euler", "recto": "Formules d'Euler ?", "verso": "$\\cos\\theta = \\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$ et $\\sin\\theta = \\dfrac{e^{i\\theta} - e^{-i\\theta}}{2i}$" },
+    { "id": "f-moivre", "recto": "Formule de Moivre ?", "verso": "$(\\cos\\theta + i\\sin\\theta)^n = \\cos(n\\theta) + i\\sin(n\\theta)$, i.e. $(e^{i\\theta})^n = e^{in\\theta}$." },
+    { "id": "f-arg-produit", "recto": "Argument d'un produit $zz'$ et d'un quotient $z/z'$ ?", "verso": "$\\arg(zz') \\equiv \\arg z + \\arg z'$ et $\\arg(z/z') \\equiv \\arg z - \\arg z' \\pmod{2\\pi}$." },
+    { "id": "f-unite", "recto": "Racines $n$-ièmes de l'unité ?", "verso": "$e^{2ik\\pi/n}$ pour $k \\in \\{0, \\dots, n-1\\}$ : il y en a exactement $n$." },
+    { "id": "f-somme-unite", "recto": "Somme des racines $n$-ièmes de l'unité ($n \\geq 2$) ?", "verso": "$0$ (somme géométrique de raison $\\omega = e^{2i\\pi/n} \\neq 1$ : $\\frac{1 - \\omega^n}{1 - \\omega} = 0$)." },
+    { "id": "f-j", "recto": "Propriétés de $j = e^{2i\\pi/3}$ ?", "verso": "$j^3 = 1$, $1 + j + j^2 = 0$, $\\bar j = j^2$." },
+    { "id": "f-racines-a", "recto": "Solutions de $z^n = \\rho e^{i\\alpha}$ ($\\rho > 0$) ?", "verso": "$\\rho^{1/n} e^{i\\frac{\\alpha + 2k\\pi}{n}}$, $k \\in \\{0, \\dots, n-1\\}$." },
+    { "id": "f-second-degre", "recto": "Solutions de $az^2 + bz + c = 0$ dans $\\mathbb{C}$ ?", "verso": "$\\dfrac{-b \\pm \\delta}{2a}$ où $\\delta$ est une racine carrée de $\\Delta = b^2 - 4ac$." },
+    { "id": "f-angle-moitie", "recto": "Factoriser $1 + e^{i\\theta}$ ?", "verso": "$1 + e^{i\\theta} = 2\\cos\\left(\\frac{\\theta}{2}\\right) e^{i\\theta/2}$ (angle moitié)." }
+  ],
+  "exercices": [
+    {
+      "id": "module-3-4i",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $|3 - 4i|$ ?",
+      "indice": "$|a + ib| = \\sqrt{a^2 + b^2}$.",
+      "correction": ["$|3 - 4i| = \\sqrt{3^2 + (-4)^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$."],
+      "choix": [
+        { "texte": "$5$", "correct": true, "explication": "$\\sqrt{9 + 16} = 5$." },
+        { "texte": "$7$", "correct": false, "explication": "Le module n'est pas $|a| + |b|$ : c'est $\\sqrt{a^2 + b^2}$." },
+        { "texte": "$25$", "correct": false, "explication": "C'est $|z|^2$ : il manque la racine carrée." },
+        { "texte": "$\\sqrt{7}$", "correct": false, "explication": "On a calculé $\\sqrt{|a^2 - b^2|}$ : le signe $-$ de $-4i$ ne passe pas dans la formule, $b^2 = 16$." }
+      ]
+    },
+    {
+      "id": "inverse-1-plus-i",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la forme algébrique de $\\dfrac{1}{1 + i}$ ?",
+      "indice": "Multiplie numérateur et dénominateur par le conjugué $1 - i$.",
+      "correction": [
+        "$\\dfrac{1}{1+i} = \\dfrac{1 - i}{(1+i)(1-i)} = \\dfrac{1 - i}{1 + 1}$.",
+        "Donc $\\dfrac{1}{1+i} = \\dfrac{1}{2} - \\dfrac{1}{2}i$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{1}{2} - \\dfrac{1}{2}i$", "correct": true, "explication": "$\\frac{\\bar z}{|z|^2}$ avec $|1+i|^2 = 2$." },
+        { "texte": "$1 - i$", "correct": false, "explication": "C'est le conjugué : il faut encore diviser par $|z|^2 = 2$." },
+        { "texte": "$\\dfrac{1}{2} + \\dfrac{1}{2}i$", "correct": false, "explication": "On multiplie par le CONJUGUÉ : la partie imaginaire change de signe." },
+        { "texte": "$1 + i$", "correct": false, "explication": "$\\frac{1}{1+i} \\neq 1 + i$ : vérifie, $(1+i)(1+i) = 2i \\neq 1$." }
+      ]
+    },
+    {
+      "id": "racines-4-unite",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 2,
+      "enonce": "Lesquels de ces nombres sont des racines **quatrièmes** de l'unité (solutions de $z^4 = 1$) ?",
+      "indice": "Les racines 4-ièmes de l'unité sont les $e^{2ik\\pi/4} = e^{ik\\pi/2}$, $k = 0, 1, 2, 3$.",
+      "correction": [
+        "Les racines 4-ièmes de l'unité sont $e^{ik\\pi/2}$ pour $k \\in \\{0, 1, 2, 3\\}$, soit $1, i, -1, -i$.",
+        "$(e^{i\\pi/4})^4 = e^{i\\pi} = -1 \\neq 1$ et $(e^{2i\\pi/3})^4 = e^{8i\\pi/3} = e^{2i\\pi/3} \\neq 1$."
+      ],
+      "choix": [
+        { "texte": "$i$", "correct": true, "explication": "$i^4 = (i^2)^2 = (-1)^2 = 1$." },
+        { "texte": "$-1$", "correct": true, "explication": "$(-1)^4 = 1$." },
+        { "texte": "$e^{i\\pi/4}$", "correct": false, "explication": "$(e^{i\\pi/4})^4 = e^{i\\pi} = -1$ : c'est une racine 8-ième de l'unité." },
+        { "texte": "$e^{2i\\pi/3}$", "correct": false, "explication": "C'est $j$, racine CUBIQUE de l'unité : $j^4 = j \\neq 1$." }
+      ]
+    },
+    {
+      "id": "puissance-1-plus-i",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Que vaut $(1 + i)^8$ ?",
+      "indice": "Passe en forme exponentielle : $1 + i = \\sqrt{2}\\,e^{i\\pi/4}$.",
+      "correction": [
+        "$1 + i = \\sqrt{2}\\,e^{i\\pi/4}$.",
+        "$(1+i)^8 = (\\sqrt{2})^8 e^{8i\\pi/4} = 16\\,e^{2i\\pi} = 16$."
+      ],
+      "choix": [
+        { "texte": "$16$", "correct": true, "explication": "Module $(\\sqrt 2)^8 = 16$, argument $2\\pi \\equiv 0$." },
+        { "texte": "$256$", "correct": false, "explication": "$|1 + i| = \\sqrt{2}$, pas $2$ : $(\\sqrt{2})^8 = 2^4 = 16$." },
+        { "texte": "$16i$", "correct": false, "explication": "L'argument vaut $8 \\times \\frac{\\pi}{4} = 2\\pi \\equiv 0$, pas $\\frac{\\pi}{2}$." },
+        { "texte": "$-16$", "correct": false, "explication": "L'argument vaut $8 \\times \\frac{\\pi}{4} = 2\\pi$, pas $\\pi$." }
+      ]
+    },
+    {
+      "id": "somme-racines-unite",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Soit $n \\geq 2$ et $\\omega = e^{2i\\pi/n}$. Que vaut $1 + \\omega + \\omega^2 + \\dots + \\omega^{n-1}$ ?",
+      "indice": "C'est une somme géométrique de raison $\\omega \\neq 1$.",
+      "correction": [
+        "$\\omega \\neq 1$ car $n \\geq 2$, donc $\\sum_{k=0}^{n-1}\\omega^k = \\dfrac{1 - \\omega^n}{1 - \\omega}$.",
+        "Or $\\omega^n = e^{2i\\pi} = 1$, donc la somme vaut $0$."
+      ],
+      "choix": [
+        { "texte": "$0$", "correct": true, "explication": "Somme géométrique et $\\omega^n = 1$." },
+        { "texte": "$n$", "correct": false, "explication": "Ce serait le cas si tous les termes valaient 1, or $\\omega \\neq 1$." },
+        { "texte": "$-1$", "correct": false, "explication": "C'est la somme SANS le terme $1$ (de $k = 1$ à $n - 1$)." },
+        { "texte": "$1$", "correct": false, "explication": "$\\frac{1 - \\omega^n}{1 - \\omega}$ a un numérateur nul : la somme vaut 0." }
+      ]
+    },
+    {
+      "id": "linearisation-cos2",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Pour tout réel $x$, $\\cos^2 x$ est égal à :",
+      "indice": "Pense à $\\cos 2x = 2\\cos^2 x - 1$, ou à la formule d'Euler.",
+      "correction": [
+        "$\\cos^2 x = \\left(\\dfrac{e^{ix} + e^{-ix}}{2}\\right)^2 = \\dfrac{e^{2ix} + 2 + e^{-2ix}}{4}$.",
+        "$= \\dfrac{2\\cos 2x + 2}{4} = \\dfrac{1 + \\cos 2x}{2}$."
+      ],
+      "choix": [
+        { "texte": "$\\dfrac{1 + \\cos 2x}{2}$", "correct": true, "explication": "Linéarisation par Euler." },
+        { "texte": "$\\dfrac{1 - \\cos 2x}{2}$", "correct": false, "explication": "C'est la linéarisation de $\\sin^2 x$." },
+        { "texte": "$\\cos(x^2)$", "correct": false, "explication": "$\\cos^2 x$ désigne $(\\cos x)^2$, pas $\\cos(x^2)$." },
+        { "texte": "$\\dfrac{1 + \\cos 2x}{4}$", "correct": false, "explication": "Le carré de $\\frac{1}{2}$ donne $\\frac{1}{4}$, mais $e^{2ix} + e^{-2ix} = 2\\cos 2x$ apporte un facteur 2." }
+      ]
+    },
+    {
+      "id": "module-produit",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $|(3 + 4i)(1 - i)|$.",
+      "indice": "Le module d'un produit est le produit des modules.",
+      "correction": [
+        "$|(3 + 4i)(1 - i)| = |3 + 4i| \\times |1 - i|$.",
+        "$|3 + 4i| = 5$ et $|1 - i| = \\sqrt{2}$, donc le résultat est $5\\sqrt{2}$."
+      ],
+      "reponse": "5*sqrt(2)"
+    },
+    {
+      "id": "second-degre",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Résoudre dans $\\mathbb{C}$ l'équation $z^2 + 2z + 5 = 0$. Donne les deux solutions séparées par « ; ».",
+      "indice": "Calcule $\\Delta$ : il est négatif, donc $\\delta = i\\sqrt{-\\Delta}$.",
+      "correction": [
+        "$\\Delta = 2^2 - 4 \\times 5 = -16 = (4i)^2$.",
+        "$z = \\dfrac{-2 \\pm 4i}{2} = -1 \\pm 2i$."
+      ],
+      "reponse": ["-1+2i", "-1-2i"]
+    },
+    {
+      "id": "puissance-1-i-racine3",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Calculer $(1 + i\\sqrt{3})^6$.",
+      "indice": "Mets $1 + i\\sqrt{3}$ sous forme exponentielle.",
+      "correction": [
+        "$|1 + i\\sqrt 3| = \\sqrt{1 + 3} = 2$ et $1 + i\\sqrt{3} = 2\\left(\\frac{1}{2} + i\\frac{\\sqrt 3}{2}\\right) = 2e^{i\\pi/3}$.",
+        "$(1 + i\\sqrt{3})^6 = 2^6 e^{6i\\pi/3} = 64\\,e^{2i\\pi} = 64$."
+      ],
+      "reponse": 64
+    },
+    {
+      "id": "linearisation-cos3",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Linéariser $\\cos^3 x$ (l'écrire comme combinaison de $\\cos(kx)$).",
+      "indice": "$\\cos x = \\frac{e^{ix} + e^{-ix}}{2}$, puis binôme : $(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$.",
+      "correction": [
+        "$\\cos^3 x = \\dfrac{(e^{ix} + e^{-ix})^3}{8} = \\dfrac{e^{3ix} + 3e^{ix} + 3e^{-ix} + e^{-3ix}}{8}$.",
+        "On regroupe : $\\dfrac{2\\cos 3x + 6\\cos x}{8}$.",
+        "$\\cos^3 x = \\dfrac{\\cos 3x + 3\\cos x}{4}$."
+      ],
+      "reponse": "(cos(3*x) + 3*cos(x))/4",
+      "variables": ["x"]
+    },
+    {
+      "id": "vf-module-additif",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour tous $z, z' \\in \\mathbb{C}$ : $|z + z'| = |z| + |z'|$.",
+      "correction": [
+        "Faux : avec $z = 1$ et $z' = -1$, $|z + z'| = 0$ alors que $|z| + |z'| = 2$.",
+        "On a seulement l'inégalité triangulaire $|z + z'| \\leq |z| + |z'|$."
+      ],
+      "reponse": false,
+      "justifications": [
+        { "texte": "Contre-exemple : $z = 1$, $z' = -1$.", "correct": true, "explication": "$|0| = 0 \\neq 2$ : un seul contre-exemple suffit." },
+        { "texte": "C'est l'inégalité triangulaire.", "correct": false, "explication": "L'inégalité triangulaire donne $\\leq$, pas l'égalité." },
+        { "texte": "Le module est additif, comme la valeur absolue.", "correct": false, "explication": "Même la valeur absolue n'est pas additive : $|1 + (-1)| \\neq |1| + |-1|$." }
+      ]
+    },
+    {
+      "id": "vf-conjugue-inverse",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour $z \\neq 0$ : $\\bar z = \\dfrac{1}{z} \\iff |z| = 1$.",
+      "correction": [
+        "$z\\bar z = |z|^2$, donc $\\bar z = \\frac{1}{z} \\iff z\\bar z = 1 \\iff |z|^2 = 1 \\iff |z| = 1$.",
+        "L'affirmation est vraie."
+      ],
+      "reponse": true,
+      "justifications": [
+        { "texte": "Car $z\\bar z = |z|^2$.", "correct": true, "explication": "$\\bar z = \\frac 1z \\iff z\\bar z = 1 \\iff |z|^2 = 1$." },
+        { "texte": "Car le conjugué de $z$ est toujours $\\frac{1}{z}$.", "correct": false, "explication": "Faux en général : $\\bar 2 = 2 \\neq \\frac12$." },
+        { "texte": "Il faut en plus que $z$ soit réel.", "correct": false, "explication": "$z = i$ convient : $\\bar i = -i = \\frac{1}{i}$, et $i$ n'est pas réel." }
+      ]
+    },
+    {
+      "id": "erreur-racine-moins-un",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Voici une « démonstration » de $-1 = 1$. Où est l'erreur ?",
+      "correction": [
+        "La propriété $\\sqrt{a}\\sqrt{b} = \\sqrt{ab}$ n'est valable que pour $a, b \\geq 0$.",
+        "La notation $\\sqrt{\\ }$ n'a pas de sens « canonique » pour un nombre négatif : on ne peut pas manipuler $\\sqrt{-1}$ comme une racine réelle."
+      ],
+      "etapes": [
+        "Notons (par convention) $\\sqrt{-1}$ le nombre $i$, qui vérifie $i^2 = -1$.",
+        "Alors $-1 = i \\times i = \\sqrt{-1} \\times \\sqrt{-1}$.",
+        "Donc $-1 = \\sqrt{(-1) \\times (-1)}$.",
+        "Donc $-1 = \\sqrt{1} = 1$."
+      ],
+      "etapeFausse": 2,
+      "explication": "$\\sqrt{a}\\sqrt{b} = \\sqrt{ab}$ n'est vrai que pour des réels $a, b \\geq 0$ : on ne peut pas l'appliquer à $a = b = -1$."
+    }
+  ]
+}
