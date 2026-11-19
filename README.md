@@ -7,6 +7,7 @@ Application web **gamifiée** de révision pour la prépa intégrée (pré-ing 1
 - **30 chapitres** : 7 en algèbre et 7 en analyse (15 flashcards, 18 à 23 exercices chacun), 9 en physique (mécanique, électricité, optique, thermodynamique, analyse dimensionnelle, pensée scientifique) et 7 en informatique (bases du C, boucles, fonctions et tableaux, chaînes, pointeurs, algorithmes, listes chaînées), avec 12 à 14 flashcards et 13 à 16 exercices chacun ; tous ont une fiche de cours.
 - **5 types de questions** : QCM (réponse unique ou multiple), réponse numérique, réponse expression (`2x+2` = `2(x+1)`), vrai/faux justifié, « trouve l'erreur ».
 - **32 générateurs** d'exercices aléatoires (tables de vérité, négations, dénombrement, dérivées, tangentes, DL, racines complexes, matrices, systèmes, primitives, EDO…) : exercices infinis, en QCM ou à saisir.
+- **Atelier C** : écrire, compiler et exécuter du C directement dans le navigateur (compilateur [xcc](https://github.com/tyfkda/xcc) en WebAssembly, rien n'est envoyé à un serveur), avec un bouton « Essayer » sous chaque exemple de code du cours.
 - **Gamification** : XP, niveaux et titres, streak 🔥, badges, carte de progression, modes **Boss**, **Survie** et **QCM éclair**.
 - **Révision efficace** : répétition espacée (Leitner, 5 boîtes), « Révision du jour », tableau de bord avec points faibles.
 - Progression sauvegardée dans le navigateur, **export / import JSON**.
@@ -49,7 +50,7 @@ Grâce à `"$schema": "../schema.json"`, VS Code propose l'autocomplétion et si
 
 **Règles d'écriture :**
 - tous les textes acceptent du **LaTeX** entre `$…$` (en ligne) ou `$$…$$` (bloc), ainsi que `**gras**` ;
-- du **code** : `` `x / 2` `` en ligne, ou un bloc ` ```c ` … ` ``` ` (indentation conservée, ni LaTeX ni gras à l'intérieur). Pour une question d'informatique, `tests/contenu-maths.test.ts` compile avec `gcc` et exécute le bloc de code de l'énoncé ;
+- du **code** : `` `x / 2` `` en ligne, ou un bloc ` ```c ` … ` ``` ` (indentation conservée, ni LaTeX ni gras à l'intérieur). Pour une question d'informatique, les vérifications (`tests/verifications/informatique.ts`) compilent avec `gcc` et exécutent le bloc de code de l'énoncé ;
 - en JSON, chaque antislash est doublé : `"$\\frac{1}{2}$"` ;
 - les `id` sont en minuscules avec tirets, et uniques dans le chapitre.
 
@@ -272,12 +273,14 @@ Après avoir ajouté du contenu, lance `npm test`, qui vérifie :
 
 ## Tests
 
-- **Vérification des réponses** : `tests/checker.test.ts`.
-- **Correction des QCM** (unique et multiple) et des autres types : `tests/grading.test.ts`.
-- **Générateurs** : `tests/generators.test.ts`. Pour chaque générateur, on relit l'énoncé LaTeX *affiché*, on recalcule la réponse, et on vérifie que la bonne réponse est juste et que **chaque distracteur est faux**.
-- **Exactitude du contenu** : `tests/contenu.test.ts` et `tests/contenu-maths.test.ts`. Chaque réponse numérique ou expression est recalculée par une méthode indépendante : force brute, Simpson, Runge-Kutta, différences finies.
-- **Logique de jeu** : `tests/jeu.test.ts`.
-- **Interface** : `tests/ui.test.ts`, test de fumée en DOM simulé.
+Une vérification qui porte sur beaucoup d'éléments (chapitres, questions, générateurs) est **un seul test** : `toutVerifier` (`tests/outils/tout-verifier.ts`) exécute tout et, en cas d'échec, liste chaque élément fautif par son nom. Environ 160 tests au total.
+
+- **Contenu** : `tests/contenu.test.ts` (schéma, volume, LaTeX, QCM) et `tests/contenu-verifie.test.ts`, qui recalcule chaque réponse par une méthode indépendante. Les vérifications sont rangées par matière dans `tests/verifications/` (`maths.ts`, `physique.ts`, `informatique.ts`) ; leurs outils (Simpson, Runge-Kutta, Gauss, gcc, tracé de rayons) sont dans `tests/outils/verification.ts`.
+- **Générateurs** : `tests/generators.test.ts` et `tests/generators-extra.test.ts`. On relit l'énoncé LaTeX *affiché*, on recalcule la réponse, et on vérifie que la bonne réponse est juste et que **chaque distracteur est faux**.
+- **Atelier C** : `tests/atelier-c.test.ts`. Le compilateur WebAssembly compile chaque bloc de code des cours et donne les mêmes sorties que gcc.
+- **Vérification des saisies** : `tests/checker.test.ts` ; **correction** : `tests/grading.test.ts` ; **logique de jeu** : `tests/jeu.test.ts` ; **sauvegarde** : `tests/sauvegarde.test.ts` ; **interface** : `tests/ui.test.ts` (DOM simulé).
+
+Les tests ont besoin de `gcc` (présent sur les runners GitHub `ubuntu-latest`).
 
 ## Déploiement (GitHub Pages)
 

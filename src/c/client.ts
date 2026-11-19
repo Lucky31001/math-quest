@@ -67,5 +67,3 @@ export function arreter(raison: 'utilisateur' | 'temps' = 'utilisateur'): void {
   worker = null;
   fin({ etape: 'arret', raison });
 }
-
-export const executionEnCours = (): boolean => enCours !== null;

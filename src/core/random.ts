@@ -46,8 +46,3 @@ export function shuffle<T>(arr: readonly T[], rng: Rng = Math.random): T[] {
   }
   return out;
 }
-
-/** Tire `n` éléments distincts. */
-export function sample<T>(arr: readonly T[], n: number, rng: Rng = Math.random): T[] {
-  return shuffle(arr, rng).slice(0, n);
-}

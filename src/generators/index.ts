@@ -76,6 +76,3 @@ export function generer(g: Generateur, difficulte: Difficulte, forme?: Forme, gr
 }
 
 export const estGeneree = (id: string): boolean => id.startsWith(PREFIXE_GEN);
-
-/** Retrouve l'identifiant du générateur à partir de l'id d'une question générée. */
-export const generateurDeQuestion = (id: string): string | null => (estGeneree(id) ? id.split('~')[1] : null);

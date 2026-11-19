@@ -227,6 +227,3 @@ export const dlOrdre3: Generateur = {
   },
 };
 
-/** Exposé pour les tests : la fonction cible et son DL. */
-export const _tirerDl = tirer;
-export { ORDRE };

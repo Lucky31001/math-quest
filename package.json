@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Révision gamifiée d'algèbre et d'analyse (pré-ing 1)",
+  "description": "Révision gamifiée de pré-ing 1 (CY Tech) : algèbre, analyse, physique, informatique en C",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
