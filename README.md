@@ -216,7 +216,7 @@ L'élève clique sur la ligne fausse de la démonstration. `etapeFausse` est l'i
 
 Les niveaux (années) et leurs matières sont décrits dans `content/catalogue.json`. L'accueil s'en sert pour afficher :
 - un sélecteur de niveau, seulement s'il y en a plusieurs ;
-- des onglets de matières ;
+- un carrousel à points des matières (une carte par matière, à faire glisser) ;
 - le chemin de chapitres de la matière choisie.
 
 Aucun code n'est à modifier.

@@ -2,64 +2,41 @@
    Math Quest — feuille de style unique, esprit « appli de leçons » :
    couleurs vives, police arrondie, boutons en relief qui s'enfoncent,
    chemin de leçons sinueux, barre de verdict colorée en bas d'écran.
-   Jetons sur :root (clair par défaut, sombre si préféré). Mobile d'abord.
+   Thème SOMBRE global (jetons sur :root). Mobile d'abord.
    ===================================================================== */
 
 :root {
-  --fond: #ffffff;
-  --fond-2: #f7f7f7;
-  --surface: #ffffff;
-  --surface-2: #f7f7f7;
-  --bord: #e5e5e5;
-  --bord-fonce: #cecece;
-  --texte: #3c3c3c;
-  --texte-doux: #777777;
-  --texte-pale: #afafaf;
+  /* Fond de page un peu plus profond que les cartes, pour donner du relief */
+  --fond: #0f1a1f;
+  --fond-2: #172730;
+  --surface: #15242b;
+  --surface-2: #1e3039;
+  --bord: #34444d;
+  --bord-fonce: #26353d;
+  --texte: #f1f7fb;
+  --texte-doux: #afb8bd;
+  --texte-pale: #5c6f77;
 
   --vert: #58cc02;
   --vert-fonce: #58a700;
-  --vert-clair: #d7ffb8;
-  --vert-texte: #58a700;
+  --vert-clair: #1f3a12;
+  --vert-texte: #79d634;
   --bleu: #1cb0f6;
   --bleu-fonce: #1899d6;
-  --bleu-clair: #ddf4ff;
-  --bleu-bord: #84d8ff;
+  --bleu-clair: #13394b;
+  --bleu-bord: #1d6f94;
   --rouge: #ff4b4b;
   --rouge-fonce: #ea2b2b;
-  --rouge-clair: #ffdfe0;
+  --rouge-clair: #3f1d20;
   --jaune: #ffc800;
   --jaune-fonce: #e5a800;
   --orange: #ff9600;
   --violet: #ce82ff;
   --violet-fonce: #a568cc;
 
-  /* Décor de fond (le dégradé des vagues reprend --vert, --bleu, --violet) */
-  --ciel: #eef9ff;
-
   --rayon: 16px;
   --police: 'Nunito', 'Segoe UI Rounded', 'SF Pro Rounded', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fond: #131f24;
-    --fond-2: #1a2a31;
-    --surface: #131f24;
-    --surface-2: #202f36;
-    --bord: #37464f;
-    --bord-fonce: #2b3a42;
-    --texte: #f1f7fb;
-    --texte-doux: #afb8bd;
-    --texte-pale: #52656d;
-    --vert-clair: #1f3a12;
-    --vert-texte: #79d634;
-    --bleu-clair: #13394b;
-    --bleu-bord: #1d6f94;
-    --rouge-clair: #3f1d20;
-    --ciel: #10232b;
-    color-scheme: dark;
-  }
+  color-scheme: dark;
 }
 
 *,
@@ -536,7 +513,7 @@ body[data-ecran='jouer'] .hud {
 }
 
 .carte-action.revision.a-faire .carte-icone {
-  background: #fff1d6;
+  background: #3d2c12;
 }
 
 .carte-action.survie .carte-icone {
@@ -544,7 +521,7 @@ body[data-ecran='jouer'] .hud {
 }
 
 .carte-action.eclair .carte-icone {
-  background: #fff6cc;
+  background: #3a3214;
 }
 
 .monde {
@@ -1040,11 +1017,9 @@ body[data-ecran='jouer'] .hud {
   letter-spacing: 0.04em;
 }
 
-@media (prefers-color-scheme: dark) {
-  .pastille {
-    background: #3b2a4d;
-    color: var(--violet);
-  }
+.pastille {
+  background: #3b2a4d;
+  color: var(--violet);
 }
 
 .difficulte {
@@ -1304,11 +1279,9 @@ body[data-ecran='jouer'] .hud {
   color: #6b5600;
 }
 
-@media (prefers-color-scheme: dark) {
-  .indice {
-    background: #3a3214;
-    color: #ffe58a;
-  }
+.indice {
+  background: #3a3214;
+  color: #ffe58a;
 }
 
 .retour:not([hidden]) {
@@ -1389,10 +1362,8 @@ body[data-ecran='jouer'] .hud {
   color: var(--rouge-fonce);
 }
 
-@media (prefers-color-scheme: dark) {
-  .pied-faux {
-    color: #ff8f8f;
-  }
+.pied-faux {
+  color: #ff8f8f;
 }
 
 .verdict-zone {
@@ -1951,7 +1922,7 @@ a.stat-ligne:hover {
 }
 
 .badge.obtenu .badge-icone {
-  background: #fff3c4;
+  background: #3a3214;
 }
 
 .liste-titres li {
@@ -2181,95 +2152,185 @@ a.stat-ligne:hover {
   color: var(--fond);
 }
 
-/* Onglets de matières : défilent horizontalement s'il y en a beaucoup */
-.matieres {
-  display: flex;
-  gap: 12px;
-  margin: 0 -16px 22px;
-  padding: 4px 16px 10px;
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  /* Rangée qui se fait défiler au doigt / à la molette : pas de barre visible. */
-  scrollbar-width: none;
+/* ---------------- Carrousel à points des matières ---------------- */
+
+.carrousel {
+  position: relative;
+  margin-bottom: 8px;
 }
 
-.matieres::-webkit-scrollbar {
+/* Piste défilante : une diapo par « page », accrochage magnétique */
+.piste {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding: 4px 2px 12px; /* place pour le relief des diapos */
+  border-radius: 22px;
+  outline: none;
+}
+
+.piste::-webkit-scrollbar {
   display: none;
 }
 
-.matiere-onglet {
+.piste:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 3px;
+}
+
+.diapo {
   --couleur: var(--violet);
   --couleur-fonce: var(--violet-fonce);
-  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--couleur), color-mix(in srgb, var(--couleur) 70%, var(--couleur-fonce)));
+  box-shadow: 0 6px 0 var(--couleur-fonce);
+  color: #fff;
+  opacity: 0.55;
+  transform: scale(0.97);
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+}
+
+.diapo.actif {
+  opacity: 1;
+  transform: none;
+}
+
+.diapo-titre {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex: 1 0 150px;
-  max-width: 280px;
-  padding: 12px 14px 16px;
-  border: 2px solid var(--bord);
-  border-radius: 18px;
-  background: var(--surface);
-  box-shadow: 0 4px 0 var(--bord);
-  color: var(--texte);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  overflow: hidden;
-  scroll-snap-align: start;
-  transition:
-    transform 0.12s,
-    box-shadow 0.12s,
-    border-color 0.12s;
+  gap: 14px;
+  margin: 6px 0 14px;
 }
 
-.matiere-onglet.actif {
-  border-color: var(--couleur);
-  box-shadow: 0 4px 0 var(--couleur-fonce);
-}
-
-.matiere-onglet:active {
-  transform: translateY(4px);
-  box-shadow: none;
-}
-
-.matiere-embleme {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--couleur) 18%, transparent);
+.diapo-titre h2 {
+  margin: 0;
   font-size: 1.5rem;
 }
 
-.matiere-texte {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  line-height: 1.2;
+.diapo-titre p {
+  margin: 0;
+  font-weight: 700;
+  opacity: 0.95;
 }
 
-.matiere-texte strong {
+.diapo-embleme {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.22);
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.12);
+  font-size: 2rem;
+}
+
+.diapo-progression {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-weight: 900;
 }
 
-.matiere-texte small {
-  color: var(--texte-doux);
-  font-size: 0.75rem;
-  font-weight: 800;
+.diapo-jauge {
+  flex: 1;
+  height: 14px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.2);
+  overflow: hidden;
 }
 
-/* Jauge de maîtrise au bas de l'onglet */
-.matiere-jauge {
-  --pct: 0;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: calc(var(--pct) * 1%);
-  height: 5px;
+.diapo-jauge span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #fff;
+}
+
+/* Points : le point actif s'allonge et prend la couleur de la matière */
+.points {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 6px 0 4px;
+}
+
+.point {
+  --couleur: var(--texte-pale);
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bord);
+  cursor: pointer;
+  transition:
+    width 0.25s,
+    background 0.25s;
+}
+
+.point.actif {
+  width: 28px;
   background: var(--couleur);
+}
+
+/* Flèches (souris) : posées sur les bords de la diapo, cachées sur écran tactile */
+.fleche {
+  position: absolute;
+  top: calc(50% - 26px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0 0 3px;
+  border: 2px solid var(--bord);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 3px 0 var(--bord);
+  color: var(--texte);
+  font: 900 1.5rem/1 var(--police);
+  cursor: pointer;
+  transition:
+    transform 0.12s,
+    opacity 0.2s;
+}
+
+.fleche.prec {
+  left: -20px;
+}
+
+.fleche.suiv {
+  right: -20px;
+}
+
+.fleche:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: none), (max-width: 640px) {
+  .fleche {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .fleche:hover {
+    transform: scale(1.08);
+  }
+  .point:not(.actif):hover {
+    background: var(--texte-pale);
+  }
 }
 
 .carte-matiere h2 {
@@ -2289,11 +2350,15 @@ a.stat-ligne:hover {
 }
 
 /* =====================================================================
-   Fond : ciel doux + vagues en couches qui ondulent
+   Fond sombre global : deux lueurs très diffuses (vert, violet) pour la profondeur
    ===================================================================== */
 
 body {
-  background: linear-gradient(180deg, var(--ciel) 0, var(--fond) 420px) fixed, var(--fond);
+  background:
+    radial-gradient(1200px 700px at 0% 0%, rgb(88 204 2 / 0.07), transparent 60%),
+    radial-gradient(1000px 700px at 100% 100%, rgb(206 130 255 / 0.08), transparent 60%),
+    var(--fond);
+  background-attachment: fixed;
 }
 
 /* (Pas de backdrop-filter sur l'en-tête : il ferait de lui le conteneur des éléments
@@ -2305,79 +2370,6 @@ body {
 main {
   position: relative;
   z-index: 1;
-}
-
-.decor {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.vagues {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: clamp(26px, 9vw, 150px);
-}
-
-.vagues-gauche {
-  left: 0;
-}
-
-/* Le bord droit est le miroir du gauche. */
-.vagues-droite {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-.vague {
-  animation: houle 60s linear infinite;
-}
-
-/* Trois couches de plus en plus marquées vers le bord de l'écran. */
-.vague-1 {
-  opacity: 0.12;
-  animation-duration: 75s;
-}
-
-.vague-2 {
-  opacity: 0.16;
-  animation-duration: 55s;
-  animation-direction: reverse;
-}
-
-.vague-3 {
-  opacity: 0.26;
-  animation-duration: 40s;
-}
-
-@keyframes houle {
-  to {
-    transform: translateY(-1440px);
-  }
-}
-
-.sans-animations .vague {
-  animation: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .vague-1 {
-    opacity: 0.1;
-  }
-  .vague-2 {
-    opacity: 0.14;
-  }
-  .vague-3 {
-    opacity: 0.2;
-  }
-}
-
-/* Pendant une leçon, des bandes plus fines pour ne rien gêner */
-body[data-ecran='jouer'] .vagues {
-  width: clamp(16px, 5vw, 90px);
 }
 
 /* =====================================================================
@@ -2392,7 +2384,6 @@ body[data-ecran='jouer'] .vagues {
   }
 
   .carte-action:hover,
-  .matiere-onglet:hover,
   .exercice-ligne:hover,
   .badge:hover {
     transform: translateY(-3px);
@@ -2402,15 +2393,6 @@ body[data-ecran='jouer'] .vagues {
   .exercice-ligne:hover,
   .badge:hover {
     box-shadow: 0 7px 0 var(--bord);
-  }
-
-  .matiere-onglet:hover:not(.actif) {
-    border-color: color-mix(in srgb, var(--couleur) 55%, var(--bord));
-    box-shadow: 0 7px 0 var(--bord);
-  }
-
-  .matiere-onglet.actif:hover {
-    box-shadow: 0 7px 0 var(--couleur-fonce);
   }
 
   .zone-lien:hover .zone-noeud {
@@ -2469,7 +2451,6 @@ body[data-ecran='jouer'] .vagues {
   /* L'appui garde la priorité sur le survol */
   .btn:active:not(:disabled),
   .carte-action:active,
-  .matiere-onglet:active,
   .exercice-ligne:active {
     transform: translateY(4px);
     box-shadow: 0 0 0 var(--bord);

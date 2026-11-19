@@ -3,12 +3,12 @@
  *
  * Le parcours est piloté par content/catalogue.json : niveaux (années) → matières.
  *   - sélecteur de niveau (affiché seulement s'il y a plusieurs niveaux) ;
- *   - onglets de matières du niveau, avec progression ;
+ *   - carrousel à points des matières du niveau (une carte par matière) ;
  *   - chemin des chapitres de la matière choisie.
  * Ajouter une matière ou un niveau ne demande donc aucun code.
  */
 import { CONTENU, chapitresDe, matiereParId, niveauDeMatiere, styleMatiere } from '../../core/loader';
-import type { Chapitre, Matiere } from '../../core/schema';
+import type { Chapitre, Matiere, Niveau } from '../../core/schema';
 import { h, ajouter } from '../dom';
 import { etat } from '../etat';
 import { maitriseChapitre, questionsDues, flashcardsDues } from '../../game/modes';
@@ -78,10 +78,6 @@ function rendreParcours(conteneur: HTMLElement): void {
     return;
   }
   const niveau = niveauDeMatiere(matiere.id)!;
-  const choisir = (id: string) => {
-    selectionnerMatiere(id);
-    rendreParcours(conteneur);
-  };
 
   // Sélecteur de niveau (années), seulement s'il y en a plusieurs.
   const selecteurNiveau =
@@ -97,7 +93,10 @@ function rendreParcours(conteneur: HTMLElement): void {
                 role: 'tab',
                 class: `niveau-onglet ${n.id === niveau.id ? 'actif' : ''}`,
                 'aria-selected': String(n.id === niveau.id),
-                onclick: () => choisir(n.matieres[0].id),
+                onclick: () => {
+                  selectionnerMatiere(n.matieres[0].id);
+                  rendreParcours(conteneur);
+                },
               },
               n.nom,
             ),
@@ -105,57 +104,131 @@ function rendreParcours(conteneur: HTMLElement): void {
         )
       : null;
 
-  // Onglets de matières du niveau.
-  const onglets = h(
-    'div',
-    { class: 'matieres', role: 'tablist', 'aria-label': 'Matières' },
-    niveau.matieres.map((m) => {
-      const chs = chapitresDe(m.id);
-      const vaincus = chs.filter((c) => etat.p.records.boss[c.id]?.vaincu).length;
-      const pct = Math.round(maitriseMatiere(m) * 100);
-      return h(
-        'button',
-        {
-          type: 'button',
-          role: 'tab',
-          class: `matiere-onglet ${m.id === matiere.id ? 'actif' : ''}`,
-          style: styleMatiere(m),
-          'aria-selected': String(m.id === matiere.id),
-          onclick: () => choisir(m.id),
-        },
-        h('span', { class: 'matiere-embleme', 'aria-hidden': 'true' }, m.embleme),
-        h('span', { class: 'matiere-texte' }, h('strong', null, m.nom), h('small', null, chs.length ? `${pct} % · 👑 ${vaincus}/${chs.length}` : 'Bientôt')),
-        h('span', { class: 'matiere-jauge', style: `--pct:${pct}` }),
-      );
-    }),
-  );
+  const zoneChemin = h('div', { class: 'zone-chemin' });
+  const carrousel = creerCarrousel(niveau, matiere.id, (id) => {
+    selectionnerMatiere(id);
+    rendreChemin(zoneChemin, id);
+  });
+  conteneur.replaceChildren();
+  ajouter(conteneur, [selecteurNiveau, carrousel.el, zoneChemin]);
+  rendreChemin(zoneChemin, matiere.id);
+  carrousel.placer();
+}
 
-  const chapitres = chapitresDe(matiere.id);
-  const recommande = chapitres.find((c) => maitriseChapitre(etat.p, c) < 0.5);
-  const vaincus = chapitres.filter((c) => etat.p.records.boss[c.id]?.vaincu).length;
+/**
+ * Carrousel à points des matières d'un niveau : une carte par matière, défilement au
+ * doigt (scroll-snap), flèches pour la souris, flèches du clavier, points cliquables.
+ * La carte affichée devient la matière sélectionnée.
+ */
+function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string) => void): { el: HTMLElement; placer: () => void } {
+  const matieres = niveau.matieres;
+  let actif = Math.max(0, matieres.findIndex((m) => m.id === initiale));
 
-  const monde = h(
-    'div',
-    { class: 'monde', style: styleMatiere(matiere) },
-    h(
-      'header',
-      { class: 'monde-entete' },
+  const diapos = matieres.map((m, i) => {
+    const chs = chapitresDe(m.id);
+    const vaincus = chs.filter((c) => etat.p.records.boss[c.id]?.vaincu).length;
+    const pct = Math.round(maitriseMatiere(m) * 100);
+    return h(
+      'article',
+      {
+        class: 'diapo',
+        style: styleMatiere(m),
+        role: 'group',
+        'aria-roledescription': 'diapositive',
+        'aria-label': `${i + 1} sur ${matieres.length} : ${m.nom}`,
+      },
+      h('p', { class: 'monde-section' }, `${niveau.nom} · ${chs.length ? `👑 ${vaincus}/${chs.length} boss` : 'bientôt'}`),
       h(
         'div',
-        null,
-        h('p', { class: 'monde-section' }, `${niveau.nom} · 👑 ${vaincus}/${chapitres.length} boss`),
-        h('h2', null, `${matiere.embleme} ${matiere.nom}`),
-        h('p', null, matiere.sousTitre),
+        { class: 'diapo-titre' },
+        h('span', { class: 'diapo-embleme', 'aria-hidden': 'true' }, m.embleme),
+        h('div', null, h('h2', null, m.nom), h('p', null, m.sousTitre)),
       ),
-      h('span', { class: 'monde-pct', title: 'Maîtrise de la matière' }, `${Math.round(maitriseMatiere(matiere) * 100)} %`),
-    ),
-    chapitres.length
-      ? h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande)))
-      : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
-  );
+      h(
+        'div',
+        { class: 'diapo-progression' },
+        h('span', { class: 'diapo-jauge' }, h('span', { style: `width:${Math.max(pct, 2)}%` })),
+        h('strong', null, `${pct} %`),
+      ),
+    );
+  });
 
-  conteneur.replaceChildren();
-  ajouter(conteneur, [selecteurNiveau, onglets, monde]);
+  const piste = h('div', { class: 'piste', tabindex: '0', 'aria-label': 'Matières (flèches gauche / droite pour changer)' }, diapos);
+  const points = h(
+    'div',
+    { class: 'points', role: 'tablist', 'aria-label': 'Choisir une matière', hidden: matieres.length < 2 },
+    matieres.map((m, i) =>
+      h('button', { type: 'button', role: 'tab', class: 'point', style: styleMatiere(m), 'aria-label': m.nom, title: m.nom, onclick: () => aller(i) }),
+    ),
+  );
+  const fleche = (sens: -1 | 1) =>
+    h(
+      'button',
+      { type: 'button', class: `fleche ${sens < 0 ? 'prec' : 'suiv'}`, 'aria-label': sens < 0 ? 'Matière précédente' : 'Matière suivante', onclick: () => aller(actif + sens) },
+      sens < 0 ? '‹' : '›',
+    );
+  const precedente = fleche(-1);
+  const suivante = fleche(1);
+
+  /** Met à jour points, flèches et sélection pour la diapo i. */
+  function activer(i: number) {
+    const change = i !== actif;
+    actif = i;
+    points.querySelectorAll('.point').forEach((p, k) => {
+      p.classList.toggle('actif', k === i);
+      p.setAttribute('aria-selected', String(k === i));
+    });
+    diapos.forEach((d, k) => d.classList.toggle('actif', k === i));
+    precedente.disabled = i === 0;
+    suivante.disabled = i === matieres.length - 1;
+    if (change) surChoix(matieres[i].id);
+  }
+
+  function aller(i: number, doux = true) {
+    const k = Math.min(matieres.length - 1, Math.max(0, i));
+    piste.scrollTo?.({ left: diapos[k].offsetLeft - piste.offsetLeft, behavior: doux ? 'smooth' : 'auto' });
+    activer(k);
+  }
+
+  // Défilement au doigt : la diapo la plus proche devient active quand le défilement s'arrête.
+  let minuterie: ReturnType<typeof setTimeout> | undefined;
+  piste.addEventListener('scroll', () => {
+    clearTimeout(minuterie);
+    minuterie = setTimeout(() => {
+      const x = piste.scrollLeft;
+      let meilleur = 0;
+      diapos.forEach((d, k) => {
+        if (Math.abs(d.offsetLeft - piste.offsetLeft - x) < Math.abs(diapos[meilleur].offsetLeft - piste.offsetLeft - x)) meilleur = k;
+      });
+      if (meilleur !== actif) activer(meilleur);
+    }, 120);
+  });
+  piste.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      aller(actif + (e.key === 'ArrowLeft' ? -1 : 1));
+    }
+  });
+
+  activer(actif);
+  const el = h('div', { class: 'carrousel', 'aria-roledescription': 'carrousel', 'aria-label': `Matières — ${niveau.nom}` }, matieres.length > 1 ? precedente : null, piste, matieres.length > 1 ? suivante : null, points);
+  // Position initiale sans animation, une fois l'élément dans la page.
+  return { el, placer: () => requestAnimationFrame(() => aller(actif, false)) };
+}
+
+/** Chemin de chapitres d'une matière. */
+function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
+  const chapitres = chapitresDe(idMatiere);
+  const recommande = chapitres.find((c) => maitriseChapitre(etat.p, c) < 0.5);
+  conteneur.replaceChildren(
+    h(
+      'div',
+      { class: 'monde', style: styleMatiere(matiereParId(idMatiere)) },
+      chapitres.length
+        ? h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande)))
+        : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
+    ),
+  );
 }
 
 /** Décalage horizontal des nœuds : le chemin serpente comme une rivière. */

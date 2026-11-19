@@ -25,29 +25,27 @@ beforeAll(async () => {
 });
 
 describe('écrans', () => {
-  it('accueil : onglets de matières issus du catalogue, chemin de la matière choisie', async () => {
+  it('accueil : carrousel à points des matières, chemin de la matière affichée', async () => {
     await aller('#/');
     const main = document.getElementById('contenu')!;
     const niveau = CONTENU.catalogue.niveaux[0];
-    const onglets = main.querySelectorAll<HTMLButtonElement>('.matiere-onglet');
-    expect(onglets.length).toBe(niveau.matieres.length);
+    expect(main.querySelectorAll('.diapo')).toHaveLength(niveau.matieres.length);
+    const points = () => main.querySelectorAll<HTMLButtonElement>('.point');
+    expect(points()).toHaveLength(niveau.matieres.length);
     expect(document.querySelector('.hud')!.textContent).toContain('Bachelier perdu');
-    // Chaque onglet affiche le chemin de sa matière.
+    // Chaque point affiche sa matière et le chemin de ses chapitres.
     niveau.matieres.forEach((m, i) => {
-      main.querySelectorAll<HTMLButtonElement>('.matiere-onglet')[i].click();
-      expect(main.querySelector('.monde-entete')!.textContent).toContain(m.nom);
+      points()[i].click();
+      expect(points()[i].getAttribute('aria-selected')).toBe('true');
+      expect(main.querySelector('.diapo.actif')!.textContent).toContain(m.nom);
       expect(main.querySelectorAll('.zone').length).toBe(CONTENU.chapitres.filter((c) => c.monde === m.id).length);
-      expect(main.querySelectorAll('.matiere-onglet')[i].getAttribute('aria-selected')).toBe('true');
     });
+    // Flèches du clavier sur la piste.
+    points()[0].click();
+    main.querySelector('.piste')!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    expect(main.querySelector('.diapo.actif')!.textContent).toContain(niveau.matieres[Math.min(1, niveau.matieres.length - 1)].nom);
     // Un seul niveau : pas de sélecteur de niveau.
     expect(!!main.querySelector('.niveaux')).toBe(CONTENU.catalogue.niveaux.length > 1);
-  });
-
-  it('le décor de vagues est présent et ignoré par les lecteurs d’écran', () => {
-    const decor = document.querySelector('.decor')!;
-    expect(decor.getAttribute('aria-hidden')).toBe('true');
-    expect(decor.querySelectorAll('.vagues')).toHaveLength(2); // bords gauche et droit
-    expect(decor.querySelectorAll('.vague')).toHaveLength(6);
   });
 
   it.each(['cours', 'flashcards', 'exercices'])('chapitre : onglet %s', async (onglet) => {

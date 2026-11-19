@@ -54,17 +54,18 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - Distracteurs de QCM : `construireQcm` dédoublonne par `cle`, qui doit être une valeur canonique (`cleNum`, `cleExpr`). Prévoir 4 à 6 candidats pour toujours avoir 4 choix.
 - Les éléments du DOM sont construits avec `h()` ; utiliser `ajouter()` quand des enfants peuvent être `null` (`append(null)` est refusé par TS).
 - Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX).
-- CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (sombre par défaut, clair via `prefers-color-scheme`). Mobile d'abord (360 px).
+- CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (thème sombre unique). Mobile d'abord (360 px).
 
 ## Niveaux et matières
 
 - **Rien n'est codé en dur** : l'accueil, les statistiques, les badges « Conquérant » et la couleur des en-têtes viennent de `content/catalogue.json`. On y accède via `toutesLesMatieres()`, `matiereParId()`, `chapitresDe()` et `styleMatiere()` dans `core/loader.ts`.
+- Accueil : carrousel à points des matières (`creerCarrousel` dans `screens/accueil.ts`, scroll-snap + flèches + clavier) ; la diapo affichée devient la matière sélectionnée et seul le chemin est re-rendu.
 - La couleur d'une matière passe par les variables CSS `--couleur` et `--couleur-fonce`, posées en style inline. Aucune classe CSS n'est propre à une matière.
 - La matière affichée sur la carte est mémorisée dans `localStorage` (`ui/selection.ts`), par simple confort.
 
 ## Décor et effets
 
-- **Vagues de fond** : bandes VERTICALES sur les bords gauche et droit, SVG en ligne créé dans `main.ts` (`.decor`). Le dégradé est répété tous les 1440 unités, soit la distance de défilement, pour ne pas avoir de saut ; il utilise `--vert`, `--bleu` et `--violet`. Elles sont coupées par le réglage « animations » (classe `sans-animations` sur `<html>`) et par `prefers-reduced-motion`.
+- **Fond** : thème sombre global (jetons sur `:root`, plus de mode clair) avec deux lueurs radiales très diffuses sur `body`.
 - **Effets de survol** : uniquement sous `@media (hover: hover) and (pointer: fine)`. L'état `:active` (enfoncé) reste prioritaire.
 - **Ne pas mettre de `backdrop-filter` ni de `transform` sur `.hud`** : la barre d'onglets mobile (`position: fixed`) ne serait plus collée en bas.
 - **Icône d'onglet** : `public/favicon.svg`. Le Σ y est un tracé vectoriel, sans dépendance à une police.
