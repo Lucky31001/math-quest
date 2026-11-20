@@ -57,6 +57,18 @@ export const ProgressionSchema = z.object({
     })
     .prefault({}),
   reglages: z.object({ sons: z.boolean().default(true), animations: z.boolean().default(true) }).prefault({}),
+  /**
+   * Pièges dans lesquels l'élève est tombé : distracteur choisi (QCM) ou
+   * justification fausse (vrai/faux). Clé « chapitre/question#choix », ou
+   * « gen~<générateur>#<explication> » pour les questions générées (la même
+   * erreur typique se retrouve d'une question à l'autre). Ajout compatible.
+   */
+  pieges: z
+    .record(
+      z.string(),
+      z.object({ n: z.number().int().positive(), chapitre: z.string(), texte: z.string(), explication: z.string(), derniere: z.string() }),
+    )
+    .default({}),
   /** Nombre de réponses par jour (AAAA-MM-JJ). */
   journal: z.record(z.string(), z.number()).default({}),
 });

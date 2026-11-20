@@ -38,6 +38,8 @@ export interface Resultat {
    * multiples peut être « en partie juste » (voir `corrigerQcm`).
    */
   credit?: number;
+  /** Choix faux sélectionnés (indices du JSON) : QCM, ou justification d'un vrai/faux. */
+  fausses?: number[];
 }
 
 /**
@@ -59,15 +61,16 @@ export function corrigerQcm(q: Qcm, choix: readonly number[]): Resultat {
       return { statut: 'invalide', message: `Choix ${c} inexistant.` };
   let bienTraites = 0;
   let justes = 0;
-  let fausses = 0;
+  let nbFausses = 0;
   q.choix.forEach((c, i) => {
     if (c.correct === coches.has(i)) bienTraites++;
-    if (coches.has(i)) c.correct ? justes++ : fausses++;
+    if (coches.has(i)) c.correct ? justes++ : nbFausses++;
   });
   const correct = bienTraites === q.choix.length;
   const nbBonnes = q.choix.filter((c) => c.correct).length;
-  const credit = correct ? 1 : q.multiple ? Math.max(0, (justes - fausses) / nbBonnes) : 0;
-  return { statut: correct ? 'correct' : 'incorrect', bienTraites, credit };
+  const credit = correct ? 1 : q.multiple ? Math.max(0, (justes - nbFausses) / nbBonnes) : 0;
+  const fausses = [...coches].filter((i) => !q.choix[i].correct).sort((a, b) => a - b);
+  return { statut: correct ? 'correct' : 'incorrect', bienTraites, credit, fausses };
 }
 
 /** Vrai/faux avec justification : il faut la bonne valeur ET la bonne justification. */
@@ -79,6 +82,7 @@ export function corrigerVraiFaux(q: VraiFaux, valeur: boolean, justification: nu
   return {
     statut: valeurOk && justOk ? 'correct' : 'incorrect',
     partiel: valeurOk !== justOk,
+    fausses: justOk ? [] : [justification],
   };
 }
 

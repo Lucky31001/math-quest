@@ -10,6 +10,7 @@ Application web **gamifiée** de révision pour la prépa intégrée (pré-ing 1
 - **Atelier C** : écrire, compiler et exécuter du C directement dans le navigateur (compilateur [xcc](https://github.com/tyfkda/xcc) en WebAssembly, rien n'est envoyé à un serveur), avec un bouton « Essayer » sous chaque exemple de code du cours.
 - **Gamification** : XP, niveaux et titres, streak 🔥, badges, carte de progression, modes **Boss**, **Survie** et **QCM éclair**.
 - **Examen blanc** (au bout du chemin de chaque matière) : 20 questions de tous les chapitres en 30 min, sans correction pendant l'épreuve, puis note sur 20 et copie corrigée.
+- **Pièges récurrents** : le distracteur choisi dit quelle erreur a été faite ; les erreurs qui reviennent s'affichent dans les Statistiques avec leur explication et un lien d'entraînement.
 - **QCM à réponses multiples notés en partie juste** : chaque bonne case cochée rapporte, chaque mauvaise enlève autant (jamais moins de 0) ; une part des XP est gagnée, mais la question ne monte de boîte Leitner que si tout est juste.
 - **Révision efficace** : répétition espacée (Leitner, 5 boîtes), « Révision du jour », tableau de bord avec points faibles.
 - Progression sauvegardée dans le navigateur, **export / import JSON**.

@@ -6,6 +6,39 @@ import { etat } from '../etat';
 import { tauxChapitre, maitriseChapitre, pointsFaibles } from '../../game/modes';
 import { ajouterJours } from '../../game/dates';
 import { niveauDepuisXp } from '../../game/xp';
+import { piegesRecurrents } from '../../game/progres';
+import { riche } from '../texte';
+
+/** Pièges récurrents : la même erreur (même distracteur ou même erreur typique) commise plusieurs fois. */
+function sectionPieges(): HTMLElement | null {
+  const pieges = piegesRecurrents(etat.p).slice(0, 8);
+  if (!pieges.length) return null;
+  return h(
+    'section',
+    { class: 'carte-info pieges' },
+    h('h2', null, '🪤 Tes pièges récurrents'),
+    h('p', { class: 'note' }, 'Ces erreurs reviennent : relis l’explication, puis entraîne-toi sur le chapitre.'),
+    h(
+      'ul',
+      { class: 'liste-pieges' },
+      pieges.map((x) => {
+        const ch = INDEX.chapitres.find((c) => c.id === x.chapitre);
+        return h(
+          'li',
+          null,
+          h('span', { class: 'piege-compte', title: `${x.n} fois` }, `×${x.n}`),
+          h(
+            'div',
+            { class: 'piege-corps' },
+            h('div', { class: 'piege-reponse' }, 'Tu as répondu : ', riche('span', x.texte)),
+            riche('p', x.explication, 'piege-explication'),
+            ch ? h('a', { href: `#/jouer/entrainement/${ch.id}/tous` }, `${ch.icone} S’entraîner sur « ${ch.titre} »`) : null,
+          ),
+        );
+      }),
+    ),
+  );
+}
 
 /** Seuil sous lequel un taux de réussite est signalé comme point faible. */
 const SEUIL_FAIBLE = 0.6;
@@ -73,6 +106,7 @@ export function ecranStats(main: HTMLElement): void {
           ),
         )
       : h('p', { class: 'note' }, p.compteurs.reponses < 10 ? 'Réponds à quelques questions pour voir apparaître tes points faibles.' : '👏 Aucun point faible marqué (tous les taux ≥ 60 %).'),
+    ...[sectionPieges()].filter((x): x is HTMLElement => x !== null),
     h(
       'section',
       { class: 'carte-info' },

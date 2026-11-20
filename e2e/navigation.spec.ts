@@ -1,6 +1,6 @@
 /** Parcours de base, avec de vrais clics (un élément caché sous un autre ne serait pas cliquable). */
 import { test, expect } from '@playwright/test';
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { progression } from './outils';
 
@@ -53,4 +53,27 @@ test('statistiques, badges et réglages s’affichent', async ({ page }) => {
     await page.goto(`./#/${ecran}`);
     await expect(page.locator('#contenu h1')).toBeVisible();
   }
+});
+
+test('un même piège deux fois : il apparaît dans les statistiques avec son explication', async ({ page }) => {
+  // Premier QCM du chapitre (ordre du JSON = ordre de la liste) et un de ses choix faux.
+  const chapitre = JSON.parse(readFileSync('content/informatique/c-pointeurs.json', 'utf8')) as {
+    exercices: { type: string; choix?: { correct: boolean; explication: string }[] }[];
+  };
+  const qcm = chapitre.exercices.find((q) => q.type === 'qcm')!;
+  const faux = qcm.choix!.findIndex((c) => !c.correct);
+  await page.goto('./#/chapitre/c-pointeurs/exercices');
+  for (let k = 0; k < 2; k++) {
+    await page.locator('.exercice-ligne', { hasText: 'QCM' }).first().click();
+    const question = page.locator('.question');
+    await question.locator('.choix-item label', { has: page.locator(`input[value="${faux}"]`) }).click();
+    await question.locator('.pied .btn-primaire').click();
+    await expect(question.locator('.verdict')).toHaveText('Pas tout à fait…');
+    await question.locator('.btn-suivant').click();
+  }
+  await page.goto('./#/stats');
+  const piege = page.locator('.pieges .liste-pieges li');
+  await expect(piege).toHaveCount(1);
+  await expect(piege).toContainText('×2');
+  await expect(piege.locator('.piege-explication')).not.toBeEmpty();
 });

@@ -11,6 +11,7 @@ import { etat } from '../etat';
 import { paquetFlashcards } from '../components/flashcards';
 import { afficherQuestion } from '../components/question';
 import { enregistrerReponse, payerIndice } from '../../game/progres';
+import { piegesDe } from '../../game/pieges';
 import { maitriseChapitre, tauxChapitre } from '../../game/modes';
 import { jouerSon, secouer } from '../effets';
 import { icone } from '../icones';
@@ -212,7 +213,7 @@ function exercices(ch: Chapitre, conteneur: HTMLElement): () => void {
       surIndice: () => (etat.modifier(payerIndice), true),
       surResultat: (r) => {
         const correct = r.statut === 'correct';
-        etat.modifier((p) => enregistrerReponse(p, { chapitre: ch.id, cle: cle(ch.id, q.id), type: q.type, difficulte: q.difficulte, correct, credit: r.credit }, etat.aujourdhui()));
+        etat.modifier((p) => enregistrerReponse(p, { chapitre: ch.id, cle: cle(ch.id, q.id), type: q.type, difficulte: q.difficulte, correct, credit: r.credit, pieges: piegesDe(q, r, cle(ch.id, q.id)) }, etat.aujourdhui()));
         jouerSon(correct ? 'juste' : 'faux');
         if (!correct) secouer(c.el.querySelector('.zone-reponse') ?? c.el);
       },
