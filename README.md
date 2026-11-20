@@ -308,6 +308,8 @@ Une vérification qui porte sur beaucoup d'éléments (chapitres, questions, gé
 - **Exercices « programme »** : `tests/programmes.test.ts` (solution validée par gcc + sanitizers et par xcc, code de départ insuffisant).
 - **Vérification des saisies** : `tests/checker.test.ts` ; **correction** : `tests/grading.test.ts` ; **logique de jeu** : `tests/jeu.test.ts` ; **sauvegarde** : `tests/sauvegarde.test.ts` ; **interface** : `tests/ui.test.ts` (DOM simulé).
 
+- **Bout en bout** : `npm run e2e` (Playwright) construit le site et le teste dans Chromium, en mobile et en bureau : navigation et chargement à la demande, hors ligne, exercice programme, transfert entre deux appareils, examen blanc. Première fois : `npx playwright install chromium`.
+
 Les tests ont besoin de `gcc` (présent sur les runners GitHub `ubuntu-latest`).
 
 ## Déploiement (GitHub Pages)
