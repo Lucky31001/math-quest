@@ -110,6 +110,32 @@ export function enregistrerReponse(p: Progression, r: InfoReponse, aujourdhui: s
   return gain;
 }
 
+/** Nombre de notes d'examen gardées par matière. */
+export const MAX_NOTES_EXAMEN = 30;
+
+/** Enregistre une note d'examen blanc ; renvoie true si c'est la meilleure de la matière (hors première). */
+export function enregistrerExamen(p: Progression, matiere: string, note: number, aujourdhui: string): boolean {
+  const notes = (p.records.historiqueExamens[matiere] ??= []);
+  notes.push({ date: aujourdhui, note });
+  if (notes.length > MAX_NOTES_EXAMEN) notes.splice(0, notes.length - MAX_NOTES_EXAMEN);
+  const ancienne = p.records.examens[matiere];
+  if (ancienne !== undefined && note <= ancienne) return false;
+  p.records.examens[matiere] = note;
+  return ancienne !== undefined;
+}
+
+/**
+ * Tendance des derniers examens : moyenne des 3 derniers moins moyenne des 3
+ * précédents (null s'il y a moins de 4 notes).
+ */
+export function tendanceExamens(notes: readonly { note: number }[]): number | null {
+  if (notes.length < 4) return null;
+  const moy = (l: readonly { note: number }[]) => l.reduce((s, x) => s + x.note, 0) / l.length;
+  const recentes = notes.slice(-3);
+  const avant = notes.slice(-6, -3);
+  return Math.round((moy(recentes) - moy(avant)) * 10) / 10;
+}
+
 /** Payer un indice. Renvoie le coût réellement débité (on ne descend pas sous 0). */
 export function payerIndice(p: Progression): number {
   const cout = Math.min(COUT_INDICE, p.xp);

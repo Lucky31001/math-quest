@@ -99,6 +99,24 @@ describe('écrans', () => {
     etat.remplacer(avant);
   });
 
+  it('statistiques : courbe et notes des examens blancs par matière', async () => {
+    const { etat } = await import('../src/ui/etat');
+    const avant = structuredClone(etat.p);
+    etat.modifier((p) => {
+      p.records.examens.algebre = 14;
+      p.records.historiqueExamens.algebre = [8, 10, 9, 12, 14, 13].map((note, i) => ({ date: `2026-11-0${i + 1}`, note }));
+    });
+    await aller('#/stats');
+    const bloc = document.querySelector('#contenu .examens .examen-matiere')!;
+    expect(bloc.querySelectorAll('.courbe-marque')).toHaveLength(6);
+    expect(bloc.querySelector('.courbe-ligne')).toBeTruthy();
+    expect(bloc.textContent).toContain('Dernière : 13/20');
+    expect(bloc.textContent).toContain('Meilleure : 14/20');
+    expect(bloc.textContent).toContain('en progrès');
+    expect(bloc.querySelectorAll('.liste-notes li')).toHaveLength(6);
+    etat.remplacer(avant);
+  });
+
   it('réglages : état de la protection de la sauvegarde', async () => {
     await aller('#/reglages');
     await attendre();

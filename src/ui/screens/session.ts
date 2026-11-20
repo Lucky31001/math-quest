@@ -9,7 +9,7 @@ import { createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
 import { etat } from '../etat';
 import { afficherQuestion, type ControleurQuestion } from '../components/question';
-import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE, type InfoReponse } from '../../game/progres';
+import { enregistrerReponse, enregistrerExamen, payerIndice, validerSerie, TAILLE_SERIE_INFINIE, type InfoReponse } from '../../game/progres';
 import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
 import { piegesDe } from '../../game/pieges';
@@ -345,10 +345,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         const matiere = params[1];
         titre = `📝 ${String(note).replace('.', ',')}/20`;
         gagne = note >= 10;
-        if (matiere && note > (p.records.examens[matiere] ?? -1)) {
-          if (p.records.examens[matiere] !== undefined) records.push('🎉 Nouvelle meilleure note !');
-          p.records.examens[matiere] = note;
-        }
+        if (matiere && enregistrerExamen(p, matiere, note, etat.aujourdhui())) records.push('🎉 Nouvelle meilleure note !');
       }
       if (cfg.mode === 'revision' && s.rang > 0 && s.rang >= (cfg.total ?? 0)) {
         p.compteurs.revisions++;

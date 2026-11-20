@@ -16,4 +16,10 @@ test('20 questions, note sur 20, copie corrigée', async ({ page }) => {
   await expect(page.locator('.copie .question.en-revue')).toHaveCount(20);
   await expect(page.locator('.copie .btn-suivant')).toHaveCount(0);
   expect((await progression(page))?.compteurs.reponses).toBe(20);
+
+  // La note apparaît dans les statistiques, avec sa courbe (un point).
+  await page.goto('./#/stats');
+  const examen = page.locator('.examens .examen-matiere');
+  await expect(examen).toContainText('Analyse');
+  await expect(examen.locator('.courbe-marque')).toHaveCount(1);
 });
