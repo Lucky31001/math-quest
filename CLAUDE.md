@@ -10,6 +10,7 @@ npm test            # Vitest (doit rester vert : le déploiement en dépend)
 npm run typecheck   # tsc --noEmit
 npm run build       # tsc + vite build → dist/ (base /math-quest/)
 npm run schema      # régénère content/schema.json depuis le schéma Zod
+npm run e2e         # Playwright : le vrai build (service worker, worker C) dans Chromium, mobile + bureau
 ```
 
 Node 24 (fichier `.nvmrc`, partagé avec la CI) : `nvm use` avant toute commande npm, le Node du système (18) est trop vieux. Zod 4 : `z.record(clé, valeur)` à deux arguments, et `.prefault({})` (pas `.default({})`) pour un objet dont les champs ont leurs propres valeurs par défaut.
@@ -76,6 +77,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - **Informatique = langage C** (programme CY Tech, pas de Python). Les vérifications de `tests/verifications/informatique.ts` compilent le code de l'énoncé ou du cours avec `gcc -Wall -Werror` puis l'exécutent (`codeDe`, `codeCours`, `instructionsC`, `definitionsC`) : garder ce code compilable tel quel, sans comportement indéfini (sauf piège volontaire, compilé avec `executerC(…, true)`).
 - **Exercices `programme`** (C) : `code` (départ) + `harnais` (main caché) + `solution` + `tests` (entrée → sortie). Hors Boss et Survie. Dans un harnais, lire le texte avec `fgets` : `scanf("%s")` est cassé dans la libc de xcc.
 - **Physique** : réponses numériques avec `tolerance: 0.01` (arrondis de $g$…) et en unités où la valeur est ≥ 1 (la tolérance devient absolue sous 1).
+- **Tests de bout en bout** (`e2e/`, Playwright) : parcours réels avec de vrais clics (un bouton caché sous un autre fait échouer le test). Lancés dans la CI à chaque PR. À compléter pour toute fonctionnalité visible (nouveau mode, nouvel écran).
 - **Tests : pas de test généré par élément** (un `it` par chapitre, question ou générateur). Utiliser `toutVerifier` : un seul test, qui liste les éléments fautifs.
 - CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (thème sombre unique). Mobile d'abord (360 px).
 
