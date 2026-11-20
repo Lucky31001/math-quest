@@ -8,7 +8,7 @@
 import type { Chapitre, Difficulte, Question } from '../core/schema';
 import { cle } from '../core/loader';
 import { shuffle, pick, type Rng } from '../core/random';
-import { generateursDu, generer, GENERATEURS } from '../generators';
+import { generateursDu, generer, generateurParId, GENERATEURS } from '../generators';
 import type { Progression } from '../storage/progression';
 import { estMaitrise } from './leitner';
 import { EXAMEN, questionsDues, pointsFaibles, type ItemSession } from './modes';
@@ -144,3 +144,29 @@ export function serieRevision(chapitres: readonly Chapitre[], p: Progression, au
   }
   return items;
 }
+
+/** Clé d'un élément de série : clé Leitner d'une question fixe, ou identifiant d'une question générée. */
+export const cleItem = (i: ItemSession): string => i.cle ?? i.question.id;
+
+/**
+ * Reconstitue un sujet à partir de ses clés (défi entre camarades), dans
+ * l'ordre. Les questions générées sont régénérées à l'identique depuis leur
+ * identifiant « gen~<générateur>~<graine>~<difficulté> ». Les clés inconnues
+ * (contenu d'une autre version) sont ignorées.
+ */
+export function serieDepuisCles(chapitres: readonly Chapitre[], cles: readonly string[]): ItemSession[] {
+  return cles.flatMap((k): ItemSession[] => {
+    const gen = /^gen~([^~]+)~(\d+)~([123])$/.exec(k);
+    if (gen) {
+      const g = generateurParId(gen[1]);
+      const chapitre = chapitres.find((c) => c.id === g?.chapitre);
+      if (!g || !chapitre) return [];
+      return [{ question: generer(g, Number(gen[3]) as Difficulte, undefined, Number(gen[2])), chapitre, cle: null }];
+    }
+    const [idChap, idQ] = k.split('/');
+    const chapitre = chapitres.find((c) => c.id === idChap);
+    const question = chapitre?.exercices.find((q) => q.id === idQ);
+    return chapitre && question ? [fixe(chapitre, question)] : [];
+  });
+}
+

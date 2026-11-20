@@ -11,6 +11,7 @@ import { ecranBadges } from './ui/screens/badges';
 import { ecranReglages } from './ui/screens/reglages';
 import { ecranAtelier } from './ui/screens/atelier';
 import { ecranTransfert } from './ui/screens/transfert';
+import { ecranDefi } from './ui/screens/defi';
 import { brancherReglages, toast } from './ui/effets';
 import { ecranApresChargement } from './ui/chargement';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
@@ -30,6 +31,7 @@ route('badges', ecranBadges);
 route('reglages', ecranReglages);
 route('atelier', ecranAtelier);
 route('transfert', ecranTransfert);
+route('defi', ecranDefi);
 
 const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });

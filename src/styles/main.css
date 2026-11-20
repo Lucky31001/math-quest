@@ -2396,6 +2396,19 @@ a.stat-ligne:hover {
   color: var(--texte-doux);
 }
 
+/* Défi entre camarades */
+.defi {
+  border-color: var(--couleur, var(--bord));
+}
+
+.defi-note strong {
+  font-size: 1.4em;
+}
+
+.btn-defi {
+  margin-top: 8px;
+}
+
 /* Pièges récurrents (statistiques) */
 .liste-pieges {
   margin: 0;

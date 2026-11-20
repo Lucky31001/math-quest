@@ -14,7 +14,8 @@ import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
 import { piegesDe } from '../../game/pieges';
 import { chapitresPourRevision, noteSur20, EXAMEN, type ItemSession, type Mode } from '../../game/modes';
-import { serieEntrainement, serieBoss, serieEclair, serieRevision, itemSurvie, itemGenere, dureeBoss, serieExamen } from '../../game/series';
+import { serieEntrainement, serieBoss, serieEclair, serieRevision, itemSurvie, itemGenere, dureeBoss, serieExamen, serieDepuisCles, cleItem } from '../../game/series';
+import { decoderDefi, encoderDefi, routeDefi, type Defi } from '../../game/defi';
 import { jouerSon, xpFlottant, secouer, celebrer, toast } from '../effets';
 import { aller } from '../../router';
 
@@ -31,6 +32,9 @@ interface Config {
   retour: string;
   /** Examen : pas de correction ni d'effet avant la fin ; copie corrigée au bilan. */
   differe?: boolean;
+  /** Examen : le sujet (pour le partager en défi), et le défi relevé s'il y en a un. */
+  sujet?: ItemSession[];
+  defi?: Defi;
 }
 
 /** Chapitres complets nécessaires au mode : le chapitre joué, tous (Survie, éclair) ou ceux à réviser. */
@@ -116,16 +120,22 @@ function configurer(params: string[], chapitres: Chapitre[]): Config | string {
     case 'examen': {
       const matiere = matiereParId(chapId ?? '');
       if (!matiere || !chapitres.length) return 'Matière introuvable.';
-      const l = serieExamen(chapitres, rng);
+      const defi = diffTxt ? decoderDefi(diffTxt) : null;
+      if (diffTxt && (!defi || defi.matiere !== matiere.id)) return 'Ce lien de défi est invalide.';
+      const l = defi ? serieDepuisCles(chapitres, defi.questions) : serieExamen(chapitres, rng);
+      if (defi && l.length < defi.questions.length * 0.8)
+        return 'Ce défi a été créé avec une autre version des questions : demande un nouveau lien à ton camarade.';
       return {
         ...base,
         mode,
-        titre: `📝 Examen blanc · ${matiere.nom}`,
+        titre: `${defi ? '🤝 Défi' : '📝 Examen blanc'} · ${matiere.nom}`,
         suivante: depuisListe(l),
         total: l.length,
         chronoGlobal: EXAMEN.duree,
         retour: '#/',
         differe: true,
+        sujet: l,
+        defi: defi ?? undefined,
       };
     }
     default:
@@ -383,7 +393,9 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         h('p', { class: 'bilan-score' }, `${s.bonnes} bonne(s) réponse(s) sur ${Math.max(total, s.rang)}`),
         records.map((r) => h('p', { class: 'record' }, r)),
         s.ratees ? h('p', { class: 'note' }, `Les ${s.ratees} question(s) ratée(s) reviendront dans ta révision du jour.`) : null,
+        cfg.defi?.note !== undefined ? comparaisonDefi(noteSur20(s.points, cfg.total ?? s.rang), cfg.defi.note) : null,
         cfg.differe && copie.length ? h('a', { class: 'btn', href: '#copie', onclick: (e: Event) => (e.preventDefault(), document.getElementById('copie')?.scrollIntoView({ behavior: 'smooth' })) }, '📄 Revoir ma copie corrigée') : null,
+        cfg.sujet ? boutonDefi(params[1], cfg.sujet.map(cleItem), noteSur20(s.points, cfg.total ?? s.rang)) : null,
         h(
           'div',
           { class: 'actions' },
@@ -416,3 +428,29 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
     copie.forEach((c) => c.detruire());
   };
 }
+
+/** Résultat face à la note du camarade qui a lancé le défi. */
+function comparaisonDefi(note: number, aBattre: number): HTMLElement {
+  const fr = (n: number) => `${String(n).replace('.', ',')}/20`;
+  const verdict = note > aBattre ? '🏆 Défi remporté !' : note === aBattre ? '🤝 Égalité parfaite.' : '💪 Pas cette fois : retente ta chance.';
+  return h('p', { class: 'record' }, `${verdict} Ta note : ${fr(note)} · ton camarade : ${fr(aBattre)}.`);
+}
+
+/** Partager le même sujet (et sa note à battre) avec un camarade. */
+function boutonDefi(matiere: string, questions: string[], note: number): HTMLElement {
+  const lien = `${location.origin}${location.pathname}${routeDefi(encoderDefi({ matiere, questions, note }))}`;
+  const partager = async () => {
+    if (typeof navigator.share === 'function') {
+      await navigator.share({ title: 'Math Quest — défi', text: `Je défie ta note à cet examen blanc : ${String(note).replace('.', ',')}/20 à battre !`, url: lien }).catch(() => {});
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(lien);
+      toast('📋 Lien du défi copié : envoie-le à un camarade.');
+    } catch {
+      prompt('Copie ce lien et envoie-le à un camarade :', lien);
+    }
+  };
+  return h('button', { class: 'btn btn-defi', type: 'button', 'data-lien': lien, onclick: () => void partager() }, '🤝 Défier un camarade (même sujet)');
+}
+

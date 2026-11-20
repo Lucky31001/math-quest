@@ -8,6 +8,7 @@
  *   #/stats  #/badges  #/reglages
  *   #/atelier                  atelier C (écrire, compiler, exécuter)
  *   #/transfert/<code>         réception d'une progression venue d'un autre appareil
+ *   #/defi/<code>              défi reçu : le même examen blanc qu'un camarade
  */
 export type Ecran = (main: HTMLElement, params: string[]) => void | (() => void);
 
