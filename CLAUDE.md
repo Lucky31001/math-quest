@@ -39,7 +39,8 @@ src/game/        logique pure (testable sans DOM)
   xp.ts          XP par difficulté, seuils 50·n·(n−1), titres, points éclair
   progres.ts     enregistrerReponse / payerIndice / enregistrerFlashcard / streak
   badges.ts      badges = prédicats sur la Progression (+ « 100 % » par chapitre)
-  modes.ts       séries : entraînement, boss, survie, éclair, révision du jour, examen blanc, stats
+  modes.ts       LÉGER (sans générateurs ni math.js) : types, maîtrise, éléments dus, points faibles, examen (constantes)
+  series.ts      séries : entraînement, boss, survie, éclair, révision du jour, examen blanc (générateurs → math.js)
 src/storage/progression.ts   modèle Progression (Zod), localStorage, export/import,
                              récupération partielle + copies de sécurité
 src/storage/migrations.ts    VERSION_PROGRESSION + migrations n → n+1 du format
@@ -64,6 +65,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - **Examen blanc** (`#/jouer/examen/<matière>`) : `afficherQuestion({ differe: true })` enregistre la réponse sans la corriger ; la séance garde les contrôleurs (`figer()`) et appelle `reveler()` au bilan. Rien ne doit trahir la justesse pendant l'épreuve : les réponses sont passées à `enregistrerReponse` toutes ensemble au bilan (sinon les toasts de niveau/badge fuiteraient).
 - **Partie juste** : `Resultat.credit` (0..1), seulement pour les QCM à réponses multiples ; `enregistrerReponse` donne `credit` × XP de base sans faire monter la boîte Leitner.
 - **Le streak 🔥 n'avance QUE via `validerSerie`** (bilan d'une séance, ou chaque tranche de 10 réponses en mode infini) — jamais à chaque réponse ni pour une flashcard.
+- **math.js hors du démarrage** : seuls les écrans `chapitre` et `jouer` (chargés à la demande dans `main.ts`) importent la correction et les générateurs. Ne pas importer `core/checker`, `core/grading`, `generators/` ni `game/series` depuis l'accueil, les stats, les badges, la révision ou les réglages (le test e2e « accueil léger » le vérifie).
 - **Validation au build** : l'application n'importe de `core/schema.ts` que des **types** (`import type`). Importer une valeur de `schema.ts` embarquerait tous les schémas Zod dans le bundle. Les modules chargés par `vite.config.ts` (`resume.ts`, `validation.ts`, `schema.ts`, `types-question.ts`) importent avec l'extension `.ts`.
 - **Contenu chargé à la demande** : au démarrage, seul `INDEX` (résumés) existe. Un écran qui a besoin des textes (cours, énoncés, flashcards) charge ses chapitres avec `chargerChapitre`/`chargerChapitres`/`chargerTout`, via `ecranApresChargement` (`ui/chargement.ts`). Les fonctions de `game/` qui ne lisent que les identifiants acceptent un `ChapitreResume`. Les tests utilisent `tests/outils/contenu.ts` (tout le contenu, synchrone).
 - **Toute modification de la progression passe par `etat.modifier(p => …)`**. Elle sauvegarde, détecte les passages de niveau et débloque les badges.

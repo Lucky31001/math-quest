@@ -8,7 +8,8 @@ import { progressionVide, importer, exporter, charger } from '../src/storage/pro
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
 import { toutesLesMatieres } from '../src/core/loader';
 import { CONTENU } from './outils/contenu';
-import { serieBoss, serieEclair, serieEntrainement, questionsDues, itemSurvie, serieExamen, noteSur20, EXAMEN } from '../src/game/modes';
+import { questionsDues, noteSur20, EXAMEN } from '../src/game/modes';
+import { serieBoss, serieEclair, serieEntrainement, itemSurvie, serieExamen } from '../src/game/series';
 import { createRng } from '../src/core/random';
 
 const J = '2026-03-10';

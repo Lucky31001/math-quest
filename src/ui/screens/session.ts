@@ -12,21 +12,8 @@ import { afficherQuestion, type ControleurQuestion } from '../components/questio
 import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE, type InfoReponse } from '../../game/progres';
 import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
-import {
-  serieEntrainement,
-  serieBoss,
-  serieEclair,
-  serieRevision,
-  itemSurvie,
-  itemGenere,
-  dureeBoss,
-  chapitresPourRevision,
-  serieExamen,
-  noteSur20,
-  EXAMEN,
-  type ItemSession,
-  type Mode,
-} from '../../game/modes';
+import { chapitresPourRevision, noteSur20, EXAMEN, type ItemSession, type Mode } from '../../game/modes';
+import { serieEntrainement, serieBoss, serieEclair, serieRevision, itemSurvie, itemGenere, dureeBoss, serieExamen } from '../../game/series';
 import { jouerSon, xpFlottant, secouer, celebrer, toast } from '../effets';
 import { aller } from '../../router';
 
