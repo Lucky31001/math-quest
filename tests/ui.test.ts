@@ -171,7 +171,8 @@ describe('examen blanc', () => {
     const saisie = q.querySelector<HTMLInputElement>('.saisie');
     if (saisie) {
       const n = Number(/(\d+) valeurs attendues/.exec(q.textContent ?? '')?.[1] ?? 1);
-      saisie.value = Array(n).fill(q.classList.contains('type-expression') ? 'x' : '1').join(';');
+      // « 1 » : valable pour une réponse numérique comme pour une expression, quelle que soit sa variable (x, n, t…).
+      saisie.value = Array(n).fill('1').join(';');
       saisie.dispatchEvent(new Event('input', { bubbles: true }));
     }
   }
