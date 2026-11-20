@@ -41,6 +41,7 @@ src/game/        logique pure (testable sans DOM)
   badges.ts      badges = prédicats sur la Progression (+ « 100 % » par chapitre)
   modes.ts       LÉGER (sans générateurs ni math.js) : types, maîtrise, éléments dus, points faibles, examen (constantes)
   series.ts      séries : entraînement, boss, survie, éclair, révision du jour, examen blanc (générateurs → math.js)
+  defi.ts        défi entre camarades : code « D1-… » (matière, clés des questions, note à battre)
 src/storage/progression.ts   modèle Progression (Zod), localStorage, export/import,
                              récupération partielle + copies de sécurité
 src/storage/migrations.ts    VERSION_PROGRESSION + migrations n → n+1 du format
@@ -64,6 +65,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 ## Conventions et pièges
 
 - **Examen blanc** (`#/jouer/examen/<matière>`) : `afficherQuestion({ differe: true })` enregistre la réponse sans la corriger ; la séance garde les contrôleurs (`figer()`) et appelle `reveler()` au bilan. Rien ne doit trahir la justesse pendant l'épreuve : les réponses sont passées à `enregistrerReponse` toutes ensemble au bilan (sinon les toasts de niveau/badge fuiteraient).
+- **Défi** (`#/defi/<code>` puis `#/jouer/examen/<matière>/<code>`) : le lien transmet les CLÉS des questions (pas une graine) ; `serieDepuisCles` les retrouve, et régénère les questions générées depuis leur id. Une clé inconnue est ignorée (contenu d'une autre version).
 - **Pièges** (`game/pieges.ts`, `progression.pieges`) : un choix faux sélectionné (QCM, justification de vrai/faux) est mémorisé avec son explication. Clé `chapitre/question#choix`, ou `gen~<générateur>#<explication>` pour une question générée : **l'explication d'un distracteur doit donc nommer l'erreur typique**, de façon identique d'une génération à l'autre. Affichés dans les Statistiques à partir de 2 occurrences.
 - **Partie juste** : `Resultat.credit` (0..1), seulement pour les QCM à réponses multiples ; `enregistrerReponse` donne `credit` × XP de base sans faire monter la boîte Leitner.
 - **Le streak 🔥 n'avance QUE via `validerSerie`** (bilan d'une séance, ou chaque tranche de 10 réponses en mode infini) — jamais à chaque réponse ni pour une flashcard.
