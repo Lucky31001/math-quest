@@ -54,7 +54,8 @@ export function serieEntrainement(chapitre: Chapitre, p: Progression, difficulte
 export function serieBoss(chapitre: Chapitre, rng: Rng): ItemSession[] {
   const diff = (): Difficulte => pick(rng, [2, 2, 3] as const);
   const qcmFixes = shuffle(chapitre.exercices.filter((q) => q.type === 'qcm'), rng);
-  const autresFixes = shuffle(chapitre.exercices.filter((q) => q.type !== 'qcm'), rng);
+  // Pas d'exercice « programme » sous le chronomètre du boss.
+  const autresFixes = shuffle(chapitre.exercices.filter((q) => q.type !== 'qcm' && q.type !== 'programme'), rng);
   const items: ItemSession[] = [];
   // 6 QCM : moitié fixes, moitié générés (si possible)
   for (let i = 0; i < 6; i++) {
@@ -81,12 +82,14 @@ export const dureeBoss = (q: Question): number => (q.type === 'qcm' ? 45 : q.typ
 export function itemSurvie(chapitres: readonly Chapitre[], rang: number, rng: Rng): ItemSession {
   const difficulte: Difficulte = rang < 5 ? 1 : rang < 15 ? 2 : 3;
   const chapitre = pick(rng, chapitres);
-  const fixes = chapitre.exercices.filter((q) => q.difficulte <= difficulte);
+  // Survie : questions rapides, sans exercice « programme ».
+  const rapides = chapitre.exercices.filter((q) => q.type !== 'programme');
+  const fixes = rapides.filter((q) => q.difficulte <= difficulte);
   if (rng() < 0.5 || !fixes.length) {
     const g = itemGenere(chapitre, difficulte, rng);
     if (g) return g;
   }
-  return fixe(chapitre, pick(rng, fixes.length ? fixes : chapitre.exercices));
+  return fixe(chapitre, pick(rng, fixes.length ? fixes : rapides));
 }
 
 /** QCM éclair : 20 QCM de tous les chapitres (fixes et générés). */

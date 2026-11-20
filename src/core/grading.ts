@@ -5,7 +5,7 @@
  * d'origine) : le mélange à l'affichage est géré par l'interface, qui retraduit
  * la sélection avant d'appeler `corriger`.
  */
-import type { Question, Qcm, VraiFaux, TrouveErreur } from './schema';
+import type { Question, Qcm, VraiFaux, TrouveErreur, Programme } from './schema';
 import { verifierExpression, verifierNumerique, type Statut } from './checker';
 
 export type Reponse =
@@ -13,7 +13,16 @@ export type Reponse =
   | { type: 'numerique'; saisie: string }
   | { type: 'expression'; saisie: string }
   | { type: 'vrai-faux'; valeur: boolean; justification: number }
-  | { type: 'trouve-erreur'; etape: number };
+  | { type: 'trouve-erreur'; etape: number }
+  | { type: 'programme'; execution: ExecutionProgramme };
+
+/** Ce qu'a donné le programme de l'élève sur un cas de test. */
+export type SortieCas =
+  | { sortie: string; code: number }
+  | { probleme: 'temps' | 'plantage' | 'trop-long'; sortie: string };
+
+/** Résultat de la compilation puis de l'exécution sur chaque cas de test (dans l'ordre de `tests`). */
+export type ExecutionProgramme = { compilation: string } | { sorties: SortieCas[] };
 
 export interface Resultat {
   statut: Statut;
@@ -22,6 +31,8 @@ export interface Resultat {
   bienTraites?: number;
   /** Vrai/faux : la valeur était bonne mais pas la justification (ou l'inverse). */
   partiel?: boolean;
+  /** Programme : nombre de tests réussis. */
+  testsReussis?: number;
 }
 
 /**
@@ -61,6 +72,23 @@ export function corrigerTrouveErreur(q: TrouveErreur, etape: number): Resultat {
   return { statut: etape === q.etapeFausse ? 'correct' : 'incorrect' };
 }
 
+/** Sorties égales, aux espaces de fin de ligne et aux lignes vides finales près. */
+export function memeSortie(attendue: string, obtenue: string): boolean {
+  const normaliser = (t: string) => t.replace(/\r\n?/g, '\n').replace(/[ \t]+$/gm, '').replace(/\n+$/, '');
+  return normaliser(attendue) === normaliser(obtenue);
+}
+
+/** Juste si le programme compile et réussit TOUS les tests. Une erreur de compilation n'est pas comptée (à corriger). */
+export function corrigerProgramme(q: Programme, e: ExecutionProgramme): Resultat {
+  if ('compilation' in e) return { statut: 'invalide', message: 'Ton code ne compile pas : corrige les erreurs puis vérifie à nouveau.' };
+  if (e.sorties.length !== q.tests.length) throw new Error(`${e.sorties.length} sorties pour ${q.tests.length} tests`);
+  const testsReussis = q.tests.filter((t, i) => {
+    const s = e.sorties[i];
+    return !('probleme' in s) && memeSortie(t.sortie, s.sortie);
+  }).length;
+  return { statut: testsReussis === q.tests.length ? 'correct' : 'incorrect', testsReussis };
+}
+
 export function corriger(q: Question, r: Reponse): Resultat {
   if (q.type !== r.type) throw new Error(`Réponse de type ${r.type} pour une question ${q.type}`);
   switch (q.type) {
@@ -80,5 +108,7 @@ export function corriger(q: Question, r: Reponse): Resultat {
     }
     case 'trouve-erreur':
       return corrigerTrouveErreur(q, (r as Extract<Reponse, { type: 'trouve-erreur' }>).etape);
+    case 'programme':
+      return corrigerProgramme(q, (r as Extract<Reponse, { type: 'programme' }>).execution);
   }
 }

@@ -6,7 +6,10 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { CONTENU } from '../src/core/loader';
 import { afficherQuestion } from '../src/ui/components/question';
-import type { Question } from '../src/core/schema';
+import type { Question, Programme } from '../src/core/schema';
+import { readFileSync } from 'node:fs';
+import { chargerCompilateur, compiler, executer, type Compilateur } from '../src/c/compilateur';
+import type { IssueTests } from '../src/c/client';
 import { rendreHtml } from '../src/ui/texte';
 
 const attendre = () => new Promise((r) => setTimeout(r, 0));
@@ -187,6 +190,63 @@ describe('composant question : chaque type se corrige', () => {
     (c.el.querySelector('.actions .btn-primaire') as HTMLButtonElement).click();
     expect(appels).toBe(0);
     expect(c.el.querySelector('.msg-invalide')!.textContent).not.toBe('');
+    c.detruire();
+  });
+});
+
+describe('exercice « programme » (compilateur C réel, sans worker)', () => {
+  const ch = CONTENU.chapitres.find((c) => c.exercices.some((q) => q.type === 'programme'))!;
+  const q = ch.exercices.find((x): x is Programme => x.type === 'programme')!;
+  let xcc: Compilateur;
+  beforeAll(() => {
+    xcc = chargerCompilateur(new Uint8Array(readFileSync('public/compilateur-c/wccfiles.zip')));
+  });
+  const executeur = async (source: string, entrees: string[]): Promise<IssueTests> => {
+    const r = compiler(xcc, source);
+    if (!('module' in r)) return { compilation: r.messages };
+    return {
+      sorties: entrees.map((entree) => {
+        let sortie = '';
+        executer(r.module, { entree, sortie: (t) => (sortie += t) });
+        return { sortie, code: 0 };
+      }),
+    };
+  };
+  async function jouer(code: string) {
+    const statuts: string[] = [];
+    const c = afficherQuestion({ question: q, executeur, surResultat: (r) => statuts.push(r.statut), surSuivant: () => {} });
+    document.body.append(c.el);
+    const editeur = c.el.querySelector<HTMLTextAreaElement>('textarea.editeur-c')!;
+    expect(editeur.value).toBe(q.code);
+    editeur.value = code;
+    editeur.dispatchEvent(new Event('input', { bubbles: true }));
+    (c.el.querySelector('.actions .btn-primaire') as HTMLButtonElement).click();
+    await vi.waitFor(() => expect(statuts.length + (c.el.querySelector('.msg-invalide')!.textContent ? 1 : 0)).toBeGreaterThan(0), { timeout: 20_000 });
+    return { c, statuts };
+  }
+
+  it('solution juste : tous les tests passent, la solution est montrée', { timeout: 30_000 }, async () => {
+    const { c, statuts } = await jouer(q.solution);
+    expect(statuts).toEqual(['correct']);
+    expect(c.el.querySelectorAll('.tests-c .test-ok')).toHaveLength(q.tests.length);
+    expect(c.el.querySelector('.solution-c')).toBeTruthy();
+    c.detruire();
+  });
+
+  it('code faux : tests échoués, sortie attendue et obtenue affichées', { timeout: 30_000 }, async () => {
+    const { c, statuts } = await jouer(q.code);
+    expect(statuts).toEqual(['incorrect']);
+    expect(c.el.querySelector('.tests-c .test-ko')).toBeTruthy();
+    expect(c.el.querySelector('.verdict-detail')!.textContent).toMatch(/tests réussis/);
+    c.detruire();
+  });
+
+  it('erreur de compilation : message, pas de correction, on peut corriger', { timeout: 30_000 }, async () => {
+    const { c, statuts } = await jouer('int main(void) { return x; }');
+    expect(statuts).toEqual([]);
+    expect(c.el.querySelector('.msg-invalide')!.textContent).toMatch(/compile/);
+    expect(c.el.querySelector('.console-erreur')).toBeTruthy();
+    expect(c.el.querySelector<HTMLButtonElement>('.actions .btn-primaire')!.disabled).toBe(false);
     c.detruire();
   });
 });

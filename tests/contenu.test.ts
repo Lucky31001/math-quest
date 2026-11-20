@@ -86,9 +86,11 @@ describe('chaque chapitre', () => {
   it('contient assez de questions, de QCM et de flashcards', () =>
     pourChaqueChapitre((ch) => {
       const qcm = ch.exercices.filter((q) => q.type === 'qcm').length;
-      expect(ch.exercices.length).toBeGreaterThanOrEqual(10);
+      // Les exercices « programme » sont à part : le ratio de QCM porte sur les questions courtes.
+      const courtes = ch.exercices.filter((q) => q.type !== 'programme').length;
+      expect(courtes).toBeGreaterThanOrEqual(10);
       expect(qcm).toBeGreaterThanOrEqual(4);
-      expect(qcm / ch.exercices.length).toBeGreaterThanOrEqual(0.35);
+      expect(qcm / courtes).toBeGreaterThanOrEqual(0.35);
       expect(ch.flashcards.length).toBeGreaterThanOrEqual(10);
     }));
 

@@ -9,9 +9,11 @@
  *   Entrée valider, puis passer à la suite
  *   H     indice
  */
-import type { Question, Qcm, VraiFaux, TrouveErreur, Choix } from '../../core/schema';
+import type { Question, Qcm, VraiFaux, TrouveErreur, Choix, Programme } from '../../core/schema';
 import { LIBELLES_TYPE } from '../../core/schema';
-import { corriger, type Reponse, type Resultat } from '../../core/grading';
+import { corriger, memeSortie, type ExecutionProgramme, type Reponse, type Resultat } from '../../core/grading';
+import { executerTests, arreter, type IssueTests } from '../../c/client';
+import { creerEditeurC } from './editeur-c';
 import { apercuLatex, math } from '../../core/checker';
 import { shuffle, createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
@@ -34,6 +36,8 @@ export interface OptionsQuestion {
   graine?: number;
   /** Petit bandeau au-dessus (ex. nom du chapitre). */
   surtitre?: string;
+  /** Exercices « programme » : compile et exécute sur des entrées (par défaut, le compilateur C du navigateur). */
+  executeur?: (source: string, entrees: string[], rappels: { etape?: (e: 'chargement' | 'compilation' | 'execution') => void }) => Promise<IssueTests>;
 }
 
 export interface ControleurQuestion {
@@ -110,11 +114,18 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
   /* ------------------- construction selon le type ------------------ */
   let lireReponse: () => Reponse | string; // string = message d'erreur
   let afficherCorrectionSpecifique: (r: Resultat) => void = () => {};
+  /** Préparation asynchrone de la réponse (compilation et exécution d'un programme). */
+  let preparer: (() => Promise<Reponse | string>) | null = null;
+  let enVerification = false;
+  let quitter: () => void = () => {};
+  /** Ajouté après la correction détaillée (ex. la solution d'un programme). */
+  let complementCorrection: HTMLElement | null = null;
   const clavier: ((e: KeyboardEvent) => boolean)[] = [];
 
   if (q.type === 'qcm') construireQcm(q);
   else if (q.type === 'vrai-faux') construireVraiFaux(q);
   else if (q.type === 'trouve-erreur') construireErreur(q);
+  else if (q.type === 'programme') construireProgramme(q);
   else construireSaisie();
 
   function construireChoix(choix: Choix[], multiple: boolean, nom: string, surChoix?: () => void) {
@@ -183,7 +194,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       const n = Number(e.key);
       if (n >= 1 && n <= c.entrees.length) {
         c.basculer(n - 1);
-        if (!qq.multiple) valider();
+        if (!qq.multiple) void valider();
         return true;
       }
       return false;
@@ -296,7 +307,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
         e.preventDefault();
         e.stopPropagation();
         if (repondu) opts.surSuivant?.();
-        else valider();
+        else void valider();
       }
     });
     // Mini-clavier mathématique (pratique sur téléphone).
@@ -343,6 +354,116 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     setTimeout(() => input.focus({ preventScroll: true }), 30);
   }
 
+  function construireProgramme(qq: Programme) {
+    const executeur = opts.executeur ?? executerTests;
+    const source = () => `${editeur.value}\n\n${qq.harnais}`;
+    const ETAPES = { chargement: '⏳ Chargement du compilateur…', compilation: '⚙️ Compilation…', execution: '▶️ Exécution des tests…' } as const;
+    const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, 'Ctrl + Entrée pour essayer sur l’exemple.');
+    const consoleC = h('pre', { class: 'console-c', 'aria-label': 'Sortie du programme', tabindex: '0', hidden: true });
+    const ecrire = (texte: string, classe?: string) => {
+      consoleC.hidden = false;
+      consoleC.append(classe ? h('span', { class: classe }, texte) : texte);
+    };
+    const exemple = qq.tests[0];
+    let derniere: ExecutionProgramme | null = null;
+
+    async function essayer() {
+      if (repondu || enVerification) return;
+      btnEssayer.disabled = true;
+      consoleC.replaceChildren();
+      const issue = await executeur(source(), [exemple.entree], { etape: (e) => (statut.textContent = ETAPES[e]) });
+      btnEssayer.disabled = repondu;
+      if ('compilation' in issue) {
+        statut.textContent = '❌ Erreur de compilation';
+        ecrire(issue.compilation, 'console-erreur');
+      } else if ('sorties' in issue) {
+        const s = issue.sorties[0];
+        ecrire(s.sortie || '(aucune sortie)', s.sortie ? undefined : 'console-info');
+        const ok = !('probleme' in s) && memeSortie(exemple.sortie, s.sortie);
+        statut.textContent = 'probleme' in s ? '❌ Le programme a planté ou ne s’arrête pas' : ok ? '✅ Exemple réussi. Vérifie sur tous les tests !' : '⚠️ La sortie diffère de celle attendue';
+      } else statut.textContent = issue.etape === 'arret' ? `⏱️ Interrompu (${issue.raison === 'temps' ? 'boucle infinie ?' : 'arrêt'})` : `❌ ${issue.message}`;
+    }
+
+    const editeur = creerEditeurC({ valeur: qq.code, surExecuter: () => void essayer(), lignes: Math.min(18, qq.code.split('\n').length + 4) });
+    const btnEssayer = h('button', { class: 'btn', type: 'button', onclick: () => void essayer() }, '▶ Essayer sur l’exemple');
+    const bloc = (titre: string, texte: string) => h('div', null, h('p', { class: 'etiquette-c' }, titre), h('pre', { class: 'sortie-attendue' }, texte || '(rien)'));
+    zone.append(
+      h('p', { class: 'consigne' }, `Complète le code. « Vérifier » le compile et le teste sur ${qq.tests.length} cas.`),
+      editeur,
+      h('div', { class: 'exemple-c' }, exemple.entree ? bloc('Exemple — entrée', exemple.entree) : null, bloc('Sortie attendue', exemple.sortie)),
+      h('div', { class: 'actions-c' }, btnEssayer),
+      statut,
+      consoleC,
+    );
+    quitter = () => {
+      if (enVerification || btnEssayer.disabled) arreter('utilisateur');
+    };
+
+    lireReponse = () => (editeur.value.trim() ? { type: 'programme', execution: { sorties: [] } } : 'Écris ton code.');
+    preparer = async () => {
+      consoleC.replaceChildren();
+      consoleC.hidden = true;
+      const issue = await executeur(
+        source(),
+        qq.tests.map((t) => t.entree),
+        { etape: (e) => (statut.textContent = ETAPES[e]) },
+      );
+      if ('compilation' in issue) {
+        statut.textContent = '❌ Erreur de compilation';
+        ecrire(issue.compilation, 'console-erreur');
+        return { type: 'programme', execution: issue };
+      }
+      if ('sorties' in issue) {
+        statut.textContent = '';
+        derniere = issue;
+        return { type: 'programme', execution: issue };
+      }
+      if (issue.etape === 'arret' && issue.raison === 'temps') {
+        statut.textContent = '⏱️ Temps dépassé : boucle infinie ?';
+        derniere = { sorties: qq.tests.map(() => ({ probleme: 'temps' as const, sortie: '' })) };
+        return { type: 'programme', execution: derniere };
+      }
+      statut.textContent = '';
+      return issue.etape === 'arret' ? 'Vérification interrompue.' : `Le compilateur a rencontré un problème : ${issue.message}`;
+    };
+    afficherCorrectionSpecifique = () => {
+      editeur.readOnly = true;
+      btnEssayer.disabled = true;
+      if (derniere && 'sorties' in derniere) {
+        const sorties = derniere.sorties;
+        const lignes = qq.tests.map((t, i) => {
+          const s = sorties[i];
+          const ok = !('probleme' in s) && memeSortie(t.sortie, s.sortie);
+          return { t, s, ok, i };
+        });
+        const echec = lignes.find((l) => !l.ok);
+        retour.append(
+          h(
+            'div',
+            { class: 'tests-c' },
+            h('p', { class: 'etiquette-c' }, 'Tests'),
+            h('ul', null, lignes.map((l) => h('li', { class: l.ok ? 'test-ok' : 'test-ko' }, `${l.ok ? '✔' : '✘'} Test ${l.i + 1}`))),
+            echec
+              ? h(
+                  'div',
+                  { class: 'exemple-c' },
+                  echec.t.entree ? bloc(`Test ${echec.i + 1} — entrée`, echec.t.entree) : null,
+                  bloc('Sortie attendue', echec.t.sortie),
+                  bloc(
+                    'Ta sortie',
+                    'probleme' in echec.s
+                      ? { temps: '(temps dépassé : boucle infinie ?)', plantage: '(le programme a planté : pointeur invalide, tableau dépassé ?)', 'trop-long': '(sortie trop longue)' }[echec.s.probleme]
+                      : echec.s.sortie,
+                  ),
+                )
+              : null,
+          ),
+        );
+      }
+      complementCorrection = h('details', { class: 'solution-c' }, h('summary', null, 'Une solution possible'), riche('div', `\`\`\`c\n${qq.solution}\n\`\`\``));
+    };
+  }
+
   /* --------------------------- actions ---------------------------- */
 
   function montrerRetour(r: Resultat, expire: boolean) {
@@ -364,7 +485,9 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       ? 'Bonne réponse.'
       : r.partiel
         ? 'La valeur ou la justification est fausse.'
-        : r.bienTraites !== undefined && q.type === 'qcm' && q.multiple
+        : r.testsReussis !== undefined && q.type === 'programme'
+          ? `${r.testsReussis}/${q.tests.length} tests réussis. Compare ta sortie à celle attendue.`
+          : r.bienTraites !== undefined && q.type === 'qcm' && q.multiple
           ? `${r.bienTraites}/${q.choix.length} choix bien traités. Regarde la correction.`
           : 'Regarde la correction juste au-dessus.';
     pied.classList.add(juste ? 'pied-juste' : 'pied-faux');
@@ -381,6 +504,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       h('ol', null, q.correction.map((etape) => riche('li', etape))),
     );
     retour.append(details);
+    if (complementCorrection) retour.append(complementCorrection);
     if (opts.surSuivant) {
       const b = h('button', { class: `btn btn-suivant ${juste ? 'btn-primaire' : 'btn-danger-plein'}`, type: 'button' }, opts.libelleSuivant ?? 'Continuer');
       b.onclick = () => opts.surSuivant?.();
@@ -391,12 +515,25 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     retour.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function valider() {
-    if (repondu) return;
-    const rep = lireReponse();
+  async function valider() {
+    if (repondu || enVerification) return;
+    let rep = lireReponse();
     if (typeof rep === 'string') {
       msg.textContent = rep;
       return;
+    }
+    if (preparer) {
+      enVerification = true;
+      btnValider.disabled = true;
+      msg.textContent = '';
+      rep = await preparer();
+      enVerification = false;
+      btnValider.disabled = false;
+      if (repondu) return; // temps écoulé pendant la vérification
+      if (typeof rep === 'string') {
+        msg.textContent = rep;
+        return;
+      }
     }
     const r = corriger(q, rep);
     if (r.statut === 'invalide') {
@@ -417,18 +554,18 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     blocIndice.hidden = false;
   }
 
-  btnValider.onclick = valider;
+  btnValider.onclick = () => void valider();
   if (btnIndice) btnIndice.onclick = demanderIndice;
 
   const surTouche = (e: KeyboardEvent) => {
     if (!el.isConnected || e.ctrlKey || e.metaKey || e.altKey) return;
     const cible = e.target as HTMLElement;
-    if (cible?.tagName === 'INPUT' && (cible as HTMLInputElement).type === 'text') return;
+    if (cible?.tagName === 'TEXTAREA' || (cible?.tagName === 'INPUT' && (cible as HTMLInputElement).type === 'text')) return;
     if (e.key === 'Enter') {
       if (cible?.tagName === 'BUTTON' || cible?.tagName === 'SUMMARY') return; // laisser le bouton agir
       e.preventDefault();
       if (repondu) opts.surSuivant?.();
-      else valider();
+      else void valider();
       return;
     }
     if (repondu) return;
@@ -453,6 +590,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       opts.surResultat(r, { indiceUtilise, expire: true });
     },
     detruire() {
+      quitter();
       document.removeEventListener('keydown', surTouche);
       el.remove();
     },

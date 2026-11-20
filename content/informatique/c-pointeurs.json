@@ -433,6 +433,70 @@
       ],
       "etapeFausse": 1,
       "explication": "`malloc` renvoie `NULL` si la mémoire manque : il faut tester `if (t == NULL)` avant d'écrire dans `t`."
+    },
+    {
+      "id": "prog-echanger",
+      "type": "programme",
+      "difficulte": 1,
+      "enonce": "Écris la fonction `void echanger(int *a, int *b)` qui échange les valeurs des deux entiers pointés par `a` et `b`.",
+      "indice": "Utilise une variable temporaire et l'opérateur de déréférencement `*`.",
+      "correction": [
+        "On sauvegarde `*a` dans une variable temporaire, on copie `*b` dans `*a`, puis la sauvegarde dans `*b`.",
+        "Échanger `a` et `b` (les pointeurs eux-mêmes) ne changerait rien pour l'appelant : ce sont des copies."
+      ],
+      "code": "void echanger(int *a, int *b) {\n    /* À compléter */\n}",
+      "harnais": "#include <stdio.h>\n\nint main(void) {\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    echanger(&x, &y);\n    printf(\"%d %d\\n\", x, y);\n    return 0;\n}",
+      "solution": "void echanger(int *a, int *b) {\n    int tmp = *a;\n    *a = *b;\n    *b = tmp;\n}",
+      "tests": [
+        {
+          "entree": "3 8",
+          "sortie": "8 3"
+        },
+        {
+          "entree": "0 5",
+          "sortie": "5 0"
+        },
+        {
+          "entree": "-1 -1",
+          "sortie": "-1 -1"
+        },
+        {
+          "entree": "-7 12",
+          "sortie": "12 -7"
+        }
+      ]
+    },
+    {
+      "id": "prog-min-max",
+      "type": "programme",
+      "difficulte": 2,
+      "enonce": "Écris la fonction `void min_max(int t[], int n, int *min, int *max)` qui calcule à la fois le minimum et le maximum du tableau `t` (taille $n \\ge 1$) et les range aux adresses `min` et `max`.\n\nC'est la façon de « renvoyer » plusieurs résultats en C.",
+      "indice": "Initialise `*min` et `*max` avec `t[0]`, puis parcours le reste du tableau.",
+      "correction": [
+        "`*min = *max = t[0];` puis, pour chaque `t[i]`, on met à jour `*min` ou `*max`.",
+        "On écrit à l'adresse fournie par l'appelant (`*min = …`), et non dans le pointeur lui-même (`min = …`)."
+      ],
+      "code": "void min_max(int t[], int n, int *min, int *max) {\n    /* À compléter */\n}",
+      "harnais": "#include <stdio.h>\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    int mini = 0, maxi = 0;\n    min_max(t, n, &mini, &maxi);\n    printf(\"%d %d\\n\", mini, maxi);\n    return 0;\n}",
+      "solution": "void min_max(int t[], int n, int *min, int *max) {\n    *min = *max = t[0];\n    for (int i = 1; i < n; i++) {\n        if (t[i] < *min)\n            *min = t[i];\n        if (t[i] > *max)\n            *max = t[i];\n    }\n}",
+      "tests": [
+        {
+          "entree": "5\n4 -2 9 0 3",
+          "sortie": "-2 9"
+        },
+        {
+          "entree": "1\n6",
+          "sortie": "6 6"
+        },
+        {
+          "entree": "3\n-5 -8 -1",
+          "sortie": "-8 -1"
+        },
+        {
+          "entree": "4\n10 20 30 40",
+          "sortie": "10 40"
+        }
+      ]
     }
   ]
 }

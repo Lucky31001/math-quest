@@ -5,6 +5,7 @@
 import { h } from '../dom';
 import { executerC, arreter, DUREE_MAX, type Issue } from '../../c/client';
 import { completerExtrait } from '../../c/compilateur';
+import { creerEditeurC } from '../components/editeur-c';
 
 const CLE_BROUILLON = 'math-quest:atelier-c';
 
@@ -159,15 +160,13 @@ export function ecranAtelier(main: HTMLElement): () => void {
   if (aOuvrir !== null) ecrireBrouillon(aOuvrir, '');
   aOuvrir = null;
 
-  const editeur = h('textarea', {
-    class: 'editeur-c',
-    spellcheck: 'false',
-    autocapitalize: 'off',
-    autocomplete: 'off',
-    wrap: 'off',
-    'aria-label': 'Code C',
+  const editeur = creerEditeurC({
+    valeur: depart,
+    surModif: () => sauver(),
+    surExecuter: () => {
+      if (!boutonExecuter.disabled) void lancer();
+    },
   });
-  editeur.value = depart;
   const entree = h('textarea', { class: 'entree-c', rows: 2, spellcheck: 'false', 'aria-label': 'Entrée standard', placeholder: 'Ex. : 7 5' });
   entree.value = brouillon?.entree ?? '';
   const details = h('details', { class: 'details-entree' }, h('summary', null, 'Entrée standard (pour scanf)'), entree);
@@ -196,8 +195,9 @@ export function ecranAtelier(main: HTMLElement): () => void {
     editeur.focus();
   });
 
-  const sauver = () => ecrireBrouillon(editeur.value, entree.value);
-  editeur.addEventListener('input', sauver);
+  function sauver() {
+    ecrireBrouillon(editeur.value, entree.value);
+  }
   entree.addEventListener('input', sauver);
 
   const ecrireConsole = (texte: string, classe?: string) => {
@@ -206,7 +206,7 @@ export function ecranAtelier(main: HTMLElement): () => void {
     consoleC.scrollTop = consoleC.scrollHeight;
   };
 
-  const lancer = async () => {
+  async function lancer() {
     boutonExecuter.disabled = true;
     boutonArreter.disabled = false;
     consoleC.replaceChildren();
@@ -243,29 +243,9 @@ export function ecranAtelier(main: HTMLElement): () => void {
         );
         break;
     }
-  };
+  }
   boutonExecuter.addEventListener('click', () => void lancer());
   boutonArreter.addEventListener('click', () => arreter('utilisateur'));
-
-  // Tabulation = 4 espaces ; Entrée conserve l'indentation ; Ctrl/Cmd + Entrée exécute.
-  editeur.addEventListener('keydown', (e) => {
-    const { selectionStart: debut, selectionEnd: fin, value } = editeur;
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      if (!boutonExecuter.disabled) void lancer();
-    } else if (e.key === 'Tab' && !e.shiftKey && debut === fin) {
-      e.preventDefault();
-      editeur.setRangeText('    ', debut, fin, 'end');
-      sauver();
-    } else if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) {
-      const ligne = value.slice(value.lastIndexOf('\n', debut - 1) + 1, debut);
-      const indentation = /^\s*/.exec(ligne)![0] + (/\{\s*$/.test(ligne) ? '    ' : '');
-      if (!indentation) return;
-      e.preventDefault();
-      editeur.setRangeText(`\n${indentation}`, debut, fin, 'end');
-      sauver();
-    }
-  });
 
   main.append(
     h('h1', null, '🧪 Atelier C'),

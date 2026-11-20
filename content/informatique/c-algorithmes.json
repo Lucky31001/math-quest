@@ -416,6 +416,68 @@
       ],
       "etapeFausse": 3,
       "explication": "Sur un tableau trié à l'envers, le $k$-ième élément est comparé aux $k$ précédents : $\\frac{n(n-1)}2$ comparaisons, soit $O(n^2)$."
+    },
+    {
+      "id": "prog-dichotomie",
+      "type": "programme",
+      "difficulte": 2,
+      "enonce": "Écris la fonction `int recherche(int t[], int n, int x)` qui cherche `x` dans le tableau `t` **trié par ordre croissant** (valeurs distinctes) par **dichotomie**. Elle renvoie l'indice de `x`, ou `-1` s'il est absent.",
+      "indice": "Garde un intervalle `[g, d]` : compare `x` à `t[(g + d) / 2]` et élimine la moitié qui ne peut pas le contenir.",
+      "correction": [
+        "On part de `g = 0`, `d = n - 1`. Tant que `g <= d`, on regarde le milieu `m = (g + d) / 2`.",
+        "Si `t[m] == x`, on renvoie `m` ; si `t[m] < x`, `x` ne peut être qu'à droite : `g = m + 1` ; sinon `d = m - 1`.",
+        "Si l'intervalle devient vide, `x` est absent : on renvoie `-1`. Coût : $O(\\log n)$ comparaisons."
+      ],
+      "code": "int recherche(int t[], int n, int x) {\n    /* À compléter : recherche dichotomique */\n    return -1;\n}",
+      "harnais": "#include <stdio.h>\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    int x;\n    while (scanf(\"%d\", &x) == 1)\n        printf(\"%d\\n\", recherche(t, n, x));\n    return 0;\n}",
+      "solution": "int recherche(int t[], int n, int x) {\n    int g = 0, d = n - 1;\n    while (g <= d) {\n        int m = (g + d) / 2;\n        if (t[m] == x)\n            return m;\n        if (t[m] < x)\n            g = m + 1;\n        else\n            d = m - 1;\n    }\n    return -1;\n}",
+      "tests": [
+        {
+          "entree": "5\n1 3 5 7 9\n7 1 9 4",
+          "sortie": "3\n0\n4\n-1"
+        },
+        {
+          "entree": "1\n42\n42 41",
+          "sortie": "0\n-1"
+        },
+        {
+          "entree": "6\n-10 -5 0 5 10 15\n15 -10 -6 0",
+          "sortie": "5\n0\n-1\n2"
+        }
+      ]
+    },
+    {
+      "id": "prog-tri-insertion",
+      "type": "programme",
+      "difficulte": 3,
+      "enonce": "Écris la fonction `void tri_insertion(int t[], int n)` qui trie le tableau `t` par ordre croissant avec le **tri par insertion**.",
+      "indice": "Pour chaque `i` à partir de 1, mémorise `t[i]`, décale vers la droite les éléments plus grands qui le précèdent, puis place-le dans le trou.",
+      "correction": [
+        "Invariant : avant l'étape `i`, `t[0..i-1]` est trié.",
+        "On mémorise `cle = t[i]`, puis tant que `j >= 0` et `t[j] > cle`, on décale : `t[j + 1] = t[j]; j--;`.",
+        "On place `cle` en `t[j + 1]`. La condition `j >= 0` doit être testée **avant** `t[j]` (évaluation paresseuse de `&&`)."
+      ],
+      "code": "void tri_insertion(int t[], int n) {\n    /* À compléter */\n}",
+      "harnais": "#include <stdio.h>\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    tri_insertion(t, n);\n    for (int i = 0; i < n; i++)\n        printf(\"%d \", t[i]);\n    printf(\"\\n\");\n    return 0;\n}",
+      "solution": "void tri_insertion(int t[], int n) {\n    for (int i = 1; i < n; i++) {\n        int cle = t[i];\n        int j = i - 1;\n        while (j >= 0 && t[j] > cle) {\n            t[j + 1] = t[j];\n            j--;\n        }\n        t[j + 1] = cle;\n    }\n}",
+      "tests": [
+        {
+          "entree": "6\n5 2 9 1 5 6",
+          "sortie": "1 2 5 5 6 9"
+        },
+        {
+          "entree": "1\n3",
+          "sortie": "3"
+        },
+        {
+          "entree": "5\n5 4 3 2 1",
+          "sortie": "1 2 3 4 5"
+        },
+        {
+          "entree": "4\n-1 -3 2 0",
+          "sortie": "-3 -1 0 2"
+        }
+      ]
     }
   ]
 }
