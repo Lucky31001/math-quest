@@ -2200,6 +2200,22 @@ a.stat-ligne:hover {
   border-color: var(--orange);
 }
 
+.protection {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.protection p {
+  margin: 6px 0;
+}
+
+.protection .discret {
+  color: var(--texte-doux);
+  font-size: 0.9em;
+}
+
 .liste-copies {
   margin: 0;
   padding: 0;

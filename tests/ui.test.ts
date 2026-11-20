@@ -74,6 +74,14 @@ describe('écrans', () => {
     expect(document.getElementById('contenu')!.querySelector('h1')).toBeTruthy();
   });
 
+  it('réglages : état de la protection de la sauvegarde', async () => {
+    await aller('#/reglages');
+    await attendre();
+    const bloc = document.querySelector('#contenu .protection')!;
+    expect(bloc).toBeTruthy();
+    expect(bloc.textContent).toContain('Dernier export');
+  });
+
   it('QCM éclair : on répond au clavier et le combo s’affiche', async () => {
     await aller('#/jouer/eclair');
     const main = document.getElementById('contenu')!;
