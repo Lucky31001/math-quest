@@ -84,7 +84,7 @@ Les types de blocs de cours sont : `definition`, `theoreme`, `propriete`, `metho
 | Champ | Obligatoire | Description |
 |---|---|---|
 | `id` | oui | identifiant unique dans le chapitre |
-| `type` | oui | `qcm`, `numerique`, `expression`, `vrai-faux`, `trouve-erreur` |
+| `type` | oui | `qcm`, `numerique`, `expression`, `vrai-faux`, `trouve-erreur`, `programme` |
 | `difficulte` | oui | `1`, `2` ou `3` |
 | `enonce` | oui | l'énoncé |
 | `indice` | non | indice (coûte 5 XP) |
@@ -216,6 +216,29 @@ L'élève clique sur la ligne fausse de la démonstration. `etapeFausse` est l'i
 }
 ```
 
+### Programme C (« écris le programme »)
+
+L'élève complète `code` dans un éditeur. « Vérifier » compile `code` + `harnais` **dans le navigateur** et compare la sortie à chaque test (espaces de fin de ligne et lignes vides finales ignorés). Le premier test sert d'exemple visible ; une erreur de compilation n'est pas comptée. Ces exercices ne sont pas proposés en mode Boss ni en Survie (chronomètre).
+
+```json
+{
+  "id": "prog-maximum",
+  "type": "programme",
+  "difficulte": 1,
+  "enonce": "Écris la fonction `int maximum(int t[], int n)` qui renvoie le plus grand élément de `t`.",
+  "correction": ["On initialise `max = t[0]` (pas 0 : les éléments peuvent être négatifs)."],
+  "code": "int maximum(int t[], int n) {\n    /* À compléter */\n    return 0;\n}",
+  "harnais": "#include <stdio.h>\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    printf(\"%d\\n\", maximum(t, n));\n    return 0;\n}",
+  "solution": "int maximum(int t[], int n) {\n    int max = t[0];\n    for (int i = 1; i < n; i++)\n        if (t[i] > max)\n            max = t[i];\n    return max;\n}",
+  "tests": [
+    { "entree": "5\n3 9 2 9 1", "sortie": "9" },
+    { "entree": "4\n-7 -3 -9 -5", "sortie": "-3" }
+  ]
+}
+```
+
+`tests/programmes.test.ts` vérifie que la solution réussit tous les tests (gcc avec sanitizers **et** le compilateur du navigateur) et que le code de départ compile sans les réussir tous. Pour lire du texte dans le harnais, utiliser `fgets` : le `scanf("%s")` du compilateur du navigateur est défaillant (`%d` fonctionne).
+
 ### Ajouter une matière ou un niveau
 
 Les niveaux (années) et leurs matières sont décrits dans `content/catalogue.json`. L'accueil s'en sert pour afficher :
@@ -269,15 +292,16 @@ Après avoir ajouté du contenu, lance `npm test`, qui vérifie :
 - le schéma ;
 - que tout le LaTeX compile avec KaTeX ;
 - que les réponses attendues sont évaluables ;
-- le volume minimal par chapitre : ≥ 10 exercices dont ≥ 4 QCM, ≥ 10 flashcards.
+- le volume minimal par chapitre : ≥ 10 questions courtes (hors `programme`) dont ≥ 4 QCM, ≥ 10 flashcards.
 
 ## Tests
 
-Une vérification qui porte sur beaucoup d'éléments (chapitres, questions, générateurs) est **un seul test** : `toutVerifier` (`tests/outils/tout-verifier.ts`) exécute tout et, en cas d'échec, liste chaque élément fautif par son nom. Environ 160 tests au total.
+Une vérification qui porte sur beaucoup d'éléments (chapitres, questions, générateurs) est **un seul test** : `toutVerifier` (`tests/outils/tout-verifier.ts`) exécute tout et, en cas d'échec, liste chaque élément fautif par son nom. Environ 180 tests au total.
 
 - **Contenu** : `tests/contenu.test.ts` (schéma, volume, LaTeX, QCM) et `tests/contenu-verifie.test.ts`, qui recalcule chaque réponse par une méthode indépendante. Les vérifications sont rangées par matière dans `tests/verifications/` (`maths.ts`, `physique.ts`, `informatique.ts`) ; leurs outils (Simpson, Runge-Kutta, Gauss, gcc, tracé de rayons) sont dans `tests/outils/verification.ts`.
 - **Générateurs** : `tests/generators.test.ts` et `tests/generators-extra.test.ts`. On relit l'énoncé LaTeX *affiché*, on recalcule la réponse, et on vérifie que la bonne réponse est juste et que **chaque distracteur est faux**.
 - **Atelier C** : `tests/atelier-c.test.ts`. Le compilateur WebAssembly compile chaque bloc de code des cours et donne les mêmes sorties que gcc.
+- **Exercices « programme »** : `tests/programmes.test.ts` (solution validée par gcc + sanitizers et par xcc, code de départ insuffisant).
 - **Vérification des saisies** : `tests/checker.test.ts` ; **correction** : `tests/grading.test.ts` ; **logique de jeu** : `tests/jeu.test.ts` ; **sauvegarde** : `tests/sauvegarde.test.ts` ; **interface** : `tests/ui.test.ts` (DOM simulé).
 
 Les tests ont besoin de `gcc` (présent sur les runners GitHub `ubuntu-latest`).

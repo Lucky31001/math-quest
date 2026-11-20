@@ -442,6 +442,70 @@
       ],
       "etapeFausse": 1,
       "explication": "`&&` est paresseux : le premier membre étant faux, `10 / x` n'est **pas** évalué. La condition vaut 0, sans erreur."
+    },
+    {
+      "id": "prog-somme-produit",
+      "type": "programme",
+      "difficulte": 1,
+      "enonce": "Complète ce programme : il lit deux entiers `a` et `b`, puis doit afficher leur somme et leur produit sur une ligne, séparés par une espace.\n\nExemple : pour l'entrée `3 4`, il affiche `7 12`.",
+      "indice": "Un seul `printf` suffit, avec deux `%d`.",
+      "correction": [
+        "`printf(\"%d %d\\n\", a + b, a * b);` affiche les deux valeurs, séparées par une espace, puis un retour à la ligne."
+      ],
+      "code": "#include <stdio.h>\n\nint main(void) {\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    /* À compléter : affiche a + b puis a * b */\n    return 0;\n}",
+      "harnais": "",
+      "solution": "#include <stdio.h>\n\nint main(void) {\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    printf(\"%d %d\\n\", a + b, a * b);\n    return 0;\n}",
+      "tests": [
+        {
+          "entree": "3 4",
+          "sortie": "7 12"
+        },
+        {
+          "entree": "-5 2",
+          "sortie": "-3 -10"
+        },
+        {
+          "entree": "0 9",
+          "sortie": "9 0"
+        },
+        {
+          "entree": "1000 1000",
+          "sortie": "2000 1000000"
+        }
+      ]
+    },
+    {
+      "id": "prog-heures-minutes",
+      "type": "programme",
+      "difficulte": 2,
+      "enonce": "Complète ce programme : il lit une durée `n` en secondes ($0 \\le n < 86\\,400$) et doit l'afficher sous la forme `H h M min S s`.\n\nExemple : pour `3725`, il affiche `1 h 2 min 5 s`.",
+      "indice": "Division entière `/` et reste `%` : il y a 3600 s dans une heure et 60 s dans une minute.",
+      "correction": [
+        "Heures : `n / 3600` (division entière).",
+        "Minutes : ce qui reste après les heures, `n % 3600`, divisé par 60.",
+        "Secondes : `n % 60`."
+      ],
+      "code": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    /* À compléter : affiche « H h M min S s » */\n    return 0;\n}",
+      "harnais": "",
+      "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    int h = n / 3600;\n    int m = (n % 3600) / 60;\n    int s = n % 60;\n    printf(\"%d h %d min %d s\\n\", h, m, s);\n    return 0;\n}",
+      "tests": [
+        {
+          "entree": "3725",
+          "sortie": "1 h 2 min 5 s"
+        },
+        {
+          "entree": "59",
+          "sortie": "0 h 0 min 59 s"
+        },
+        {
+          "entree": "86399",
+          "sortie": "23 h 59 min 59 s"
+        },
+        {
+          "entree": "7200",
+          "sortie": "2 h 0 min 0 s"
+        }
+      ]
     }
   ]
 }

@@ -107,9 +107,38 @@ export const TrouveErreurSchema = z
   })
   .strict();
 
+/** Un cas de test d'un exercice de programmation : entrée standard → sortie attendue. */
+export const CasTestSchema = z
+  .object({
+    /** Entrée standard (lue avec scanf). */
+    entree: z.string().default(''),
+    /** Sortie attendue (comparée ligne à ligne, espaces de fin ignorés). */
+    sortie: z.string(),
+  })
+  .strict();
+export type CasTest = z.infer<typeof CasTestSchema>;
+
+/**
+ * « Écris le programme » (langage C) : l'élève complète `code` ; on compile
+ * `code` + `harnais` dans le navigateur et on compare la sortie à chaque test.
+ */
+export const ProgrammeSchema = z
+  .object({
+    ...base,
+    type: z.literal('programme'),
+    /** Code de départ affiché dans l'éditeur (signature, commentaires « à compléter »). */
+    code: texte,
+    /** Code invisible ajouté après celui de l'élève, en général un `main` qui lit l'entrée et appelle sa fonction. */
+    harnais: z.string().default(''),
+    /** Une solution de référence (montrée après la réponse, vérifiée par les tests). */
+    solution: texte,
+    tests: z.array(CasTestSchema).min(1),
+  })
+  .strict();
+
 /** Contrôles de cohérence qui dépendent du type de question. */
 export const QuestionSchema = z
-  .discriminatedUnion('type', [QcmSchema, NumeriqueSchema, ExpressionSchema, VraiFauxSchema, TrouveErreurSchema])
+  .discriminatedUnion('type', [QcmSchema, NumeriqueSchema, ExpressionSchema, VraiFauxSchema, TrouveErreurSchema, ProgrammeSchema])
   .superRefine((q, ctx) => {
     const err = (message: string) => ctx.addIssue({ code: 'custom', message: `[${q.id}] ${message}` });
     if (q.type === 'qcm') {
@@ -129,6 +158,7 @@ export type Numerique = z.infer<typeof NumeriqueSchema>;
 export type Expression = z.infer<typeof ExpressionSchema>;
 export type VraiFaux = z.infer<typeof VraiFauxSchema>;
 export type TrouveErreur = z.infer<typeof TrouveErreurSchema>;
+export type Programme = z.infer<typeof ProgrammeSchema>;
 export type Question = z.infer<typeof QuestionSchema>;
 export type TypeQuestion = Question['type'];
 
@@ -138,6 +168,7 @@ export const TYPES_QUESTION: readonly TypeQuestion[] = [
   'expression',
   'vrai-faux',
   'trouve-erreur',
+  'programme',
 ];
 
 export const LIBELLES_TYPE: Record<TypeQuestion, string> = {
@@ -146,6 +177,7 @@ export const LIBELLES_TYPE: Record<TypeQuestion, string> = {
   expression: 'Expression',
   'vrai-faux': 'Vrai / Faux',
   'trouve-erreur': "Trouve l'erreur",
+  programme: 'Programme C',
 };
 
 export const FlashcardSchema = z

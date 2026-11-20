@@ -400,6 +400,71 @@
       ],
       "etapeFausse": 2,
       "explication": "Après `free(p)`, lire `p->suiv` est une utilisation après libération (comportement indéfini). Il faut mémoriser le suivant **avant** `free`."
+    },
+    {
+      "id": "prog-taille-liste",
+      "type": "programme",
+      "difficulte": 1,
+      "enonce": "Avec le type `Maillon` du cours, écris la fonction `int taille(Maillon *l)` qui renvoie le nombre de maillons de la liste `l` (la liste vide est `NULL`).",
+      "indice": "Parcours la liste avec un pointeur `p` : `p = p->suiv` jusqu'à `NULL`.",
+      "correction": [
+        "On parcourt la liste avec `Maillon *p = l;` tant que `p != NULL`, en comptant les maillons.",
+        "La liste vide (`NULL`) donne 0, sans cas particulier."
+      ],
+      "code": "#include <stdlib.h>\n\ntypedef struct Maillon {\n    int val;\n    struct Maillon *suiv;\n} Maillon;\n\nint taille(Maillon *l) {\n    /* À compléter */\n    return 0;\n}",
+      "harnais": "#include <stdio.h>\n#include <stdlib.h>\n\nMaillon *harnais_construire(int t[], int n) {\n    Maillon *l = NULL;\n    for (int i = n - 1; i >= 0; i--) {\n        Maillon *m = malloc(sizeof *m);\n        m->val = t[i];\n        m->suiv = l;\n        l = m;\n    }\n    return l;\n}\n\nvoid harnais_liberer(Maillon *l) {\n    while (l != NULL) {\n        Maillon *s = l->suiv;\n        free(l);\n        l = s;\n    }\n}\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    Maillon *l = harnais_construire(t, n);\n    printf(\"%d\\n\", taille(l));\n    harnais_liberer(l);\n    return 0;\n}",
+      "solution": "#include <stdlib.h>\n\ntypedef struct Maillon {\n    int val;\n    struct Maillon *suiv;\n} Maillon;\n\nint taille(Maillon *l) {\n    int n = 0;\n    for (Maillon *p = l; p != NULL; p = p->suiv)\n        n++;\n    return n;\n}",
+      "tests": [
+        {
+          "entree": "3\n1 2 3",
+          "sortie": "3"
+        },
+        {
+          "entree": "0",
+          "sortie": "0"
+        },
+        {
+          "entree": "5\n4 4 4 4 4",
+          "sortie": "5"
+        },
+        {
+          "entree": "1\n-8",
+          "sortie": "1"
+        }
+      ]
+    },
+    {
+      "id": "prog-inverser-liste",
+      "type": "programme",
+      "difficulte": 3,
+      "enonce": "Écris la fonction `Maillon *inverser(Maillon *l)` qui inverse la liste **sans allouer de maillon** (en modifiant les champs `suiv`) et renvoie la nouvelle tête.\n\nExemple : la liste `1 → 2 → 3` devient `3 → 2 → 1`.",
+      "indice": "Trois pointeurs : `precedent` (au départ `NULL`), `courant`, et `suivant` pour ne pas perdre la suite.",
+      "correction": [
+        "On parcourt la liste avec `courant`, en gardant `precedent` (au départ `NULL`).",
+        "À chaque étape : `suivant = courant->suiv;` (sinon on perd la suite), puis `courant->suiv = precedent;`, puis on avance : `precedent = courant; courant = suivant;`.",
+        "À la fin, `precedent` est l'ancien dernier maillon : c'est la nouvelle tête. La liste vide reste `NULL`."
+      ],
+      "code": "#include <stdlib.h>\n\ntypedef struct Maillon {\n    int val;\n    struct Maillon *suiv;\n} Maillon;\n\nMaillon *inverser(Maillon *l) {\n    /* À compléter */\n    return l;\n}",
+      "harnais": "#include <stdio.h>\n#include <stdlib.h>\n\nMaillon *harnais_construire(int t[], int n) {\n    Maillon *l = NULL;\n    for (int i = n - 1; i >= 0; i--) {\n        Maillon *m = malloc(sizeof *m);\n        m->val = t[i];\n        m->suiv = l;\n        l = m;\n    }\n    return l;\n}\n\nvoid harnais_liberer(Maillon *l) {\n    while (l != NULL) {\n        Maillon *s = l->suiv;\n        free(l);\n        l = s;\n    }\n}\n\nint main(void) {\n    int t[100], n;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &t[i]);\n    Maillon *l = inverser(harnais_construire(t, n));\n    for (Maillon *p = l; p != NULL; p = p->suiv)\n        printf(\"%d \", p->val);\n    printf(\"\\n\");\n    harnais_liberer(l);\n    return 0;\n}",
+      "solution": "#include <stdlib.h>\n\ntypedef struct Maillon {\n    int val;\n    struct Maillon *suiv;\n} Maillon;\n\nMaillon *inverser(Maillon *l) {\n    Maillon *precedent = NULL;\n    Maillon *courant = l;\n    while (courant != NULL) {\n        Maillon *suivant = courant->suiv;\n        courant->suiv = precedent;\n        precedent = courant;\n        courant = suivant;\n    }\n    return precedent;\n}",
+      "tests": [
+        {
+          "entree": "4\n1 2 3 4",
+          "sortie": "4 3 2 1"
+        },
+        {
+          "entree": "1\n9",
+          "sortie": "9"
+        },
+        {
+          "entree": "0",
+          "sortie": ""
+        },
+        {
+          "entree": "3\n5 -1 7",
+          "sortie": "7 -1 5"
+        }
+      ]
     }
   ]
 }

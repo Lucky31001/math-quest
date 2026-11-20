@@ -3,7 +3,9 @@
  * et une limite de temps (une boucle infinie est coupée en tuant le worker).
  */
 import type { Resultat } from './compilateur';
+import type { ExecutionProgramme } from '../core/grading';
 import type { Etape, MessageDuWorker, MessageVersWorker } from './messages';
+import type { SortieCas } from '../core/grading';
 
 /** Durée maximale d'une exécution (compilation comprise), en millisecondes. */
 export const DUREE_MAX = 10_000;
@@ -25,8 +27,28 @@ function obtenirWorker(): Worker {
   return worker;
 }
 
+/** Issue d'une exécution sur des cas de test (exercices « programme »). */
+export type IssueTests = ExecutionProgramme | { etape: 'arret'; raison: 'utilisateur' | 'temps' } | { etape: 'erreur'; message: string };
+
+/**
+ * Compile `source` une fois puis l'exécute sur chaque entrée (sortie capturée).
+ * Une boucle infinie coupe l'ensemble au bout de `DUREE_MAX`.
+ */
+export async function executerTests(source: string, entrees: string[], rappels: Pick<Rappels, 'etape'> = {}): Promise<IssueTests> {
+  let sorties: ExecutionProgramme | null = null;
+  const issue = await lancer({ source, entree: '', entrees, urlCompilateur: urlCompilateur() }, rappels, (s) => (sorties = { sorties: s }));
+  if (sorties) return sorties;
+  if (issue.etape === 'compilation') return { compilation: issue.messages };
+  if (issue.etape === 'execution') return { etape: 'erreur', message: 'réponse inattendue du worker' };
+  return issue;
+}
+
 /** Compile et exécute `source` ; une seule exécution à la fois. */
 export function executerC(source: string, entree: string, rappels: Rappels = {}): Promise<Issue> {
+  return lancer({ source, entree, urlCompilateur: urlCompilateur() }, rappels);
+}
+
+function lancer(message: MessageVersWorker, rappels: Rappels, surTests?: (s: SortieCas[]) => void): Promise<Issue> {
   arreter('utilisateur');
   return new Promise((resolve) => {
     const w = obtenirWorker();
@@ -51,10 +73,13 @@ export function executerC(source: string, entree: string, rappels: Rappels = {})
         rappels.etape?.(m.etape);
       } else if (m.type === 'sortie') rappels.sortie?.(m.texte, m.fd);
       else if (m.type === 'fin') terminer(m.resultat);
+      else if (m.type === 'fin-tests') {
+        surTests?.(m.sorties);
+        terminer({ etape: 'execution', code: 0, trop: false });
+      }
       else terminer({ etape: 'erreur', message: m.message });
     };
     w.onerror = (e) => terminer({ etape: 'erreur', message: e.message || 'erreur du worker' });
-    const message: MessageVersWorker = { source, entree, urlCompilateur: urlCompilateur() };
     w.postMessage(message);
   });
 }

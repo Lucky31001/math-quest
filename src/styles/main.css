@@ -231,6 +231,70 @@ pre.code code {
   font-style: italic;
 }
 
+/* Exercices « programme » : exemple, tests, solution. */
+.question .editeur-c {
+  min-height: 10em;
+}
+
+.actions-c {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 0;
+}
+
+.exemple-c {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin: 10px 0 0;
+}
+
+.etiquette-c {
+  margin: 0 0 4px;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sortie-attendue {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #0b141a;
+  font: 500 0.85rem/1.4 ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tests-c ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 800;
+}
+
+.test-ok {
+  color: var(--vert-texte);
+}
+
+.test-ko {
+  color: var(--rouge);
+}
+
+.solution-c {
+  margin-top: 12px;
+}
+
+.solution-c summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
 /* Écran étroit : un peu plus petit, pour que la plupart des lignes tiennent sans défiler. */
 @media (max-width: 420px) {
   pre.code {
@@ -2634,9 +2698,10 @@ body {
   background: color-mix(in srgb, var(--fond) 94%, transparent);
 }
 
+/* Pas de z-index sur main : il en ferait un contexte d'empilement, et la barre
+   « Vérifier » (.pied, position fixed) passerait sous la barre d'onglets mobile. */
 main {
   position: relative;
-  z-index: 1;
 }
 
 /* =====================================================================
