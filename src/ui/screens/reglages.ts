@@ -3,6 +3,7 @@ import { h, ajouter } from '../dom';
 import { etat, avertissementChargement, rapportChargement } from '../etat';
 import { exporter, importer, progressionVide, listerCopies, supprimerCopie } from '../../storage/progression';
 import { toast, jouerSon } from '../effets';
+import { statutStockage, demanderProtection, estIosNavigateur, noterExport, dernierExport, type StatutStockage } from '../../storage/persistance';
 
 /** Propose un fichier texte au téléchargement. */
 function telecharger(nom: string, contenu: string): void {
@@ -66,6 +67,57 @@ function sectionCopies(): HTMLElement | null {
   return section;
 }
 
+/** Libellé du dernier export (« jamais », « aujourd'hui », « le 12/10/2026 »). */
+function libelleExport(): string {
+  const d = dernierExport();
+  if (!d) return 'jamais';
+  return d === etat.aujourdhui() ? 'aujourd’hui' : `le ${new Date(d).toLocaleDateString('fr-FR')}`;
+}
+
+/** La sauvegarde est-elle à l'abri d'un effacement automatique du navigateur ? */
+function etatProtection(): HTMLElement {
+  const bloc = h('div', { class: 'protection', role: 'status' }, h('p', null, 'Vérification de la protection…'));
+  const rendre = (statut: StatutStockage): void => {
+    const conseilIos = estIosNavigateur()
+      ? h(
+          'p',
+          null,
+          'Sur iPhone / iPad, Safari efface les données d’un site après 7 jours sans visite. Ajoute Math Quest à l’écran d’accueil (Partager → « Sur l’écran d’accueil ») : l’app installée a son propre stockage, qui n’est pas effacé. Exporte ici puis importe dans l’app installée.',
+        )
+      : null;
+    const pied = h('p', { class: 'discret' }, `Dernier export : ${libelleExport()}.`);
+    if (statut === 'protege') {
+      bloc.replaceChildren(h('p', null, '🔒 Sauvegarde protégée : le navigateur ne l’effacera pas pour faire de la place.'), pied);
+      return;
+    }
+    const demander =
+      statut === 'non-protege'
+        ? h(
+            'button',
+            {
+              class: 'btn',
+              type: 'button',
+              onclick: async () => {
+                const s = await demanderProtection();
+                rendre(s);
+                if (s !== 'protege') toast('Le navigateur a refusé : pense à exporter régulièrement.', 'info');
+              },
+            },
+            '🔒 Protéger la sauvegarde',
+          )
+        : null;
+    bloc.replaceChildren();
+    ajouter(bloc, [
+      h('p', null, '⚠️ Sauvegarde non protégée : le navigateur peut l’effacer (manque de place, longue absence). Exporte-la régulièrement.'),
+      conseilIos,
+      demander ? h('div', { class: 'actions' }, demander) : null,
+      pied,
+    ]);
+  };
+  void statutStockage().then(rendre);
+  return bloc;
+}
+
 export function ecranReglages(main: HTMLElement): void {
   const p = etat.p;
   const interrupteur = (libelle: string, valeur: boolean, f: (v: boolean) => void) =>
@@ -107,6 +159,7 @@ export function ecranReglages(main: HTMLElement): void {
       { class: 'carte-info' },
       h('h2', null, 'Sauvegarde'),
       h('p', null, 'Ta progression est enregistrée dans ce navigateur (localStorage). Exporte-la pour la transférer sur un autre appareil (ex. du PC au téléphone).'),
+      etatProtection(),
       h(
         'div',
         { class: 'actions' },
@@ -115,7 +168,10 @@ export function ecranReglages(main: HTMLElement): void {
           {
             class: 'btn btn-primaire',
             type: 'button',
-            onclick: () => telecharger(`math-quest-${etat.aujourdhui()}.json`, exporter(etat.p)),
+            onclick: () => {
+              telecharger(`math-quest-${etat.aujourdhui()}.json`, exporter(etat.p));
+              noterExport(etat.aujourdhui());
+            },
           },
           '⬇️ Exporter (JSON)',
         ),
