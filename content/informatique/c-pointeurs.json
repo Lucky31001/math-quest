@@ -112,6 +112,21 @@
       "id": "f-local",
       "recto": "Peut-on renvoyer l'adresse d'une variable locale ?",
       "verso": "Non : elle n'existe plus après le retour de la fonction."
+    },
+    {
+      "id": "taille-pointeur",
+      "recto": "Taille d'un pointeur sur une machine 64 bits ?",
+      "verso": "8 octets, quel que soit le type pointé."
+    },
+    {
+      "id": "malloc-struct",
+      "recto": "Allouer dynamiquement une structure `P` ?",
+      "verso": "`P *p = malloc(sizeof *p);`, vérifier `p != NULL`, puis `free(p)` à la fin."
+    },
+    {
+      "id": "pointeur-pointeur",
+      "recto": "Pointeur sur pointeur ?",
+      "verso": "`int **pp = &p;` : `*pp` est `p`, et `**pp` la valeur pointée par `p`."
     }
   ],
   "exercices": [
@@ -433,6 +448,100 @@
       ],
       "etapeFausse": 1,
       "explication": "`malloc` renvoie `NULL` si la mémoire manque : il faut tester `if (t == NULL)` avant d'écrire dans `t`."
+    },
+    {
+      "id": "pointeur-incremente",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nint t[4] = {10, 20, 30, 40};\nint *p = t;\np++;\nprintf(\"%d\\n\", *p + 1);\n```",
+      "correction": [
+        "`p++` fait pointer `p` sur `t[1]`.",
+        "`*p + 1` : on ajoute 1 à la VALEUR pointée."
+      ],
+      "choix": [
+        {
+          "texte": "`21`",
+          "correct": true,
+          "explication": "`*p` vaut 20, plus 1."
+        },
+        {
+          "texte": "`30`",
+          "correct": false,
+          "explication": "Ce serait `*(p + 1)` : le décalage porte sur le pointeur."
+        },
+        {
+          "texte": "`11`",
+          "correct": false,
+          "explication": "`p++` a déplacé le pointeur sur la case suivante."
+        },
+        {
+          "texte": "`20`",
+          "correct": false,
+          "explication": "On ajoute 1 à la valeur pointée."
+        }
+      ]
+    },
+    {
+      "id": "double-indirection",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nint x = 5;\nint *p = &x;\nint **pp = &p;\n**pp = 8;\nprintf(\"%d\\n\", x);\n```",
+      "correction": [
+        "`*pp` est `p`, donc `**pp` est `*p`, c'est-à-dire `x`."
+      ],
+      "choix": [
+        {
+          "texte": "`8`",
+          "correct": true,
+          "explication": "`**pp = 8` modifie `x`."
+        },
+        {
+          "texte": "`5`",
+          "correct": false,
+          "explication": "La double indirection atteint bien `x`."
+        },
+        {
+          "texte": "`13`",
+          "correct": false,
+          "explication": "C'est une affectation, pas une addition."
+        },
+        {
+          "texte": "l'adresse de `x`",
+          "correct": false,
+          "explication": "`x` est un `int` : on affiche sa valeur."
+        }
+      ]
+    },
+    {
+      "id": "struct-par-adresse",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Qu'affiche ce code ?\n```c\ntypedef struct {\n    int x, y;\n} Point;\n\nvoid deplacer(Point *p) {\n    p->x += 1;\n}\n\nPoint a = {2, 3};\ndeplacer(&a);\nprintf(\"%d\\n\", a.x + a.y);\n```",
+      "correction": [
+        "La structure est passée par adresse : `deplacer` modifie `a`."
+      ],
+      "choix": [
+        {
+          "texte": "`6`",
+          "correct": true,
+          "explication": "`a.x` devient 3 : 3 + 3."
+        },
+        {
+          "texte": "`5`",
+          "correct": false,
+          "explication": "Ce serait si `deplacer` recevait une copie de `a`."
+        },
+        {
+          "texte": "`3`",
+          "correct": false,
+          "explication": "C'est `a.x` seul, après déplacement."
+        },
+        {
+          "texte": "`7`",
+          "correct": false,
+          "explication": "Seul `x` est incrémenté, de 1."
+        }
+      ]
     },
     {
       "id": "prog-echanger",

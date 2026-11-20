@@ -1,5 +1,6 @@
 /** Vérifications indépendantes — Informatique (langage C, compilé par gcc). Clé : « chapitre/question ». */
 import { expect } from 'vitest';
+import { completerExtrait } from '../../src/c/compilateur';
 import {
   attendu,
   bonChoixCode,
@@ -12,7 +13,22 @@ import {
   question,
 } from '../outils/verification';
 
+/** QCM « Qu'affiche ce code ? » : l'extrait, complété comme dans l'atelier, affiche le bon choix. */
+const sortieAffichee = (chap: string, ids: string[]) => () => {
+  for (const id of ids) {
+    const q = question(chap, id);
+    expect(executerC(completerExtrait(codeDe(q))), `${chap}/${id}`).toBe(bonChoixCode(q));
+  }
+};
+
 export const verifications: Record<string, () => void> = {
+  /* QCM ajoutés : sortie réelle du code affiché (gcc -Wall -Werror). */
+  'c-bases/qcm-code': sortieAffichee('c-bases', ['affectations-composees', 'double-division-entiere', 'else-if']),
+  'c-controle/qcm-code': sortieAffichee('c-controle', ['multiples-de-3', 'while-pas-2', 'break-somme']),
+  'c-fonctions-tableaux/qcm-code': sortieAffichee('c-fonctions-tableaux', ['appels-carre', 'initialisation-partielle', 'compteur-static']),
+  'c-pointeurs/qcm-code': sortieAffichee('c-pointeurs', ['pointeur-incremente', 'double-indirection', 'struct-par-adresse']),
+  'c-chaines/qcm-code': sortieAffichee('c-chaines', ['indice-chaine', 'strlen-sizeof', 'premiere-majuscule']),
+  'c-algorithmes/qcm-code': sortieAffichee('c-algorithmes', ['puissance-recursive']),
   /* ========================= INFORMATIQUE (langage C) ========================= */
   /* ---------------- Bases ---------------- */
   'c-bases/modulo': () => expect(attendu(question('c-bases', 'modulo')).re).toBe(Number(instructionsC('', '%d', '17 % 5'))),

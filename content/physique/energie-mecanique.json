@@ -115,6 +115,21 @@
       "id": "f-vitesse-chute",
       "recto": "Vitesse après une chute libre de hauteur $h$ ?",
       "verso": "$v = \\sqrt{2gh}$ (conservation de $E_m$)."
+    },
+    {
+      "id": "energie-mecanique-def",
+      "recto": "Énergie mécanique ?",
+      "verso": "$E_m = E_c + E_p$ : somme de l'énergie cinétique et des énergies potentielles."
+    },
+    {
+      "id": "puissance-perpendiculaire",
+      "recto": "Puissance d'une force perpendiculaire à la vitesse ?",
+      "verso": "Nulle : $P = \\vec F \\cdot \\vec v = 0$ (ex. réaction normale sans frottement)."
+    },
+    {
+      "id": "hauteur-max",
+      "recto": "Hauteur maximale d'un objet lancé verticalement à $v_0$ (sans frottement) ?",
+      "verso": "$h = \\dfrac{v_0^2}{2g}$."
     }
   ],
   "exercices": [
@@ -453,6 +468,99 @@
       ],
       "etapeFausse": 3,
       "explication": "En divisant $\\frac12 mv^2$ par $mg$, on obtient $\\dfrac{v^2}{2g}$ : $h = 2R + \\dfrac{v^2}{2g} \\ge 2R + \\dfrac R2$."
+    },
+    {
+      "id": "travail-poids-chemin",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Le travail du poids entre deux points dépend :",
+      "correction": [
+        "Le poids est une force conservative : $W = mg(z_A - z_B)$."
+      ],
+      "choix": [
+        {
+          "texte": "uniquement de la différence d'altitude",
+          "correct": true,
+          "explication": "$W = -mg\\,\\Delta z$, quel que soit le chemin."
+        },
+        {
+          "texte": "de la longueur du chemin suivi",
+          "correct": false,
+          "explication": "C'est le cas des frottements, pas du poids."
+        },
+        {
+          "texte": "de la vitesse de l'objet",
+          "correct": false,
+          "explication": "Le travail du poids ne dépend que des positions de départ et d'arrivée."
+        },
+        {
+          "texte": "de la durée du trajet",
+          "correct": false,
+          "explication": "Le travail ne dépend pas du temps de parcours."
+        }
+      ]
+    },
+    {
+      "id": "skieur-frottements",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un skieur descend une piste en subissant des frottements. Son énergie mécanique :",
+      "correction": [
+        "$\\Delta E_m = W_{\\text{frottements}} < 0$."
+      ],
+      "choix": [
+        {
+          "texte": "diminue",
+          "correct": true,
+          "explication": "Les frottements dissipent de l'énergie (chaleur)."
+        },
+        {
+          "texte": "se conserve",
+          "correct": false,
+          "explication": "Seulement sans force non conservative qui travaille."
+        },
+        {
+          "texte": "augmente",
+          "correct": false,
+          "explication": "Il faudrait une force motrice (remontée mécanique…)."
+        },
+        {
+          "texte": "est égale à son énergie cinétique",
+          "correct": false,
+          "explication": "Il faut aussi compter son énergie potentielle de pesanteur."
+        }
+      ]
+    },
+    {
+      "id": "vitesse-doublee",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On double la vitesse d'un objet. Son énergie cinétique est :",
+      "correction": [
+        "$E_c = \\dfrac{1}{2}mv^2$ : proportionnelle au carré de la vitesse."
+      ],
+      "choix": [
+        {
+          "texte": "multipliée par 4",
+          "correct": true,
+          "explication": "$(2v)^2 = 4v^2$."
+        },
+        {
+          "texte": "multipliée par 2",
+          "correct": false,
+          "explication": "$E_c$ dépend de $v^2$, pas de $v$."
+        },
+        {
+          "texte": "multipliée par $\\sqrt 2$",
+          "correct": false,
+          "explication": "C'est l'inverse : la vitesse varie comme $\\sqrt{E_c}$."
+        },
+        {
+          "texte": "inchangée",
+          "correct": false,
+          "explication": "L'énergie cinétique dépend de la vitesse."
+        }
+      ]
     }
   ]
 }

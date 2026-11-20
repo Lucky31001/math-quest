@@ -142,6 +142,11 @@
       "id": "f-cs",
       "recto": "Nombre de chiffres significatifs de $0{,}0520$ ?",
       "verso": "3 (les zéros de gauche ne comptent pas, le zéro final compte)."
+    },
+    {
+      "id": "prefixes-grands",
+      "recto": "Préfixes $\\mathrm{k}$, $\\mathrm{M}$, $\\mathrm{G}$ ?",
+      "verso": "$10^3$, $10^6$, $10^9$."
     }
   ],
   "exercices": [
@@ -462,6 +467,99 @@
       ],
       "etapeFausse": 1,
       "explication": "Le carré porte aussi sur la puissance de 10 : $1\\ \\mathrm{cm^2} = (10^{-2}\\ \\mathrm{m})^2 = 10^{-4}\\ \\mathrm{m^2}$."
+    },
+    {
+      "id": "unite-puissance",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Unité SI de la puissance :",
+      "correction": [
+        "Puissance = énergie par unité de temps."
+      ],
+      "choix": [
+        {
+          "texte": "le watt ($\\mathrm{W} = \\mathrm{J\\cdot s^{-1}}$)",
+          "correct": true,
+          "explication": "Une puissance est une énergie par seconde."
+        },
+        {
+          "texte": "le joule",
+          "correct": false,
+          "explication": "C'est l'unité de l'énergie."
+        },
+        {
+          "texte": "le newton",
+          "correct": false,
+          "explication": "C'est l'unité de la force."
+        },
+        {
+          "texte": "le kilowattheure",
+          "correct": false,
+          "explication": "C'est une unité d'énergie (puissance × durée)."
+        }
+      ]
+    },
+    {
+      "id": "litre-m3",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "$1\\ \\mathrm{L}$ vaut :",
+      "correction": [
+        "$1\\ \\mathrm{L} = 1\\ \\mathrm{dm^3}$ et $1\\ \\mathrm{dm} = 10^{-1}\\ \\mathrm{m}$."
+      ],
+      "choix": [
+        {
+          "texte": "$10^{-3}\\ \\mathrm{m^3}$",
+          "correct": true,
+          "explication": "$(10^{-1}\\ \\mathrm{m})^3 = 10^{-3}\\ \\mathrm{m^3}$."
+        },
+        {
+          "texte": "$1\\ \\mathrm{m^3}$",
+          "correct": false,
+          "explication": "Un mètre cube vaut 1000 litres."
+        },
+        {
+          "texte": "$10^{-1}\\ \\mathrm{m^3}$",
+          "correct": false,
+          "explication": "Le facteur $10^{-1}$ porte sur les longueurs : il faut le mettre au cube."
+        },
+        {
+          "texte": "$10^{-6}\\ \\mathrm{m^3}$",
+          "correct": false,
+          "explication": "C'est $1\\ \\mathrm{cm^3}$ (un millilitre)."
+        }
+      ]
+    },
+    {
+      "id": "homogene-vitesse",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle expression est homogène à une vitesse ($g$ : accélération, $h$ : longueur, $m$ : masse) ?",
+      "correction": [
+        "$[g] = \\mathrm{m\\cdot s^{-2}}$ et $[h] = \\mathrm{m}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\sqrt{gh}$",
+          "correct": true,
+          "explication": "$\\sqrt{\\mathrm{m^2\\cdot s^{-2}}} = \\mathrm{m\\cdot s^{-1}}$."
+        },
+        {
+          "texte": "$gh$",
+          "correct": false,
+          "explication": "Homogène au carré d'une vitesse ($\\mathrm{m^2\\cdot s^{-2}}$)."
+        },
+        {
+          "texte": "$\\sqrt{g/h}$",
+          "correct": false,
+          "explication": "Homogène à l'inverse d'un temps (une pulsation)."
+        },
+        {
+          "texte": "$mgh$",
+          "correct": false,
+          "explication": "Homogène à une énergie."
+        }
+      ]
     }
   ]
 }

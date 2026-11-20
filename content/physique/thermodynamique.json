@@ -118,6 +118,21 @@
       "id": "f-carnot",
       "recto": "Rendement maximal d'un moteur ditherme ?",
       "verso": "$\\eta_{\\text{Carnot}} = 1 - T_f / T_c$ (en kelvins)."
+    },
+    {
+      "id": "adiabatique",
+      "recto": "Transformation adiabatique ?",
+      "verso": "Sans échange de chaleur avec l'extérieur : $Q = 0$."
+    },
+    {
+      "id": "c-eau",
+      "recto": "Capacité thermique massique de l'eau liquide ?",
+      "verso": "$c \\approx 4{,}18\\ \\mathrm{kJ\\cdot kg^{-1}\\cdot K^{-1}}$."
+    },
+    {
+      "id": "palier-changement-etat",
+      "recto": "Changement d'état d'un corps pur à pression constante : la température ?",
+      "verso": "Reste constante pendant tout le changement d'état (palier)."
     }
   ],
   "exercices": [
@@ -466,6 +481,99 @@
       ],
       "etapeFausse": 2,
       "explication": "$-P_{\\text{ext}}\\,\\mathrm dV > 0$ quand $\\mathrm dV < 0$ : $W > 0$, le gaz **reçoit** du travail (il faut pousser le piston)."
+    },
+    {
+      "id": "chauffage-isochore",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "On chauffe un gaz enfermé dans un récipient rigide (volume constant). Le travail des forces de pression reçu par le gaz vaut :",
+      "correction": [
+        "$\\delta W = -P_{ext}\\,dV$ et $dV = 0$."
+      ],
+      "choix": [
+        {
+          "texte": "$0$",
+          "correct": true,
+          "explication": "Pas de variation de volume, pas de travail des forces de pression."
+        },
+        {
+          "texte": "$-P\\,\\Delta V$, non nul",
+          "correct": false,
+          "explication": "$\\Delta V = 0$ ici."
+        },
+        {
+          "texte": "$nR\\,\\Delta T$",
+          "correct": false,
+          "explication": "C'est $\\Delta(PV)$ pour un gaz parfait, pas un travail."
+        },
+        {
+          "texte": "l'opposé de la chaleur reçue",
+          "correct": false,
+          "explication": "Ici $\\Delta U = Q$ : toute la chaleur reçue augmente l'énergie interne."
+        }
+      ]
+    },
+    {
+      "id": "pression-temperature",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un gaz parfait enfermé à volume constant passe de $20\\ ^\\circ\\mathrm{C}$ à $40\\ ^\\circ\\mathrm{C}$. Sa pression est multipliée par :",
+      "correction": [
+        "$P = \\dfrac{nRT}{V}$ avec $T$ en kelvins."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{313}{293} \\approx 1{,}07$",
+          "correct": true,
+          "explication": "$P$ est proportionnelle à $T$ en kelvins."
+        },
+        {
+          "texte": "$2$",
+          "correct": false,
+          "explication": "Il faut utiliser les températures en kelvins, pas en degrés Celsius."
+        },
+        {
+          "texte": "$\\dfrac{293}{313} \\approx 0{,}94$",
+          "correct": false,
+          "explication": "Rapport inversé : la pression augmente avec la température."
+        },
+        {
+          "texte": "$1$ (elle ne change pas)",
+          "correct": false,
+          "explication": "À volume constant, $P$ est proportionnelle à $T$."
+        }
+      ]
+    },
+    {
+      "id": "cycle-premier-principe",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un système décrit un cycle (il revient à son état initial). Sur l'ensemble du cycle :",
+      "correction": [
+        "$U$ est une fonction d'état."
+      ],
+      "choix": [
+        {
+          "texte": "$\\Delta U = 0$, donc $W + Q = 0$",
+          "correct": true,
+          "explication": "Retour à l'état initial : $\\Delta U = 0$."
+        },
+        {
+          "texte": "$W = 0$ et $Q = 0$",
+          "correct": false,
+          "explication": "Un moteur reçoit de la chaleur et fournit du travail sur un cycle."
+        },
+        {
+          "texte": "$Q = 0$",
+          "correct": false,
+          "explication": "Les échanges de chaleur ne s'annulent pas forcément."
+        },
+        {
+          "texte": "$\\Delta U = W$",
+          "correct": false,
+          "explication": "C'est le cas d'une transformation adiabatique, pas d'un cycle."
+        }
+      ]
     }
   ]
 }

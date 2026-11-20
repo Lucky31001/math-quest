@@ -120,6 +120,21 @@
       "id": "f-invariant-dicho",
       "recto": "Invariant de la dichotomie ?",
       "verso": "Si `x` est dans `t`, il est entre les indices `g` et `d`."
+    },
+    {
+      "id": "cout-parcours",
+      "recto": "Complexité d'un parcours de tableau ?",
+      "verso": "$O(n)$ : chaque élément est examiné une fois."
+    },
+    {
+      "id": "tri-stable",
+      "recto": "Qu'est-ce qu'un tri stable ?",
+      "verso": "Un tri qui conserve l'ordre relatif des éléments égaux (ex. tri par insertion, tri fusion)."
+    },
+    {
+      "id": "boucles-imbriquees-cout",
+      "recto": "Complexité de deux boucles imbriquées allant chacune de 1 à $n$ ?",
+      "verso": "$O(n^2)$."
     }
   ],
   "exercices": [
@@ -416,6 +431,100 @@
       ],
       "etapeFausse": 3,
       "explication": "Sur un tableau trié à l'envers, le $k$-ième élément est comparé aux $k$ précédents : $\\frac{n(n-1)}2$ comparaisons, soit $O(n^2)$."
+    },
+    {
+      "id": "puissance-recursive",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nint puissance(int a, int n) {\n    if (n == 0)\n        return 1;\n    return a * puissance(a, n - 1);\n}\n\nprintf(\"%d\\n\", puissance(2, 5));\n```",
+      "correction": [
+        "`puissance(a, n)` calcule $a^n$."
+      ],
+      "choix": [
+        {
+          "texte": "`32`",
+          "correct": true,
+          "explication": "$2^5 = 32$."
+        },
+        {
+          "texte": "`10`",
+          "correct": false,
+          "explication": "Ce serait $2 \\times 5$ : la fonction multiplie $n$ fois par $a$."
+        },
+        {
+          "texte": "`16`",
+          "correct": false,
+          "explication": "Il y a 5 multiplications par 2, pas 4."
+        },
+        {
+          "texte": "`64`",
+          "correct": false,
+          "explication": "Le cas de base `n == 0` renvoie 1 : on s'arrête à $2^5$."
+        }
+      ]
+    },
+    {
+      "id": "dicho-million",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une recherche dichotomique dans un tableau trié de $10^6$ éléments fait au plus environ :",
+      "correction": [
+        "Chaque comparaison divise par 2 la zone de recherche.",
+        "$2^{20} \\approx 10^6$."
+      ],
+      "choix": [
+        {
+          "texte": "20 comparaisons",
+          "correct": true,
+          "explication": "$\\log_2(10^6) \\approx 20$."
+        },
+        {
+          "texte": "$10^6$ comparaisons",
+          "correct": false,
+          "explication": "C'est le pire cas d'une recherche séquentielle."
+        },
+        {
+          "texte": "1000 comparaisons",
+          "correct": false,
+          "explication": "Ce serait $\\sqrt{10^6}$ : la dichotomie est logarithmique."
+        },
+        {
+          "texte": "$500\\,000$ comparaisons",
+          "correct": false,
+          "explication": "C'est le nombre moyen d'une recherche séquentielle."
+        }
+      ]
+    },
+    {
+      "id": "n-log-n-double",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un algorithme en $O(n \\log n)$ met 1 s pour $n = 10^6$. Pour $n = 2 \\cdot 10^6$, il met environ :",
+      "correction": [
+        "$\\dfrac{2n \\log(2n)}{n \\log n} = 2 \\times \\dfrac{\\log n + \\log 2}{\\log n}$, à peine plus que 2."
+      ],
+      "choix": [
+        {
+          "texte": "un peu plus de 2 s",
+          "correct": true,
+          "explication": "Le facteur logarithmique augmente à peine (environ 2,1 s)."
+        },
+        {
+          "texte": "4 s",
+          "correct": false,
+          "explication": "Ce serait un algorithme quadratique."
+        },
+        {
+          "texte": "1 s",
+          "correct": false,
+          "explication": "Le temps dépend de $n$."
+        },
+        {
+          "texte": "8 s",
+          "correct": false,
+          "explication": "Ce serait un algorithme cubique."
+        }
+      ]
     },
     {
       "id": "prog-dichotomie",

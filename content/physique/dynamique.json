@@ -120,6 +120,21 @@
       "id": "f-methode",
       "recto": "Les étapes d'un problème de dynamique ?",
       "verso": "Système, référentiel, bilan des forces, PFD, projection, résolution."
+    },
+    {
+      "id": "referentiel-galileen",
+      "recto": "Référentiel galiléen ?",
+      "verso": "Référentiel où le principe d'inertie est vérifié. Le référentiel terrestre l'est approximativement pour des expériences courtes."
+    },
+    {
+      "id": "tension-fil",
+      "recto": "Tension d'un fil idéal ?",
+      "verso": "Dirigée le long du fil, vers le point d'attache ; même norme en tout point d'un fil sans masse."
+    },
+    {
+      "id": "quantite-mouvement",
+      "recto": "Quantité de mouvement et PFD ?",
+      "verso": "$\\vec p = m\\vec v$ et $\\dfrac{d\\vec p}{dt} = \\sum \\vec F$ (soit $m\\vec a = \\sum \\vec F$ si $m$ est constante)."
     }
   ],
   "exercices": [
@@ -465,6 +480,102 @@
       ],
       "etapeFausse": 2,
       "explication": "Le frottement vaut $k v_\\ell^2$ : $mg = k v_\\ell^2$ donne $v_\\ell = \\sqrt{mg / k}$. (Vérification : $[k] = \\mathrm{kg/m}$ ici, et $mg/k$ n'est pas homogène à une vitesse.)"
+    },
+    {
+      "id": "livre-table",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un livre est posé, immobile, sur une table horizontale. La réaction de la table :",
+      "correction": [
+        "Le livre est immobile : la somme des forces est nulle.",
+        "Le poids et la réaction s'appliquent au MÊME objet : ce n'est pas le principe des actions réciproques."
+      ],
+      "choix": [
+        {
+          "texte": "compense exactement le poids du livre",
+          "correct": true,
+          "explication": "Équilibre : $\\vec R + \\vec P = \\vec 0$."
+        },
+        {
+          "texte": "est nulle",
+          "correct": false,
+          "explication": "Sinon, le livre accélérerait vers le bas."
+        },
+        {
+          "texte": "est plus grande que le poids",
+          "correct": false,
+          "explication": "Le livre accélérerait alors vers le haut."
+        },
+        {
+          "texte": "est la réaction au poids au sens du principe des actions réciproques",
+          "correct": false,
+          "explication": "La réciproque du poids est la force exercée par le livre SUR LA TERRE ; ici les deux forces s'exercent sur le livre."
+        }
+      ]
+    },
+    {
+      "id": "ascenseur-accelere",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Dans un ascenseur qui monte en accélérant, une balance indique, pour une personne de masse $m$ :",
+      "correction": [
+        "PFD sur la personne : $R - mg = ma$ avec $a > 0$ vers le haut.",
+        "La balance mesure $R = m(g + a)$."
+      ],
+      "choix": [
+        {
+          "texte": "plus que $mg$",
+          "correct": true,
+          "explication": "$R = m(g + a) > mg$."
+        },
+        {
+          "texte": "exactement $mg$",
+          "correct": false,
+          "explication": "Seulement à vitesse constante (ou à l'arrêt)."
+        },
+        {
+          "texte": "moins que $mg$",
+          "correct": false,
+          "explication": "C'est le cas d'une accélération vers le bas."
+        },
+        {
+          "texte": "zéro",
+          "correct": false,
+          "explication": "Ce serait une chute libre de l'ascenseur."
+        }
+      ]
+    },
+    {
+      "id": "bloc-immobile-pente",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un bloc de masse $m$ reste immobile sur un plan incliné rugueux d'angle $\\alpha$ (coefficient $\\mu$). La force de frottement :",
+      "correction": [
+        "Équilibre selon la pente : le frottement compense $mg\\sin\\alpha$.",
+        "$\\mu N$ n'est qu'un maximum, atteint seulement à la limite du glissement."
+      ],
+      "choix": [
+        {
+          "texte": "vaut $mg\\sin\\alpha$, vers le haut de la pente",
+          "correct": true,
+          "explication": "Sans glissement, $f$ s'ajuste à ce qu'il faut pour l'équilibre (et $f \\le \\mu mg\\cos\\alpha$)."
+        },
+        {
+          "texte": "vaut $\\mu mg\\cos\\alpha$",
+          "correct": false,
+          "explication": "C'est la valeur maximale, atteinte seulement à la limite du glissement."
+        },
+        {
+          "texte": "est nulle",
+          "correct": false,
+          "explication": "Sans frottement, le bloc glisserait."
+        },
+        {
+          "texte": "vaut $mg\\cos\\alpha$",
+          "correct": false,
+          "explication": "C'est la composante normale du poids, compensée par la réaction normale."
+        }
+      ]
     }
   ]
 }

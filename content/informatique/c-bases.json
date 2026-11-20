@@ -122,6 +122,21 @@
       "id": "f-non-init",
       "recto": "Que vaut `int n;` non initialisé ?",
       "verso": "Une valeur indéterminée : toujours initialiser."
+    },
+    {
+      "id": "taille-int",
+      "recto": "Taille d'un `int` sur nos machines ?",
+      "verso": "4 octets en général (`sizeof(int)`) : valeurs d'environ $-2{,}1\\cdot10^9$ à $2{,}1\\cdot10^9$."
+    },
+    {
+      "id": "constante",
+      "recto": "Déclarer une constante ?",
+      "verso": "`const double PI = 3.14159;` (ou `#define PI 3.14159`)."
+    },
+    {
+      "id": "operateurs-logiques",
+      "recto": "Opérateurs logiques ET, OU, NON ?",
+      "verso": "`&&`, `||` et `!` ; `&&` et `||` sont évalués paresseusement (de gauche à droite)."
     }
   ],
   "exercices": [
@@ -442,6 +457,100 @@
       ],
       "etapeFausse": 1,
       "explication": "`&&` est paresseux : le premier membre étant faux, `10 / x` n'est **pas** évalué. La condition vaut 0, sans erreur."
+    },
+    {
+      "id": "affectations-composees",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nint a = 5;\na += 3;\na *= 2;\nprintf(\"%d\\n\", a);\n```",
+      "correction": [
+        "`a += 3` : `a` vaut 8 ; `a *= 2` : `a` vaut 16."
+      ],
+      "choix": [
+        {
+          "texte": "`16`",
+          "correct": true,
+          "explication": "Les instructions s'exécutent dans l'ordre : (5 + 3) × 2."
+        },
+        {
+          "texte": "`13`",
+          "correct": false,
+          "explication": "Ce serait 5 × 2 + 3 : l'ordre des instructions compte."
+        },
+        {
+          "texte": "`11`",
+          "correct": false,
+          "explication": "Ce serait 5 + 3 × 2."
+        },
+        {
+          "texte": "`10`",
+          "correct": false,
+          "explication": "`a += 3` modifie bien `a`."
+        }
+      ]
+    },
+    {
+      "id": "double-division-entiere",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\ndouble x = 7 / 2;\nprintf(\"%.1f\\n\", x);\n```",
+      "correction": [
+        "`7 / 2` est calculé entre deux `int` AVANT l'affectation."
+      ],
+      "choix": [
+        {
+          "texte": "`3.0`",
+          "correct": true,
+          "explication": "`7 / 2` vaut 3 (division entière), puis 3 est converti en 3.0."
+        },
+        {
+          "texte": "`3.5`",
+          "correct": false,
+          "explication": "Il faudrait `7 / 2.0` ou `(double) 7 / 2`."
+        },
+        {
+          "texte": "`3`",
+          "correct": false,
+          "explication": "Le format `%.1f` affiche une décimale."
+        },
+        {
+          "texte": "`4.0`",
+          "correct": false,
+          "explication": "La division entière tronque, elle n'arrondit pas."
+        }
+      ]
+    },
+    {
+      "id": "else-if",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nint x = 10;\nif (x > 5 && x < 8)\n    printf(\"A\\n\");\nelse if (x > 5 || x < 0)\n    printf(\"B\\n\");\nelse\n    printf(\"C\\n\");\n```",
+      "correction": [
+        "`x > 5 && x < 8` est faux (10 n'est pas < 8).",
+        "`x > 5 || x < 0` est vrai."
+      ],
+      "choix": [
+        {
+          "texte": "`B`",
+          "correct": true,
+          "explication": "Première condition fausse, deuxième vraie : seul le deuxième bloc s'exécute."
+        },
+        {
+          "texte": "`A`",
+          "correct": false,
+          "explication": "`x < 8` est faux, donc la conjonction aussi."
+        },
+        {
+          "texte": "`C`",
+          "correct": false,
+          "explication": "`x > 5` suffit à rendre la disjonction vraie."
+        },
+        {
+          "texte": "`AB`",
+          "correct": false,
+          "explication": "Dans une chaîne `if / else if`, un seul bloc s'exécute."
+        }
+      ]
     },
     {
       "id": "prog-somme-produit",

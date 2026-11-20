@@ -115,6 +115,21 @@
       "id": "f-double-egal",
       "recto": "Pourquoi éviter `x != 1.0` comme condition de boucle sur des `double` ?",
       "verso": "Les erreurs d'arrondi peuvent empêcher l'égalité exacte : boucle infinie."
+    },
+    {
+      "id": "syntaxe-for",
+      "recto": "Que fait chaque partie de `for (init; condition; maj)` ?",
+      "verso": "`init` une seule fois ; `condition` avant chaque tour ; `maj` après chaque tour."
+    },
+    {
+      "id": "tours-pas-negatif",
+      "recto": "Combien de tours fait `for (int i = 10; i > 0; i -= 3)` ?",
+      "verso": "4 tours : `i` vaut 10, 7, 4, 1."
+    },
+    {
+      "id": "ternaire",
+      "recto": "Opérateur ternaire ?",
+      "verso": "`cond ? a : b` vaut `a` si `cond` est vraie, `b` sinon."
     }
   ],
   "exercices": [
@@ -407,6 +422,99 @@
       ],
       "etapeFausse": 1,
       "explication": "`0.1` n'est pas représentable exactement : après 10 additions, `x` vaut `0.9999999999999999`, différent de `1.0`. La boucle ne s'arrête jamais."
+    },
+    {
+      "id": "multiples-de-3",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nint n = 0;\nfor (int i = 1; i <= 10; i++)\n    if (i % 3 == 0)\n        n++;\nprintf(\"%d\\n\", n);\n```",
+      "correction": [
+        "Les multiples de 3 entre 1 et 10 : 3, 6, 9."
+      ],
+      "choix": [
+        {
+          "texte": "`3`",
+          "correct": true,
+          "explication": "On compte 3, 6 et 9."
+        },
+        {
+          "texte": "`18`",
+          "correct": false,
+          "explication": "C'est leur somme ; le code compte."
+        },
+        {
+          "texte": "`10`",
+          "correct": false,
+          "explication": "Seuls les multiples de 3 sont comptés."
+        },
+        {
+          "texte": "`4`",
+          "correct": false,
+          "explication": "0 n'est pas parcouru (la boucle commence à 1)."
+        }
+      ]
+    },
+    {
+      "id": "while-pas-2",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nint i = 0;\nwhile (i < 5)\n    i += 2;\nprintf(\"%d\\n\", i);\n```",
+      "correction": [
+        "`i` vaut 0, 2, 4, puis 6 : la condition devient fausse."
+      ],
+      "choix": [
+        {
+          "texte": "`6`",
+          "correct": true,
+          "explication": "La boucle s'arrête dès que `i < 5` est faux, donc à 6."
+        },
+        {
+          "texte": "`4`",
+          "correct": false,
+          "explication": "4 < 5 : il y a encore un tour."
+        },
+        {
+          "texte": "`5`",
+          "correct": false,
+          "explication": "`i` ne prend que des valeurs paires."
+        },
+        {
+          "texte": "`3`",
+          "correct": false,
+          "explication": "C'est le nombre de tours, pas la valeur de `i`."
+        }
+      ]
+    },
+    {
+      "id": "break-somme",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nint s = 0;\nfor (int i = 0; i < 5; i++) {\n    if (i == 3)\n        break;\n    s += i;\n}\nprintf(\"%d\\n\", s);\n```",
+      "correction": [
+        "`break` quitte la boucle avant d'ajouter 3."
+      ],
+      "choix": [
+        {
+          "texte": "`3`",
+          "correct": true,
+          "explication": "0 + 1 + 2 = 3."
+        },
+        {
+          "texte": "`7`",
+          "correct": false,
+          "explication": "Ce serait avec `continue` : 0 + 1 + 2 + 4."
+        },
+        {
+          "texte": "`6`",
+          "correct": false,
+          "explication": "3 n'est pas ajouté : `break` vient avant `s += i`."
+        },
+        {
+          "texte": "`10`",
+          "correct": false,
+          "explication": "La boucle s'interrompt à `i == 3`."
+        }
+      ]
     },
     {
       "id": "prog-diviseurs",

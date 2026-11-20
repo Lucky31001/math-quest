@@ -126,6 +126,21 @@
       "id": "f-permanent",
       "recto": "Régime permanent continu : condensateur ? bobine ?",
       "verso": "Interrupteur ouvert ; fil."
+    },
+    {
+      "id": "puissance-dipole",
+      "recto": "Puissance reçue par un dipôle (convention récepteur) ?",
+      "verso": "$P = u\\,i$ ; si $P > 0$, le dipôle reçoit de l'énergie."
+    },
+    {
+      "id": "energies-c-l",
+      "recto": "Énergie stockée dans un condensateur ? dans une bobine ?",
+      "verso": "$\\dfrac{1}{2}Cu_C^2$ et $\\dfrac{1}{2}Li^2$."
+    },
+    {
+      "id": "tau-rl",
+      "recto": "Constante de temps d'un circuit RL ?",
+      "verso": "$\\tau = \\dfrac{L}{R}$."
     }
   ],
   "exercices": [
@@ -422,6 +437,99 @@
       ],
       "etapeFausse": 2,
       "explication": "La résistance interne fait **chuter** la tension : $U = E - rI = 10\\ \\mathrm V$."
+    },
+    {
+      "id": "parallele-egales",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Deux résistances de $100\\ \\Omega$ montées en parallèle sont équivalentes à :",
+      "correction": [
+        "$\\dfrac{1}{R_{eq}} = \\dfrac{1}{100} + \\dfrac{1}{100}$, donc $R_{eq} = 50\\ \\Omega$."
+      ],
+      "choix": [
+        {
+          "texte": "$50\\ \\Omega$",
+          "correct": true,
+          "explication": "Deux résistances égales en parallèle : $R/2$."
+        },
+        {
+          "texte": "$200\\ \\Omega$",
+          "correct": false,
+          "explication": "C'est l'association en série."
+        },
+        {
+          "texte": "$100\\ \\Omega$",
+          "correct": false,
+          "explication": "La résistance équivalente en parallèle est plus petite que chacune."
+        },
+        {
+          "texte": "$10\\,000\\ \\Omega$",
+          "correct": false,
+          "explication": "C'est le produit, sans diviser par la somme."
+        }
+      ]
+    },
+    {
+      "id": "rc-permanent",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un circuit RC série est alimenté par une tension constante $E$. En régime permanent, l'intensité est :",
+      "correction": [
+        "$i = C\\dfrac{du_C}{dt}$ et $u_C$ est constante en régime permanent."
+      ],
+      "choix": [
+        {
+          "texte": "nulle",
+          "correct": true,
+          "explication": "Le condensateur chargé se comporte comme un interrupteur ouvert."
+        },
+        {
+          "texte": "$E/R$",
+          "correct": false,
+          "explication": "C'est l'intensité juste après la fermeture (condensateur déchargé)."
+        },
+        {
+          "texte": "maximale",
+          "correct": false,
+          "explication": "Elle est maximale au début de la charge, puis décroît."
+        },
+        {
+          "texte": "$E/(RC)$",
+          "correct": false,
+          "explication": "Pas homogène à une intensité."
+        }
+      ]
+    },
+    {
+      "id": "rl-fermeture",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Dans un circuit RL série alimenté par $E$ (courant nul avant), juste après la fermeture de l'interrupteur, l'intensité vaut :",
+      "correction": [
+        "L'intensité dans une bobine est continue."
+      ],
+      "choix": [
+        {
+          "texte": "$0$",
+          "correct": true,
+          "explication": "Continuité de $i$ dans la bobine : elle vaut 0 juste avant, donc juste après."
+        },
+        {
+          "texte": "$E/R$",
+          "correct": false,
+          "explication": "C'est la valeur en régime permanent, atteinte après quelques $\\tau$."
+        },
+        {
+          "texte": "$E/L$",
+          "correct": false,
+          "explication": "Pas homogène à une intensité (c'est la pente $di/dt$ à l'origine)."
+        },
+        {
+          "texte": "infinie",
+          "correct": false,
+          "explication": "La bobine s'oppose aux variations brusques de courant."
+        }
+      ]
     }
   ]
 }

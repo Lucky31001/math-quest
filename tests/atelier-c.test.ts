@@ -48,6 +48,10 @@ describe('extraits complétés en programmes', () => {
     const q = completerExtrait('void f(T *t) {\n}', ['typedef struct {\n    int v;\n} T;']);
     expect(q.indexOf('} T;')).toBeLessThan(q.indexOf('void f(T *t)'));
   });
+  it('ne prend pas `else if (…)`, `while (…)` ou `for (…)` pour une définition de fonction', () => {
+    const p = completerExtrait('int x = 3;\nif (x > 5)\n    x = 1;\nelse if (x > 2)\n    x = 2;\nwhile (x < 9)\n    x *= 2;\nfor (int i = 0; i < 2; i++)\n    x++;');
+    expect(p).toMatch(/int main\(void\) \{\n {4}int x = 3;[\s\S]*else if \(x > 2\)[\s\S]*while \(x < 9\)[\s\S]*for \(int i/);
+  });
   it('trouve du code C dans les cours et les énoncés', () => {
     expect(blocsCours.length).toBeGreaterThanOrEqual(14);
     expect(programmesEnonces.length).toBeGreaterThan(2);

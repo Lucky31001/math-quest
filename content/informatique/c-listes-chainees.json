@@ -107,6 +107,21 @@
       "id": "f-avantage",
       "recto": "Avantage d'une liste chaînée sur un tableau ?",
       "verso": "Taille variable et insertion en tête en $O(1)$, sans recopie."
+    },
+    {
+      "id": "queue-sans-pointeur",
+      "recto": "Coût d'une insertion en queue sans pointeur de queue ?",
+      "verso": "$O(n)$ : il faut parcourir toute la liste pour trouver le dernier maillon."
+    },
+    {
+      "id": "supprimer-tete",
+      "recto": "Supprimer la tête d'une liste `l` ?",
+      "verso": "`Maillon *s = l->suiv; free(l); l = s;` : sauver le suivant AVANT `free`."
+    },
+    {
+      "id": "doublement-chainee",
+      "recto": "Liste doublement chaînée ?",
+      "verso": "Chaque maillon pointe vers le suivant ET le précédent : parcours dans les deux sens, suppression d'un maillon donné en $O(1)$."
     }
   ],
   "exercices": [
@@ -400,6 +415,99 @@
       ],
       "etapeFausse": 2,
       "explication": "Après `free(p)`, lire `p->suiv` est une utilisation après libération (comportement indéfini). Il faut mémoriser le suivant **avant** `free`."
+    },
+    {
+      "id": "premier-arrive",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle structure suit la règle « premier arrivé, premier servi » ?",
+      "correction": [
+        "FIFO : First In, First Out."
+      ],
+      "choix": [
+        {
+          "texte": "une file",
+          "correct": true,
+          "explication": "On retire les éléments dans l'ordre où ils sont entrés (FIFO)."
+        },
+        {
+          "texte": "une pile",
+          "correct": false,
+          "explication": "Une pile est LIFO : le dernier arrivé sort en premier."
+        },
+        {
+          "texte": "un tableau trié",
+          "correct": false,
+          "explication": "Un tri ne respecte pas l'ordre d'arrivée."
+        },
+        {
+          "texte": "un arbre binaire",
+          "correct": false,
+          "explication": "Ce n'est pas une structure d'ordre d'arrivée."
+        }
+      ]
+    },
+    {
+      "id": "pile-sommet",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On part d'une pile vide, on empile 1, 2 puis 3, puis on dépile deux fois. Le sommet de la pile est :",
+      "correction": [
+        "Dépiler retire le DERNIER élément empilé."
+      ],
+      "choix": [
+        {
+          "texte": "`1`",
+          "correct": true,
+          "explication": "On retire 3 puis 2 : il reste 1."
+        },
+        {
+          "texte": "`3`",
+          "correct": false,
+          "explication": "3 est le premier élément dépilé."
+        },
+        {
+          "texte": "`2`",
+          "correct": false,
+          "explication": "2 est retiré au second dépilement."
+        },
+        {
+          "texte": "la pile est vide",
+          "correct": false,
+          "explication": "Trois empilements, deux dépilements : il reste un élément."
+        }
+      ]
+    },
+    {
+      "id": "tester-null",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pourquoi tester `l != NULL` avant d'accéder à `l->val` ?",
+      "correction": [
+        "La liste vide est représentée par `NULL`."
+      ],
+      "choix": [
+        {
+          "texte": "déréférencer `NULL` (liste vide) provoque une erreur à l'exécution",
+          "correct": true,
+          "explication": "Il n'y a pas de maillon à l'adresse `NULL`."
+        },
+        {
+          "texte": "pour libérer la mémoire",
+          "correct": false,
+          "explication": "C'est `free` qui libère ; le test protège l'accès."
+        },
+        {
+          "texte": "parce que `l->val` vaut 0 pour une liste vide",
+          "correct": false,
+          "explication": "Il n'y a pas de maillon, donc pas de champ `val` à lire."
+        },
+        {
+          "texte": "parce que le compilateur l'exige",
+          "correct": false,
+          "explication": "Le compilateur ne vérifie rien : l'erreur survient à l'exécution."
+        }
+      ]
     },
     {
       "id": "prog-taille-liste",

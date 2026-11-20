@@ -120,6 +120,21 @@
       "id": "f-masse-periode",
       "recto": "Effet de la masse sur la période d'un masse-ressort ?",
       "verso": "$T_0 \\propto \\sqrt m$ : masse ×4 ⇒ période ×2."
+    },
+    {
+      "id": "unite-raideur",
+      "recto": "Unité de la raideur $k$ d'un ressort ?",
+      "verso": "$\\mathrm{N\\cdot m^{-1}}$ (soit $\\mathrm{kg\\cdot s^{-2}}$)."
+    },
+    {
+      "id": "facteur-qualite-oscillations",
+      "recto": "Facteur de qualité et nombre d'oscillations visibles ?",
+      "verso": "En régime pseudo-périodique, on observe de l'ordre de $Q$ oscillations avant l'extinction."
+    },
+    {
+      "id": "pulsation-lc",
+      "recto": "Pulsation propre d'un circuit LC ?",
+      "verso": "$\\omega_0 = \\dfrac{1}{\\sqrt{LC}}$."
     }
   ],
   "exercices": [
@@ -420,6 +435,99 @@
       ],
       "etapeFausse": 2,
       "explication": "$-A\\omega_0\\sin\\varphi > 0$ impose $\\sin\\varphi < 0$, donc $\\varphi = -\\frac\\pi2$."
+    },
+    {
+      "id": "masse-quadruplee",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "On quadruple la masse d'un oscillateur masse-ressort. Sa période propre :",
+      "correction": [
+        "$T_0 = 2\\pi\\sqrt{m/k}$."
+      ],
+      "choix": [
+        {
+          "texte": "double",
+          "correct": true,
+          "explication": "$\\sqrt 4 = 2$."
+        },
+        {
+          "texte": "est quadruplée",
+          "correct": false,
+          "explication": "La période varie comme $\\sqrt m$, pas comme $m$."
+        },
+        {
+          "texte": "est divisée par 2",
+          "correct": false,
+          "explication": "Plus de masse, plus d'inertie : la période augmente."
+        },
+        {
+          "texte": "ne change pas",
+          "correct": false,
+          "explication": "C'est le pendule simple dont la période ne dépend pas de la masse."
+        }
+      ]
+    },
+    {
+      "id": "elongation-maximale",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour un oscillateur harmonique non amorti, quand l'élongation est maximale :",
+      "correction": [
+        "Aux extrémités, l'oscillateur change de sens."
+      ],
+      "choix": [
+        {
+          "texte": "la vitesse est nulle et l'énergie est entièrement potentielle",
+          "correct": true,
+          "explication": "$E_c = 0$ donc $E_m = E_p$."
+        },
+        {
+          "texte": "la vitesse est maximale",
+          "correct": false,
+          "explication": "Elle est maximale au passage par la position d'équilibre."
+        },
+        {
+          "texte": "l'énergie cinétique est maximale",
+          "correct": false,
+          "explication": "Elle est nulle aux extrémités."
+        },
+        {
+          "texte": "l'énergie mécanique est nulle",
+          "correct": false,
+          "explication": "Elle se conserve et vaut $\\dfrac{1}{2}kX_m^2$."
+        }
+      ]
+    },
+    {
+      "id": "pendule-lune",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un pendule simple est emporté sur la Lune, où $g$ est environ six fois plus faible. Sa période :",
+      "correction": [
+        "$T_0 = 2\\pi\\sqrt{L/g}$."
+      ],
+      "choix": [
+        {
+          "texte": "est multipliée par $\\sqrt 6$",
+          "correct": true,
+          "explication": "$g \\to g/6$ donc $T_0 \\to \\sqrt 6\\,T_0$."
+        },
+        {
+          "texte": "est multipliée par 6",
+          "correct": false,
+          "explication": "La période varie comme $1/\\sqrt g$."
+        },
+        {
+          "texte": "est divisée par $\\sqrt 6$",
+          "correct": false,
+          "explication": "Moins de pesanteur : le pendule oscille plus lentement."
+        },
+        {
+          "texte": "ne change pas",
+          "correct": false,
+          "explication": "Elle dépend de $g$ (c'est la masse qui n'intervient pas)."
+        }
+      ]
     }
   ]
 }
