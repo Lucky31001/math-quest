@@ -12,6 +12,7 @@ import { ecranStats } from './ui/screens/stats';
 import { ecranBadges } from './ui/screens/badges';
 import { ecranReglages } from './ui/screens/reglages';
 import { ecranAtelier } from './ui/screens/atelier';
+import { ecranTransfert } from './ui/screens/transfert';
 import { brancherReglages, toast } from './ui/effets';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 import { demanderProtection, statutStockage, rappelExportNecessaire, dernierExport, dernierRappel, noterRappel } from './storage/persistance';
@@ -26,6 +27,7 @@ route('stats', ecranStats);
 route('badges', ecranBadges);
 route('reglages', ecranReglages);
 route('atelier', ecranAtelier);
+route('transfert', ecranTransfert);
 
 const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });

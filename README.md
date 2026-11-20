@@ -318,6 +318,6 @@ Pour l'activer sur un nouveau dépôt : **Settings → Pages → Source : GitHub
 
 ## Sauvegarde
 
-La progression est stockée dans le `localStorage` du navigateur. Pour passer de l'ordinateur au téléphone :
-1. sur l'appareil de départ, **Réglages → Exporter** ;
-2. sur le nouvel appareil, **Réglages → Importer** le fichier obtenu.
+La progression est stockée dans le `localStorage` du navigateur. Pour passer de l'ordinateur au téléphone, sans serveur :
+- **lien de transfert** : **Réglages → Changer d'appareil → Créer un lien de transfert**, puis l'ouvrir sur l'autre appareil (partage natif, copie, ou QR code tant que la progression est assez petite, environ 100 questions suivies). La progression, compressée, est dans le fragment `#` du lien : elle n'est jamais envoyée au serveur. Dans l'app installée sur iPhone, coller le lien dans « Recevoir une progression » ;
+- **fichier** : **Réglages → Exporter** sur l'appareil de départ, puis **Réglages → Importer** sur le nouveau.

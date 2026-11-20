@@ -90,6 +90,37 @@ describe('écrans', () => {
     expect(bloc.textContent).toContain('Dernier export');
   });
 
+  it('transfert : lien + QR dans les réglages, puis réception et import sur « l’autre appareil »', async () => {
+    const { etat } = await import('../src/ui/etat');
+    const avant = structuredClone(etat.p);
+    await aller('#/reglages');
+    const creer = [...document.querySelectorAll<HTMLButtonElement>('#contenu button')].find((b) => b.textContent!.includes('Créer un lien'))!;
+    creer.click();
+    await vi.waitFor(() => expect(document.querySelector<HTMLTextAreaElement>('.zone-transfert .lien-transfert')).toBeTruthy());
+    const lien = document.querySelector<HTMLTextAreaElement>('.zone-transfert .lien-transfert')!.value;
+    expect(lien).toContain('#/transfert/MQ1-');
+    expect(document.querySelector('.qr-transfert svg')).toBeTruthy();
+
+    // « Autre appareil » : une progression différente est reçue.
+    const { encoderTransfert } = await import('../src/storage/transfert');
+    const recue = structuredClone(avant);
+    recue.xp = avant.xp + 777;
+    await aller(`#/transfert/${encoderTransfert(recue)}`);
+    expect(document.querySelector('.table-transfert')!.textContent).toContain(`${recue.xp} XP`);
+    const confirmOrigine = window.confirm; // absent du DOM simulé
+    window.confirm = () => true;
+    [...document.querySelectorAll<HTMLButtonElement>('#contenu button')].find((b) => b.textContent!.includes('Importer'))!.click();
+    expect(etat.p.xp).toBe(recue.xp);
+    expect(location.hash).toBe('#/');
+    window.confirm = confirmOrigine;
+    etat.remplacer(avant);
+  });
+
+  it('transfert : un code abîmé affiche une erreur, sans rien importer', async () => {
+    await aller('#/transfert/MQ1-abime');
+    expect(document.querySelector('#contenu [role=alert]')!.textContent).toMatch(/incomplet|abîmé/);
+  });
+
   it('QCM éclair : on répond au clavier et le combo s’affiche', async () => {
     await aller('#/jouer/eclair');
     const main = document.getElementById('contenu')!;

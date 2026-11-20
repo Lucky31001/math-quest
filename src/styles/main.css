@@ -2264,6 +2264,56 @@ a.stat-ligne:hover {
   border-color: var(--orange);
 }
 
+/* Transfert vers un autre appareil */
+.zone-transfert {
+  margin: 12px 0;
+}
+
+.qr-transfert {
+  width: min(100%, 320px);
+  margin: 0 auto 12px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.qr-transfert svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lien-transfert {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px 10px;
+  border: 2px solid var(--bord);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--texte);
+  font: 500 0.8rem/1.4 ui-monospace, Menlo, Consolas, monospace;
+  overflow-wrap: anywhere;
+  resize: vertical;
+}
+
+.table-transfert {
+  width: 100%;
+  margin: 12px 0;
+  border-collapse: collapse;
+}
+
+.table-transfert th,
+.table-transfert td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--bord);
+  text-align: left;
+}
+
+.table-transfert thead th {
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+}
+
 .protection {
   margin: 12px 0;
   padding: 10px 14px;
