@@ -120,4 +120,6 @@ Vérifier soi-même l'exactitude mathématique de chaque réponse, correction et
 2. L'enregistrer dans `GENERATEURS` (`src/generators/index.ts`).
 3. Ajouter un test mathématique dans `tests/generators.test.ts`, qui relit l'énoncé affiché. Les tests structurels s'appliquent automatiquement.
 
+Informatique : `src/generators/informatique.ts` (un extrait de code C par question, réponse = ce qu'il affiche). `tests/generators-informatique.test.ts` compile l'extrait AFFICHÉ avec gcc (via `completerExtrait`, comme l'atelier) : le code doit rester compilable avec `-Wall -Werror`.
+
 Physique : `src/generators/physique.ts` (un générateur par chapitre calculatoire, via `generateur()` + `produire()`). Les données s'écrivent toujours `donnee('X', valeur, unité)` → « $X = valeur\ unité$ » : `tests/generators-physique.test.ts` les relit et recalcule la réponse (table `ATTENDU`, à compléter pour tout nouveau générateur). Les distracteurs à moins de 2 % de la réponse sont écartés automatiquement : prévoir 4 à 5 pièges.
