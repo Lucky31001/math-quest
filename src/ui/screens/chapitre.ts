@@ -1,7 +1,8 @@
 /** Écran d'un chapitre : onglets Cours / Flashcards / Exercices. */
 import type { Chapitre, Difficulte } from '../../core/schema';
 import { LIBELLES_TYPE } from '../../core/schema';
-import { chapitreParId, cle, matiereParId, styleMatiere } from '../../core/loader';
+import { chapitreParId, chargerChapitre, cle, matiereParId, styleMatiere } from '../../core/loader';
+import { ecranApresChargement } from '../chargement';
 import { selectionnerMatiere } from '../selection';
 import { generateursDu } from '../../generators';
 import { h } from '../dom';
@@ -27,11 +28,15 @@ const LIBELLES_BLOC: Record<string, string> = {
 type Onglet = 'cours' | 'flashcards' | 'exercices';
 
 export function ecranChapitre(main: HTMLElement, params: string[]): () => void {
-  const ch = chapitreParId(params[0] ?? '');
-  if (!ch) {
+  const resume = chapitreParId(params[0] ?? '');
+  if (!resume) {
     main.append(h('div', { class: 'carte-vide' }, h('p', null, 'Chapitre introuvable.'), h('a', { class: 'btn', href: '#/' }, 'Accueil')));
     return () => {};
   }
+  return ecranApresChargement(main, () => chargerChapitre(resume.id), (ch) => rendreChapitre(main, ch, params));
+}
+
+function rendreChapitre(main: HTMLElement, ch: Chapitre, params: string[]): () => void {
   const onglet: Onglet = (['cours', 'flashcards', 'exercices'] as const).find((o) => o === params[1]) ?? 'cours';
   let nettoyer = () => {};
 

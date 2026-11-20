@@ -1,5 +1,5 @@
 /** Tableau de bord : réussite par chapitre et par type de question, points faibles, activité. */
-import { CONTENU, chapitresDe, styleMatiere } from '../../core/loader';
+import { INDEX, chapitresDe, styleMatiere } from '../../core/loader';
 import { TYPES_QUESTION, LIBELLES_TYPE } from '../../core/schema';
 import { h } from '../dom';
 import { etat } from '../etat';
@@ -40,7 +40,7 @@ export function ecranStats(main: HTMLElement): void {
     return { t, tentatives, reussites, taux: tentatives ? reussites / tentatives : null };
   });
 
-  const faibles = pointsFaibles(CONTENU.chapitres, p).filter((f) => f.taux! < SEUIL_FAIBLE);
+  const faibles = pointsFaibles(INDEX.chapitres, p).filter((f) => f.taux! < SEUIL_FAIBLE);
   const typesFaibles = parType.filter((x) => x.tentatives >= 3 && x.taux! < SEUIL_FAIBLE);
 
   // Activité des 28 derniers jours.
@@ -92,12 +92,12 @@ export function ecranStats(main: HTMLElement): void {
       h('h2', null, 'Par type de question'),
       parType.map((x) => barre(LIBELLES_TYPE[x.t], x.taux, `${x.reussites}/${x.tentatives}`)),
     ),
-    ...CONTENU.catalogue.niveaux.flatMap((niveau) =>
+    ...INDEX.catalogue.niveaux.flatMap((niveau) =>
       niveau.matieres.map((m) =>
       h(
         'section',
         { class: 'carte-info carte-matiere', style: styleMatiere(m) },
-        h('h2', null, `${m.embleme} ${m.nom}`, CONTENU.catalogue.niveaux.length > 1 ? h('small', { class: 'etiquette-niveau' }, niveau.nom) : null),
+        h('h2', null, `${m.embleme} ${m.nom}`, INDEX.catalogue.niveaux.length > 1 ? h('small', { class: 'etiquette-niveau' }, niveau.nom) : null),
         chapitresDe(m.id).length === 0 ? h('p', { class: 'note' }, 'Pas encore de chapitre.') : null,
         chapitresDe(m.id)
           .map((c) => {
@@ -121,7 +121,7 @@ export function ecranStats(main: HTMLElement): void {
           h(
             'tbody',
             null,
-            CONTENU.chapitres.map((c) =>
+            INDEX.chapitres.map((c) =>
               h(
                 'tr',
                 null,

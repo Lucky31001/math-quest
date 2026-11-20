@@ -13,7 +13,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { chargerCompilateur, compiler, compilerEtExecuter, completerExtrait, type Compilateur } from '../src/c/compilateur';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU } from './outils/contenu';
 
 /** Blocs ```c``` d'une liste de textes. */
 const extraire = (t: string) => [...t.matchAll(/```c\n([\s\S]+?)\n```/g)].map((m) => m[1]);
