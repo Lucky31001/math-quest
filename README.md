@@ -241,7 +241,7 @@ L'élève complète `code` dans un éditeur. « Vérifier » compile `code` + `h
 }
 ```
 
-`tests/programmes.test.ts` vérifie que la solution réussit tous les tests (gcc avec sanitizers **et** le compilateur du navigateur) et que le code de départ compile sans les réussir tous. Pour lire du texte dans le harnais, utiliser `fgets` : le `scanf("%s")` du compilateur du navigateur est défaillant (`%d` fonctionne).
+`tests/programmes.test.ts` vérifie que la solution réussit tous les tests (gcc avec sanitizers **et** le compilateur du navigateur) et que le code de départ compile sans les réussir tous.
 
 ### Ajouter une matière ou un niveau
 

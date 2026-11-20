@@ -9,6 +9,7 @@
  */
 import { unzipSync } from 'fflate';
 import { executerWasi, SystemeFichiers, SortieTropLongue, type Octets } from './wasi';
+import { utiliseScanf, SOURCE_SCANF, FICHIER_SCANF, DEFINITIONS_SCANF } from './scanf';
 
 const DOSSIER = '/home/eleve';
 const ENV = { HOME: DOSSIER, PWD: DOSSIER, INCLUDE: '/usr/include', LIB: '/usr/lib', PATH: '/usr/bin', USER: 'eleve' };
@@ -50,9 +51,12 @@ export interface OptionsExecution {
 export function compiler(c: Compilateur, source: string): { module: WebAssembly.Module } | { code: number; messages: string } {
   const fs = c.base.copier();
   fs.ecrire(`${DOSSIER}/main.c`, source);
+  // scanf de la bibliothèque de xcc défaillant : on compile le nôtre avec (voir scanf.ts).
+  const scanf = utiliseScanf(source);
+  if (scanf) fs.ecrire(`${DOSSIER}/${FICHIER_SCANF}`, SOURCE_SCANF);
   let messages = '';
   const code = executerWasi(c.cc, {
-    args: ['cc', '-o', 'main.wasm', 'main.c'],
+    args: ['cc', ...(scanf ? DEFINITIONS_SCANF : []), '-o', 'main.wasm', 'main.c', ...(scanf ? [FICHIER_SCANF] : [])],
     env: ENV,
     fs,
     dossierCourant: DOSSIER,
