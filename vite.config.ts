@@ -1,29 +1,57 @@
 /// <reference types="vitest" />
 import { defineConfig, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
-import { readFile } from 'node:fs/promises';
-import { resumerChapitre, REQUETE_RESUME } from './src/core/resume';
+import { readFile, readdir } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+import { resumerChapitre, REQUETE_RESUME } from './src/core/resume.ts';
+import { validerCatalogue, validerChapitre, validerContenu, formaterErreurs } from './src/core/validation.ts';
 
 /**
- * `import x from '/content/m/chapitre.json?resume'` → seulement le résumé du chapitre
- * (src/core/resume.ts), sous forme de module JS (le plugin JSON de Vite ignore les requêtes « ? »).
+ * Contenu validé AU BUILD (src/core/validation.ts) : un fichier invalide fait
+ * échouer `npm run build` et s'affiche en surimpression dans `npm run dev`.
+ * L'application reçoit le contenu déjà validé, valeurs par défaut comprises :
+ * elle n'embarque pas les schémas du contenu.
+ *
+ *   /content/catalogue.json            → catalogue validé
+ *   /content/<matière>/<chapitre>.json → chapitre complet validé
+ *   … .json?resume                     → seulement son résumé (src/core/resume.ts)
  */
-function resumeChapitres(): Plugin {
+function contenu(): Plugin {
+  const racine = fileURLToPath(new URL('./content', import.meta.url));
+  const lire = async (f: string): Promise<unknown> => JSON.parse(await readFile(f, 'utf8'));
   return {
-    name: 'math-quest:resume-chapitres',
+    name: 'math-quest:contenu',
     enforce: 'pre',
+    // Tout le contenu d'un coup : détecte aussi un chapitre défini dans deux fichiers.
+    async buildStart() {
+      const fichiers: Record<string, unknown> = {};
+      for (const d of await readdir(racine, { withFileTypes: true }))
+        if (d.isDirectory())
+          for (const f of await readdir(join(racine, d.name)))
+            if (f.endsWith('.json')) fichiers[`/content/${d.name}/${f}`] = await lire(join(racine, d.name, f));
+      const { erreurs } = validerContenu(fichiers, await lire(join(racine, 'catalogue.json')));
+      if (erreurs.length) this.error(formaterErreurs(erreurs));
+    },
     async load(id) {
-      if (!id.endsWith(`.json${REQUETE_RESUME}`)) return null;
-      const fichier = id.slice(0, -REQUETE_RESUME.length);
-      this.addWatchFile(fichier);
-      return `export default ${JSON.stringify(resumerChapitre(JSON.parse(await readFile(fichier, 'utf8'))))};`;
+      const [chemin, requete] = id.split('?');
+      if (!chemin.startsWith(`${racine}/`) || !chemin.endsWith('.json')) return null;
+      const relatif = `/content${chemin.slice(racine.length)}`;
+      const catalogue = validerCatalogue(await lire(join(racine, 'catalogue.json')));
+      if (!catalogue.ok) this.error(formaterErreurs([{ fichier: '/content/catalogue.json', messages: catalogue.messages }]));
+      // Sans requête, on renvoie du JSON : le plugin JSON de Vite en fait un module.
+      if (relatif === '/content/catalogue.json') return JSON.stringify(catalogue.catalogue);
+      if (!/^\/content\/[^/]+\/[^/]+\.json$/.test(relatif)) return null; // schémas JSON pour l'éditeur
+      this.addWatchFile(chemin);
+      const r = validerChapitre(relatif, await lire(chemin), catalogue.catalogue);
+      if (!r.ok) this.error(formaterErreurs([{ fichier: relatif, messages: r.messages }]));
+      // Avec « ?resume », le plugin JSON de Vite n'intervient pas : on renvoie un module.
+      if (`?${requete}` === REQUETE_RESUME) return `export default ${JSON.stringify(resumerChapitre(r.chapitre))};`;
+      return JSON.stringify(r.chapitre);
     },
   };
 }
 
-// `base` doit correspondre au nom du dépôt GitHub pour GitHub Pages
-// (https://<utilisateur>.github.io/math-quest/). En dev, on sert à la racine ;
-// `vite preview` sert le build, donc avec la même base.
 export default defineConfig(({ command, isPreview }) => ({
   base: command === 'build' || isPreview ? '/math-quest/' : '/',
   build: {
@@ -31,14 +59,14 @@ export default defineConfig(({ command, isPreview }) => ({
     chunkSizeWarningLimit: 900,
     rolldownOptions: {
       output: {
-        advancedChunks: {
+        codeSplitting: {
           groups: ['mathjs', 'katex', 'zod'].map((nom) => ({ name: nom, test: new RegExp(`node_modules[\\/]${nom}[\\/]`) })),
         },
       },
     },
   },
   plugins: [
-    resumeChapitres(),
+    contenu(),
     // Application installable et utilisable hors ligne : tout le site est mis en cache
     // (pré-cache Workbox) au premier chargement. Voir src/pwa.ts pour la mise à jour.
     VitePWA({

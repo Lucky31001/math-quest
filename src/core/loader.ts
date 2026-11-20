@@ -1,144 +1,63 @@
 /**
- * Chargement et validation du contenu.
+ * Chargement du contenu.
  *
  *   content/catalogue.json        niveaux (années) → matières (couleur, emblème…)
  *   content/<matière>/*.json      un fichier par chapitre (champ « monde » = id de la matière)
  *
- * Au démarrage, seul l'INDEX est chargé : le catalogue et le RÉSUMÉ de chaque
- * chapitre (titre, icône, identifiants des questions…), calculé au build par
- * le plugin « resume-chapitres » (vite.config.ts). Le chapitre complet (cours,
- * énoncés, flashcards) est un fichier séparé, chargé à la demande par
- * `chargerChapitre` puis validé avec le schéma Zod.
+ * Le contenu est VALIDÉ AU BUILD par le plugin « contenu » (vite.config.ts,
+ * src/core/validation.ts) : un fichier invalide fait échouer le build. Ce module
+ * reçoit donc des données déjà validées (valeurs par défaut comprises) et
+ * n'embarque pas les schémas Zod du contenu.
  *
- * Un chapitre invalide n'empêche pas l'application de démarrer : il est écarté
- * et l'erreur est affichée sur l'écran d'accueil (ou à son ouverture).
+ * Au démarrage, seul l'INDEX est chargé : le catalogue et le RÉSUMÉ de chaque
+ * chapitre (titre, icône, identifiants des questions…). Le chapitre complet
+ * (cours, énoncés, flashcards) est un fichier séparé, chargé à la demande par
+ * `chargerChapitre`.
  */
-import {
-  CatalogueSchema,
-  ChapitreResumeSchema,
-  ChapitreSchema,
-  type Catalogue,
-  type Chapitre,
-  type ChapitreResume,
-  type Matiere,
-  type Niveau,
-} from './schema';
-import catalogueBrut from '../../content/catalogue.json';
+import type { Catalogue, Chapitre, ChapitreResume, Matiere, Niveau } from './schema';
+import catalogue from '../../content/catalogue.json';
 
-export interface ErreurContenu {
-  fichier: string;
-  messages: string[];
-}
-
-/** Index (résumés) ou contenu complet, selon le schéma utilisé pour valider. */
-interface Valide<C> {
+export interface Index {
   catalogue: Catalogue;
-  chapitres: C[];
-  erreurs: ErreurContenu[];
-}
-export type Index = Valide<ChapitreResume>;
-export type Contenu = Valide<Chapitre>;
-
-/** Catalogue de secours si catalogue.json est absent ou invalide (l'erreur est signalée). */
-const CATALOGUE_VIDE: Catalogue = { niveaux: [] };
-
-const messagesZod = (issues: readonly { path: readonly PropertyKey[]; message: string }[]) =>
-  issues.map((i) => `${i.path.map(String).join('.') || '(racine)'} : ${i.message}`);
-
-/** Incohérences d'un chapitre valide (matière inconnue, mauvais dossier, identifiants en double). */
-function incoherences(fichier: string, ch: ChapitreResume, matieres: readonly string[] | null): string[] {
-  const messages: string[] = [];
-  if (matieres && !matieres.includes(ch.monde)) messages.push(`matière « ${ch.monde} » absente de content/catalogue.json`);
-  // Le dossier doit correspondre à la matière déclarée.
-  if (!fichier.includes(`/${ch.monde}/`)) messages.push(`matière « ${ch.monde} » mais fichier hors du dossier ${ch.monde}/`);
-  const ids = [...ch.exercices.map((q) => q.id), ...ch.flashcards.map((f) => f.id)];
-  const doublons = ids.filter((id, i) => ids.indexOf(id) !== i);
-  if (doublons.length) messages.push(`identifiants en double : ${[...new Set(doublons)].join(', ')}`);
-  return messages;
+  chapitres: ChapitreResume[];
 }
 
-function valider<C extends ChapitreResume>(
-  schema: { safeParse(v: unknown): { success: true; data: C } | { success: false; error: { issues: { path: PropertyKey[]; message: string }[] } } },
-  fichiers: Record<string, unknown>,
-  catalogueBrut: unknown,
-): Valide<C> & { fichiers: Map<string, string> } {
-  const erreurs: ErreurContenu[] = [];
-  const cat = CatalogueSchema.safeParse(catalogueBrut);
-  if (!cat.success) erreurs.push({ fichier: '/content/catalogue.json', messages: messagesZod(cat.error.issues) });
-  const catalogue = cat.success ? cat.data : CATALOGUE_VIDE;
-  const matieres = catalogue.niveaux.flatMap((n) => n.matieres.map((m) => m.id));
+const resumes = import.meta.glob('/content/*/*.json', { eager: true, query: '?resume', import: 'default' }) as Record<string, ChapitreResume>;
+const complets = import.meta.glob('/content/*/*.json', { import: 'default' }) as Record<string, () => Promise<Chapitre>>;
 
-  const chapitres: C[] = [];
-  const parId = new Map<string, string>();
-  for (const [fichier, brut] of Object.entries(fichiers)) {
-    if (/\/(schema|catalogue|catalogue\.schema)\.json$/.test(fichier)) continue;
-    const res = schema.safeParse(brut);
-    if (!res.success) {
-      erreurs.push({ fichier, messages: messagesZod(res.error.issues) });
-      continue;
-    }
-    const ch = res.data;
-    const messages = incoherences(fichier, ch, cat.success ? matieres : null);
-    if (parId.has(ch.id)) messages.push(`chapitre « ${ch.id} » déjà défini`);
-    if (messages.length) erreurs.push({ fichier, messages });
-    else {
-      chapitres.push(ch);
-      parId.set(ch.id, fichier);
-    }
-  }
-  // Ordre : celui du catalogue (niveau puis matière), puis « ordre » dans la matière.
+/** Tri : ordre du catalogue (niveau puis matière), puis « ordre » dans la matière. */
+function indexer(cat: Catalogue, fichiers: Record<string, ChapitreResume>): Index & { fichierDe: Map<string, string> } {
+  const matieres = cat.niveaux.flatMap((n) => n.matieres.map((m) => m.id));
   const rang = (m: string) => matieres.indexOf(m);
-  chapitres.sort((a, b) => (a.monde === b.monde ? a.ordre - b.ordre : rang(a.monde) - rang(b.monde)));
-  return { catalogue, chapitres, erreurs, fichiers: parId };
+  const fichierDe = new Map(Object.entries(fichiers).map(([f, c]) => [c.id, f]));
+  const chapitres = Object.values(fichiers).sort((a, b) => (a.monde === b.monde ? a.ordre - b.ordre : rang(a.monde) - rang(b.monde)));
+  return { catalogue: cat, chapitres, fichierDe };
 }
 
-/** Valide le catalogue et des chapitres COMPLETS { chemin: contenu JSON } (tests, outils). */
-export function validerContenu(fichiers: Record<string, unknown>, catalogueBrut: unknown): Contenu {
-  const { catalogue, chapitres, erreurs } = valider(ChapitreSchema, fichiers, catalogueBrut);
-  return { catalogue, chapitres, erreurs };
-}
-
-/** Valide le catalogue et des RÉSUMÉS de chapitres. */
-export function validerIndex(fichiers: Record<string, unknown>, catalogueBrut: unknown): Index & { fichiers: Map<string, string> } {
-  return valider(ChapitreResumeSchema, fichiers, catalogueBrut);
-}
-
-/* ------------------------------------------------------------------ */
-/* Index (démarrage) et chapitres complets (à la demande)              */
-/* ------------------------------------------------------------------ */
-
-const resumes = import.meta.glob('/content/*/*.json', { eager: true, query: '?resume', import: 'default' });
-const complets = import.meta.glob('/content/*/*.json', { import: 'default' }) as Record<string, () => Promise<unknown>>;
-
-const { fichiers: fichierDe, ...index } = validerIndex(resumes, catalogueBrut);
-/** Catalogue + résumés des chapitres valides (chargés au démarrage). */
+const { fichierDe, ...index } = indexer(catalogue as Catalogue, resumes);
+/** Catalogue + résumés des chapitres (chargés au démarrage). */
 export const INDEX: Index = index;
 
 const cache = new Map<string, Promise<Chapitre>>();
 
-/** Erreur de chargement d'un chapitre (fichier invalide ou introuvable). */
+/** Chapitre introuvable ou impossible à charger (ex. hors ligne sans cache). */
 export class ErreurChapitre extends Error {
-  constructor(readonly erreur: ErreurContenu) {
-    super(`${erreur.fichier} : ${erreur.messages.join(' ; ')}`);
+  constructor(
+    readonly fichier: string,
+    readonly messages: string[],
+  ) {
+    super(`${fichier} : ${messages.join(' ; ')}`);
   }
 }
 
-/** Chapitre complet, chargé (une seule fois) puis validé. */
+/** Chapitre complet, chargé une seule fois. */
 export function chargerChapitre(id: string): Promise<Chapitre> {
   const deja = cache.get(id);
   if (deja) return deja;
   const fichier = fichierDe.get(id);
-  const promesse = (async () => {
-    if (!fichier) throw new ErreurChapitre({ fichier: id, messages: ['chapitre introuvable'] });
-    const res = ChapitreSchema.safeParse(await complets[fichier]());
-    if (!res.success) throw new ErreurChapitre({ fichier, messages: messagesZod(res.error.issues) });
-    const messages = incoherences(fichier, res.data, null);
-    if (res.data.id !== id) messages.push(`identifiant « ${res.data.id} » différent de l'index (« ${id} »)`);
-    if (messages.length) throw new ErreurChapitre({ fichier, messages });
-    return res.data;
-  })();
+  const promesse = fichier ? complets[fichier]() : Promise.reject(new ErreurChapitre(id, ['chapitre introuvable']));
   cache.set(id, promesse);
-  promesse.catch(() => cache.delete(id)); // on pourra réessayer (ex. hors ligne sans cache)
+  promesse.catch(() => cache.delete(id)); // on pourra réessayer
   return promesse;
 }
 

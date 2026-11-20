@@ -26,7 +26,7 @@ export function ecranApresChargement<T>(main: HTMLElement, charger: () => Promis
       (e: unknown) => {
         clearTimeout(minuterie);
         if (!actif) return;
-        const detail = e instanceof ErreurChapitre ? e.erreur.messages.slice(0, 5) : [e instanceof Error ? e.message : String(e)];
+        const detail = e instanceof ErreurChapitre ? e.messages.slice(0, 5) : [e instanceof Error ? e.message : String(e)];
         attente.replaceWith(
           h(
             'div',

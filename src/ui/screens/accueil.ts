@@ -20,16 +20,6 @@ export function ecranAccueil(main: HTMLElement): void {
   const nbQ = questionsDues(INDEX.chapitres, p, auj, 999).length;
   const nbF = flashcardsDues(INDEX.chapitres, p, auj).length;
 
-  if (INDEX.erreurs.length)
-    main.append(
-      h(
-        'div',
-        { class: 'alerte', role: 'alert' },
-        h('strong', null, `⚠️ ${INDEX.erreurs.length} fichier(s) de contenu invalide(s) ont été ignorés :`),
-        h('ul', null, INDEX.erreurs.map((e) => h('li', null, h('code', null, e.fichier), h('ul', null, e.messages.slice(0, 5).map((m) => h('li', null, m)))))),
-      ),
-    );
-
   main.append(
     h(
       'section',

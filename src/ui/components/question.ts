@@ -10,7 +10,7 @@
  *   H     indice
  */
 import type { Question, Qcm, VraiFaux, TrouveErreur, Choix, Programme } from '../../core/schema';
-import { LIBELLES_TYPE } from '../../core/schema';
+import { LIBELLES_TYPE } from '../../core/types-question';
 import { corriger, memeSortie, type ExecutionProgramme, type Reponse, type Resultat } from '../../core/grading';
 import { executerTests, arreter, type IssueTests } from '../../c/client';
 import { creerEditeurC } from './editeur-c';

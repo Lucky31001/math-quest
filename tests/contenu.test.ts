@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import katex from 'katex';
-import { validerContenu } from '../src/core/loader';
+import { validerContenu } from '../src/core/validation';
 import { CONTENU } from './outils/contenu';
 import { verifierExpression, verifierNumerique } from '../src/core/checker';
 import { toutVerifier } from './outils/tout-verifier';

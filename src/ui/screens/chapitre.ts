@@ -1,6 +1,6 @@
 /** Écran d'un chapitre : onglets Cours / Flashcards / Exercices. */
 import type { Chapitre, Difficulte } from '../../core/schema';
-import { LIBELLES_TYPE } from '../../core/schema';
+import { LIBELLES_TYPE } from '../../core/types-question';
 import { chapitreParId, chargerChapitre, cle, matiereParId, styleMatiere } from '../../core/loader';
 import { ecranApresChargement } from '../chargement';
 import { selectionnerMatiere } from '../selection';
