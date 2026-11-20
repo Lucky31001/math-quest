@@ -3,10 +3,8 @@ import '@fontsource-variable/nunito';
 import './styles/main.css';
 import { h } from './ui/dom';
 import { creerHud } from './ui/components/hud';
-import { route, demarrer } from './router';
+import { route, demarrer, type Ecran } from './router';
 import { ecranAccueil } from './ui/screens/accueil';
-import { ecranChapitre } from './ui/screens/chapitre';
-import { ecranSession } from './ui/screens/session';
 import { ecranRevision } from './ui/screens/revision';
 import { ecranStats } from './ui/screens/stats';
 import { ecranBadges } from './ui/screens/badges';
@@ -14,14 +12,18 @@ import { ecranReglages } from './ui/screens/reglages';
 import { ecranAtelier } from './ui/screens/atelier';
 import { ecranTransfert } from './ui/screens/transfert';
 import { brancherReglages, toast } from './ui/effets';
+import { ecranApresChargement } from './ui/chargement';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 import { demanderProtection, statutStockage, rappelExportNecessaire, dernierExport, dernierRappel, noterRappel } from './storage/persistance';
 
 brancherReglages(() => etat.p.reglages);
 
 route('', ecranAccueil);
-route('chapitre', ecranChapitre);
-route('jouer', ecranSession);
+// Écrans qui corrigent des réponses : chargés à la demande, avec le moteur de
+// correction (math.js, ~180 Ko compressés) et les générateurs d'exercices.
+const aLaDemande = (charger: () => Promise<Ecran>): Ecran => (main, params) => ecranApresChargement(main, charger, (ecran) => ecran(main, params));
+route('chapitre', aLaDemande(() => import('./ui/screens/chapitre').then((m) => m.ecranChapitre)));
+route('jouer', aLaDemande(() => import('./ui/screens/session').then((m) => m.ecranSession)));
 route('revision', ecranRevision);
 route('stats', ecranStats);
 route('badges', ecranBadges);
