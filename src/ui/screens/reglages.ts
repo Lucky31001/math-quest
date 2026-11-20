@@ -118,6 +118,63 @@ function etatProtection(): HTMLElement {
   return bloc;
 }
 
+/** Transfert vers un autre appareil : lien (partage, copie) et QR code s'il est assez court. */
+function sectionTransfert(): HTMLElement {
+  const zone = h('div', { class: 'zone-transfert' });
+  const creer = h('button', { class: 'btn btn-primaire', type: 'button' }, '📲 Créer un lien de transfert');
+  creer.addEventListener('click', async () => {
+    creer.disabled = true;
+    const [{ encoderTransfert, lienTransfert, QR_MAX }, { renderSVG }] = await Promise.all([import('../../storage/transfert'), import('uqr')]);
+    const lien = lienTransfert(encoderTransfert(etat.p));
+    const copier = async () => {
+      try {
+        await navigator.clipboard.writeText(lien);
+        toast('📋 Lien copié.');
+      } catch {
+        toast('Copie impossible : sélectionne le lien et copie-le.', 'erreur');
+      }
+    };
+    const champ = h('textarea', { class: 'lien-transfert', readonly: true, rows: 3, 'aria-label': 'Lien de transfert', onfocus: (e: Event) => (e.target as HTMLTextAreaElement).select() });
+    champ.value = lien;
+    zone.replaceChildren();
+    ajouter(zone, [
+      lien.length <= QR_MAX
+        ? h('div', { class: 'qr-transfert', role: 'img', 'aria-label': 'QR code du lien de transfert', html: renderSVG(lien, { ecc: 'L', border: 2, whiteColor: '#ffffff', blackColor: '#000000' }) })
+        : h('p', { class: 'note' }, `Ta progression est trop volumineuse pour un QR code lisible (${Math.round(lien.length / 1000)} k caractères) : envoie-toi le lien.`),
+      h(
+        'div',
+        { class: 'actions' },
+        'share' in navigator
+          ? h('button', { class: 'btn', type: 'button', onclick: () => navigator.share({ title: 'Math Quest — ma progression', url: lien }).catch(() => {}) }, '📤 Partager le lien')
+          : null,
+        h('button', { class: 'btn', type: 'button', onclick: () => void copier() }, '📋 Copier le lien'),
+      ),
+      champ,
+      h('p', { class: 'note' }, 'Ce lien contient toute ta progression : envoie-le seulement à toi-même. Il reflète ta progression d’aujourd’hui (recrée-le plus tard pour un transfert à jour).'),
+    ]);
+  });
+  zone.append(creer);
+
+  const recevoir = h('textarea', { class: 'lien-transfert', rows: 2, placeholder: 'Colle ici un lien ou un code de transfert…', 'aria-label': 'Lien ou code de transfert reçu' });
+  const ouvrir = () => {
+    const texte = recevoir.value.replace(/\s+/g, '');
+    const i = texte.indexOf('MQ1-');
+    if (i < 0) return toast('Ce n’est pas un lien de transfert Math Quest.', 'erreur');
+    location.hash = `#/transfert/${texte.slice(i)}`;
+  };
+  return h(
+    'section',
+    { class: 'carte-info' },
+    h('h2', null, '📲 Changer d’appareil'),
+    h('p', null, 'Sur cet appareil, crée un lien (ou un QR code) ; ouvre-le sur l’autre appareil. Rien ne passe par un serveur.'),
+    zone,
+    h('h3', null, 'Recevoir une progression'),
+    h('p', { class: 'note' }, 'Utile dans l’app installée (iPhone) : un lien s’y ouvre dans le navigateur, colle-le donc ici.'),
+    recevoir,
+    h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: ouvrir }, '⬇️ Ouvrir')),
+  );
+}
+
 export function ecranReglages(main: HTMLElement): void {
   const p = etat.p;
   const interrupteur = (libelle: string, valeur: boolean, f: (v: boolean) => void) =>
@@ -179,6 +236,7 @@ export function ecranReglages(main: HTMLElement): void {
         fichier,
       ),
     ),
+    sectionTransfert(),
     h(
       'section',
       { class: 'carte-info zone-danger' },

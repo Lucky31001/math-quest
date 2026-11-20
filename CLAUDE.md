@@ -42,6 +42,8 @@ src/game/        logique pure (testable sans DOM)
 src/storage/progression.ts   modèle Progression (Zod), localStorage, export/import,
                              récupération partielle + copies de sécurité
 src/storage/migrations.ts    VERSION_PROGRESSION + migrations n → n+1 du format
+src/storage/transfert.ts     lien de transfert entre appareils (#/transfert/MQ1-…) : export compressé (fflate), base64url
+src/storage/persistance.ts   navigator.storage.persist(), rappel d'export
 src/ui/
   dom.ts (h(), ajouter())  texte.ts (KaTeX + **gras**, HTML échappé)
   etat.ts        état global : etat.modifier(f) sauvegarde + niveaux/badges/toasts

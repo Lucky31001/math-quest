@@ -7,6 +7,7 @@
  *   #/revision                 révision du jour
  *   #/stats  #/badges  #/reglages
  *   #/atelier                  atelier C (écrire, compiler, exécuter)
+ *   #/transfert/<code>         réception d'une progression venue d'un autre appareil
  */
 export type Ecran = (main: HTMLElement, params: string[]) => void | (() => void);
 
