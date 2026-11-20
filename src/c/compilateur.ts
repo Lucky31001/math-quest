@@ -97,7 +97,8 @@ export function compilerEtExecuter(c: Compilateur, source: string, options: Opti
 const INCLUDES = ['stdio.h', 'stdlib.h', 'string.h'];
 
 /** Début d'une définition de niveau fichier : `typedef`, `struct X {`, ou `type nom(...) {`. */
-const DEBUT_DEFINITION = /^(typedef\b|struct\s+\w+\s*\{|[A-Za-z_][\w\s*]*\b\w+\s*\([^;{}]*\)\s*\{?\s*$)/;
+// Les mots-clés de contrôle (`else if (…)`, `while (…)`…) ressemblent à `type nom(…)` : on les exclut.
+const DEBUT_DEFINITION = /^(?!(?:if|else|while|for|switch|do|return)\b)(typedef\b|struct\s+\w+\s*\{|[A-Za-z_][\w\s*]*\b\w+\s*\([^;{}]*\)\s*\{?\s*$)/;
 
 /** Sépare un extrait en définitions (niveau fichier) et instructions (à placer dans `main`). */
 function separer(code: string): { definitions: string[]; instructions: string[] } {

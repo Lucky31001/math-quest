@@ -113,6 +113,21 @@
       "id": "f-annee",
       "recto": "Ordre de grandeur d'une année en secondes ?",
       "verso": "$\\approx 3 \\times 10^7\\ \\mathrm s$ ($365 \\times 86\\,400$)."
+    },
+    {
+      "id": "ordre-grandeur-def",
+      "recto": "Qu'est-ce qu'un ordre de grandeur ?",
+      "verso": "La puissance de 10 la plus proche d'une valeur : utile pour comparer et vérifier la plausibilité d'un résultat."
+    },
+    {
+      "id": "reproductibilite",
+      "recto": "Pourquoi une expérience doit-elle être reproductible ?",
+      "verso": "Pour que d'autres puissent vérifier le résultat : une mesure non reproductible ne peut ni valider ni réfuter une hypothèse."
+    },
+    {
+      "id": "kepler",
+      "recto": "Apport de Kepler ?",
+      "verso": "Les trois lois du mouvement des planètes (orbites elliptiques, loi des aires, $T^2 \\propto a^3$), début du XVIIᵉ siècle."
     }
   ],
   "exercices": [
@@ -495,6 +510,99 @@
       ],
       "etapeFausse": 2,
       "explication": "Une contradiction **reproductible** (au-delà des incertitudes) réfute l'hypothèse : c'est l'hypothèse qu'il faut réviser, pas la mesure qu'il faut écarter."
+    },
+    {
+      "id": "lois-planetes",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qui a formulé les lois du mouvement des planètes, sur des orbites elliptiques ?",
+      "correction": [
+        "Début du XVIIᵉ siècle, à partir des observations de Tycho Brahe."
+      ],
+      "choix": [
+        {
+          "texte": "Kepler",
+          "correct": true,
+          "explication": "Ses trois lois datent de 1609 et 1619."
+        },
+        {
+          "texte": "Newton",
+          "correct": false,
+          "explication": "Il les a EXPLIQUÉES par la gravitation universelle (1687)."
+        },
+        {
+          "texte": "Galilée",
+          "correct": false,
+          "explication": "Lunette astronomique et chute des corps."
+        },
+        {
+          "texte": "Copernic",
+          "correct": false,
+          "explication": "Héliocentrisme, mais avec des orbites circulaires."
+        }
+      ]
+    },
+    {
+      "id": "theorie-contredite",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une théorie bien établie est contredite par une expérience reproductible, dans des conditions nouvelles. On en conclut que :",
+      "correction": [
+        "Une théorie n'est jamais « prouvée » : elle est valide dans un domaine."
+      ],
+      "choix": [
+        {
+          "texte": "la théorie a un domaine de validité, qu'il faut préciser (ou la dépasser)",
+          "correct": true,
+          "explication": "Ex. : la mécanique de Newton reste valable aux faibles vitesses."
+        },
+        {
+          "texte": "l'expérience est forcément fausse",
+          "correct": false,
+          "explication": "Une expérience reproductible ne s'écarte pas d'un revers de main."
+        },
+        {
+          "texte": "la théorie était prouvée, donc la mesure contient une erreur",
+          "correct": false,
+          "explication": "Aucune théorie n'est prouvée définitivement."
+        },
+        {
+          "texte": "la théorie doit être abandonnée dans tous ses usages",
+          "correct": false,
+          "explication": "Elle reste valable dans son domaine de validité."
+        }
+      ]
+    },
+    {
+      "id": "secondes-jour",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Ordre de grandeur du nombre de secondes dans une journée :",
+      "correction": [
+        "$24 \\times 3600 = 86\\,400\\ \\mathrm{s}$."
+      ],
+      "choix": [
+        {
+          "texte": "$10^5$",
+          "correct": true,
+          "explication": "$86\\,400 = 8{,}64 \\times 10^4$, plus proche de $10^5$ en échelle logarithmique."
+        },
+        {
+          "texte": "$10^4$",
+          "correct": false,
+          "explication": "$\\log_{10}(86\\,400) \\approx 4{,}9$ : plus proche de 5 que de 4."
+        },
+        {
+          "texte": "$10^3$",
+          "correct": false,
+          "explication": "C'est l'ordre de grandeur d'un quart d'heure environ."
+        },
+        {
+          "texte": "$10^7$",
+          "correct": false,
+          "explication": "C'est l'ordre de grandeur d'une année."
+        }
+      ]
     }
   ]
 }

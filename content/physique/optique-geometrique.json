@@ -117,6 +117,21 @@
       "id": "f-loupe",
       "recto": "Objet entre $F$ et $O$ d'une lentille convergente ?",
       "verso": "Image virtuelle, droite, agrandie (loupe)."
+    },
+    {
+      "id": "image-reelle-condition",
+      "recto": "Condition pour obtenir une image réelle d'un objet réel avec une lentille convergente ?",
+      "verso": "Placer l'objet avant le foyer objet $F$ (plus loin de la lentille que $F$)."
+    },
+    {
+      "id": "reelle-virtuelle",
+      "recto": "Image réelle ou virtuelle ?",
+      "verso": "Réelle : les rayons émergents se croisent vraiment (projetable sur un écran). Virtuelle : seuls leurs prolongements se croisent."
+    },
+    {
+      "id": "indices-usuels",
+      "recto": "Indice de l'eau ? du verre ?",
+      "verso": "Environ $1{,}33$ et $1{,}5$ (l'air : $\\approx 1{,}00$)."
     }
   ],
   "exercices": [
@@ -455,6 +470,100 @@
       ],
       "etapeFausse": 2,
       "explication": "Un sinus ne dépasse jamais 1 : il n'y a pas de rayon réfracté. $60°$ dépasse l'angle limite ($\\arcsin(1/1{,}33) \\approx 48{,}8°$) : il y a **réflexion totale**."
+    },
+    {
+      "id": "eau-vers-air",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un rayon passe de l'eau ($n = 1{,}33$) à l'air, sous une incidence non nulle et inférieure à l'angle limite. Il :",
+      "correction": [
+        "$n_1\\sin i_1 = n_2\\sin i_2$ avec $n_2 < n_1$, donc $i_2 > i_1$."
+      ],
+      "choix": [
+        {
+          "texte": "s'écarte de la normale",
+          "correct": true,
+          "explication": "On passe dans un milieu moins réfringent."
+        },
+        {
+          "texte": "se rapproche de la normale",
+          "correct": false,
+          "explication": "C'est le cas inverse (de l'air vers l'eau)."
+        },
+        {
+          "texte": "n'est pas dévié",
+          "correct": false,
+          "explication": "Seulement en incidence normale."
+        },
+        {
+          "texte": "est totalement réfléchi",
+          "correct": false,
+          "explication": "Seulement au-delà de l'angle limite."
+        }
+      ]
+    },
+    {
+      "id": "vergence-negative",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une lentille mince a une vergence de $-4\\ \\delta$. Elle est :",
+      "correction": [
+        "$V = \\dfrac{1}{f'}$, avec $f'$ en mètres."
+      ],
+      "choix": [
+        {
+          "texte": "divergente, de distance focale $f' = -25\\ \\mathrm{cm}$",
+          "correct": true,
+          "explication": "$f' = \\dfrac{1}{-4} = -0{,}25\\ \\mathrm{m}$."
+        },
+        {
+          "texte": "convergente, de distance focale $f' = 25\\ \\mathrm{cm}$",
+          "correct": false,
+          "explication": "Une vergence négative signifie une lentille divergente."
+        },
+        {
+          "texte": "divergente, de distance focale $f' = -4\\ \\mathrm{m}$",
+          "correct": false,
+          "explication": "La distance focale est l'INVERSE de la vergence."
+        },
+        {
+          "texte": "convergente, de distance focale $f' = -25\\ \\mathrm{cm}$",
+          "correct": false,
+          "explication": "Une lentille convergente a $f' > 0$."
+        }
+      ]
+    },
+    {
+      "id": "objet-double-focale",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Un objet est placé avant une lentille convergente, à $\\overline{OA} = -2f'$. Son image est :",
+      "correction": [
+        "Conjugaison : $\\dfrac{1}{\\overline{OA'}} = \\dfrac{1}{f'} - \\dfrac{1}{2f'}$.",
+        "Grandissement : $\\gamma = \\dfrac{\\overline{OA'}}{\\overline{OA}}$."
+      ],
+      "choix": [
+        {
+          "texte": "réelle, renversée, de même taille",
+          "correct": true,
+          "explication": "$\\overline{OA'} = 2f'$ et $\\gamma = -1$."
+        },
+        {
+          "texte": "virtuelle, droite et agrandie",
+          "correct": false,
+          "explication": "C'est le cas d'un objet entre le foyer et la lentille (loupe)."
+        },
+        {
+          "texte": "réelle, renversée, deux fois plus grande",
+          "correct": false,
+          "explication": "$\\gamma = \\dfrac{2f'}{-2f'} = -1$ : même taille."
+        },
+        {
+          "texte": "rejetée à l'infini",
+          "correct": false,
+          "explication": "C'est le cas d'un objet placé au foyer objet."
+        }
+      ]
     }
   ]
 }

@@ -121,6 +121,21 @@
       "id": "f-polaire-a",
       "recto": "Accélération en coordonnées polaires ?",
       "verso": "$(\\ddot r - r\\dot\\theta^2)\\,\\vec e_r + (r\\ddot\\theta + 2\\dot r\\dot\\theta)\\,\\vec e_\\theta$."
+    },
+    {
+      "id": "acceleration-mru",
+      "recto": "Mouvement rectiligne uniforme : que vaut l'accélération ?",
+      "verso": "$\\vec a = \\vec 0$ : la vitesse est constante en norme ET en direction."
+    },
+    {
+      "id": "vitesse-moyenne-def",
+      "recto": "Vitesse moyenne entre $t_1$ et $t_2$ ?",
+      "verso": "$v_m = \\dfrac{x(t_2) - x(t_1)}{t_2 - t_1}$ : déplacement divisé par la durée."
+    },
+    {
+      "id": "portee-tir-horizontal",
+      "recto": "Portée d'un tir horizontal depuis une hauteur $h$ avec la vitesse $v_0$ ?",
+      "verso": "$x = v_0\\sqrt{\\dfrac{2h}{g}}$ : durée de chute × vitesse horizontale (constante)."
     }
   ],
   "exercices": [
@@ -447,6 +462,102 @@
         "$v_{\\text{moy}} = \\dfrac{2d}{d / 24} = 48\\ \\mathrm{km/h}$ (et non 50 : on passe plus de temps au retour)."
       ],
       "reponse": 48
+    },
+    {
+      "id": "circulaire-acceleration",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Un mobile parcourt un cercle avec une vitesse de norme constante. Son accélération est :",
+      "correction": [
+        "La direction de $\\vec v$ change : $\\vec a \\neq \\vec 0$.",
+        "Norme constante : pas d'accélération tangentielle ; il reste $\\dfrac{v^2}{R}$ dirigée vers le centre."
+      ],
+      "choix": [
+        {
+          "texte": "non nulle, dirigée vers le centre",
+          "correct": true,
+          "explication": "Accélération centripète $\\dfrac{v^2}{R}$ : la direction de la vitesse change."
+        },
+        {
+          "texte": "nulle, puisque la vitesse est constante",
+          "correct": false,
+          "explication": "Seule la norme est constante ; la direction de $\\vec v$ change, donc $\\vec a \\neq \\vec 0$."
+        },
+        {
+          "texte": "tangente à la trajectoire",
+          "correct": false,
+          "explication": "La composante tangentielle vaut $\\dfrac{dv}{dt} = 0$ ici."
+        },
+        {
+          "texte": "dirigée vers l'extérieur du cercle",
+          "correct": false,
+          "explication": "La « force centrifuge » n'existe pas dans un référentiel galiléen : $\\vec a$ pointe vers le centre."
+        }
+      ]
+    },
+    {
+      "id": "sommet-lancer",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Une balle est lancée verticalement vers le haut (frottements négligés). Au sommet de sa trajectoire :",
+      "correction": [
+        "La vitesse s'annule en changeant de sens.",
+        "L'accélération vaut $\\vec g$ pendant tout le mouvement, sommet compris."
+      ],
+      "choix": [
+        {
+          "texte": "sa vitesse est nulle et son accélération vaut $\\vec g$",
+          "correct": true,
+          "explication": "Seule force : le poids, donc $\\vec a = \\vec g$ à chaque instant."
+        },
+        {
+          "texte": "sa vitesse et son accélération sont nulles",
+          "correct": false,
+          "explication": "Si $\\vec a$ était nulle, la balle resterait immobile au sommet."
+        },
+        {
+          "texte": "son accélération change de sens",
+          "correct": false,
+          "explication": "$\\vec g$ est constante : toujours vers le bas."
+        },
+        {
+          "texte": "sa vitesse est maximale",
+          "correct": false,
+          "explication": "Elle est maximale au départ (et au retour), nulle au sommet."
+        }
+      ]
+    },
+    {
+      "id": "polaire-vitesse-cercle",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un point décrit un cercle de rayon $R$ avec $\\dot\\theta = \\omega$ constante. Norme de sa vitesse ?",
+      "correction": [
+        "En polaires, $\\vec v = \\dot r\\,\\vec u_r + r\\dot\\theta\\,\\vec u_\\theta$.",
+        "Sur un cercle, $\\dot r = 0$ : $v = R\\omega$."
+      ],
+      "choix": [
+        {
+          "texte": "$R\\omega$",
+          "correct": true,
+          "explication": "$\\vec v = R\\dot\\theta\\,\\vec u_\\theta$."
+        },
+        {
+          "texte": "$\\omega$",
+          "correct": false,
+          "explication": "C'est une vitesse angulaire (en $\\mathrm{rad/s}$) : il manque le rayon."
+        },
+        {
+          "texte": "$R\\omega^2$",
+          "correct": false,
+          "explication": "C'est la norme de l'accélération."
+        },
+        {
+          "texte": "$\\dfrac{R}{\\omega}$",
+          "correct": false,
+          "explication": "Pas homogène à une vitesse."
+        }
+      ]
     }
   ]
 }

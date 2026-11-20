@@ -102,6 +102,21 @@
       "id": "f-printf-s",
       "recto": "Afficher une chaîne avec printf ?",
       "verso": "Le format `%s`."
+    },
+    {
+      "id": "fgets",
+      "recto": "Lire une ligne contenant des espaces ?",
+      "verso": "`fgets(s, taille, stdin)` : au plus `taille - 1` caractères, et le `'\\n'` est conservé."
+    },
+    {
+      "id": "atoi",
+      "recto": "Convertir une chaîne en entier ?",
+      "verso": "`atoi(s)` (ou `strtol`, qui permet de détecter les erreurs), dans `<stdlib.h>`."
+    },
+    {
+      "id": "signe-strcmp",
+      "recto": "Signe de `strcmp(a, b)` ?",
+      "verso": "Négatif si `a` est avant `b` (ordre des codes), 0 si elles sont égales, positif sinon."
     }
   ],
   "exercices": [
@@ -434,6 +449,99 @@
       ],
       "etapeFausse": 1,
       "explication": "Le symétrique de `s[i]` est `s[n - 1 - i]` : pour `i = 0`, `s[n]` est le `'\\0'`."
+    },
+    {
+      "id": "indice-chaine",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nchar s[] = \"Bonjour\";\nprintf(\"%c\\n\", s[3]);\n```",
+      "correction": [
+        "Les indices commencent à 0 : B(0) o(1) n(2) j(3)."
+      ],
+      "choix": [
+        {
+          "texte": "`j`",
+          "correct": true,
+          "explication": "`s[3]` est le quatrième caractère."
+        },
+        {
+          "texte": "`n`",
+          "correct": false,
+          "explication": "C'est `s[2]` : les indices commencent à 0."
+        },
+        {
+          "texte": "`o`",
+          "correct": false,
+          "explication": "C'est `s[1]` (ou `s[4]`)."
+        },
+        {
+          "texte": "`B`",
+          "correct": false,
+          "explication": "C'est `s[0]`."
+        }
+      ]
+    },
+    {
+      "id": "strlen-sizeof",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nchar s[10] = \"abc\";\nprintf(\"%d\\n\", (int)(strlen(s) + sizeof s));\n```",
+      "correction": [
+        "`strlen` compte les caractères avant `'\\0'` ; `sizeof` donne la taille du tableau déclaré."
+      ],
+      "choix": [
+        {
+          "texte": "`13`",
+          "correct": true,
+          "explication": "`strlen(s)` vaut 3 et `sizeof s` vaut 10."
+        },
+        {
+          "texte": "`7`",
+          "correct": false,
+          "explication": "`sizeof s` vaut la taille déclarée (10), pas 4."
+        },
+        {
+          "texte": "`6`",
+          "correct": false,
+          "explication": "`sizeof` compte toutes les cases du tableau."
+        },
+        {
+          "texte": "`14`",
+          "correct": false,
+          "explication": "`strlen` ne compte pas le `'\\0'`."
+        }
+      ]
+    },
+    {
+      "id": "premiere-majuscule",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nchar s[] = \"chat\";\ns[0] = s[0] - 'a' + 'A';\nprintf(\"%s\\n\", s);\n```",
+      "correction": [
+        "`s[0] - 'a'` est le rang de la lettre (2 pour `c`) ; `+ 'A'` donne la majuscule de même rang."
+      ],
+      "choix": [
+        {
+          "texte": "`Chat`",
+          "correct": true,
+          "explication": "Seule la première lettre passe en majuscule."
+        },
+        {
+          "texte": "`chat`",
+          "correct": false,
+          "explication": "`s[0]` est bien modifié."
+        },
+        {
+          "texte": "`CHAT`",
+          "correct": false,
+          "explication": "Seul `s[0]` est modifié."
+        },
+        {
+          "texte": "`Ahat`",
+          "correct": false,
+          "explication": "On ajoute le rang de `c` à `'A'` : on obtient `'C'`, pas `'A'`."
+        }
+      ]
     },
     {
       "id": "prog-longueur",

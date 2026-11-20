@@ -112,6 +112,21 @@
       "id": "f-retour",
       "recto": "Que fait `return` dans une boucle ?",
       "verso": "Il termine immédiatement la fonction."
+    },
+    {
+      "id": "tableau-zero",
+      "recto": "Initialiser un tableau d'entiers à zéro ?",
+      "verso": "`int t[10] = {0};` : les éléments non précisés valent 0."
+    },
+    {
+      "id": "tableau-2d-param",
+      "recto": "Passer un tableau à deux dimensions à une fonction ?",
+      "verso": "En précisant le nombre de colonnes : `void f(int m[][4], int lignes)`."
+    },
+    {
+      "id": "static-local",
+      "recto": "Variable locale `static` ?",
+      "verso": "Elle garde sa valeur d'un appel à l'autre (initialisée une seule fois)."
     }
   ],
   "exercices": [
@@ -441,6 +456,99 @@
       ],
       "etapeFausse": 0,
       "explication": "Si tous les éléments sont négatifs, `m` reste à 0, qui n'est pas dans le tableau. Il faut initialiser avec `m = t[0]`."
+    },
+    {
+      "id": "appels-carre",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Qu'affiche ce code ?\n```c\nint carre(int x) {\n    return x * x;\n}\n\nprintf(\"%d\\n\", carre(3) + carre(-2));\n```",
+      "correction": [
+        "`carre(-2)` vaut 4."
+      ],
+      "choix": [
+        {
+          "texte": "`13`",
+          "correct": true,
+          "explication": "9 + 4 = 13."
+        },
+        {
+          "texte": "`5`",
+          "correct": false,
+          "explication": "Le carré de −2 est 4, pas −4."
+        },
+        {
+          "texte": "`1`",
+          "correct": false,
+          "explication": "C'est le carré de 3 + (−2)."
+        },
+        {
+          "texte": "`10`",
+          "correct": false,
+          "explication": "Ce serait 3 × 2 + 2 × 2."
+        }
+      ]
+    },
+    {
+      "id": "initialisation-partielle",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Qu'affiche ce code ?\n```c\nint t[5] = {1, 2, 3};\nprintf(\"%d\\n\", t[3] + t[4]);\n```",
+      "correction": [
+        "Avec une initialisation partielle, les cases restantes valent 0."
+      ],
+      "choix": [
+        {
+          "texte": "`0`",
+          "correct": true,
+          "explication": "`t[3]` et `t[4]` sont initialisées à 0."
+        },
+        {
+          "texte": "une valeur imprévisible",
+          "correct": false,
+          "explication": "Dès qu'une partie est initialisée, le reste est mis à 0."
+        },
+        {
+          "texte": "`5`",
+          "correct": false,
+          "explication": "Ce serait `t[1] + t[2]`."
+        },
+        {
+          "texte": "une erreur de compilation",
+          "correct": false,
+          "explication": "Initialiser partiellement un tableau est permis."
+        }
+      ]
+    },
+    {
+      "id": "compteur-static",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Qu'affiche ce code ?\n```c\nint compteur(void) {\n    static int n = 0;\n    n++;\n    return n;\n}\n\ncompteur();\ncompteur();\nprintf(\"%d\\n\", compteur());\n```",
+      "correction": [
+        "`static` : `n` garde sa valeur entre les appels."
+      ],
+      "choix": [
+        {
+          "texte": "`3`",
+          "correct": true,
+          "explication": "Trois appels : `n` vaut 1, 2 puis 3."
+        },
+        {
+          "texte": "`1`",
+          "correct": false,
+          "explication": "Ce serait sans `static` : `n` repartirait de 0 à chaque appel."
+        },
+        {
+          "texte": "`2`",
+          "correct": false,
+          "explication": "Le troisième appel incrémente aussi `n` avant de le renvoyer."
+        },
+        {
+          "texte": "`0`",
+          "correct": false,
+          "explication": "`n++` est exécuté avant `return`."
+        }
+      ]
     },
     {
       "id": "prog-maximum",
