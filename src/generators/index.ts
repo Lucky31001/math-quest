@@ -20,6 +20,7 @@ import { tableVerite, negationQuantifiee, denombrement } from './logique-ensembl
 import { sommesUsuelles, coefficientsRacines, produitMatrices, systeme2x2, dimensionEquations } from './algebre-extra';
 import { suiteOrdre2, limitesFactorisation, tangente, limiteParDl, expLn } from './analyse-extra';
 import { GENERATEURS_PHYSIQUE } from './physique';
+import { GENERATEURS_INFORMATIQUE } from './informatique';
 
 export type { Forme, Generateur } from './outils';
 
@@ -57,6 +58,7 @@ export const GENERATEURS: readonly Generateur[] = [
   edoOrdre1,
   edoOrdre2,
   ...GENERATEURS_PHYSIQUE,
+  ...GENERATEURS_INFORMATIQUE,
 ];
 
 export const generateursDu = (chapitre: string): Generateur[] => GENERATEURS.filter((g) => g.chapitre === chapitre);

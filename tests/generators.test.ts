@@ -51,7 +51,8 @@ function verifierStructure(g: Generateur): void {
 
 /* ------------------------------------------------------------------ */
 describe('structure de tous les générateurs', () => {
-  it('chaque générateur produit des questions valides (3 difficultés × 40 graines × chaque forme)', () =>
+  // ~50 générateurs × 3 difficultés × 40 graines × formes : plusieurs secondes.
+  it('chaque générateur produit des questions valides (3 difficultés × 40 graines × chaque forme)', { timeout: 30_000 }, () =>
     toutVerifier(GENERATEURS.map((g): [string, () => void] => [g.id, () => verifierStructure(g)])));
   it('la même graine redonne la même question', () => {
     const g = GENERATEURS[0];
