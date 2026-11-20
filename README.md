@@ -42,9 +42,11 @@ npm run dev        # http://localhost:5173
 
 ## Ajouter des exercices et des QCM
 
-Le contenu est dans `content/algebre/*.json` et `content/analyse/*.json` : **un fichier par chapitre**. Les fichiers sont validés au chargement :
-- en développement, un fichier invalide est **ignoré** et l'erreur s'affiche en haut de l'accueil ;
-- `npm test` échoue aussi, avec le détail de l'erreur.
+Le contenu est dans `content/<matière>/*.json` : **un fichier par chapitre**. Les fichiers sont **validés à la compilation** (plugin `contenu` de `vite.config.ts`) :
+- en développement (`npm run dev`), un fichier invalide s'affiche en surimpression, avec le fichier et le champ fautif (ex. `exercices.2.enonce`) ;
+- `npm run build` et `npm test` échouent, avec le même détail : un contenu invalide ne peut pas être déployé.
+
+L'application reçoit le contenu déjà validé (valeurs par défaut comprises) et ne charge au démarrage qu'un résumé de chaque chapitre ; le chapitre complet est chargé à son ouverture.
 
 Grâce à `"$schema": "../schema.json"`, VS Code propose l'autocomplétion et signale les erreurs pendant la saisie.
 

@@ -162,23 +162,8 @@ export type Programme = z.infer<typeof ProgrammeSchema>;
 export type Question = z.infer<typeof QuestionSchema>;
 export type TypeQuestion = Question['type'];
 
-export const TYPES_QUESTION: readonly TypeQuestion[] = [
-  'qcm',
-  'numerique',
-  'expression',
-  'vrai-faux',
-  'trouve-erreur',
-  'programme',
-];
-
-export const LIBELLES_TYPE: Record<TypeQuestion, string> = {
-  qcm: 'QCM',
-  numerique: 'Réponse numérique',
-  expression: 'Expression',
-  'vrai-faux': 'Vrai / Faux',
-  'trouve-erreur': "Trouve l'erreur",
-  programme: 'Programme C',
-};
+// Constantes sans Zod (importables par l'application sans embarquer les schémas).
+export { TYPES_QUESTION, LIBELLES_TYPE } from './types-question.ts'; // extension : chargé par vite.config.ts
 
 export const FlashcardSchema = z
   .object({
@@ -227,27 +212,14 @@ export const ChapitreSchema = z
 export type Chapitre = z.infer<typeof ChapitreSchema>;
 
 /**
- * Résumé d'un chapitre, chargé au démarrage (voir src/core/resume.ts) : de quoi
- * afficher la carte, les statistiques et les badges. Le reste (cours, énoncés,
- * flashcards) est chargé à l'ouverture du chapitre.
+ * Résumé d'un chapitre, chargé au démarrage (calculé au build : src/core/resume.ts) :
+ * de quoi afficher la carte, les statistiques et les badges. Le reste (cours,
+ * énoncés, flashcards) est chargé à l'ouverture du chapitre.
  */
-export const ChapitreResumeSchema = z.object({
-  id,
-  monde: id,
-  ordre: z.number().int().positive(),
-  titre: texte,
-  icone: z.string().min(1),
-  resume: texte,
-  exercices: z.array(
-    z.object({
-      id,
-      type: z.enum(['qcm', 'numerique', 'expression', 'vrai-faux', 'trouve-erreur', 'programme']),
-      difficulte: DifficulteSchema,
-    }),
-  ),
-  flashcards: z.array(z.object({ id })),
-});
-export type ChapitreResume = z.infer<typeof ChapitreResumeSchema>;
+export type ChapitreResume = Pick<Chapitre, 'id' | 'monde' | 'ordre' | 'titre' | 'icone' | 'resume'> & {
+  exercices: Pick<Question, 'id' | 'type' | 'difficulte'>[];
+  flashcards: Pick<Flashcard, 'id'>[];
+};
 /** Forme « en entrée » (avant valeurs par défaut) — utile pour écrire du contenu en TS. */
 export type ChapitreInput = z.input<typeof ChapitreSchema>;
 export type Monde = Chapitre['monde'];

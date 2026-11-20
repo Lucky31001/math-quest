@@ -1,6 +1,6 @@
 /** Tableau de bord : réussite par chapitre et par type de question, points faibles, activité. */
 import { INDEX, chapitresDe, styleMatiere } from '../../core/loader';
-import { TYPES_QUESTION, LIBELLES_TYPE } from '../../core/schema';
+import { TYPES_QUESTION, LIBELLES_TYPE } from '../../core/types-question';
 import { h } from '../dom';
 import { etat } from '../etat';
 import { tauxChapitre, maitriseChapitre, pointsFaibles } from '../../game/modes';
