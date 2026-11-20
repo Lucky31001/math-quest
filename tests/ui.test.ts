@@ -157,6 +157,54 @@ describe('écrans', () => {
   });
 });
 
+describe('examen blanc', () => {
+  /** Une réponse quelconque (mais complète), quel que soit le type de question. */
+  function repondreAuHasard(q: HTMLElement) {
+    const changer = (e: HTMLInputElement) => {
+      e.checked = true;
+      e.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    if (q.classList.contains('type-vrai-faux')) q.querySelector<HTMLButtonElement>('.btn-vf')!.click();
+    if (q.classList.contains('type-trouve-erreur')) q.querySelector<HTMLButtonElement>('.etape')!.click();
+    const choix = q.querySelector<HTMLInputElement>('.choix input');
+    if (choix) changer(choix);
+    const saisie = q.querySelector<HTMLInputElement>('.saisie');
+    if (saisie) {
+      const n = Number(/(\d+) valeurs attendues/.exec(q.textContent ?? '')?.[1] ?? 1);
+      saisie.value = Array(n).fill(q.classList.contains('type-expression') ? 'x' : '1').join(';');
+      saisie.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
+
+  it('20 questions sans correction ni XP pendant l’épreuve, puis note sur 20 et copie corrigée', async () => {
+    const { etat } = await import('../src/ui/etat');
+    const avant = structuredClone(etat.p);
+    await aller('#/jouer/examen/algebre');
+    const main = document.getElementById('contenu')!;
+    expect(main.querySelector('.session-titre')!.textContent).toContain('Examen blanc');
+    for (let i = 0; i < 20; i++) {
+      const q = main.querySelector<HTMLElement>('.session-scene .question')!;
+      repondreAuHasard(q);
+      q.querySelector<HTMLButtonElement>('.actions .btn-primaire')!.click();
+      expect(q.querySelector('.msg-invalide')!.textContent, `question ${i + 1}`).toBe('');
+      expect(q.querySelector('.correction'), 'pas de correction pendant l’examen').toBeNull();
+      expect(q.querySelector('.verdict')!.textContent).toBe('Réponse enregistrée');
+      expect(etat.p.xp, 'XP enregistrés seulement à la fin').toBe(avant.xp);
+      q.querySelector<HTMLButtonElement>('.btn-suivant')!.click();
+    }
+    expect(main.querySelector('.bilan h2')!.textContent).toMatch(/^📝 [\d,]+\/20$/);
+    const copie = main.querySelectorAll('.copie .question.en-revue');
+    expect(copie).toHaveLength(20);
+    copie.forEach((q) => {
+      expect(q.querySelector('.correction')).toBeTruthy();
+      expect(q.querySelector('.btn-suivant'), 'pas de « Continuer » dans la copie').toBeNull();
+    });
+    expect(etat.p.records.examens.algebre).toBeGreaterThanOrEqual(0);
+    expect(etat.p.compteurs.reponses).toBe(avant.compteurs.reponses + 20);
+    etat.remplacer(avant);
+  });
+});
+
 describe('composant question : chaque type se corrige', () => {
   const ch = CONTENU.chapitres[0];
 

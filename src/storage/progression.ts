@@ -40,6 +40,8 @@ export const ProgressionSchema = z.object({
       eclairParfait: z.boolean().default(false),
       meilleurCombo: z.number().default(0),
       boss: z.record(z.string(), z.object({ meilleur: z.number(), vaincu: z.boolean(), sansIndice: z.boolean().default(false) })).default({}),
+      /** Meilleure note (sur 20) à l'examen blanc, par matière. Ajout compatible : valeur par défaut. */
+      examens: z.record(z.string(), z.number().min(0).max(20)).default({}),
     })
     .prefault({}),
   compteurs: z

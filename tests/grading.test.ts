@@ -51,6 +51,18 @@ describe('QCM à réponses multiples', () => {
     expect(corrigerQcm(qcmMultiple, [0]).bienTraites).toBe(3);
     expect(corrigerQcm(qcmMultiple, [1, 3]).bienTraites).toBe(0);
   });
+  it('notation en partie juste : bonnes cochées − mauvaises cochées, sur le nombre de bonnes', () => {
+    expect(corrigerQcm(qcmMultiple, [0, 2]).credit).toBe(1);
+    expect(corrigerQcm(qcmMultiple, [0])).toMatchObject({ statut: 'incorrect', credit: 0.5 });
+    expect(corrigerQcm(qcmMultiple, [0, 1]).credit).toBe(0); // une bonne, une mauvaise
+    expect(corrigerQcm(qcmMultiple, [0, 1, 2]).credit).toBe(0.5); // tout bon + une mauvaise
+    expect(corrigerQcm(qcmMultiple, [0, 1, 2, 3]).credit).toBe(0); // tout cocher ne rapporte rien
+    expect(corrigerQcm(qcmMultiple, [1, 3]).credit).toBe(0); // jamais négatif
+  });
+  it('pas de partie juste pour un QCM à réponse unique', () => {
+    expect(corrigerQcm(qcmUnique, [0]).credit).toBe(0);
+    expect(corrigerQcm(qcmUnique, [1]).credit).toBe(1);
+  });
 });
 
 describe('validation du schéma', () => {

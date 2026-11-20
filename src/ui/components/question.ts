@@ -36,14 +36,20 @@ export interface OptionsQuestion {
   graine?: number;
   /** Petit bandeau au-dessus (ex. nom du chapitre). */
   surtitre?: string;
+  /** Examen : la réponse est enregistrée sans correction ; celle-ci est montrée par `reveler()`. */
+  differe?: boolean;
   /** Exercices « programme » : compile et exécute sur des entrées (par défaut, le compilateur C du navigateur). */
   executeur?: (source: string, entrees: string[], rappels: { etape?: (e: 'chargement' | 'compilation' | 'execution') => void }) => Promise<IssueTests>;
 }
 
 export interface ControleurQuestion {
   el: HTMLElement;
-  /** Temps écoulé : verrouille et affiche la correction. */
+  /** Temps écoulé : verrouille et affiche la correction (en examen : verrouille seulement). */
   expirer(): void;
+  /** Examen : quitte la question sans retirer l'élément (il sera revu à la fin). */
+  figer(): void;
+  /** Examen : affiche la correction de la réponse donnée (ou « sans réponse »). */
+  reveler(): void;
   detruire(): void;
 }
 
@@ -117,6 +123,9 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
   /** Préparation asynchrone de la réponse (compilation et exécution d'un programme). */
   let preparer: (() => Promise<Reponse | string>) | null = null;
   let enVerification = false;
+  /** Examen : résultat gardé jusqu'à `reveler()` ; `enRevue` pendant la relecture de la copie. */
+  let resultatDiffere: Resultat | null = null;
+  let enRevue = false;
   let quitter: () => void = () => {};
   /** Ajouté après la correction détaillée (ex. la solution d'un programme). */
   let complementCorrection: HTMLElement | null = null;
@@ -474,17 +483,20 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     el.classList.add(r.statut === 'correct' ? 'reussie' : 'ratee');
     vider(retour);
     const juste = r.statut === 'correct';
+    const enPartie = !juste && (r.credit ?? 0) > 0;
     const titre = juste
       ? BRAVOS[Math.floor(Math.random() * BRAVOS.length)]
       : expire
         ? 'Temps écoulé !'
-        : r.partiel
+        : r.partiel || enPartie
           ? 'Presque !'
           : 'Pas tout à fait…';
     const detail = juste
       ? 'Bonne réponse.'
       : r.partiel
         ? 'La valeur ou la justification est fausse.'
+        : enPartie && q.type === 'qcm'
+          ? `En partie juste : ${Math.round(r.credit! * 100)} % des points (${r.bienTraites}/${q.choix.length} choix bien traités).`
         : r.testsReussis !== undefined && q.type === 'programme'
           ? `${r.testsReussis}/${q.tests.length} tests réussis. Compare ta sortie à celle attendue.`
           : r.bienTraites !== undefined && q.type === 'qcm' && q.multiple
@@ -505,14 +517,37 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     );
     retour.append(details);
     if (complementCorrection) retour.append(complementCorrection);
-    if (opts.surSuivant) {
+    if (opts.surSuivant && !enRevue) {
       const b = h('button', { class: `btn btn-suivant ${juste ? 'btn-primaire' : 'btn-danger-plein'}`, type: 'button' }, opts.libelleSuivant ?? 'Continuer');
       b.onclick = () => opts.surSuivant?.();
       actions.replaceChildren(b);
       setTimeout(() => b.focus({ preventScroll: true }), 30);
     }
     retour.hidden = false;
-    retour.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (!enRevue) retour.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /** Examen : on verrouille la réponse et on passe à la suite, sans rien dévoiler. */
+  function enregistrerDiffere(r: Resultat, expire: boolean) {
+    repondu = true;
+    resultatDiffere = expire ? null : r;
+    btnValider.hidden = true;
+    if (btnIndice) btnIndice.disabled = true;
+    msg.textContent = '';
+    zone.querySelectorAll<HTMLInputElement | HTMLButtonElement | HTMLTextAreaElement>('input, button, textarea, select').forEach((e) => (e.disabled = true));
+    pied.classList.add('pied-enregistre');
+    vider(verdictZone);
+    verdictZone.append(
+      icone(expire ? 'horloge' : 'coche', 'verdict-icone'),
+      h('div', null, h('p', { class: 'verdict' }, expire ? 'Temps écoulé' : 'Réponse enregistrée'), h('p', { class: 'verdict-detail' }, 'La correction sera donnée à la fin de l’examen.')),
+    );
+    if (opts.surSuivant) {
+      const b = h('button', { class: 'btn btn-suivant btn-primaire', type: 'button' }, opts.libelleSuivant ?? 'Continuer');
+      b.onclick = () => opts.surSuivant?.();
+      actions.replaceChildren(b);
+      setTimeout(() => b.focus({ preventScroll: true }), 30);
+    }
+    opts.surResultat(r, { indiceUtilise, expire });
   }
 
   async function valider() {
@@ -540,6 +575,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       msg.textContent = r.message ?? 'Réponse invalide.';
       return;
     }
+    if (opts.differe) return enregistrerDiffere(r, false);
     montrerRetour(r, false);
     opts.surResultat(r, { indiceUtilise, expire: false });
   }
@@ -586,8 +622,20 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     expirer() {
       if (repondu) return;
       const r: Resultat = { statut: 'incorrect' };
+      if (opts.differe) return enregistrerDiffere(r, true);
       montrerRetour(r, true);
       opts.surResultat(r, { indiceUtilise, expire: true });
+    },
+    figer() {
+      quitter();
+      document.removeEventListener('keydown', surTouche);
+    },
+    reveler() {
+      enRevue = true;
+      el.classList.add('en-revue');
+      pied.classList.remove('pied-enregistre');
+      actions.replaceChildren(); // plus de « Continuer » dans la copie
+      montrerRetour(resultatDiffere ?? { statut: 'incorrect' }, resultatDiffere === null);
     },
     detruire() {
       quitter();

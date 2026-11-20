@@ -212,7 +212,7 @@ function exercices(ch: Chapitre, conteneur: HTMLElement): () => void {
       surIndice: () => (etat.modifier(payerIndice), true),
       surResultat: (r) => {
         const correct = r.statut === 'correct';
-        etat.modifier((p) => enregistrerReponse(p, { chapitre: ch.id, cle: cle(ch.id, q.id), type: q.type, difficulte: q.difficulte, correct }, etat.aujourdhui()));
+        etat.modifier((p) => enregistrerReponse(p, { chapitre: ch.id, cle: cle(ch.id, q.id), type: q.type, difficulte: q.difficulte, correct, credit: r.credit }, etat.aujourdhui()));
         jouerSon(correct ? 'juste' : 'faux');
         if (!correct) secouer(c.el.querySelector('.zone-reponse') ?? c.el);
       },

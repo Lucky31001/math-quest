@@ -724,6 +724,41 @@ body[data-ecran='jouer'] .hud {
   background: #3a3214;
 }
 
+/* Examen blanc : au bout du chemin d'une matière, à sa couleur. */
+.carte-action.examen {
+  max-width: 420px;
+  margin: 24px auto 0;
+  border-color: var(--couleur);
+  box-shadow: 0 4px 0 var(--couleur-fonce);
+}
+
+.carte-action.examen .carte-icone {
+  background: color-mix(in srgb, var(--couleur) 25%, transparent);
+}
+
+/* Examen : réponse enregistrée (ni juste ni faux affiché). */
+.pied-enregistre {
+  border-top-color: var(--bleu-bord);
+  background: var(--bleu-clair);
+  color: var(--bleu);
+}
+
+/* Copie corrigée : les questions se suivent ; la barre du bas n'est plus fixe. */
+.copie {
+  margin-top: 28px;
+}
+
+.copie .question {
+  margin-bottom: 20px;
+}
+
+.question.en-revue .pied {
+  position: static;
+  margin-top: 12px;
+  border-radius: var(--rayon);
+  animation: none;
+}
+
 .monde {
   --couleur: var(--violet);
   --couleur-fonce: var(--violet-fonce);
