@@ -1,4 +1,5 @@
 /** Point d'entrée : en-tête, routes, démarrage. */
+import '@fontsource-variable/nunito';
 import './styles/main.css';
 import { h } from './ui/dom';
 import { creerHud } from './ui/components/hud';
@@ -52,3 +53,6 @@ void statutStockage().then((statut) => {
   noterRappel(aujourdhui);
   toast('💾 Ton navigateur peut effacer ta progression. Exporte-la dans ⚙️ Réglages.', 'info', 9000);
 });
+
+// Mode hors ligne : uniquement dans la version publiée (pas en dev ni dans les tests).
+if (import.meta.env.PROD && 'serviceWorker' in navigator) void import('./pwa').then((m) => m.installerServiceWorker());

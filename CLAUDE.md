@@ -44,6 +44,7 @@ src/ui/
   components/    question.ts (composant central), flashcards.ts, hud.ts
   screens/       accueil (carte), chapitre, session (tous les modes), revision, stats, badges, reglages
 src/router.ts    routeur par hash (#/chapitre/:id/:onglet, #/jouer/:mode/:chap/:diff…)
+src/pwa.ts       service worker (hors ligne) ; mise à jour différée hors séance (#/jouer, #/revision, #/atelier)
 src/c/           atelier C : wasi.ts (WASI en mémoire), compilateur.ts (xcc), worker.ts, client.ts
 tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifier l'affiché
   outils/        tout-verifier.ts (un test, toutes les vérifications), verification.ts, generateurs.ts
@@ -79,6 +80,13 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - **Effets de survol** : uniquement sous `@media (hover: hover) and (pointer: fine)`. L'état `:active` (enfoncé) reste prioritaire.
 - **Ne pas mettre de `backdrop-filter` ni de `transform` sur `.hud`** : la barre d'onglets mobile (`position: fixed`) ne serait plus collée en bas.
 - **Icône d'onglet** : `public/favicon.svg`. Le Σ y est un tracé vectoriel, sans dépendance à une police.
+- **Icônes de l'app installée** : `public/pwa-*.png`, `maskable-512x512.png`, `apple-touch-icon-180x180.png`, rendues depuis `favicon.svg` (à régénérer si le logo change).
+- **Police** : Nunito auto-hébergée (`@fontsource-variable/nunito`), aucune ressource externe : l'app doit marcher hors ligne.
+
+## Hors ligne (PWA)
+
+- `vite-plugin-pwa` pré-cache tout le build (`workbox.globPatterns` dans `vite.config.ts`), compilateur C compris. Un nouveau type de fichier statique doit y être ajouté, sinon il manquera hors ligne.
+- Le service worker n'est enregistré qu'en production (`import.meta.env.PROD`) : pour le tester, `npm run build && npm run preview`.
 
 ## Ajouter du contenu
 
