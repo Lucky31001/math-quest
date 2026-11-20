@@ -101,3 +101,5 @@ Vérifier soi-même l'exactitude mathématique de chaque réponse, correction et
 1. Créer `src/generators/<theme>.ts`, qui exporte un `Generateur` : `id`, `titre`, `chapitre`, `formes`, `generer(rng, difficulte, forme)`.
 2. L'enregistrer dans `GENERATEURS` (`src/generators/index.ts`).
 3. Ajouter un test mathématique dans `tests/generators.test.ts`, qui relit l'énoncé affiché. Les tests structurels s'appliquent automatiquement.
+
+Physique : `src/generators/physique.ts` (un générateur par chapitre calculatoire, via `generateur()` + `produire()`). Les données s'écrivent toujours `donnee('X', valeur, unité)` → « $X = valeur\ unité$ » : `tests/generators-physique.test.ts` les relit et recalcule la réponse (table `ATTENDU`, à compléter pour tout nouveau générateur). Les distracteurs à moins de 2 % de la réponse sont écartés automatiquement : prévoir 4 à 5 pièges.
