@@ -111,4 +111,51 @@ describe('compilateur C en WebAssembly', () => {
       expect(lancer(source).sortie, ou).toBe(attendu);
     });
   });
+
+  /*
+   * scanf de remplacement (src/c/scanf.ts) : chaque programme est exécuté avec
+   * gcc (la vraie glibc) puis avec xcc ; les sorties doivent être identiques.
+   */
+  const CAS_SCANF: [string, string, string][] = [
+    ['%d jusqu’à EOF (!= EOF)', 'int x;\nwhile (scanf("%d", &x) != EOF) printf("[%d]", x);', '3 -4\n 5\n'],
+    ['%d jusqu’à EOF (== 1)', 'int x, r;\nwhile ((r = scanf("%d", &x)) == 1) printf("[%d]", x);\nprintf(" r=%d", r);', '7 8'],
+    ['%s : mots séparés', 'char m[50];\nwhile (scanf("%s", m) == 1) printf("[%s]", m);', '  un deux\ttrois\n'],
+    ['%99s', 'char m[100];\nint r = scanf("%99s", m);\nprintf("%d [%s]", r, m);', 'kayak'],
+    ['%5s : largeur', 'char a[10], b[30];\nint r = scanf("%5s%s", a, b);\nprintf("%d [%s][%s]", r, a, b);', 'anticonstitution'],
+    ['%c sans sauter les espaces', 'char a, b, c;\nint r = scanf("%c%c%c", &a, &b, &c);\nprintf("%d [%c%c%c]", r, a, b, c);', 'a b'],
+    ['" %c" saute les espaces', 'char a, b;\nint r = scanf(" %c %c", &a, &b);\nprintf("%d [%c%c]", r, a, b);', '\n  x   y'],
+    ['%[^\\n] puis fgets', 'char l[50], s[50];\nscanf("%49[^\\n]", l);\ngetchar();\nfgets(s, 50, stdin);\nprintf("[%s][%s]", l, s);', 'deux mots\nsuite'],
+    ['%[a-z]', 'char m[50];\nint r = scanf("%[a-z]", m);\nprintf("%d [%s]", r, m);', 'abcDEF'],
+    ['réels %f %lf %e', 'float a; double b, c;\nint r = scanf("%f %lf %le", &a, &b, &c);\nprintf("%d %.3f %.3f %.4f", r, a, b, c);', '3.5 -2e3 .25'],
+    ['littéraux "%d,%d"', 'int a = 0, b = 0;\nint r = scanf("%d,%d", &a, &b);\nprintf("%d %d %d", r, a, b);', '4,5'],
+    ['littéral absent', 'int a = 0, b = 0;\nint r = scanf("%d,%d", &a, &b);\nprintf("%d %d %d", r, a, b);', '4;5'],
+    ['%d sur du texte', 'int x = 9;\nchar m[20];\nint r = scanf("%d", &x);\nscanf("%s", m);\nprintf("%d %d [%s]", r, x, m);', 'abc'],
+    ['%x avec préfixe', 'unsigned a;\nint r = scanf("%x", &a);\nprintf("%d %u", r, a);', '0XfF'],
+    ['%x %o %i', 'int a, b, c, d, e;\nint r = scanf("%x %o %i %i %i", &a, &b, &c, &d, &e);\nprintf("%d %d %d %d %d %d", r, a, b, c, d, e);', 'ff 17 0x1A 010 -12'],
+    ['%*d (ignoré)', 'int x = 0;\nint r = scanf("%*d %d", &x);\nprintf("%d %d", r, x);', '1 2'],
+    ['largeur %3d%2d', 'int a, b;\nint r = scanf("%3d%2d", &a, &b);\nprintf("%d %d %d", r, a, b);', '12345'],
+    ['%u %ld %lld %hd', 'unsigned u; long l; long long ll; short h;\nint r = scanf("%u %ld %lld %hd", &u, &l, &ll, &h);\nprintf("%d %u %ld %lld %d", r, u, l, ll, (int)h);', '4000000000 -900000000 123456789012 -7'],
+    ['entrée vide', 'int x; char m[9], c;\nprintf("%d ", scanf("%d", &x));\nprintf("%d ", scanf("%s", m));\nprintf("%d", scanf("%c", &c));', ''],
+    ['sscanf %s %d %n', 'char v[20]; int cp, n;\nint r = sscanf("Paris 75000", "%s %n%d", v, &n, &cp);\nprintf("%d [%s] %d %d", r, v, n, cp);', ''],
+    ['TP : n notes puis moyenne', 'int n;\nscanf("%d", &n);\ndouble s = 0, x;\nfor (int i = 0; i < n; i++) {\n    scanf("%lf", &x);\n    s += x;\n}\nprintf("%.2f\\n", s / n);', '4\n12 15.5 9\n17'],
+    ['TP : menu (%d puis %c)', 'int choix; char rep;\nscanf("%d", &choix);\nscanf(" %c", &rep);\nprintf("%d %c", choix, rep);', '2\no'],
+  ];
+
+  it('scanf : mêmes sorties que la glibc (gcc) sur tous les cas', () => {
+    const dossier = mkdtempSync(join(tmpdir(), 'scanf-'));
+    const echecs = CAS_SCANF.flatMap(([nom, corps, entree], i) => {
+      const source = `#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\n${corps}\nreturn 0;\n}\n`;
+      writeFileSync(join(dossier, `s${i}.c`), source);
+      execFileSync('gcc', ['-std=c11', '-w', '-o', join(dossier, `s${i}`), join(dossier, `s${i}.c`)]);
+      const attendu = execFileSync(join(dossier, `s${i}`), { input: entree, encoding: 'utf8' });
+      const obtenu = lancer(source, entree).sortie;
+      return obtenu === attendu ? [] : [`${nom} : glibc ${JSON.stringify(attendu)}, xcc ${JSON.stringify(obtenu)}`];
+    });
+    expect(echecs, echecs.join('\n')).toEqual([]);
+  });
+
+  it('scanf : les erreurs de compilation gardent les numéros de ligne de l’élève', () => {
+    const r = compiler(c, '#include <stdio.h>\nint main(void) {\n    int x = ;\n    scanf("%d", &x);\n}');
+    expect('messages' in r && r.messages).toMatch(/main\.c\(3\)/);
+  });
 });

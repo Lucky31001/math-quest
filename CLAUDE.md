@@ -54,7 +54,8 @@ src/ui/
   screens/       accueil (carte), chapitre, session (tous les modes), revision, stats, badges, reglages
 src/router.ts    routeur par hash (#/chapitre/:id/:onglet, #/jouer/:mode/:chap/:diff…)
 src/pwa.ts       service worker (hors ligne) ; mise à jour différée hors séance (#/jouer, #/revision, #/atelier)
-src/c/           atelier C : wasi.ts (WASI en mémoire), compilateur.ts (xcc), worker.ts, client.ts
+src/c/           atelier C : wasi.ts (WASI en mémoire), compilateur.ts (xcc), worker.ts, client.ts,
+                 scanf.ts (scanf/fscanf/sscanf de remplacement : celui de la libc de xcc est défaillant)
 tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifier l'affiché
   outils/        tout-verifier.ts (un test, toutes les vérifications), verification.ts, generateurs.ts
   verifications/ maths.ts, physique.ts, informatique.ts : réponses recalculées indépendamment
@@ -77,7 +78,8 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - Les éléments du DOM sont construits avec `h()` ; utiliser `ajouter()` quand des enfants peuvent être `null` (`append(null)` est refusé par TS).
 - Pas de `innerHTML` avec du texte brut : passer par `rendreHtml`/`riche` (texte échappé + KaTeX + code `…` / ```c … ```).
 - **Informatique = langage C** (programme CY Tech, pas de Python). Les vérifications de `tests/verifications/informatique.ts` compilent le code de l'énoncé ou du cours avec `gcc -Wall -Werror` puis l'exécutent (`codeDe`, `codeCours`, `instructionsC`, `definitionsC`) : garder ce code compilable tel quel, sans comportement indéfini (sauf piège volontaire, compilé avec `executerC(…, true)`).
-- **Exercices `programme`** (C) : `code` (départ) + `harnais` (main caché) + `solution` + `tests` (entrée → sortie). Hors Boss et Survie. Dans un harnais, lire le texte avec `fgets` : `scanf("%s")` est cassé dans la libc de xcc.
+- **Exercices `programme`** (C) : `code` (départ) + `harnais` (main caché) + `solution` + `tests` (entrée → sortie). Hors Boss et Survie.
+- **Libc de xcc** : `scanf` est remplacé (`src/c/scanf.ts`, testé contre la glibc dans `tests/atelier-c.test.ts`). Reste non géré : `printf("%hd")` (afficher avec `%d`).
 - **Physique** : réponses numériques avec `tolerance: 0.01` (arrondis de $g$…) et en unités où la valeur est ≥ 1 (la tolérance devient absolue sous 1).
 - **Tests de bout en bout** (`e2e/`, Playwright) : parcours réels avec de vrais clics (un bouton caché sous un autre fait échouer le test). Lancés dans la CI à chaque PR. À compléter pour toute fonctionnalité visible (nouveau mode, nouvel écran).
 - **Tests : pas de test généré par élément** (un `it` par chapitre, question ou générateur). Utiliser `toutVerifier` : un seul test, qui liste les éléments fautifs.
