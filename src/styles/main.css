@@ -2299,6 +2299,103 @@ a.stat-ligne:hover {
   border-color: var(--orange);
 }
 
+/* Examens blancs (statistiques) : une courbe par matière */
+.examen-matiere {
+  --couleur: var(--violet);
+  padding: 12px 0;
+  border-top: 1px solid var(--bord);
+}
+
+.examen-matiere h3 {
+  margin: 0 0 4px;
+}
+
+.examen-resume {
+  margin: 0 0 8px;
+  color: var(--texte-doux);
+}
+
+.examen-tendance {
+  color: var(--texte);
+  font-weight: 800;
+}
+
+.courbe-conteneur {
+  position: relative;
+  max-width: 520px;
+}
+
+.courbe {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.courbe-grille {
+  stroke: var(--bord);
+  stroke-width: 1;
+}
+
+.courbe-moyenne {
+  stroke: var(--texte-pale);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.courbe-axe {
+  fill: var(--texte-pale);
+  font-size: 10px;
+  text-anchor: end;
+}
+
+.courbe-ligne {
+  fill: none;
+  stroke: var(--couleur);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.courbe-marque {
+  fill: var(--couleur);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.courbe-cible {
+  fill: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .courbe-point:hover .courbe-marque {
+    r: 6;
+  }
+}
+
+.courbe-infobulle {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 10px));
+  padding: 4px 8px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--texte);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.courbe-infobulle.dessous {
+  transform: translate(-50%, 10px);
+}
+
+.liste-notes {
+  margin: 6px 0 0;
+  color: var(--texte-doux);
+}
+
 /* Pièges récurrents (statistiques) */
 .liste-pieges {
   margin: 0;

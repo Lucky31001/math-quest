@@ -104,5 +104,8 @@ export default defineConfig(({ command, isPreview }) => ({
   test: {
     environment: 'node',
     include: ['tests/**/*.test.ts'],
+    // Plusieurs tests compilent du C (gcc, xcc en WebAssembly) : quelques secondes,
+    // parfois plus de 5 s sur la CI. Limite commune plutôt qu'au cas par cas.
+    testTimeout: 30_000,
   },
 }));

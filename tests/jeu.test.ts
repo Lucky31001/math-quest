@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { apresReponse, estDue, INTERVALLES } from '../src/game/leitner';
 import { niveauDepuisXp, seuilNiveau, titre, pointsEclair } from '../src/game/xp';
 import { ajouterJours, ecartJours } from '../src/game/dates';
-import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie, noterPieges, piegesRecurrents, MAX_PIEGES } from '../src/game/progres';
+import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie, noterPieges, piegesRecurrents, MAX_PIEGES, enregistrerExamen, tendanceExamens, MAX_NOTES_EXAMEN } from '../src/game/progres';
 import { piegesDe } from '../src/game/pieges';
 import { corriger } from '../src/core/grading';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
@@ -319,5 +319,30 @@ describe('pièges récurrents', () => {
     const p = progressionVide();
     enregistrerReponse(p, { chapitre: 'c', cle: 'c/q', type: 'qcm', difficulte: 1, correct: false, pieges: [{ cle: 'c/q#2', texte: 't', explication: 'e' }] }, '2026-11-20');
     expect(p.pieges['c/q#2']).toMatchObject({ n: 1, chapitre: 'c' });
+  });
+});
+
+describe('historique des examens blancs', () => {
+  it('garde chaque note, la meilleure, et signale un nouveau record (sauf au premier examen)', () => {
+    const p = progressionVide();
+    expect(enregistrerExamen(p, 'algebre', 9.5, '2026-11-01')).toBe(false);
+    expect(enregistrerExamen(p, 'algebre', 8, '2026-11-02')).toBe(false);
+    expect(enregistrerExamen(p, 'algebre', 12, '2026-11-03')).toBe(true);
+    expect(p.records.examens.algebre).toBe(12);
+    expect(p.records.historiqueExamens.algebre.map((x) => x.note)).toEqual([9.5, 8, 12]);
+  });
+
+  it(`n'en garde que ${MAX_NOTES_EXAMEN} par matière (les plus récentes)`, () => {
+    const p = progressionVide();
+    for (let i = 0; i < MAX_NOTES_EXAMEN + 5; i++) enregistrerExamen(p, 'physique', i % 20, `2026-10-${String((i % 28) + 1).padStart(2, '0')}`);
+    expect(p.records.historiqueExamens.physique).toHaveLength(MAX_NOTES_EXAMEN);
+    expect(p.records.historiqueExamens.physique[0].note).toBe(5);
+  });
+
+  it('tendance : moyenne des 3 derniers moins celle des 3 précédents', () => {
+    const n = (...l: number[]) => l.map((note) => ({ note }));
+    expect(tendanceExamens(n(10, 11, 12))).toBeNull();
+    expect(tendanceExamens(n(8, 9, 10, 12, 13, 14))).toBe(4);
+    expect(tendanceExamens(n(15, 12, 10, 9))).toBe(-4.7); // (12 + 10 + 9) / 3 − 15
   });
 });

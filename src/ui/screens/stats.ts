@@ -6,7 +6,9 @@ import { etat } from '../etat';
 import { tauxChapitre, maitriseChapitre, pointsFaibles } from '../../game/modes';
 import { ajouterJours } from '../../game/dates';
 import { niveauDepuisXp } from '../../game/xp';
-import { piegesRecurrents } from '../../game/progres';
+import { piegesRecurrents, tendanceExamens } from '../../game/progres';
+import { courbeNotes } from '../components/courbe';
+import { toutesLesMatieres } from '../../core/loader';
 import { riche } from '../texte';
 
 /** Pièges récurrents : la même erreur (même distracteur ou même erreur typique) commise plusieurs fois. */
@@ -37,6 +39,42 @@ function sectionPieges(): HTMLElement | null {
         );
       }),
     ),
+  );
+}
+
+/** Examens blancs : une courbe par matière (dernière note, meilleure, tendance), et les notes en texte. */
+function sectionExamens(): HTMLElement | null {
+  const hist = etat.p.records.historiqueExamens;
+  const matieres = toutesLesMatieres().filter((m) => hist[m.id]?.length);
+  if (!matieres.length) return null;
+  const note = (n: number) => `${String(n).replace('.', ',')}/20`;
+  return h(
+    'section',
+    { class: 'carte-info examens' },
+    h('h2', null, '📝 Examens blancs'),
+    matieres.map((m) => {
+      const notes = hist[m.id];
+      const t = tendanceExamens(notes);
+      const tendance = t === null ? null : t > 0 ? `▲ en progrès (+${String(t).replace('.', ',')})` : t < 0 ? `▼ en baisse (${String(t).replace('.', ',')})` : '► stable';
+      return h(
+        'div',
+        { class: 'examen-matiere', style: styleMatiere(m) },
+        h('h3', null, `${m.embleme} ${m.nom}`),
+        h(
+          'p',
+          { class: 'examen-resume' },
+          `Dernière : ${note(notes[notes.length - 1].note)} · Meilleure : ${note(etat.p.records.examens[m.id] ?? Math.max(...notes.map((x) => x.note)))} · ${notes.length} examen(s)`,
+          tendance ? h('span', { class: 'examen-tendance' }, ` · ${tendance}`) : null,
+        ),
+        courbeNotes(notes),
+        h(
+          'details',
+          null,
+          h('summary', null, 'Toutes les notes'),
+          h('ol', { class: 'liste-notes' }, notes.map((x) => h('li', null, `${new Date(x.date).toLocaleDateString('fr-FR')} : ${note(x.note)}`))),
+        ),
+      );
+    }),
   );
 }
 
@@ -106,7 +144,7 @@ export function ecranStats(main: HTMLElement): void {
           ),
         )
       : h('p', { class: 'note' }, p.compteurs.reponses < 10 ? 'Réponds à quelques questions pour voir apparaître tes points faibles.' : '👏 Aucun point faible marqué (tous les taux ≥ 60 %).'),
-    ...[sectionPieges()].filter((x): x is HTMLElement => x !== null),
+    ...[sectionPieges(), sectionExamens()].filter((x): x is HTMLElement => x !== null),
     h(
       'section',
       { class: 'carte-info' },
