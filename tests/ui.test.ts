@@ -4,7 +4,7 @@
  * chaque type de question se joue au clavier/à la souris et se corrige.
  */
 import { describe, it, expect, beforeAll, vi } from 'vitest';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU } from './outils/contenu';
 import { afficherQuestion } from '../src/ui/components/question';
 import type { Question, Programme } from '../src/core/schema';
 import { readFileSync } from 'node:fs';
@@ -16,10 +16,15 @@ const attendre = () => new Promise((r) => setTimeout(r, 0));
 const touche = (key: string, cible: EventTarget = document) =>
   cible.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
 
+/** Navigue, puis attend la fin du chargement des chapitres complets (écrans asynchrones). */
 async function aller(hash: string) {
   location.hash = hash;
   window.dispatchEvent(new Event('hashchange'));
   await attendre();
+  await vi.waitFor(() => {
+    const main = document.getElementById('contenu')!;
+    if (main.querySelector('.chargement') || !main.children.length) throw new Error('chargement en cours');
+  });
 }
 
 beforeAll(async () => {

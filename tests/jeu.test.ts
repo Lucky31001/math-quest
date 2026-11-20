@@ -6,7 +6,8 @@ import { ajouterJours, ecartJours } from '../src/game/dates';
 import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie } from '../src/game/progres';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
-import { CONTENU, toutesLesMatieres } from '../src/core/loader';
+import { toutesLesMatieres } from '../src/core/loader';
+import { CONTENU } from './outils/contenu';
 import { serieBoss, serieEclair, serieEntrainement, questionsDues, itemSurvie } from '../src/game/modes';
 import { createRng } from '../src/core/random';
 

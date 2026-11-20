@@ -2,7 +2,7 @@
  * Construction des séries de questions pour chaque mode de jeu.
  * Pur (pas de DOM) : prend le contenu, la progression et un générateur aléatoire.
  */
-import type { Chapitre, Difficulte, Question } from '../core/schema';
+import type { Chapitre, ChapitreResume, Difficulte, Question } from '../core/schema';
 import { cle } from '../core/loader';
 import { shuffle, pick, type Rng } from '../core/random';
 import { generateursDu, generer, GENERATEURS } from '../generators';
@@ -114,11 +114,15 @@ export function serieEclair(chapitres: readonly Chapitre[], rng: Rng, n = 20): I
   return items;
 }
 
-/** Questions fixes à revoir aujourd'hui (Leitner), les plus « en retard » d'abord. */
-export function questionsDues(chapitres: readonly Chapitre[], p: Progression, aujourdhui: string, max = 20): ItemSession[] {
+/**
+ * Questions fixes à revoir aujourd'hui (Leitner), les plus « en retard » d'abord.
+ * Sur des chapitres complets, chaque élément est un `ItemSession` ; sur des
+ * résumés (index), il sert à compter ou à savoir quels chapitres charger.
+ */
+export function questionsDues<C extends ChapitreResume>(chapitres: readonly C[], p: Progression, aujourdhui: string, max = 20) {
   const dues = chapitres.flatMap((c) =>
     c.exercices
-      .map((q) => ({ item: fixe(c, q), e: p.questions[cle(c.id, q.id)] }))
+      .map((q) => ({ item: { question: q as C['exercices'][number], chapitre: c, cle: cle(c.id, q.id) }, e: p.questions[cle(c.id, q.id)] }))
       .filter((x) => x.e && estDue(x.e, aujourdhui)),
   );
   dues.sort((a, b) => a.e!.boite - b.e!.boite || a.e!.prochaine.localeCompare(b.e!.prochaine));
@@ -126,12 +130,12 @@ export function questionsDues(chapitres: readonly Chapitre[], p: Progression, au
 }
 
 /** Flashcards à revoir aujourd'hui. */
-export function flashcardsDues(chapitres: readonly Chapitre[], p: Progression, aujourdhui: string) {
+export function flashcardsDues<C extends ChapitreResume>(chapitres: readonly C[], p: Progression, aujourdhui: string) {
   return chapitres.flatMap((c) =>
     c.flashcards.filter((f) => {
       const e = p.flashcards[cle(c.id, f.id)];
       return e && estDue(e, aujourdhui);
-    }).map((f) => ({ chapitre: c, flashcard: f })),
+    }).map((f) => ({ chapitre: c, flashcard: f as C['flashcards'][number] })),
   );
 }
 
@@ -144,7 +148,7 @@ export function tauxChapitre(p: Progression, chapitre: string): { tentatives: nu
 }
 
 /** Maîtrise d'un chapitre : part des questions fixes en boîte ≥ 4 (0..1). */
-export function maitriseChapitre(p: Progression, chapitre: Chapitre): number {
+export function maitriseChapitre(p: Progression, chapitre: ChapitreResume): number {
   if (!chapitre.exercices.length) return 0;
   const m = chapitre.exercices.filter((q) => estMaitrise(p.questions[cle(chapitre.id, q.id)])).length;
   return m / chapitre.exercices.length;
@@ -155,7 +159,7 @@ export function maitriseChapitre(p: Progression, chapitre: Chapitre): number {
  * le chapitre le plus faible (taux de réussite le plus bas parmi ceux déjà travaillés).
  */
 export function serieRevision(chapitres: readonly Chapitre[], p: Progression, aujourdhui: string, rng: Rng, n = 10): ItemSession[] {
-  const items = questionsDues(chapitres, p, aujourdhui, n);
+  const items: ItemSession[] = questionsDues(chapitres, p, aujourdhui, n);
   if (items.length >= n) return items;
   const faible = pointsFaibles(chapitres, p)[0];
   if (faible) {
@@ -167,9 +171,20 @@ export function serieRevision(chapitres: readonly Chapitre[], p: Progression, au
 }
 
 /** Chapitres classés du plus faible au plus fort (parmi ceux ayant ≥ 3 tentatives). */
-export function pointsFaibles(chapitres: readonly Chapitre[], p: Progression) {
+export function pointsFaibles<C extends Pick<ChapitreResume, 'id'>>(chapitres: readonly C[], p: Progression) {
   return chapitres
     .map((chapitre) => ({ chapitre, ...tauxChapitre(p, chapitre.id) }))
     .filter((x) => x.tentatives >= 3 && x.taux !== null)
     .sort((a, b) => a.taux! - b.taux!);
+}
+
+/**
+ * Chapitres à charger pour la révision du jour : ceux qui ont des questions
+ * dues, plus le point faible (complément quand il y a peu de questions dues).
+ */
+export function chapitresPourRevision(chapitres: readonly ChapitreResume[], p: Progression, aujourdhui: string, n = 10): string[] {
+  const ids = new Set(questionsDues(chapitres, p, aujourdhui, n).map((x) => x.chapitre.id));
+  const faible = pointsFaibles(chapitres, p)[0];
+  if (faible) ids.add(faible.chapitre.id);
+  return [...ids];
 }

@@ -7,8 +7,8 @@
  *   - chemin des chapitres de la matière choisie.
  * Ajouter une matière ou un niveau ne demande donc aucun code.
  */
-import { CONTENU, chapitresDe, matiereParId, niveauDeMatiere, styleMatiere } from '../../core/loader';
-import type { Chapitre, Matiere, Niveau } from '../../core/schema';
+import { INDEX, chapitresDe, matiereParId, niveauDeMatiere, styleMatiere } from '../../core/loader';
+import type { ChapitreResume, Matiere, Niveau } from '../../core/schema';
 import { h, ajouter } from '../dom';
 import { etat } from '../etat';
 import { maitriseChapitre, questionsDues, flashcardsDues } from '../../game/modes';
@@ -17,16 +17,16 @@ import { matiereSelectionnee, selectionnerMatiere } from '../selection';
 export function ecranAccueil(main: HTMLElement): void {
   const p = etat.p;
   const auj = etat.aujourdhui();
-  const nbQ = questionsDues(CONTENU.chapitres, p, auj, 999).length;
-  const nbF = flashcardsDues(CONTENU.chapitres, p, auj).length;
+  const nbQ = questionsDues(INDEX.chapitres, p, auj, 999).length;
+  const nbF = flashcardsDues(INDEX.chapitres, p, auj).length;
 
-  if (CONTENU.erreurs.length)
+  if (INDEX.erreurs.length)
     main.append(
       h(
         'div',
         { class: 'alerte', role: 'alert' },
-        h('strong', null, `⚠️ ${CONTENU.erreurs.length} fichier(s) de contenu invalide(s) ont été ignorés :`),
-        h('ul', null, CONTENU.erreurs.map((e) => h('li', null, h('code', null, e.fichier), h('ul', null, e.messages.slice(0, 5).map((m) => h('li', null, m)))))),
+        h('strong', null, `⚠️ ${INDEX.erreurs.length} fichier(s) de contenu invalide(s) ont été ignorés :`),
+        h('ul', null, INDEX.erreurs.map((e) => h('li', null, h('code', null, e.fichier), h('ul', null, e.messages.slice(0, 5).map((m) => h('li', null, m)))))),
       ),
     );
 
@@ -70,7 +70,7 @@ function maitriseMatiere(m: Matiere): number {
 }
 
 function rendreParcours(conteneur: HTMLElement): void {
-  const niveaux = CONTENU.catalogue.niveaux;
+  const niveaux = INDEX.catalogue.niveaux;
   const idMatiere = matiereSelectionnee();
   const matiere = idMatiere ? matiereParId(idMatiere) : undefined;
   if (!matiere) {
@@ -234,7 +234,7 @@ function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
 /** Décalage horizontal des nœuds : le chemin serpente comme une rivière. */
 const DECALAGES = [0, 44, 66, 44, 0, -44, -66, -44];
 
-function zone(c: Chapitre, i: number, recommande: boolean): HTMLElement {
+function zone(c: ChapitreResume, i: number, recommande: boolean): HTMLElement {
   const p = etat.p;
   const m = Math.round(maitriseChapitre(p, c) * 100);
   const boss = p.records.boss[c.id];

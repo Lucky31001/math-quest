@@ -2,7 +2,7 @@
  * Badges : chacun est une condition sur l'état de la progression.
  * `nouveauxBadges` est appelé après chaque événement et renvoie ceux qui viennent d'être débloqués.
  */
-import type { Chapitre, Matiere } from '../core/schema';
+import type { ChapitreResume, Matiere } from '../core/schema';
 import type { Progression } from '../storage/progression';
 import { cle } from '../core/loader';
 import { niveauDepuisXp } from './xp';
@@ -15,13 +15,13 @@ export interface Badge {
   test: (p: Progression) => boolean;
 }
 
-const bossVaincus = (p: Progression, chapitres: readonly Chapitre[]) =>
+const bossVaincus = (p: Progression, chapitres: readonly ChapitreResume[]) =>
   chapitres.filter((c) => p.records.boss[c.id]?.vaincu).length;
 
 /** Nom court d'un chapitre pour le badge « 100 % sur … ». */
-const surLe = (c: Chapitre) => c.titre.charAt(0).toLowerCase() + c.titre.slice(1);
+const surLe = (c: ChapitreResume) => c.titre.charAt(0).toLowerCase() + c.titre.slice(1);
 
-export function listeBadges(chapitres: readonly Chapitre[], matieres: readonly Matiere[] = []): Badge[] {
+export function listeBadges(chapitres: readonly ChapitreResume[], matieres: readonly Matiere[] = []): Badge[] {
   const fixes: Badge[] = [
     { id: 'premiers-pas', nom: 'Premiers pas', description: 'Réussir sa première question.', icone: '👣', test: (p) => p.compteurs.bonnes >= 1 },
     { id: 'centurion', nom: 'Centurion', description: 'Réussir 100 questions.', icone: '💯', test: (p) => p.compteurs.bonnes >= 100 },

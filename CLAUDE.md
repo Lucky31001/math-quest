@@ -21,7 +21,9 @@ content/catalogue.json             niveaux (années) → matières (id, nom, emb
 content/<matière>/*.json           1 fichier = 1 chapitre (« monde » = id de matière), validé au chargement
 src/core/
   schema.ts      SOURCE DE VÉRITÉ du format (Zod → types TS + validation + schema.json)
-  loader.ts      import.meta.glob des JSON, validation, CONTENU global, clé « chapitre/id »
+  loader.ts      INDEX (catalogue + résumés des chapitres, chargé au démarrage) ;
+                 chargerChapitre(id) / chargerTout() : chapitre complet à la demande, validé, en cache
+  resume.ts      résumé d'un chapitre (ids/types/difficultés), calculé au build (plugin vite.config.ts)
   checker.ts     vérification math.js : normalisation de la saisie, équivalence
                  d'expressions par échantillonnage (dans ℂ), numériques, listes, constante
   grading.ts     corriger(question, reponse) pour les 6 types ; indices = ordre du JSON ;
@@ -55,6 +57,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 ## Conventions et pièges
 
 - **Le streak 🔥 n'avance QUE via `validerSerie`** (bilan d'une séance, ou chaque tranche de 10 réponses en mode infini) — jamais à chaque réponse ni pour une flashcard.
+- **Contenu chargé à la demande** : au démarrage, seul `INDEX` (résumés) existe. Un écran qui a besoin des textes (cours, énoncés, flashcards) charge ses chapitres avec `chargerChapitre`/`chargerChapitres`/`chargerTout`, via `ecranApresChargement` (`ui/chargement.ts`). Les fonctions de `game/` qui ne lisent que les identifiants acceptent un `ChapitreResume`. Les tests utilisent `tests/outils/contenu.ts` (tout le contenu, synchrone).
 - **Toute modification de la progression passe par `etat.modifier(p => …)`**. Elle sauvegarde, détecte les passages de niveau et débloque les badges.
 - **Format de sauvegarde** : changement incompatible ⇒ incrémenter `VERSION_PROGRESSION`, ajouter la migration dans `storage/migrations.ts` **et** une sauvegarde d'exemple `tests/fixtures/sauvegardes/vN.json` (le test l'exige). Au chargement, seuls les éléments invalides sont réinitialisés et l'original est copié sous `math-quest:copie-securite:<date>` (téléchargeable dans Réglages).
 - Les **indices de choix** passés à `corriger` sont ceux du JSON. Le mélange est fait uniquement dans `components/question.ts`.
