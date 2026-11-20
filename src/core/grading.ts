@@ -33,11 +33,21 @@ export interface Resultat {
   partiel?: boolean;
   /** Programme : nombre de tests réussis. */
   testsReussis?: number;
+  /**
+   * Part des points obtenue (0..1). Vaut 1 si c'est juste ; un QCM à réponses
+   * multiples peut être « en partie juste » (voir `corrigerQcm`).
+   */
+  credit?: number;
 }
 
 /**
  * QCM : juste si l'ensemble des choix cochés est EXACTEMENT l'ensemble des bonnes
  * réponses (aucune oubliée, aucune mauvaise cochée). Vaut pour les deux variantes.
+ *
+ * QCM à réponses multiples : notation en partie juste, comme aux partiels.
+ * Chaque bonne réponse cochée rapporte, chaque mauvaise cochée enlève autant :
+ * crédit = max(0, (bonnes cochées − mauvaises cochées) / nombre de bonnes réponses).
+ * Cocher tous les choix rapporte donc au plus (bonnes − mauvaises) / bonnes.
  */
 export function corrigerQcm(q: Qcm, choix: readonly number[]): Resultat {
   const coches = new Set(choix);
@@ -48,10 +58,16 @@ export function corrigerQcm(q: Qcm, choix: readonly number[]): Resultat {
     if (!Number.isInteger(c) || c < 0 || c >= q.choix.length)
       return { statut: 'invalide', message: `Choix ${c} inexistant.` };
   let bienTraites = 0;
+  let justes = 0;
+  let fausses = 0;
   q.choix.forEach((c, i) => {
     if (c.correct === coches.has(i)) bienTraites++;
+    if (coches.has(i)) c.correct ? justes++ : fausses++;
   });
-  return { statut: bienTraites === q.choix.length ? 'correct' : 'incorrect', bienTraites };
+  const correct = bienTraites === q.choix.length;
+  const nbBonnes = q.choix.filter((c) => c.correct).length;
+  const credit = correct ? 1 : q.multiple ? Math.max(0, (justes - fausses) / nbBonnes) : 0;
+  return { statut: correct ? 'correct' : 'incorrect', bienTraites, credit };
 }
 
 /** Vrai/faux avec justification : il faut la bonne valeur ET la bonne justification. */

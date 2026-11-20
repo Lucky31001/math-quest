@@ -9,7 +9,7 @@ import { generateursDu, generer, GENERATEURS } from '../generators';
 import type { Progression } from '../storage/progression';
 import { estDue, estMaitrise } from './leitner';
 
-export type Mode = 'entrainement' | 'infini' | 'boss' | 'survie' | 'eclair' | 'revision';
+export type Mode = 'entrainement' | 'infini' | 'boss' | 'survie' | 'eclair' | 'revision' | 'examen';
 
 export interface ItemSession {
   question: Question;
@@ -113,6 +113,32 @@ export function serieEclair(chapitres: readonly Chapitre[], rng: Rng, n = 20): I
   }
   return items;
 }
+
+/** Nombre de questions et durée (s) d'un examen blanc. */
+export const EXAMEN = { questions: 20, duree: 30 * 60 } as const;
+
+/**
+ * Examen blanc d'une matière : questions fixes de tous ses chapitres, réparties
+ * équitablement (tour à tour), sans exercice « programme » ; complété par des
+ * questions générées si la matière en a trop peu.
+ */
+export function serieExamen(chapitres: readonly Chapitre[], rng: Rng, n: number = EXAMEN.questions): ItemSession[] {
+  const piles = shuffle(chapitres, rng).map((c) => ({ c, qs: shuffle(c.exercices.filter((q) => q.type !== 'programme'), rng) }));
+  const items: ItemSession[] = [];
+  while (items.length < n && piles.some((p) => p.qs.length))
+    for (const p of piles) {
+      const q = p.qs.pop();
+      if (q && items.length < n) items.push(fixe(p.c, q));
+    }
+  for (let essais = 0; items.length < n && essais < 10 * n; essais++) {
+    const g = itemGenere(pick(rng, chapitres), pick(rng, [1, 2, 3] as const), rng);
+    if (g) items.push(g);
+  }
+  return shuffle(items, rng);
+}
+
+/** Note sur 20 d'un examen : 1 point par question juste, une part pour un QCM en partie juste. */
+export const noteSur20 = (points: number, total: number): number => (total ? Math.round((200 * points) / total) / 10 : 0);
 
 /**
  * Questions fixes à revoir aujourd'hui (Leitner), les plus « en retard » d'abord.

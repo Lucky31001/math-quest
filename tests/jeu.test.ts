@@ -8,7 +8,7 @@ import { progressionVide, importer, exporter, charger } from '../src/storage/pro
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
 import { toutesLesMatieres } from '../src/core/loader';
 import { CONTENU } from './outils/contenu';
-import { serieBoss, serieEclair, serieEntrainement, questionsDues, itemSurvie } from '../src/game/modes';
+import { serieBoss, serieEclair, serieEntrainement, questionsDues, itemSurvie, serieExamen, noteSur20, EXAMEN } from '../src/game/modes';
 import { createRng } from '../src/core/random';
 
 const J = '2026-03-10';
@@ -135,6 +135,17 @@ describe('enregistrement des réponses', () => {
   });
 });
 
+describe('réponse en partie juste (QCM à réponses multiples)', () => {
+  it('rapporte une part des XP, sans faire monter la question de boîte Leitner', () => {
+    const p = progressionVide();
+    const r = { chapitre: 'c', cle: 'c/q', type: 'qcm' as const, difficulte: 2 as const, correct: false, credit: 0.5, multiplicateur: 3 };
+    expect(enregistrerReponse(p, r, '2026-11-20')).toBe(10); // 20 × 0,5, sans multiplicateur
+    expect(p.xp).toBe(10);
+    expect(p.questions['c/q'].boite).toBe(1);
+    expect(p.compteurs.bonnes).toBe(0);
+  });
+});
+
 describe('sauvegarde', () => {
   it('exporte puis réimporte à l’identique', () => {
     const p = progressionVide();
@@ -234,5 +245,40 @@ describe('sauvegarde illisible', () => {
     const stock = { getItem: () => '{"xp": -5}', setItem: (k: string, v: string) => void (ecrit[k] = v) };
     expect(charger(stock).xp).toBe(0);
     expect(Object.values(ecrit)).toEqual(['{"xp": -5}']);
+  });
+});
+
+describe('examen blanc', () => {
+  const algebre = CONTENU.chapitres.filter((c) => c.monde === 'algebre');
+  const info = CONTENU.chapitres.filter((c) => c.monde === 'informatique');
+
+  it('20 questions distinctes, réparties sur tous les chapitres de la matière, sans programme', () => {
+    const l = serieExamen(algebre, createRng(7));
+    expect(l).toHaveLength(EXAMEN.questions);
+    expect(new Set(l.map((i) => i.question.id + i.chapitre.id)).size).toBe(l.length);
+    const parChapitre = new Map<string, number>();
+    for (const i of l) parChapitre.set(i.chapitre.id, (parChapitre.get(i.chapitre.id) ?? 0) + 1);
+    expect(parChapitre.size).toBe(algebre.length);
+    expect(Math.max(...parChapitre.values()) - Math.min(...parChapitre.values())).toBeLessThanOrEqual(1);
+    expect(serieExamen(info, createRng(3)).some((i) => i.question.type === 'programme')).toBe(false);
+  });
+
+  it('complète avec des questions générées si la matière en a trop peu', () => {
+    const l = serieExamen([algebre[0]], createRng(1), algebre[0].exercices.length + 5);
+    expect(l.filter((i) => i.cle === null)).toHaveLength(5);
+  });
+
+  it('note sur 20, au dixième', () => {
+    expect(noteSur20(20, 20)).toBe(20);
+    expect(noteSur20(12.5, 20)).toBe(12.5);
+    expect(noteSur20(1, 3)).toBe(6.7);
+    expect(noteSur20(0, 0)).toBe(0);
+  });
+
+  it('les anciennes sauvegardes, sans notes d’examen, restent valides', () => {
+    const ancienne = JSON.parse(exporter(progressionVide()));
+    delete ancienne.progression.records.examens;
+    const r = importer(JSON.stringify(ancienne));
+    expect(r.ok && r.progression.records.examens).toEqual({});
   });
 });

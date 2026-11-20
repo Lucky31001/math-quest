@@ -3,13 +3,13 @@
  * Survie, QCM éclair et Révision du jour.
  */
 import type { Chapitre, Difficulte } from '../../core/schema';
-import { INDEX, chapitreParId, chargerChapitre, chargerChapitres, chargerTout } from '../../core/loader';
+import { INDEX, chapitreParId, chapitresDe, chargerChapitre, chargerChapitres, chargerTout, matiereParId } from '../../core/loader';
 import { ecranApresChargement } from '../chargement';
 import { createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
 import { etat } from '../etat';
 import { afficherQuestion, type ControleurQuestion } from '../components/question';
-import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE } from '../../game/progres';
+import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE, type InfoReponse } from '../../game/progres';
 import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
 import {
@@ -21,6 +21,9 @@ import {
   itemGenere,
   dureeBoss,
   chapitresPourRevision,
+  serieExamen,
+  noteSur20,
+  EXAMEN,
   type ItemSession,
   type Mode,
 } from '../../game/modes';
@@ -38,6 +41,8 @@ interface Config {
   chronoQuestion: ((i: ItemSession) => number) | null;
   multiplicateur: (combo: number, rang: number) => number;
   retour: string;
+  /** Examen : pas de correction ni d'effet avant la fin ; copie corrigée au bilan. */
+  differe?: boolean;
 }
 
 /** Chapitres complets nécessaires au mode : le chapitre joué, tous (Survie, éclair) ou ceux à réviser. */
@@ -45,6 +50,7 @@ function chapitresNecessaires(params: string[]): Promise<Chapitre[]> {
   const [mode, chapId] = params as [Mode, string?];
   if (mode === 'survie' || mode === 'eclair') return chargerTout();
   if (mode === 'revision') return chargerChapitres(chapitresPourRevision(INDEX.chapitres, etat.p, etat.aujourdhui()));
+  if (mode === 'examen') return chargerChapitres(chapitresDe(chapId ?? '').map((c) => c.id));
   return chapId && chapitreParId(chapId) ? chargerChapitre(chapId).then((c) => [c]) : Promise.resolve([]);
 }
 
@@ -119,6 +125,21 @@ function configurer(params: string[], chapitres: Chapitre[]): Config | string {
       if (!l.length) return 'Rien à réviser pour le moment : fais quelques exercices d\'abord !';
       return { ...base, mode, titre: '📅 Révision du jour', suivante: depuisListe(l), total: l.length, retour: '#/revision' };
     }
+    case 'examen': {
+      const matiere = matiereParId(chapId ?? '');
+      if (!matiere || !chapitres.length) return 'Matière introuvable.';
+      const l = serieExamen(chapitres, rng);
+      return {
+        ...base,
+        mode,
+        titre: `📝 Examen blanc · ${matiere.nom}`,
+        suivante: depuisListe(l),
+        total: l.length,
+        chronoGlobal: EXAMEN.duree,
+        retour: '#/',
+        differe: true,
+      };
+    }
     default:
       return 'Mode inconnu.';
   }
@@ -135,7 +156,10 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
   }
   const cfg: Config = res;
 
-  const s = { rang: 0, bonnes: 0, vies: cfg.vies, combo: 0, meilleurCombo: 0, score: 0, xp: 0, indices: 0, fini: false, ratees: 0 };
+  const s = { rang: 0, bonnes: 0, vies: cfg.vies, combo: 0, meilleurCombo: 0, score: 0, xp: 0, indices: 0, fini: false, ratees: 0, points: 0 };
+  /** Examen : les questions traitées, revues (corrigées) au bilan. */
+  const copie: ControleurQuestion[] = [];
+  const reponsesExamen: InfoReponse[] = [];
   let ctrl: ControleurQuestion | null = null;
   let minuteur: ReturnType<typeof setInterval> | null = null;
   let finGlobale = cfg.chronoGlobal ? Date.now() + cfg.chronoGlobal * 1000 : 0;
@@ -169,7 +193,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
       h('span', { class: 'compteur' }, cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `Question ${s.rang + 1}`),
       cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': `${s.vies} vie(s)` }, `❤️ ${Math.max(0, s.vies!)}`) : null,
       cfg.mode === 'eclair' ? h('span', { class: 'score' }, `⚡ ${s.score}`) : null,
-      s.combo >= 2 ? h('span', { class: 'combo' }, `🔥 ×${s.combo}`) : null,
+      s.combo >= 2 && !cfg.differe ? h('span', { class: 'combo' }, `🔥 ×${s.combo}`) : null,
     ]);
   }
 
@@ -194,10 +218,19 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
     minuteur = setInterval(tic, 200);
   }
 
+  /** Quitte la question affichée (en examen, on la garde pour la copie). */
+  function quitterQuestion() {
+    if (!ctrl) return;
+    if (cfg.differe) {
+      ctrl.figer();
+      copie.push(ctrl);
+    } else ctrl.detruire();
+    ctrl = null;
+  }
+
   function suivante() {
     if (avanceAuto) clearTimeout(avanceAuto);
-    ctrl?.detruire();
-    ctrl = null;
+    quitterQuestion();
     if (s.fini) return bilan();
     const item = cfg.total !== null && s.rang >= cfg.total ? null : cfg.suivante(s.rang);
     if (!item) return bilan();
@@ -206,7 +239,8 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
     ctrl = afficherQuestion({
       question: item.question,
       surtitre: `${item.chapitre.icone} ${item.chapitre.titre}${item.cle ? '' : ' · 🎲 générée'}`,
-      indices: true,
+      indices: !cfg.differe,
+      differe: cfg.differe,
       surIndice: () => {
         etat.modifier(payerIndice);
         s.indices++;
@@ -215,13 +249,24 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
       surResultat: (r, info) => {
         if (cfg.chronoQuestion) arreterMinuteur();
         const correct = r.statut === 'correct';
+        if (cfg.differe) {
+          // Examen : rien ne doit trahir la justesse avant la fin (ni son, ni XP, ni badge) :
+          // les réponses sont enregistrées toutes ensemble au bilan.
+          reponsesExamen.push({ chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, credit: r.credit });
+          s.points += correct ? 1 : (r.credit ?? 0);
+          if (correct) s.bonnes++;
+          else s.ratees++;
+          s.rang++;
+          majBarre();
+          return;
+        }
         s.combo = correct ? s.combo + 1 : 0;
         s.meilleurCombo = Math.max(s.meilleurCombo, s.combo);
         const mult = cfg.multiplicateur(s.combo, s.rang);
         const gain = etat.modifier((p) =>
           enregistrerReponse(
             p,
-            { chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, multiplicateur: mult },
+            { chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, multiplicateur: mult, credit: r.credit },
             etat.aujourdhui(),
           ),
         );
@@ -236,6 +281,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
           jouerSon('faux');
           // On secoue seulement la zone de réponse (la barre du bas, fixe, ne doit pas bouger).
           secouer(ctrl!.el.querySelector('.zone-reponse') ?? ctrl!.el);
+          if (gain > 0) xpFlottant(ctrl!.el.querySelector('.verdict') ?? ctrl!.el, `+${gain} XP`);
           if (s.vies !== null) s.vies--;
           if (s.vies === 0) s.fini = true;
         }
@@ -267,7 +313,9 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
   function bilan() {
     arreterMinuteur();
     s.fini = true;
-    ctrl?.detruire();
+    // Examen interrompu par le temps : la question affichée compte comme sans réponse.
+    if (cfg.differe && ctrl) ctrl.expirer();
+    quitterQuestion();
     const records: string[] = [];
     let titre = 'Série terminée';
     let gagne = s.bonnes > 0;
@@ -303,6 +351,17 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         if (s.bonnes === 20) p.records.eclairParfait = true;
         p.records.meilleurCombo = Math.max(p.records.meilleurCombo, s.meilleurCombo);
       }
+      if (cfg.mode === 'examen') {
+        for (const r of reponsesExamen) s.xp += enregistrerReponse(p, r, etat.aujourdhui());
+        const note = noteSur20(s.points, cfg.total ?? s.rang);
+        const matiere = params[1];
+        titre = `📝 ${String(note).replace('.', ',')}/20`;
+        gagne = note >= 10;
+        if (matiere && note > (p.records.examens[matiere] ?? -1)) {
+          if (p.records.examens[matiere] !== undefined) records.push('🎉 Nouvelle meilleure note !');
+          p.records.examens[matiere] = note;
+        }
+      }
       if (cfg.mode === 'revision' && s.rang > 0 && s.rang >= (cfg.total ?? 0)) {
         p.compteurs.revisions++;
         titre = '📅 Révision du jour terminée';
@@ -334,11 +393,12 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
             h('span', null, 'Précision'),
             h('strong', null, `🎯 ${s.rang ? Math.round((100 * s.bonnes) / s.rang) : 0} %`),
           ),
-          h('div', { class: 'tuile tuile-combo' }, h('span', null, 'Combo max'), h('strong', null, `🔥 ${s.meilleurCombo}`)),
+          cfg.differe ? null : h('div', { class: 'tuile tuile-combo' }, h('span', null, 'Combo max'), h('strong', null, `🔥 ${s.meilleurCombo}`)),
         ),
         h('p', { class: 'bilan-score' }, `${s.bonnes} bonne(s) réponse(s) sur ${Math.max(total, s.rang)}`),
         records.map((r) => h('p', { class: 'record' }, r)),
         s.ratees ? h('p', { class: 'note' }, `Les ${s.ratees} question(s) ratée(s) reviendront dans ta révision du jour.`) : null,
+        cfg.differe && copie.length ? h('a', { class: 'btn', href: '#copie', onclick: (e: Event) => (e.preventDefault(), document.getElementById('copie')?.scrollIntoView({ behavior: 'smooth' })) }, '📄 Revoir ma copie corrigée') : null,
         h(
           'div',
           { class: 'actions' },
@@ -347,6 +407,11 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         ),
       ),
     );
+    // Examen : la copie, question par question, avec la correction.
+    if (cfg.differe && copie.length) {
+      scene.append(h('section', { class: 'copie', id: 'copie' }, h('h2', null, '📄 Ta copie corrigée'), copie.map((c) => c.el)));
+      copie.forEach((c) => c.reveler());
+    }
   }
 
   if (cfg.chronoGlobal) {
@@ -363,5 +428,6 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
     arreterMinuteur();
     if (avanceAuto) clearTimeout(avanceAuto);
     ctrl?.detruire();
+    copie.forEach((c) => c.detruire());
   };
 }

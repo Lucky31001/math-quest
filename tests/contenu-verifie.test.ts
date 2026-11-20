@@ -14,7 +14,8 @@ import { verifications as informatique } from './verifications/informatique';
 describe('exactitude du contenu', () => {
   it('algèbre et analyse', () => toutVerifier(maths));
   it('physique (simulations, tracé de rayons, thermodynamique)', () => toutVerifier(physique));
-  it('informatique (code C compilé et exécuté par gcc)', () => toutVerifier(informatique));
+  // ~60 programmes compilés par gcc : environ 4,5 s, trop près de la limite par défaut (5 s).
+  it('informatique (code C compilé et exécuté par gcc)', { timeout: 30_000 }, () => toutVerifier(informatique));
 
   it('chaque question numérique ou « expression » a sa vérification indépendante', () => {
     const verifiees = { ...maths, ...physique, ...informatique };

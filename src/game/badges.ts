@@ -35,6 +35,8 @@ export function listeBadges(chapitres: readonly ChapitreResume[], matieres: read
     { id: 'survie-10', nom: 'Survivant', description: '10 bonnes réponses d\'affilée en mode Survie.', icone: '🛡️', test: (p) => p.records.survie >= 10 },
     { id: 'survie-25', nom: 'Immortel', description: '25 bonnes réponses d\'affilée en mode Survie.', icone: '🧬', test: (p) => p.records.survie >= 25 },
     { id: 'eclair-parfait', nom: 'Éclair parfait', description: '20/20 en QCM éclair.', icone: '⚡', test: (p) => p.records.eclairParfait },
+    { id: 'examen-10', nom: 'Admis', description: 'Obtenir au moins 10/20 à un examen blanc.', icone: '📝', test: (p) => Object.values(p.records.examens).some((n) => n >= 10) },
+    { id: 'examen-16', nom: 'Mention très bien', description: 'Obtenir au moins 16/20 à un examen blanc.', icone: '🎓', test: (p) => Object.values(p.records.examens).some((n) => n >= 16) },
     { id: 'combo-10', nom: 'Combo ×10', description: '10 bonnes réponses d\'affilée en QCM éclair.', icone: '🎯', test: (p) => p.records.meilleurCombo >= 10 },
     { id: 'niveau-5', nom: 'Niveau 5', description: 'Atteindre le niveau 5.', icone: '⭐', test: (p) => niveauDepuisXp(p.xp).niveau >= 5 },
     { id: 'niveau-10', nom: 'Niveau 10', description: 'Atteindre le niveau 10.', icone: '🌟', test: (p) => niveauDepuisXp(p.xp).niveau >= 10 },

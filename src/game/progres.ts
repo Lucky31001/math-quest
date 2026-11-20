@@ -51,6 +51,8 @@ export interface InfoReponse {
   correct: boolean;
   /** Multiplicateur d'XP (combos, modes spéciaux). */
   multiplicateur?: number;
+  /** Réponse en partie juste (QCM à réponses multiples) : part des points, entre 0 et 1. */
+  credit?: number;
 }
 
 /** Enregistre une réponse ; renvoie les XP gagnés. */
@@ -59,8 +61,14 @@ export function enregistrerReponse(p: Progression, r: InfoReponse, aujourdhui: s
   p.compteurs.reponses++;
   p.journal[aujourdhui] = (p.journal[aujourdhui] ?? 0) + 1;
   compterStat(p, r.chapitre, r.type, r.correct);
+  // Leitner : seule une réponse entièrement juste fait monter la question de boîte.
   if (r.cle) p.questions[r.cle] = apresReponse(p.questions[r.cle], r.correct, aujourdhui);
-  if (!r.correct) return 0;
+  if (!r.correct) {
+    // En partie juste : une part des XP (sans multiplicateur ni combo).
+    const partiel = Math.round(XP_PAR_DIFFICULTE[r.difficulte] * Math.min(1, Math.max(0, r.credit ?? 0)));
+    p.xp += partiel;
+    return partiel;
+  }
   p.compteurs.bonnes++;
   if (r.type === 'qcm') p.compteurs.qcmReussis++;
   const gain = Math.round(XP_PAR_DIFFICULTE[r.difficulte] * (r.multiplicateur ?? 1));

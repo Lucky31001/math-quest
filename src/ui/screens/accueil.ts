@@ -11,7 +11,7 @@ import { INDEX, chapitresDe, matiereParId, niveauDeMatiere, styleMatiere } from 
 import type { ChapitreResume, Matiere, Niveau } from '../../core/schema';
 import { h, ajouter } from '../dom';
 import { etat } from '../etat';
-import { maitriseChapitre, questionsDues, flashcardsDues } from '../../game/modes';
+import { maitriseChapitre, questionsDues, flashcardsDues, EXAMEN } from '../../game/modes';
 import { matiereSelectionnee, selectionnerMatiere } from '../selection';
 
 export function ecranAccueil(main: HTMLElement): void {
@@ -217,6 +217,24 @@ function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
       chapitres.length
         ? h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande)))
         : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
+      chapitres.length ? lienExamen(idMatiere) : null,
+    ),
+  );
+}
+
+/** Au bout du chemin : l'examen blanc de la matière (tous ses chapitres, en temps limité). */
+function lienExamen(idMatiere: string): HTMLElement {
+  const meilleure = etat.p.records.examens[idMatiere];
+  return h(
+    'a',
+    { class: 'carte-action examen', href: `#/jouer/examen/${idMatiere}` },
+    h('span', { class: 'carte-icone' }, '📝'),
+    h('strong', null, 'Examen blanc'),
+    h(
+      'span',
+      null,
+      `${EXAMEN.questions} questions, ${EXAMEN.duree / 60} min, corrigé à la fin`,
+      meilleure !== undefined ? ` · meilleure note ${String(meilleure).replace('.', ',')}/20` : '',
     ),
   );
 }
