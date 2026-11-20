@@ -1,99 +1,94 @@
 {
   "title": "Catalogue Math Quest (niveaux et matières)",
-  "$ref": "#/definitions/Catalogue",
-  "definitions": {
-    "Catalogue": {
-      "type": "object",
-      "properties": {
-        "$schema": {
-          "type": "string"
-        },
-        "niveaux": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "pattern": "^[a-z0-9-]+$",
-                "errorMessage": {
-                  "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "niveaux": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "errorMessage": {
+              "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+            }
+          },
+          "nom": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "matieres": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$",
+                  "errorMessage": {
+                    "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
+                  }
+                },
+                "nom": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sousTitre": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "embleme": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "couleur": {
+                  "type": "string",
+                  "pattern": "^#[0-9a-fA-F]{6}$",
+                  "errorMessage": {
+                    "pattern": "couleur au format #rrggbb"
+                  }
+                },
+                "couleurFonce": {
+                  "type": "string",
+                  "pattern": "^#[0-9a-fA-F]{6}$",
+                  "errorMessage": {
+                    "pattern": "couleur au format #rrggbb"
+                  }
                 }
               },
-              "nom": {
-                "type": "string",
-                "minLength": 1
-              },
-              "description": {
-                "type": "string"
-              },
-              "matieres": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "pattern": "^[a-z0-9-]+$",
-                      "errorMessage": {
-                        "pattern": "identifiant : minuscules, chiffres et tirets uniquement"
-                      }
-                    },
-                    "nom": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "sousTitre": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "embleme": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "couleur": {
-                      "type": "string",
-                      "pattern": "^#[0-9a-fA-F]{6}$",
-                      "errorMessage": {
-                        "pattern": "couleur au format #rrggbb"
-                      }
-                    },
-                    "couleurFonce": {
-                      "type": "string",
-                      "pattern": "^#[0-9a-fA-F]{6}$",
-                      "errorMessage": {
-                        "pattern": "couleur au format #rrggbb"
-                      }
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "nom",
-                    "sousTitre",
-                    "embleme",
-                    "couleur",
-                    "couleurFonce"
-                  ],
-                  "additionalProperties": false
-                },
-                "minItems": 1
-              }
-            },
-            "required": [
-              "id",
-              "nom",
-              "matieres"
-            ],
-            "additionalProperties": false
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "niveaux"
-      ],
-      "additionalProperties": false
+              "required": [
+                "id",
+                "nom",
+                "sousTitre",
+                "embleme",
+                "couleur",
+                "couleurFonce"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "nom",
+          "matieres"
+        ],
+        "additionalProperties": false
+      }
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "niveaux"
+  ],
+  "additionalProperties": false
 }

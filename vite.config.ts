@@ -8,9 +8,11 @@ export default defineConfig(({ command }) => ({
   build: {
     // math.js est volumineux : on isole les bibliothèques pour un meilleur cache navigateur.
     chunkSizeWarningLimit: 900,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: { mathjs: ['mathjs'], katex: ['katex'], zod: ['zod'] },
+        advancedChunks: {
+          groups: ['mathjs', 'katex', 'zod'].map((nom) => ({ name: nom, test: new RegExp(`node_modules[\\/]${nom}[\\/]`) })),
+        },
       },
     },
   },

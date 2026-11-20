@@ -11,9 +11,12 @@
  */
 import { z } from 'zod';
 
+const MSG_ID = 'identifiant : minuscules, chiffres et tirets uniquement';
+// `.meta({ errorMessage })` : message affiché par VS Code via content/schema.json.
 const id = z
   .string()
-  .regex(/^[a-z0-9-]+$/, 'identifiant : minuscules, chiffres et tirets uniquement');
+  .regex(/^[a-z0-9-]+$/, MSG_ID)
+  .meta({ errorMessage: { pattern: MSG_ID } });
 
 const texte = z.string().min(1);
 
@@ -198,7 +201,11 @@ export type Monde = Chapitre['monde'];
 /* Catalogue : niveaux (années) et matières                            */
 /* ------------------------------------------------------------------ */
 
-const couleur = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'couleur au format #rrggbb');
+const MSG_COULEUR = 'couleur au format #rrggbb';
+const couleur = z
+  .string()
+  .regex(/^#[0-9a-fA-F]{6}$/, MSG_COULEUR)
+  .meta({ errorMessage: { pattern: MSG_COULEUR } });
 
 export const MatiereSchema = z
   .object({

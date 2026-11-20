@@ -1,6 +1,6 @@
 # CLAUDE.md — Math Quest
 
-Application de révision gamifiée (pré-ing 1 : algèbre, analyse, physique, informatique). Vite 6 + TypeScript strict, **sans framework ni backend**. Interface et contenu **en français** (identifiants de code compris : `chapitre`, `enonce`, `corriger`…). Garder cette convention.
+Application de révision gamifiée (pré-ing 1 : algèbre, analyse, physique, informatique). Vite 8 + TypeScript 7 strict, **sans framework ni backend**. Interface et contenu **en français** (identifiants de code compris : `chapitre`, `enonce`, `corriger`…). Garder cette convention.
 
 ## Commandes
 
@@ -12,7 +12,7 @@ npm run build       # tsc + vite build → dist/ (base /math-quest/)
 npm run schema      # régénère content/schema.json depuis le schéma Zod
 ```
 
-Node 18 en local : ne pas passer à Vite 7 ou Vitest 4 (ils exigent Node ≥ 20). La CI utilise Node 20.
+Node 24 (fichier `.nvmrc`, partagé avec la CI) : `nvm use` avant toute commande npm, le Node du système (18) est trop vieux. Zod 4 : `z.record(clé, valeur)` à deux arguments, et `.prefault({})` (pas `.default({})`) pour un objet dont les champs ont leurs propres valeurs par défaut.
 
 ## Architecture
 

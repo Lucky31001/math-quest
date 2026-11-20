@@ -8,7 +8,7 @@
  * Ce module ne touche pas au DOM : il sert au Web Worker et aux tests.
  */
 import { unzipSync } from 'fflate';
-import { executerWasi, SystemeFichiers, SortieTropLongue } from './wasi';
+import { executerWasi, SystemeFichiers, SortieTropLongue, type Octets } from './wasi';
 
 const DOSSIER = '/home/eleve';
 const ENV = { HOME: DOSSIER, PWD: DOSSIER, INCLUDE: '/usr/include', LIB: '/usr/lib', PATH: '/usr/bin', USER: 'eleve' };
@@ -24,7 +24,8 @@ export function chargerCompilateur(zip: Uint8Array): Compilateur {
   const base = new SystemeFichiers();
   for (const [nom, contenu] of Object.entries(unzipSync(zip))) {
     if (nom.endsWith('/')) base.creerDossier(`/${nom}`);
-    else base.ecrire(`/${nom}`, contenu);
+    // fflate alloue chaque fichier dans un ArrayBuffer neuf (jamais partagé).
+    else base.ecrire(`/${nom}`, contenu as Octets);
   }
   const binaire = base.lire('/usr/bin/cc');
   if (!binaire) throw new Error('compilateur introuvable dans wccfiles.zip');
