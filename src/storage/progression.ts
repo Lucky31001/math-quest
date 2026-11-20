@@ -23,25 +23,25 @@ export const ProgressionSchema = z.object({
   version: z.literal(1).default(1),
   xp: z.number().nonnegative().default(0),
   /** Questions fixes, clé « chapitre/id ». */
-  questions: z.record(Leitner).default({}),
+  questions: z.record(z.string(), Leitner).default({}),
   /** Flashcards, clé « chapitre/id ». */
-  flashcards: z.record(Leitner).default({}),
+  flashcards: z.record(z.string(), Leitner).default({}),
   /** Statistiques par chapitre puis par type de question (questions générées comprises). */
-  stats: z.record(z.record(Stat)).default({}),
+  stats: z.record(z.string(), z.record(z.string(), Stat)).default({}),
   streak: z
     .object({ courant: z.number().int().default(0), record: z.number().int().default(0), dernierJour: z.string().nullable().default(null) })
-    .default({}),
+    .prefault({}),
   /** Badges débloqués : id → date. */
-  badges: z.record(z.string()).default({}),
+  badges: z.record(z.string(), z.string()).default({}),
   records: z
     .object({
       survie: z.number().default(0),
       eclair: z.number().default(0),
       eclairParfait: z.boolean().default(false),
       meilleurCombo: z.number().default(0),
-      boss: z.record(z.object({ meilleur: z.number(), vaincu: z.boolean(), sansIndice: z.boolean().default(false) })).default({}),
+      boss: z.record(z.string(), z.object({ meilleur: z.number(), vaincu: z.boolean(), sansIndice: z.boolean().default(false) })).default({}),
     })
-    .default({}),
+    .prefault({}),
   compteurs: z
     .object({
       reponses: z.number().default(0),
@@ -53,10 +53,10 @@ export const ProgressionSchema = z.object({
       /** Séries d'exercices terminées (seules elles font avancer le streak). */
       series: z.number().default(0),
     })
-    .default({}),
-  reglages: z.object({ sons: z.boolean().default(true), animations: z.boolean().default(true) }).default({}),
+    .prefault({}),
+  reglages: z.object({ sons: z.boolean().default(true), animations: z.boolean().default(true) }).prefault({}),
   /** Nombre de réponses par jour (AAAA-MM-JJ). */
-  journal: z.record(z.number()).default({}),
+  journal: z.record(z.string(), z.number()).default({}),
 });
 
 export type Progression = z.infer<typeof ProgressionSchema>;
@@ -93,16 +93,16 @@ const estObjet = (v: unknown): v is Objet => !!v && typeof v === 'object' && !Ar
  * supprimant que ce qui est invalide (un champ reprend sa valeur par défaut,
  * une entrée de dictionnaire invalide est retirée). `undefined` = à retirer.
  */
-function reparer(schema: z.ZodTypeAny, v: unknown, chemin: string, perdus: string[]): unknown {
+function reparer(schema: z.ZodType, v: unknown, chemin: string, perdus: string[]): unknown {
   if (schema.safeParse(v).success) return v;
-  const s = schema instanceof z.ZodDefault ? (schema._def.innerType as z.ZodTypeAny) : schema;
+  const s = schema instanceof z.ZodDefault || schema instanceof z.ZodPrefault ? (schema.unwrap() as z.ZodType) : schema;
   if (estObjet(v) && (s instanceof z.ZodObject || s instanceof z.ZodRecord)) {
     const internes: string[] = [];
     const out: Objet = {};
-    const enfants: [string, z.ZodTypeAny][] =
+    const enfants: [string, z.ZodType][] =
       s instanceof z.ZodObject
-        ? Object.entries(s.shape as Record<string, z.ZodTypeAny>)
-        : Object.keys(v).map((k) => [k, s.valueSchema as z.ZodTypeAny]);
+        ? Object.entries(s.shape as Record<string, z.ZodType>)
+        : Object.keys(v).map((k) => [k, s.valueType as z.ZodType]);
     for (const [k, sous] of enfants) {
       const r = reparer(sous, v[k], chemin ? `${chemin}.${k}` : k, internes);
       if (r !== undefined) out[k] = r;

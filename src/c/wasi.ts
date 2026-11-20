@@ -13,9 +13,12 @@ const E = { SUCCES: 0, BADF: 8, EXIST: 20, INVAL: 28, ISDIR: 31, NOENT: 44, NOSY
 /** Types de fichiers WASI. */
 const TYPE = { CARACTERES: 2, DOSSIER: 3, FICHIER: 4 } as const;
 
+/** Contenu d'un fichier (toujours adossé à un ArrayBuffer, comme l'exige WebAssembly.Module). */
+export type Octets = Uint8Array<ArrayBuffer>;
+
 /** Système de fichiers en mémoire : chemins absolus normalisés → contenu. */
 export class SystemeFichiers {
-  readonly fichiers = new Map<string, Uint8Array>();
+  readonly fichiers = new Map<string, Octets>();
   readonly dossiers = new Set<string>(['/']);
 
   static normaliser(chemin: string): string {
@@ -37,13 +40,13 @@ export class SystemeFichiers {
     }
   }
 
-  ecrire(chemin: string, contenu: Uint8Array | string): void {
+  ecrire(chemin: string, contenu: Octets | string): void {
     const c = SystemeFichiers.normaliser(chemin);
     this.creerDossier(c.slice(0, c.lastIndexOf('/')) || '/');
     this.fichiers.set(c, typeof contenu === 'string' ? new TextEncoder().encode(contenu) : contenu);
   }
 
-  lire(chemin: string): Uint8Array | undefined {
+  lire(chemin: string): Octets | undefined {
     return this.fichiers.get(SystemeFichiers.normaliser(chemin));
   }
 

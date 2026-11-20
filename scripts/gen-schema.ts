@@ -7,15 +7,16 @@
  *   npm run schema
  */
 import { writeFileSync } from 'node:fs';
-import { zodToJsonSchema } from 'zod-to-json-schema';
+import { z } from 'zod';
 import { CatalogueSchema, ChapitreSchema } from '../src/core/schema';
 
-function ecrire(fichier: string, titre: string, schema: Parameters<typeof zodToJsonSchema>[0], nom: string) {
-  const json = zodToJsonSchema(schema, { name: nom, $refStrategy: 'none', errorMessages: true });
+function ecrire(fichier: string, titre: string, schema: z.ZodType) {
+  // io: 'input' décrit ce qu'on ÉCRIT dans le JSON (les champs avec valeur par défaut restent facultatifs).
+  const json = z.toJSONSchema(schema, { io: 'input', unrepresentable: 'any' });
   const sortie = new URL(`../content/${fichier}`, import.meta.url);
   writeFileSync(sortie, JSON.stringify({ title: titre, ...json }, null, 2) + '\n');
   console.log(`Schéma écrit dans ${sortie.pathname}`);
 }
 
-ecrire('schema.json', 'Chapitre Math Quest', ChapitreSchema, 'Chapitre');
-ecrire('catalogue.schema.json', 'Catalogue Math Quest (niveaux et matières)', CatalogueSchema, 'Catalogue');
+ecrire('schema.json', 'Chapitre Math Quest', ChapitreSchema);
+ecrire('catalogue.schema.json', 'Catalogue Math Quest (niveaux et matières)', CatalogueSchema);
