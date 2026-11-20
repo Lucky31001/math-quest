@@ -19,6 +19,7 @@ import { limitesUsuelles, trigoReciproques } from './limites-fonctions';
 import { tableVerite, negationQuantifiee, denombrement } from './logique-ensembles';
 import { sommesUsuelles, coefficientsRacines, produitMatrices, systeme2x2, dimensionEquations } from './algebre-extra';
 import { suiteOrdre2, limitesFactorisation, tangente, limiteParDl, expLn } from './analyse-extra';
+import { GENERATEURS_PHYSIQUE } from './physique';
 
 export type { Forme, Generateur } from './outils';
 
@@ -55,6 +56,7 @@ export const GENERATEURS: readonly Generateur[] = [
   integralePolynome,
   edoOrdre1,
   edoOrdre2,
+  ...GENERATEURS_PHYSIQUE,
 ];
 
 export const generateursDu = (chapitre: string): Generateur[] => GENERATEURS.filter((g) => g.chapitre === chapitre);
