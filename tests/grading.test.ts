@@ -59,6 +59,11 @@ describe('QCM à réponses multiples', () => {
     expect(corrigerQcm(qcmMultiple, [0, 1, 2, 3]).credit).toBe(0); // tout cocher ne rapporte rien
     expect(corrigerQcm(qcmMultiple, [1, 3]).credit).toBe(0); // jamais négatif
   });
+  it('renvoie les choix faux sélectionnés (pour repérer les pièges)', () => {
+    expect(corrigerQcm(qcmMultiple, [0, 1, 3]).fausses).toEqual([1, 3]);
+    expect(corrigerQcm(qcmMultiple, [0, 2]).fausses).toEqual([]);
+    expect(corrigerQcm(qcmUnique, [2]).fausses).toEqual([2]);
+  });
   it('pas de partie juste pour un QCM à réponse unique', () => {
     expect(corrigerQcm(qcmUnique, [0]).credit).toBe(0);
     expect(corrigerQcm(qcmUnique, [1]).credit).toBe(1);

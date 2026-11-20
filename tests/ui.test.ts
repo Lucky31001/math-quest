@@ -82,6 +82,23 @@ describe('écrans', () => {
     expect(document.getElementById('contenu')!.querySelector('h1')).toBeTruthy();
   });
 
+  it('statistiques : les pièges récurrents s’affichent avec leur explication', async () => {
+    const { etat } = await import('../src/ui/etat');
+    const avant = structuredClone(etat.p);
+    const ch = CONTENU.chapitres[0];
+    etat.modifier((p) => {
+      p.pieges[`${ch.id}/x#1`] = { n: 3, chapitre: ch.id, texte: 'réponse piège', explication: 'Explication de l’erreur typique.', derniere: '2026-11-20' };
+      p.pieges[`${ch.id}/y#0`] = { n: 1, chapitre: ch.id, texte: 'une seule fois', explication: 'rare', derniere: '2026-11-20' };
+    });
+    await aller('#/stats');
+    const section = document.querySelector('#contenu .pieges')!;
+    expect(section.textContent).toContain('×3');
+    expect(section.textContent).toContain('Explication de l’erreur typique.');
+    expect(section.textContent).not.toContain('une seule fois');
+    expect(section.querySelector('a')!.getAttribute('href')).toBe(`#/jouer/entrainement/${ch.id}/tous`);
+    etat.remplacer(avant);
+  });
+
   it('réglages : état de la protection de la sauvegarde', async () => {
     await aller('#/reglages');
     await attendre();

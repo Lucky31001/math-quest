@@ -12,6 +12,7 @@ import { afficherQuestion, type ControleurQuestion } from '../components/questio
 import { enregistrerReponse, payerIndice, validerSerie, TAILLE_SERIE_INFINIE, type InfoReponse } from '../../game/progres';
 import { icone } from '../icones';
 import { pointsEclair } from '../../game/xp';
+import { piegesDe } from '../../game/pieges';
 import { chapitresPourRevision, noteSur20, EXAMEN, type ItemSession, type Mode } from '../../game/modes';
 import { serieEntrainement, serieBoss, serieEclair, serieRevision, itemSurvie, itemGenere, dureeBoss, serieExamen } from '../../game/series';
 import { jouerSon, xpFlottant, secouer, celebrer, toast } from '../effets';
@@ -239,7 +240,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         if (cfg.differe) {
           // Examen : rien ne doit trahir la justesse avant la fin (ni son, ni XP, ni badge) :
           // les réponses sont enregistrées toutes ensemble au bilan.
-          reponsesExamen.push({ chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, credit: r.credit });
+          reponsesExamen.push({ chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, credit: r.credit, pieges: piegesDe(item.question, r, item.cle) });
           s.points += correct ? 1 : (r.credit ?? 0);
           if (correct) s.bonnes++;
           else s.ratees++;
@@ -253,7 +254,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         const gain = etat.modifier((p) =>
           enregistrerReponse(
             p,
-            { chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, multiplicateur: mult, credit: r.credit },
+            { chapitre: item.chapitre.id, cle: item.cle, type: item.question.type, difficulte: item.question.difficulte, correct, multiplicateur: mult, credit: r.credit, pieges: piegesDe(item.question, r, item.cle) },
             etat.aujourdhui(),
           ),
         );

@@ -3,7 +3,9 @@ import { describe, it, expect } from 'vitest';
 import { apresReponse, estDue, INTERVALLES } from '../src/game/leitner';
 import { niveauDepuisXp, seuilNiveau, titre, pointsEclair } from '../src/game/xp';
 import { ajouterJours, ecartJours } from '../src/game/dates';
-import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie } from '../src/game/progres';
+import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFlashcard, validerSerie, noterPieges, piegesRecurrents, MAX_PIEGES } from '../src/game/progres';
+import { piegesDe } from '../src/game/pieges';
+import { corriger } from '../src/core/grading';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
 import { listeBadges, nouveauxBadges } from '../src/game/badges';
 import { toutesLesMatieres } from '../src/core/loader';
@@ -281,5 +283,41 @@ describe('examen blanc', () => {
     delete ancienne.progression.records.examens;
     const r = importer(JSON.stringify(ancienne));
     expect(r.ok && r.progression.records.examens).toEqual({});
+  });
+});
+
+describe('pièges récurrents', () => {
+  const qcm = CONTENU.chapitres[0].exercices.find((q) => q.type === 'qcm' && !q.multiple)!;
+  if (qcm.type !== 'qcm') throw new Error();
+  const faux = qcm.choix.findIndex((c) => !c.correct);
+
+  it('une réponse fausse à un QCM fixe donne le piège « chapitre/question#choix »', () => {
+    const r = corriger(qcm, { type: 'qcm', choix: [faux] });
+    expect(piegesDe(qcm, r, 'chap/q')).toEqual([{ cle: `chap/q#${faux}`, texte: qcm.choix[faux].texte, explication: qcm.choix[faux].explication }]);
+    expect(piegesDe(qcm, corriger(qcm, { type: 'qcm', choix: [qcm.choix.findIndex((c) => c.correct)] }), 'chap/q')).toEqual([]);
+  });
+
+  it('question générée : regroupée par générateur et explication (la même erreur typique)', () => {
+    const genere = { ...qcm, id: 'gen~phys-energie~123~2' };
+    const r = corriger(genere, { type: 'qcm', choix: [faux] });
+    expect(piegesDe(genere, r, null)[0].cle).toBe(`gen~phys-energie#${qcm.choix[faux].explication}`);
+  });
+
+  it('compte les répétitions, trie du plus fréquent, et oublie les plus rares au-delà de la limite', () => {
+    const p = progressionVide();
+    const x = { cle: 'a#1', texte: 't', explication: 'e' };
+    noterPieges(p, 'a', [x], '2026-11-01');
+    noterPieges(p, 'a', [x], '2026-11-02');
+    noterPieges(p, 'b', [{ ...x, cle: 'b#2' }], '2026-11-02');
+    expect(piegesRecurrents(p).map((e) => [e.cle, e.n])).toEqual([['a#1', 2]]);
+    for (let i = 0; i < MAX_PIEGES + 10; i++) noterPieges(p, 'c', [{ ...x, cle: `c#${i}` }], '2026-11-03');
+    expect(Object.keys(p.pieges)).toHaveLength(MAX_PIEGES);
+    expect(p.pieges['a#1'].n).toBe(2); // le plus fréquent est gardé
+  });
+
+  it('enregistrerReponse mémorise les pièges', () => {
+    const p = progressionVide();
+    enregistrerReponse(p, { chapitre: 'c', cle: 'c/q', type: 'qcm', difficulte: 1, correct: false, pieges: [{ cle: 'c/q#2', texte: 't', explication: 'e' }] }, '2026-11-20');
+    expect(p.pieges['c/q#2']).toMatchObject({ n: 1, chapitre: 'c' });
   });
 });

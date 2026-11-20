@@ -2299,6 +2299,41 @@ a.stat-ligne:hover {
   border-color: var(--orange);
 }
 
+/* Pièges récurrents (statistiques) */
+.liste-pieges {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste-pieges li {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--bord);
+}
+
+.piege-compte {
+  flex: none;
+  min-width: 2.6em;
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: var(--rouge-clair);
+  color: var(--rouge);
+  font-weight: 900;
+  text-align: center;
+  height: fit-content;
+}
+
+.piege-corps {
+  min-width: 0;
+}
+
+.piege-explication {
+  margin: 6px 0;
+  color: var(--texte-doux);
+}
+
 /* Transfert vers un autre appareil */
 .zone-transfert {
   margin: 12px 0;

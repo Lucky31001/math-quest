@@ -53,6 +53,39 @@ export interface InfoReponse {
   multiplicateur?: number;
   /** Réponse en partie juste (QCM à réponses multiples) : part des points, entre 0 et 1. */
   credit?: number;
+  /** Pièges dans lesquels l'élève vient de tomber (voir `piegesDe`). */
+  pieges?: PiegeTombe[];
+}
+
+export interface PiegeTombe {
+  cle: string;
+  texte: string;
+  explication: string;
+}
+
+/** Nombre maximal de pièges mémorisés (on oublie d'abord les plus rares et les plus anciens). */
+export const MAX_PIEGES = 80;
+
+/** Mémorise les pièges ; renvoie rien. */
+export function noterPieges(p: Progression, chapitre: string, pieges: readonly PiegeTombe[], aujourdhui: string): void {
+  for (const x of pieges) {
+    const e = p.pieges[x.cle];
+    p.pieges[x.cle] = { n: (e?.n ?? 0) + 1, chapitre, texte: x.texte, explication: x.explication, derniere: aujourdhui };
+  }
+  const cles = Object.keys(p.pieges);
+  if (cles.length <= MAX_PIEGES) return;
+  cles
+    .sort((a, b) => p.pieges[a].n - p.pieges[b].n || p.pieges[a].derniere.localeCompare(p.pieges[b].derniere))
+    .slice(0, cles.length - MAX_PIEGES)
+    .forEach((k) => delete p.pieges[k]);
+}
+
+/** Pièges récurrents (au moins `min` fois), du plus fréquent au moins fréquent. */
+export function piegesRecurrents(p: Progression, min = 2) {
+  return Object.entries(p.pieges)
+    .filter(([, e]) => e.n >= min)
+    .sort(([, a], [, b]) => b.n - a.n || b.derniere.localeCompare(a.derniere))
+    .map(([cle, e]) => ({ cle, ...e }));
 }
 
 /** Enregistre une réponse ; renvoie les XP gagnés. */
@@ -61,6 +94,7 @@ export function enregistrerReponse(p: Progression, r: InfoReponse, aujourdhui: s
   p.compteurs.reponses++;
   p.journal[aujourdhui] = (p.journal[aujourdhui] ?? 0) + 1;
   compterStat(p, r.chapitre, r.type, r.correct);
+  if (r.pieges?.length) noterPieges(p, r.chapitre, r.pieges, aujourdhui);
   // Leitner : seule une réponse entièrement juste fait monter la question de boîte.
   if (r.cle) p.questions[r.cle] = apresReponse(p.questions[r.cle], r.correct, aujourdhui);
   if (!r.correct) {
