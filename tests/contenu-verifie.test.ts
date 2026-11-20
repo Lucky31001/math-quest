@@ -5,7 +5,7 @@
  * un test par matière les exécute toutes et liste celles qui échouent.
  */
 import { describe, it, expect } from 'vitest';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU } from './outils/contenu';
 import { toutVerifier } from './outils/tout-verifier';
 import { verifications as maths } from './verifications/maths';
 import { verifications as physique } from './verifications/physique';

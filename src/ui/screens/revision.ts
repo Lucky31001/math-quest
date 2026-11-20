@@ -1,5 +1,6 @@
 /** Révision du jour : questions et flashcards dues (répétition espacée de Leitner). */
-import { CONTENU } from '../../core/loader';
+import { INDEX, chargerChapitres } from '../../core/loader';
+import { ecranApresChargement } from '../chargement';
 import { h, ajouter } from '../dom';
 import { etat } from '../etat';
 import { questionsDues, flashcardsDues, pointsFaibles } from '../../game/modes';
@@ -10,14 +11,18 @@ import { icone } from '../icones';
 export function ecranRevision(main: HTMLElement, params: string[]): () => void {
   const p = etat.p;
   const auj = etat.aujourdhui();
-  const qs = questionsDues(CONTENU.chapitres, p, auj, 999);
-  const fs = flashcardsDues(CONTENU.chapitres, p, auj);
-  const faibles = pointsFaibles(CONTENU.chapitres, p).slice(0, 3);
+  const qs = questionsDues(INDEX.chapitres, p, auj, 999);
+  const fs = flashcardsDues(INDEX.chapitres, p, auj);
+  const faibles = pointsFaibles(INDEX.chapitres, p).slice(0, 3);
 
   if (params[0] === 'flashcards' && fs.length) {
-    const paquet = paquetFlashcards(fs);
-    main.append(h('h1', null, '🎴 Flashcards du jour'), paquet.el, h('a', { class: 'lien-retour', href: '#/revision' }, icone('retour'), h('span', null, 'Révision du jour')));
-    return paquet.detruire;
+    // Les textes des flashcards sont dans les chapitres complets : on charge ceux qui en ont de dues.
+    const ids = [...new Set(fs.map((f) => f.chapitre.id))];
+    return ecranApresChargement(main, () => chargerChapitres(ids), (chapitres) => {
+      const paquet = paquetFlashcards(flashcardsDues(chapitres, etat.p, auj));
+      main.append(h('h1', null, '🎴 Flashcards du jour'), paquet.el, h('a', { class: 'lien-retour', href: '#/revision' }, icone('retour'), h('span', null, 'Révision du jour')));
+      return paquet.detruire;
+    });
   }
 
   // Répartition des éléments par boîte de Leitner.

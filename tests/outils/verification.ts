@@ -3,7 +3,7 @@
  * accès aux questions, méthodes numériques (Simpson, RK4, Gauss, dichotomie…),
  * exécution de code C avec gcc, tracé de rayons.
  */
-import { CONTENU } from '../../src/core/loader';
+import { CONTENU } from './contenu';
 import { math, valeurDe } from '../../src/core/checker';
 import type { Question } from '../../src/core/schema';
 import { evalTex } from '../tex';

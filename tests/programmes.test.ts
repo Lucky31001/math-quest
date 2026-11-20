@@ -9,7 +9,7 @@ import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { CONTENU } from '../src/core/loader';
+import { CONTENU } from './outils/contenu';
 import type { Programme } from '../src/core/schema';
 import { corriger, memeSortie, type SortieCas } from '../src/core/grading';
 import { chargerCompilateur, compiler, executer, type Compilateur } from '../src/c/compilateur';

@@ -2,8 +2,9 @@
  * Écran de jeu commun à tous les modes : entraînement, exercices infinis, Boss,
  * Survie, QCM éclair et Révision du jour.
  */
-import type { Difficulte } from '../../core/schema';
-import { CONTENU, chapitreParId } from '../../core/loader';
+import type { Chapitre, Difficulte } from '../../core/schema';
+import { INDEX, chapitreParId, chargerChapitre, chargerChapitres, chargerTout } from '../../core/loader';
+import { ecranApresChargement } from '../chargement';
 import { createRng, randomSeed } from '../../core/random';
 import { h, vider, ajouter } from '../dom';
 import { etat } from '../etat';
@@ -19,6 +20,7 @@ import {
   itemSurvie,
   itemGenere,
   dureeBoss,
+  chapitresPourRevision,
   type ItemSession,
   type Mode,
 } from '../../game/modes';
@@ -38,10 +40,18 @@ interface Config {
   retour: string;
 }
 
-function configurer(params: string[]): Config | string {
+/** Chapitres complets nécessaires au mode : le chapitre joué, tous (Survie, éclair) ou ceux à réviser. */
+function chapitresNecessaires(params: string[]): Promise<Chapitre[]> {
+  const [mode, chapId] = params as [Mode, string?];
+  if (mode === 'survie' || mode === 'eclair') return chargerTout();
+  if (mode === 'revision') return chargerChapitres(chapitresPourRevision(INDEX.chapitres, etat.p, etat.aujourdhui()));
+  return chapId && chapitreParId(chapId) ? chargerChapitre(chapId).then((c) => [c]) : Promise.resolve([]);
+}
+
+function configurer(params: string[], chapitres: Chapitre[]): Config | string {
   const [mode, chapId, diffTxt] = params as [Mode, string?, string?];
   const rng = createRng(randomSeed());
-  const chapitre = chapId ? chapitreParId(chapId) : undefined;
+  const chapitre = chapId ? chapitres.find((c) => c.id === chapId) : undefined;
   const diff = (['1', '2', '3'].includes(diffTxt ?? '') ? Number(diffTxt) : null) as Difficulte | null;
   const base = { vies: null, chronoGlobal: null, chronoQuestion: null, multiplicateur: () => 1 };
   const depuisListe = (l: ItemSession[]) => (rang: number) => l[rang] ?? null;
@@ -85,14 +95,14 @@ function configurer(params: string[]): Config | string {
         ...base,
         mode,
         titre: '🛡️ Survie',
-        suivante: (rang) => itemSurvie(CONTENU.chapitres, rang, rng),
+        suivante: (rang) => itemSurvie(chapitres, rang, rng),
         total: null,
         vies: 1,
         multiplicateur: (_c, rang) => 1 + Math.min(rang, 20) * 0.1,
         retour: '#/',
       };
     case 'eclair': {
-      const l = serieEclair(CONTENU.chapitres, rng);
+      const l = serieEclair(chapitres, rng);
       return {
         ...base,
         mode,
@@ -105,7 +115,7 @@ function configurer(params: string[]): Config | string {
       };
     }
     case 'revision': {
-      const l = serieRevision(CONTENU.chapitres, etat.p, etat.aujourdhui(), rng);
+      const l = serieRevision(chapitres, etat.p, etat.aujourdhui(), rng);
       if (!l.length) return 'Rien à réviser pour le moment : fais quelques exercices d\'abord !';
       return { ...base, mode, titre: '📅 Révision du jour', suivante: depuisListe(l), total: l.length, retour: '#/revision' };
     }
@@ -115,7 +125,10 @@ function configurer(params: string[]): Config | string {
 }
 
 export function ecranSession(main: HTMLElement, params: string[]): () => void {
-  const res = configurer(params);
+  return ecranApresChargement(main, () => chapitresNecessaires(params), (chapitres) => lancerSession(main, params, configurer(params, chapitres)));
+}
+
+function lancerSession(main: HTMLElement, params: string[], res: Config | string): () => void {
   if (typeof res === 'string') {
     main.append(h('div', { class: 'carte-vide' }, h('p', null, res), h('a', { class: 'btn', href: '#/' }, 'Retour à l\'accueil')));
     return () => {};
