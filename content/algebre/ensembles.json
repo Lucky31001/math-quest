@@ -22,6 +22,11 @@
           "texte": "$A \\subset B$ si tout élément de $A$ est dans $B$ : $\\forall x,\\ x \\in A \\Rightarrow x \\in B$. **Ne pas confondre** : pour $E = \\{1, 2\\}$, $1 \\in E$ et $\\{1\\} \\subset E$, mais $\\{1\\} \\notin E$."
         },
         {
+          "type": "definition",
+          "titre": "Égalité",
+          "texte": "Deux ensembles sont **égaux** s'ils ont exactement les mêmes éléments : $A = B \\iff (A \\subset B \\text{ et } B \\subset A)$. L'ordre et les répétitions ne comptent pas : $\\{1, 2\\} = \\{2, 1, 1\\}$."
+        },
+        {
           "type": "methode",
           "titre": "Inclusion, égalité",
           "texte": "Pour montrer $A \\subset B$ : « Soit $x \\in A$ », puis montrer $x \\in B$. Pour montrer $A = B$ : **double inclusion**, $A \\subset B$ et $B \\subset A$."
@@ -30,6 +35,11 @@
           "type": "definition",
           "titre": "Ensemble des parties",
           "texte": "$\\mathcal{P}(E)$ est l'ensemble des parties de $E$ : $A \\in \\mathcal{P}(E) \\iff A \\subset E$. Toujours $\\varnothing \\in \\mathcal{P}(E)$ et $E \\in \\mathcal{P}(E)$. Si $E$ a $n$ éléments, $\\mathcal{P}(E)$ en a $2^n$. Ex. : $\\mathcal{P}(\\{a, b\\}) = \\{\\varnothing, \\{a\\}, \\{b\\}, \\{a, b\\}\\}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Cardinal",
+          "texte": "Un ensemble $E$ est **fini** s'il a un nombre fini d'éléments ; ce nombre est son **cardinal**, noté $|E|$, $\\mathrm{Card}(E)$ ou $\\#E$. $|\\varnothing| = 0$ et, si $A \\subset E$ avec $E$ fini, $|A| \\leq |E|$."
         }
       ]
     },
@@ -85,6 +95,11 @@
           "type": "definition",
           "titre": "Relation d'ordre",
           "texte": "Une **relation d'ordre** est réflexive, antisymétrique et transitive. Elle est **totale** si deux éléments sont toujours comparables ($x \\preceq y$ ou $y \\preceq x$), **partielle** sinon. Ex. : $\\leq$ sur $\\mathbb{R}$ est totale ; $\\subset$ sur $\\mathcal{P}(E)$ est partielle."
+        },
+        {
+          "type": "definition",
+          "titre": "Relation binaire, ensemble quotient",
+          "texte": "Une **relation binaire** $\\mathcal{R}$ sur $E$ est une propriété $x \\mathcal{R} y$ portant sur les couples $(x, y) \\in E \\times E$ (formellement, une partie de $E \\times E$). Pour une relation d'équivalence, l'ensemble des classes est l'**ensemble quotient** $E/\\mathcal{R}$ ; un **représentant** d'une classe est l'un de ses éléments."
         },
         {
           "type": "exemple",

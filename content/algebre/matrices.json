@@ -12,6 +12,11 @@
       "titre": "Systèmes linéaires",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Système linéaire",
+          "texte": "Un **système linéaire** de $n$ équations à $p$ inconnues s'écrit $AX = B$, avec $A \\in \\mathcal{M}_{n,p}(\\mathbb{K})$ (matrice du système), $X$ la colonne des inconnues et $B$ le second membre. Il est **homogène** si $B = 0$, **compatible** s'il a au moins une solution. Il est **échelonné** si chaque ligne commence (premier coefficient non nul, le **pivot**) strictement plus à droite que la précédente."
+        },
+        {
           "type": "methode",
           "titre": "Pivot de Gauss",
           "texte": "Opérations élémentaires (qui ne changent pas l'ensemble des solutions) : $L_i \\leftarrow L_i + \\lambda L_j$ ($i \\neq j$), $L_i \\leftrightarrow L_j$, $L_i \\leftarrow \\alpha L_i$ ($\\alpha \\neq 0$). On se ramène à un système échelonné, puis on remonte."
@@ -31,8 +36,23 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Matrice",
+          "texte": "Une **matrice** $A = (a_{ij}) \\in \\mathcal{M}_{n,p}(\\mathbb{K})$ est un tableau de $n$ lignes et $p$ colonnes ; $a_{ij}$ est le coefficient de la ligne $i$, colonne $j$. Elle est **carrée** si $n = p$ ($\\mathcal{M}_n(\\mathbb{K})$). Somme et multiplication par un scalaire se font coefficient par coefficient : $(A + B)_{ij} = a_{ij} + b_{ij}$, $(\\lambda A)_{ij} = \\lambda a_{ij}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Matrices particulières",
+          "texte": "**Identité** $I_n$ : des $1$ sur la diagonale, $0$ ailleurs. **Diagonale** : $a_{ij} = 0$ si $i \\neq j$. **Triangulaire supérieure** : $a_{ij} = 0$ si $i > j$ (inférieure : si $i < j$).\n**Transposée** $A^T$ : $(A^T)_{ij} = a_{ji}$ (les lignes deviennent les colonnes). $A$ est **symétrique** si $A^T = A$, **antisymétrique** si $A^T = -A$."
+        },
+        {
+          "type": "definition",
           "titre": "Produit",
           "texte": "Pour $A \\in \\mathcal{M}_{n,p}$, $B \\in \\mathcal{M}_{p,q}$ : $(AB)_{ij} = \\sum_{k=1}^{p} a_{ik}b_{kj}$ (ligne $i$ de $A$ par colonne $j$ de $B$)."
+        },
+        {
+          "type": "definition",
+          "titre": "Matrice inversible",
+          "texte": "$A \\in \\mathcal{M}_n(\\mathbb{K})$ est **inversible** s'il existe $B \\in \\mathcal{M}_n(\\mathbb{K})$ telle que $AB = BA = I_n$. $B$ est unique, c'est l'**inverse** $A^{-1}$. En dimension finie, $AB = I_n$ suffit."
         },
         {
           "type": "propriete",
@@ -55,7 +75,8 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc$. En $3 \\times 3$ : développement selon une ligne ou une colonne avec les signes en damier $\\begin{smallmatrix} + & - & + \\\\ - & + & - \\\\ + & - & + \\end{smallmatrix}$, ou règle de Sarrus."
+          "titre": "Déterminant",
+          "texte": "$\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc$. En $3 \\times 3$ : développement selon une ligne ou une colonne avec les signes en damier $\\begin{smallmatrix} + & - & + \\\\ - & + & - \\\\ + & - & + \\end{smallmatrix}$ (chaque coefficient multiplié par le déterminant obtenu en rayant sa ligne et sa colonne), ou règle de Sarrus."
         },
         {
           "type": "propriete",

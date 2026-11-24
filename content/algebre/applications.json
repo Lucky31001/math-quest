@@ -18,6 +18,11 @@
         },
         {
           "type": "definition",
+          "titre": "Image, antécédent, graphe",
+          "texte": "Si $y = f(x)$, $y$ est **l'image** de $x$ et $x$ est **un antécédent** de $y$ (un $y$ peut avoir zéro, un ou plusieurs antécédents). Le **graphe** de $f$ est $\\Gamma_f = \\{(x, f(x)) : x \\in E\\} \\subset E \\times F$. L'**identité** de $E$ est $\\mathrm{id}_E : x \\mapsto x$."
+        },
+        {
+          "type": "definition",
           "titre": "Image directe, image réciproque",
           "texte": "Pour $A \\subset E$ : $f(A) = \\{f(x) : x \\in A\\}$. L'**image** de $f$ est $\\mathrm{Im} f = f(E)$, en général plus petite que $F$. Pour $B \\subset F$ : $f^{-1}(B) = \\{x \\in E : f(x) \\in B\\}$, définie **même si $f$ n'est pas bijective**."
         },
@@ -63,6 +68,11 @@
           "type": "theoreme",
           "titre": "Composition",
           "texte": "Une composée d'injections (resp. surjections, bijections) en est une. Si $g \\circ f$ est injective, $f$ est injective. Si $g \\circ f$ est surjective, $g$ est surjective. (TD Applications, ex. 13)"
+        },
+        {
+          "type": "definition",
+          "titre": "Application réciproque",
+          "texte": "Si $f : E \\to F$ est bijective, son **application réciproque** $f^{-1} : F \\to E$ associe à chaque $y \\in F$ son **unique** antécédent par $f$. Ne pas confondre avec l'image réciproque $f^{-1}(B)$, qui existe toujours."
         },
         {
           "type": "theoreme",

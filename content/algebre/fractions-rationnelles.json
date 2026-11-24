@@ -42,6 +42,11 @@
           "texte": "Il existe un unique polynôme $E$ et une unique fraction $R_0$ de degré $< 0$ tels que $F = E + R_0$. $E$ est la **partie entière** de $F = \\frac PQ$ : c'est le **quotient de la division euclidienne** de $P$ par $Q$. Si $\\deg F < 0$, $E = 0$."
         },
         {
+          "type": "definition",
+          "titre": "Éléments simples, partie polaire",
+          "texte": "Un **élément simple** est une fraction $\\frac{a}{(X - \\lambda)^k}$ (première espèce) ou, dans $\\mathbb{R}(X)$, $\\frac{uX + v}{(X^2 + bX + c)^k}$ avec $b^2 - 4c < 0$ (seconde espèce). La **partie polaire** relative à un pôle $\\lambda$ est la somme des éléments simples en $\\lambda$ de la décomposition."
+        },
+        {
           "type": "theoreme",
           "titre": "Décomposition en éléments simples dans ℂ(X)",
           "texte": "Si $F$ a pour pôles $\\lambda_1, \\dots, \\lambda_r$ de multiplicités $m_1, \\dots, m_r$ : $F = E + \\displaystyle\\sum_{i=1}^{r} \\sum_{k=1}^{m_i} \\frac{a_{ik}}{(X - \\lambda_i)^k}$, de façon unique. Un pôle d'ordre $m$ apporte $m$ termes : $\\frac{a_{i1}}{X - \\lambda_i} + \\dots + \\frac{a_{im}}{(X - \\lambda_i)^m}$ (sa **partie polaire**)."

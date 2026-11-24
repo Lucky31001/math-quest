@@ -14,7 +14,12 @@
         {
           "type": "definition",
           "titre": "Nombre complexe",
-          "texte": "Tout $z \\in \\mathbb{C}$ s'écrit de façon unique $z = a + ib$ avec $a = \\mathrm{Re}(z) \\in \\mathbb{R}$, $b = \\mathrm{Im}(z) \\in \\mathbb{R}$ et $i^2 = -1$."
+          "texte": "Tout $z \\in \\mathbb{C}$ s'écrit de façon unique $z = a + ib$ (**forme algébrique**) avec $a = \\mathrm{Re}(z) \\in \\mathbb{R}$ (partie réelle), $b = \\mathrm{Im}(z) \\in \\mathbb{R}$ (partie imaginaire) et $i^2 = -1$. $z$ est **réel** si $\\mathrm{Im}(z) = 0$, **imaginaire pur** si $\\mathrm{Re}(z) = 0$. $a + ib = a' + ib' \\iff a = a'$ et $b = b'$."
+        },
+        {
+          "type": "definition",
+          "titre": "Plan complexe",
+          "texte": "Au point $M(a, b)$ du plan on associe son **affixe** $z = a + ib$ ; au vecteur $\\vec u (a, b)$ aussi. $|z|$ est la distance $OM$, et $|z_B - z_A|$ la distance $AB$."
         },
         {
           "type": "definition",
@@ -32,7 +37,13 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "Pour $\\theta \\in \\mathbb{R}$ : $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Tout $z \\neq 0$ s'écrit $z = r e^{i\\theta}$ avec $r = |z| > 0$ et $\\theta$ **un** argument de $z$ (défini modulo $2\\pi$)."
+          "titre": "Forme exponentielle, argument",
+          "texte": "Pour $\\theta \\in \\mathbb{R}$ : $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Tout $z \\neq 0$ s'écrit $z = r e^{i\\theta}$ avec $r = |z| > 0$ ; un tel $\\theta$ est **un argument** de $z$, noté $\\arg z$, défini modulo $2\\pi$ ($re^{i\\theta} = r'e^{i\\theta'}$ avec $r, r' > 0$ ssi $r = r'$ et $\\theta \\equiv \\theta'\\ [2\\pi]$). L'**argument principal** est celui de $]-\\pi, \\pi]$. $0$ n'a pas d'argument."
+        },
+        {
+          "type": "definition",
+          "titre": "Le cercle unité $\\mathbb{U}$",
+          "texte": "$\\mathbb{U} = \\{z \\in \\mathbb{C} : |z| = 1\\} = \\{e^{i\\theta} : \\theta \\in \\mathbb{R}\\}$. Il est stable par produit et par inverse."
         },
         {
           "type": "propriete",
@@ -54,6 +65,11 @@
     {
       "titre": "Racines $n$-ièmes et équations",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Racine $n$-ième",
+          "texte": "Soit $n \\geq 1$ et $a \\in \\mathbb{C}$. Une **racine $n$-ième** de $a$ est un complexe $w$ tel que $w^n = a$. Les racines $n$-ièmes de $1$ forment l'ensemble $\\mathbb{U}_n = \\{z \\in \\mathbb{C} : z^n = 1\\}$."
+        },
         {
           "type": "theoreme",
           "titre": "Racines $n$-ièmes de l'unité",
