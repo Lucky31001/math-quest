@@ -115,12 +115,12 @@ function cours(ch: Chapitre): HTMLElement {
       h(
         'section',
         { class: 'cours-section' },
-        h('h2', null, s.titre),
+        riche('h2', s.titre),
         s.blocs.map((b) =>
           h(
             'div',
             { class: `bloc bloc-${b.type}` },
-            h('div', { class: 'bloc-titre' }, LIBELLES_BLOC[b.type], b.titre ? ` — ${b.titre}` : ''),
+            riche('div', b.titre ? `${LIBELLES_BLOC[b.type]} — ${b.titre}` : LIBELLES_BLOC[b.type], 'bloc-titre'),
             riche('div', b.texte, 'bloc-texte'),
           ),
         ),
