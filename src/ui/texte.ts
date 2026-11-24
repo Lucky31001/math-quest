@@ -31,33 +31,26 @@ function texteSimple(s: string): string {
 export const MOTIF_CODE = /(```[\s\S]+?```|`[^`\n]+`)/g;
 
 /**
- * Convertit un texte du contenu en HTML sûr. Le code est traité en premier :
- * son contenu est seulement échappé (ni LaTeX, ni gras — `x**2` reste intact).
+ * Convertit un texte du contenu en HTML sûr. Le code et les formules sont rendus
+ * à part puis réinsérés, ce qui a deux effets :
+ * - le contenu du code est seulement échappé (ni LaTeX, ni gras — `x**2` reste intact) ;
+ * - le gras et l'italique peuvent les englober (`**continue en $a$**`).
  */
 export function rendreHtml(texte: string): string {
-  return texte
-    .split(MOTIF_CODE)
-    .map((m) => {
-      if (m.length > 6 && m.startsWith('```') && m.endsWith('```')) {
-        const langage = /^([a-z]*)\n/.exec(m.slice(3))?.[1] ?? '';
-        const code = m.slice(3, -3).replace(/^[a-z]*\n/, '').replace(/\n$/, '');
-        return `<pre class="code" data-langage="${langage}"><code>${echapper(code)}</code></pre>`;
-      }
-      if (m.length > 2 && m.startsWith('`') && m.endsWith('`')) return `<code>${echapper(m.slice(1, -1))}</code>`;
-      return rendreMaths(m);
-    })
-    .join('');
-}
-
-function rendreMaths(texte: string): string {
-  const morceaux = texte.split(/(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/g);
-  return morceaux
-    .map((m) => {
-      if (m.startsWith('$$') && m.endsWith('$$') && m.length > 4) return latex(m.slice(2, -2), true);
-      if (m.startsWith('$') && m.endsWith('$') && m.length > 2) return latex(m.slice(1, -1));
-      return texteSimple(m);
-    })
-    .join('');
+  const morceaux: string[] = [];
+  const reserver = (html: string) => `\u0000${morceaux.push(html) - 1}\u0000`;
+  const sansCode = texte.replace(MOTIF_CODE, (m) => {
+    if (m.startsWith('```')) {
+      const langage = /^([a-z]*)\n/.exec(m.slice(3))?.[1] ?? '';
+      const code = m.slice(3, -3).replace(/^[a-z]*\n/, '').replace(/\n$/, '');
+      return reserver(`<pre class="code" data-langage="${langage}"><code>${echapper(code)}</code></pre>`);
+    }
+    return reserver(`<code>${echapper(m.slice(1, -1))}</code>`);
+  });
+  const sansFormules = sansCode.replace(/\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g, (_, bloc?: string, enLigne?: string) =>
+    reserver(bloc !== undefined ? latex(bloc, true) : latex(enLigne!)),
+  );
+  return texteSimple(sansFormules).replace(/\u0000(\d+)\u0000/g, (_, i: string) => morceaux[Number(i)]!);
 }
 
 /** Élément contenant un texte rendu. */
