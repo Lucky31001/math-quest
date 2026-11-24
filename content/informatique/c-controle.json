@@ -45,8 +45,19 @@
       "titre": "Raisonner sur une boucle",
       "blocs": [
         {
-          "type": "methode",
-          "texte": "**Accumulateur** : initialiser avec l'élément neutre (0 pour une somme, 1 pour un produit, le premier élément pour un maximum). **Invariant** : propriété vraie avant chaque tour, qui prouve le résultat. **Variant** : entier positif qui décroît strictement, qui prouve la terminaison."
+          "type": "definition",
+          "titre": "Accumulateur",
+          "texte": "Un **accumulateur** est une variable qui cumule un résultat au fil des tours. On l'initialise avec l'élément neutre : 0 pour une somme, 1 pour un produit, le premier élément pour un maximum."
+        },
+        {
+          "type": "definition",
+          "titre": "Invariant de boucle",
+          "texte": "Un **invariant** est une propriété vraie avant le premier tour et conservée par chaque tour : elle est donc vraie à la sortie, et prouve que le résultat est correct (**correction**)."
+        },
+        {
+          "type": "definition",
+          "titre": "Variant de boucle",
+          "texte": "Un **variant** est une quantité entière positive qui décroît strictement à chaque tour : la boucle s'arrête forcément (**terminaison**). Pour `for (i = 0; i < n; i++)`, $n - i$ est un variant."
         },
         {
           "type": "remarque",

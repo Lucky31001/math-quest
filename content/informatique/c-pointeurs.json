@@ -12,6 +12,11 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Pointeur",
+          "texte": "Un **pointeur** est une variable qui contient l'**adresse** d'une autre variable. Son type indique ce qui est pointé : `int *p` pointe vers un `int`, `char *s` vers un `char`."
+        },
+        {
+          "type": "definition",
           "titre": "Adresses",
           "texte": "`&x` est l'**adresse** de `x`. Un pointeur stocke une adresse : `int *p = &x;`. `*p` (déréférencement) désigne la variable pointée : `*p = 8;` modifie `x`. `NULL` est l'adresse « vide », à ne jamais déréférencer."
         },
@@ -30,6 +35,11 @@
     {
       "titre": "Allocation dynamique",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Pile et tas",
+          "texte": "Les variables locales vivent dans la **pile** (*stack*) : elles sont créées à l'appel de la fonction et détruites à son retour. Le **tas** (*heap*) contient les blocs alloués par `malloc`, qui existent jusqu'au `free` correspondant."
+        },
         {
           "type": "definition",
           "titre": "malloc et free",

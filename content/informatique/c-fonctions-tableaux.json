@@ -16,6 +16,11 @@
           "texte": "`type nom(type1 p1, type2 p2) { … return valeur; }`. Une fonction qui ne renvoie rien est de type `void`. Une fonction doit être **déclarée avant son appel** : on la définit plus haut dans le fichier, ou on écrit son **prototype** (`int carre(int x);`) en tête.\n```c\nint carre(int x) {\n    return x * x;\n}\n```"
         },
         {
+          "type": "definition",
+          "titre": "Paramètre, argument, prototype",
+          "texte": "Les **paramètres** sont les variables déclarées dans l'en-tête (`x` dans `int carre(int x)`) ; les **arguments** sont les valeurs passées à l'appel (`3` dans `carre(3)`). Le **prototype** (ou signature) donne le type de retour, le nom et les types des paramètres, sans le corps. La **valeur de retour** est la valeur de l'expression après `return`."
+        },
+        {
           "type": "theoreme",
           "titre": "Passage par valeur",
           "texte": "Les arguments sont passés **par valeur** : la fonction reçoit une **copie**. Modifier un paramètre ne change pas la variable de l'appelant (pour cela, il faudra passer son adresse : voir les pointeurs)."
@@ -30,6 +35,11 @@
     {
       "titre": "Tableaux",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Tableau",
+          "texte": "Un **tableau** est une suite de cases **de même type**, contiguës en mémoire, repérées par un **indice** entier de $0$ à $n - 1$ pour un tableau de taille $n$."
+        },
         {
           "type": "definition",
           "titre": "Déclaration",

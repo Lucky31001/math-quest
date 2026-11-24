@@ -27,6 +27,11 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Variable, affectation",
+          "texte": "Une **variable** est une case mémoire nommée, d'un **type** donné, qui contient une valeur. La **déclaration** `int n;` la crée ; l'**affectation** `n = 5;` y range une valeur (le `=` n'est pas une égalité mathématique : `n = n + 1;` est valide). Déclarer et affecter à la fois : **initialisation**, `int n = 5;`."
+        },
+        {
+          "type": "definition",
           "titre": "Types de base",
           "texte": "Toute variable est **déclarée** avec un type avant usage : `int` (entier, 4 octets en général, de $-2^{31}$ à $2^{31} - 1$), `char` (1 octet, un caractère), `float` et `double` (réels approchés, `double` plus précis). Une variable locale non initialisée a une valeur **indéterminée**."
         },
@@ -40,6 +45,11 @@
     {
       "titre": "Opérateurs",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Expression, instruction",
+          "texte": "Une **expression** se calcule et a une valeur (`2 * x + 1`, `x > 0`). Une **instruction** est un ordre exécuté par le programme ; elle se termine par `;` (`x = 2 * x + 1;`). Un **bloc** `{ … }` regroupe des instructions."
+        },
         {
           "type": "propriete",
           "titre": "Arithmétique",
