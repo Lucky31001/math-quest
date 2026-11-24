@@ -215,11 +215,25 @@ function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
       'div',
       { class: 'monde', style: styleMatiere(matiereParId(idMatiere)) },
       chapitres.length
-        ? h('ol', { class: 'chemin' }, chapitres.map((c, i) => zone(c, i, c === recommande)))
+        ? h(
+            'ol',
+            { class: 'chemin' },
+            chapitres.flatMap((c, i) => {
+              const noeud = zone(c, i, c === recommande);
+              const avant = chapitres[i - 1];
+              // Changement de semestre : un jalon avant le premier chapitre du nouveau semestre.
+              return c.semestre && avant?.semestre && c.semestre !== avant.semestre ? [jalonSemestre(c.semestre), noeud] : [noeud];
+            }),
+          )
         : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
       chapitres.length ? lienExamen(idMatiere) : null,
     ),
   );
+}
+
+/** Jalon entre deux semestres sur le chemin. */
+function jalonSemestre(semestre: number): HTMLElement {
+  return h('li', { class: 'jalon-semestre' }, h('span', null, `Semestre ${semestre}`));
 }
 
 /** Au bout du chemin : l'examen blanc de la matière (tous ses chapitres, en temps limité). */

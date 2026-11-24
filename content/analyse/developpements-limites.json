@@ -3,6 +3,7 @@
   "id": "developpements-limites",
   "monde": "analyse",
   "ordre": 5,
+  "semestre": 2,
   "titre": "Développements limités et équivalents",
   "icone": "🔬",
   "resume": "DL usuels, opérations sur les DL, équivalents et calculs de limites.",

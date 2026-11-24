@@ -3,6 +3,7 @@
   "id": "logique",
   "monde": "algebre",
   "ordre": 1,
+  "semestre": 1,
   "titre": "Logique et raisonnements",
   "icone": "🧠",
   "resume": "Connecteurs, quantificateurs, contraposée, absurde, récurrence.",

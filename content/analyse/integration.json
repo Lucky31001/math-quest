@@ -3,6 +3,7 @@
   "id": "integration",
   "monde": "analyse",
   "ordre": 6,
+  "semestre": 2,
   "titre": "Intégration",
   "icone": "📏",
   "resume": "Primitives, intégration par parties, changement de variable, sommes de Riemann.",

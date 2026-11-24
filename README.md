@@ -67,6 +67,7 @@ Grâce à `"$schema": "../schema.json"`, VS Code propose l'autocomplétion et si
   "id": "complexes",
   "monde": "algebre",
   "ordre": 3,
+  "semestre": 1,
   "titre": "Nombres complexes",
   "icone": "🌀",
   "resume": "Forme algébrique, module, forme exponentielle…",

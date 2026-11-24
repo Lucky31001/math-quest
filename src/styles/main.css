@@ -819,6 +819,27 @@ body[data-ecran='jouer'] .hud {
   gap: 18px;
 }
 
+.jalon-semestre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 10px 0;
+  color: var(--couleur);
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.jalon-semestre::before,
+.jalon-semestre::after {
+  content: '';
+  flex: 1;
+  border-top: 2px dashed currentColor;
+  opacity: 0.5;
+}
+
 .zone {
   display: flex;
   justify-content: center;

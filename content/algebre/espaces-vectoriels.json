@@ -3,6 +3,7 @@
   "id": "espaces-vectoriels",
   "monde": "algebre",
   "ordre": 7,
+  "semestre": 2,
   "titre": "Espaces vectoriels",
   "icone": "📐",
   "resume": "Sous-espaces, familles libres et génératrices, bases, dimension.",

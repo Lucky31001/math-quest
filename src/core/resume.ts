@@ -16,6 +16,7 @@ export function resumerChapitre(brut: unknown): Objet {
     id: c.id,
     monde: c.monde,
     ordre: c.ordre,
+    semestre: c.semestre,
     titre: c.titre,
     icone: c.icone,
     resume: c.resume,
