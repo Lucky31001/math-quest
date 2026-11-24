@@ -37,6 +37,11 @@
           "texte": "La **réciproque** de $P \\Rightarrow Q$ est $Q \\Rightarrow P$ ; sa **contraposée** est $\\text{non}(Q) \\Rightarrow \\text{non}(P)$. Une implication est toujours équivalente à sa contraposée, jamais (en général) à sa réciproque."
         },
         {
+          "type": "definition",
+          "titre": "Équivalence",
+          "texte": "$P \\iff Q$ est vraie quand $P$ et $Q$ ont la **même valeur de vérité** (toutes deux vraies ou toutes deux fausses), et fausse sinon."
+        },
+        {
           "type": "theoreme",
           "titre": "Équivalence et double implication",
           "texte": "$(P \\iff Q) \\iff \\big((P \\Rightarrow Q) \\text{ et } (Q \\Rightarrow P)\\big)$. Vocabulaire : si $P \\Rightarrow Q$, $Q$ est une **condition nécessaire** pour $P$ et $P$ une **condition suffisante** pour $Q$ ; si $P \\iff Q$, on dit « $P$ si et seulement si $Q$ »."
@@ -46,6 +51,11 @@
     {
       "titre": "Quantificateurs",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Prédicat",
+          "texte": "Un **prédicat** $P(x)$ est une phrase qui dépend d'une variable $x$ d'un ensemble $E$ et qui devient une proposition (vraie ou fausse) dès qu'on fixe $x$. Ex. : « $x^2 > 4$ » est vraie pour $x = 3$, fausse pour $x = 1$."
+        },
         {
           "type": "definition",
           "titre": "Quantificateurs ∀, ∃, ∃!",

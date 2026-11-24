@@ -14,11 +14,17 @@
         {
           "type": "definition",
           "titre": "Vocabulaire",
-          "texte": "$(u_n)$ est **majorée** si $\\exists M,\\ \\forall n,\\ u_n \\leq M$ ; **croissante** si $\\forall n,\\ u_n \\leq u_{n+1}$ ; **stationnaire** si elle est constante à partir d'un certain rang. « À partir d'un certain rang » s'écrit $\\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ \\ldots$"
+          "texte": "$(u_n)$ est **majorée** si $\\exists M \\in \\mathbb{R},\\ \\forall n,\\ u_n \\leq M$ ; **minorée** si $\\exists m,\\ \\forall n,\\ u_n \\geq m$ ; **bornée** si elle est majorée et minorée, soit $\\exists M,\\ \\forall n,\\ |u_n| \\leq M$.\n$(u_n)$ est **croissante** si $\\forall n,\\ u_n \\leq u_{n+1}$ ; **décroissante** si $\\forall n,\\ u_n \\geq u_{n+1}$ ; **strictement** croissante (décroissante) avec des inégalités strictes ; **monotone** si elle est croissante ou décroissante.\n$(u_n)$ est **stationnaire** si elle est constante à partir d'un certain rang. « À partir d'un certain rang » s'écrit $\\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ \\ldots$"
         },
         {
           "type": "definition",
-          "texte": "$u_n \\to \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists N,\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$. La limite, si elle existe, est unique. Une suite convergente est bornée."
+          "titre": "Suite convergente",
+          "texte": "$u_n \\to \\ell \\in \\mathbb{R}$ si $\\forall \\varepsilon > 0,\\ \\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$. On dit que $(u_n)$ **converge**. La limite, si elle existe, est unique. Une suite convergente est bornée."
+        },
+        {
+          "type": "definition",
+          "titre": "Limite infinie, suite divergente",
+          "texte": "$u_n \\to +\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ u_n \\geq A$.\n$u_n \\to -\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ u_n \\leq A$.\nUne suite qui ne converge pas est **divergente** : soit elle tend vers $\\pm\\infty$, soit elle n'a pas de limite, comme $(-1)^n$."
         },
         {
           "type": "theoreme",
@@ -51,9 +57,19 @@
           "texte": "Une suite croissante et majorée converge ; une suite croissante non majorée tend vers $+\\infty$."
         },
         {
-          "type": "theoreme",
+          "type": "definition",
           "titre": "Suites adjacentes",
-          "texte": "Si $(u_n)$ croît, $(v_n)$ décroît et $v_n - u_n \\to 0$, alors elles convergent vers la même limite $\\ell$, avec $u_n \\leq \\ell \\leq v_n$."
+          "texte": "$(u_n)$ et $(v_n)$ sont **adjacentes** si l'une est croissante, l'autre décroissante, et $v_n - u_n \\to 0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Théorème des suites adjacentes",
+          "texte": "Si $(u_n)$ croît, $(v_n)$ décroît et $v_n - u_n \\to 0$, alors elles convergent vers la même limite $\\ell$, avec $u_n \\leq \\ell \\leq v_n$ pour tout $n$."
+        },
+        {
+          "type": "definition",
+          "titre": "Suite extraite",
+          "texte": "Une **suite extraite** (ou sous-suite) de $(u_n)$ est une suite $(u_{\\varphi(n)})$, où $\\varphi : \\mathbb{N} \\to \\mathbb{N}$ est **strictement croissante**. Ex. : $(u_{2n})$ (termes pairs), $(u_{2n+1})$ (termes impairs). On a toujours $\\varphi(n) \\geq n$."
         },
         {
           "type": "theoreme",
@@ -65,6 +81,11 @@
     {
       "titre": "Suites récurrentes",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Suites arithmétiques et géométriques",
+          "texte": "**Arithmétique** de raison $r$ : $u_{n+1} = u_n + r$, d'où $u_n = u_0 + nr$.\n**Géométrique** de raison $q$ : $u_{n+1} = q\\,u_n$, d'où $u_n = u_0\\,q^n$. Limite de $q^n$ : $0$ si $|q| < 1$, $1$ si $q = 1$, $+\\infty$ si $q > 1$, pas de limite si $q \\leq -1$."
+        },
         {
           "type": "methode",
           "titre": "$u_{n+1} = f(u_n)$",

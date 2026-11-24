@@ -13,6 +13,11 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Grandeurs d'une oscillation sinusoïdale",
+          "texte": "Pour $x(t) = A\\cos(\\omega t + \\varphi)$ : $A > 0$ est l'**amplitude**, $\\omega$ la **pulsation** ($\\mathrm{rad \\cdot s^{-1}}$), $\\omega t + \\varphi$ la **phase** et $\\varphi$ la **phase à l'origine**. **Période** $T = \\dfrac{2\\pi}{\\omega}$ (s), **fréquence** $f = \\dfrac1T$ (Hz)."
+        },
+        {
+          "type": "definition",
           "titre": "Équation",
           "texte": "Un système est un oscillateur harmonique si son écart $x$ à l'équilibre vérifie $$\\ddot x + \\omega_0^2\\,x = 0.$$ $\\omega_0$ est la **pulsation propre** (rad/s), $T_0 = 2\\pi / \\omega_0$ la période propre, $f_0 = 1 / T_0$ la fréquence."
         },

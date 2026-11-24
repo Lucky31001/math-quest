@@ -36,6 +36,11 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Structure de données abstraite",
+          "texte": "Une **structure de données abstraite** est définie par ses **opérations** (créer, ajouter, retirer, tester si vide…) et non par sa représentation en mémoire. Une pile ou une file peut être réalisée par un tableau ou par une liste chaînée."
+        },
+        {
+          "type": "definition",
           "titre": "Pile",
           "texte": "**Pile** (LIFO, *last in first out*) : on empile et on dépile au même bout, comme une pile d'assiettes. Une liste chaînée avec insertion et suppression en tête la réalise en $O(1)$. Usages : annulation (Ctrl+Z), appels de fonctions, vérification du parenthésage."
         },

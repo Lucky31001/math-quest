@@ -36,6 +36,11 @@
       "titre": "Manipuler les sommes",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Notations $\\sum$ et $\\prod$",
+          "texte": "Pour $m \\leq n$ : $\\sum_{k=m}^{n} a_k = a_m + a_{m+1} + \\dots + a_n$ et $\\prod_{k=m}^{n} a_k = a_m \\times a_{m+1} \\times \\dots \\times a_n$ : il y a $n - m + 1$ termes. L'indice $k$ est **muet** ($\\sum_k a_k = \\sum_j a_j$). Par convention, une somme vide vaut $0$ et un produit vide vaut $1$."
+        },
+        {
           "type": "propriete",
           "titre": "Linéarité",
           "texte": "$\\sum_{k} (\\lambda a_k + \\mu b_k) = \\lambda \\sum_k a_k + \\mu \\sum_k b_k$. **Attention** : $\\sum a_k b_k \\neq \\left(\\sum a_k\\right)\\left(\\sum b_k\\right)$ en général."
@@ -97,6 +102,16 @@
     {
       "titre": "Trigonométrie",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Cosinus, sinus, tangente",
+          "texte": "Sur le cercle trigonométrique (centre $O$, rayon $1$), le point d'angle $\\theta$ a pour coordonnées $(\\cos\\theta, \\sin\\theta)$. Pour $\\theta \\not\\equiv \\frac\\pi2\\ [\\pi]$ : $\\tan\\theta = \\dfrac{\\sin\\theta}{\\cos\\theta}$. $\\cos$ et $\\sin$ sont $2\\pi$-périodiques, $\\tan$ est $\\pi$-périodique."
+        },
+        {
+          "type": "definition",
+          "titre": "Congruence modulo $2\\pi$",
+          "texte": "$a \\equiv b\\ [2\\pi]$ si $\\exists k \\in \\mathbb{Z},\\ a - b = 2k\\pi$. De même $a \\equiv b\\ [\\pi]$ si $a - b = k\\pi$, $k \\in \\mathbb{Z}$."
+        },
         {
           "type": "propriete",
           "titre": "Formules d'addition",

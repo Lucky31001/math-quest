@@ -12,6 +12,16 @@
       "titre": "Degré et division euclidienne",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Polynôme",
+          "texte": "Un **polynôme** à coefficients dans $\\mathbb{K}$ ($\\mathbb{R}$ ou $\\mathbb{C}$) est $P = a_0 + a_1X + \\dots + a_nX^n$, avec un nombre **fini** de coefficients non nuls ; $\\mathbb{K}[X]$ est leur ensemble. Deux polynômes sont égaux ssi ils ont les mêmes coefficients."
+        },
+        {
+          "type": "definition",
+          "titre": "Degré, coefficient dominant",
+          "texte": "Si $P \\neq 0$, son **degré** $\\deg P$ est le plus grand $n$ tel que $a_n \\neq 0$ ; $a_n$ est le **coefficient dominant**, et $P$ est **unitaire** si $a_n = 1$. $\\mathbb{K}_n[X]$ est l'ensemble des polynômes de degré $\\leq n$. Le **polynôme dérivé** de $P$ est $P' = \\sum_{k=1}^{n} k a_k X^{k-1}$."
+        },
+        {
           "type": "propriete",
           "titre": "Degré",
           "texte": "$\\deg(PQ) = \\deg P + \\deg Q$ et $\\deg(P + Q) \\leq \\max(\\deg P, \\deg Q)$ (inégalité stricte possible si les termes dominants se compensent). Par convention $\\deg 0 = -\\infty$."
@@ -37,6 +47,16 @@
       "titre": "Racines",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Racine",
+          "texte": "$a \\in \\mathbb{K}$ est une **racine** (ou un zéro) de $P$ si $P(a) = 0$, où $P(a) = \\sum_k a_k a^k$ est l'évaluation de $P$ en $a$."
+        },
+        {
+          "type": "definition",
+          "titre": "Multiplicité",
+          "texte": "$a$ est racine de **multiplicité** (ou d'ordre) $m \\geq 1$ si $(X - a)^m$ divise $P$ mais pas $(X - a)^{m+1}$, c'est-à-dire $P = (X - a)^m Q$ avec $Q(a) \\neq 0$. Racine **simple** : $m = 1$ ; **double** : $m = 2$."
+        },
+        {
           "type": "theoreme",
           "texte": "$a$ est racine de $P$ ssi $(X - a)$ divise $P$. Un polynôme non nul de degré $n$ a au plus $n$ racines (comptées avec multiplicité)."
         },
@@ -47,7 +67,7 @@
         },
         {
           "type": "theoreme",
-          "titre": "Multiplicité",
+          "titre": "Caractérisation de la multiplicité",
           "texte": "$a$ est racine de multiplicité $m$ ssi $P(a) = P'(a) = \\dots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \\neq 0$, ssi $(X - a)^m$ divise $P$ mais pas $(X - a)^{m+1}$."
         },
         {
@@ -60,6 +80,11 @@
     {
       "titre": "Factorisation",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Polynôme scindé, irréductible",
+          "texte": "$P$ est **scindé** sur $\\mathbb{K}$ s'il est produit de polynômes de degré $1$ de $\\mathbb{K}[X]$. $P$ non constant est **irréductible** dans $\\mathbb{K}[X]$ si ses seuls diviseurs sont les constantes non nulles et les $\\lambda P$ ($\\lambda \\neq 0$)."
+        },
         {
           "type": "theoreme",
           "titre": "D'Alembert-Gauss",

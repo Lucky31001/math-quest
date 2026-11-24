@@ -13,7 +13,8 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$f$ est dérivable en $a$ si $\\dfrac{f(x) - f(a)}{x - a}$ a une limite finie $f'(a)$ quand $x \\to a$. Tangente : $y = f(a) + f'(a)(x - a)$."
+          "titre": "Dérivabilité en un point",
+          "texte": "Soit $f$ définie sur un intervalle $I$ et $a \\in I$. Le **taux d'accroissement** de $f$ en $a$ est $\\tau_a(x) = \\dfrac{f(x) - f(a)}{x - a}$ ($x \\neq a$). $f$ est **dérivable en $a$** si $\\tau_a$ a une limite **finie** en $a$, notée $f'(a)$ : $f'(a) = \\lim_{h \\to 0} \\dfrac{f(a + h) - f(a)}{h}$. Tangente : $y = f(a) + f'(a)(x - a)$."
         },
         {
           "type": "propriete",
@@ -23,6 +24,11 @@
           "type": "definition",
           "titre": "Dérivées à gauche et à droite",
           "texte": "$f$ est dérivable à droite en $a$ si $\\frac{f(x) - f(a)}{x - a}$ a une limite finie quand $x \\to a^+$. $f$ est dérivable en $a$ ssi elle l'est à gauche et à droite avec $f'_g(a) = f'_d(a)$. Ex. : $x \\mapsto x|x|$ est dérivable en $0$ ; $x \\mapsto |x|$ ne l'est pas."
+        },
+        {
+          "type": "definition",
+          "titre": "Fonction dérivée, dérivées successives",
+          "texte": "$f$ est **dérivable sur $I$** si elle est dérivable en tout point de $I$ ; sa **fonction dérivée** est $f' : x \\mapsto f'(x)$. Dérivées successives : $f^{(0)} = f$ et $f^{(n+1)} = \\left(f^{(n)}\\right)'$ quand $f^{(n)}$ est dérivable ; $f$ est alors **$n$ fois dérivable**."
         },
         {
           "type": "theoreme",
@@ -44,6 +50,11 @@
     {
       "titre": "Théorèmes fondamentaux",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Extremums",
+          "texte": "$f$ admet un **maximum local** en $a$ s'il existe $\\eta > 0$ tel que $\\forall x \\in I \\cap [a - \\eta, a + \\eta],\\ f(x) \\leq f(a)$ ; un **minimum local** avec $f(x) \\geq f(a)$. Un **extremum** est un maximum ou un minimum.\nLe maximum est **global** si $f(x) \\leq f(a)$ pour tout $x \\in I$. Un point $a$ est **intérieur** à $I$ s'il existe $\\eta > 0$ avec $[a - \\eta, a + \\eta] \\subset I$ (ce n'est pas une extrémité)."
+        },
         {
           "type": "theoreme",
           "titre": "Extremum local",

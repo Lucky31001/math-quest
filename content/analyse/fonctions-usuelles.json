@@ -12,6 +12,16 @@
       "titre": "Exponentielle, logarithme, puissances",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Vocabulaire des fonctions",
+          "texte": "Soit $f : D \\to \\mathbb{R}$. $f$ est **paire** si $\\forall x \\in D,\\ -x \\in D$ et $f(-x) = f(x)$ ; **impaire** si $f(-x) = -f(x)$ ; **$T$-périodique** si $f(x + T) = f(x)$ pour tout $x$.\n$f$ est **croissante** si $x \\leq y \\Rightarrow f(x) \\leq f(y)$, **décroissante** si $x \\leq y \\Rightarrow f(x) \\geq f(y)$ ; **majorée**, **minorée**, **bornée** comme pour une partie de $\\mathbb{R}$ (appliqué à $f(D)$)."
+        },
+        {
+          "type": "definition",
+          "titre": "Logarithme et exponentielle",
+          "texte": "$\\ln$ est l'unique primitive de $x \\mapsto \\frac1x$ sur $]0, +\\infty[$ qui s'annule en $1$. C'est une bijection de $]0, +\\infty[$ sur $\\mathbb{R}$ ; sa réciproque est $\\exp : \\mathbb{R} \\to ]0, +\\infty[$, et $e = \\exp(1)$."
+        },
+        {
           "type": "propriete",
           "texte": "$\\ln$ est définie sur $]0, +\\infty[$, $\\ln(ab) = \\ln a + \\ln b$, $\\ln(a^n) = n\\ln a$, $(\\ln x)' = \\frac{1}{x}$. $\\exp$ est sa réciproque : $e^{a+b} = e^ae^b$, $(e^x)' = e^x$."
         },
@@ -37,7 +47,7 @@
         {
           "type": "definition",
           "titre": "Fonctions réciproques",
-          "texte": "$\\arcsin : [-1, 1] \\to \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$, $\\arccos : [-1, 1] \\to [0, \\pi]$, $\\arctan : \\mathbb{R} \\to \\left]-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right[$."
+          "texte": "$\\sin$ est une bijection de $\\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ sur $[-1, 1]$ : pour $y \\in [-1, 1]$, $\\arcsin y$ est l'**unique** $x \\in \\left[-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right]$ tel que $\\sin x = y$.\n$\\arccos y$ : l'unique $x \\in [0, \\pi]$ tel que $\\cos x = y$ ($y \\in [-1, 1]$).\n$\\arctan y$ : l'unique $x \\in \\left]-\\frac{\\pi}{2}, \\frac{\\pi}{2}\\right[$ tel que $\\tan x = y$ ($y \\in \\mathbb{R}$)."
         },
         {
           "type": "theoreme",

@@ -13,12 +13,43 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$f(x) \\xrightarrow[x \\to a]{} \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$."
+          "titre": "Cadre",
+          "texte": "$f$ est définie sur une partie $D$ de $\\mathbb{R}$. On cherche la limite en un point $a$ **adhérent** à $D$ (un point de $D$ ou une extrémité de $D$, comme $0$ pour $D = ]0, 1]$), ou en $+\\infty$ si $D$ n'est pas majorée, ou en $-\\infty$ si $D$ n'est pas minorée."
+        },
+        {
+          "type": "definition",
+          "titre": "Limite finie en un point $a$",
+          "texte": "$\\lim_{x \\to a} f(x) = \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$. Si $a \\in D$, la limite, si elle existe, vaut forcément $f(a)$."
+        },
+        {
+          "type": "definition",
+          "titre": "Limite infinie en un point $a$",
+          "texte": "$\\lim_{x \\to a} f(x) = +\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow f(x) \\geq A$.\n$\\lim_{x \\to a} f(x) = -\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow f(x) \\leq A$.\nEx. : $\\frac{1}{x^2} \\to +\\infty$ en $0$ (pour $A > 0$, prendre $\\eta = \\frac{1}{\\sqrt A}$)."
+        },
+        {
+          "type": "definition",
+          "titre": "Limites en $+\\infty$",
+          "texte": "$\\lim_{x \\to +\\infty} f(x) = \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\geq B \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$.\n$\\lim_{x \\to +\\infty} f(x) = +\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\geq B \\Rightarrow f(x) \\geq A$.\n$\\lim_{x \\to +\\infty} f(x) = -\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\geq B \\Rightarrow f(x) \\leq A$."
+        },
+        {
+          "type": "definition",
+          "titre": "Limites en $-\\infty$",
+          "texte": "$\\lim_{x \\to -\\infty} f(x) = \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\leq B \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$.\n$\\lim_{x \\to -\\infty} f(x) = +\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\leq B \\Rightarrow f(x) \\geq A$.\n$\\lim_{x \\to -\\infty} f(x) = -\\infty$ si $\\forall A \\in \\mathbb{R},\\ \\exists B \\in \\mathbb{R},\\ \\forall x \\in D,\\ x \\leq B \\Rightarrow f(x) \\leq A$."
+        },
+        {
+          "type": "methode",
+          "titre": "Retrouver les 9 définitions",
+          "texte": "Toutes ont la même forme : « $\\forall$ (proche de la limite), $\\exists$ (proche du point de départ), $\\forall x \\in D$, $x$ proche du départ $\\Rightarrow$ $f(x)$ proche de la limite ».\n• $x$ proche de $a$ : $|x - a| \\leq \\eta$ ; de $+\\infty$ : $x \\geq B$ ; de $-\\infty$ : $x \\leq B$.\n• $f(x)$ proche de $\\ell$ : $|f(x) - \\ell| \\leq \\varepsilon$ ; de $+\\infty$ : $f(x) \\geq A$ ; de $-\\infty$ : $f(x) \\leq A$.\nPour **nier** une définition (montrer que $f$ ne tend pas vers $\\ell$) : $\\exists \\varepsilon > 0,\\ \\forall \\eta > 0,\\ \\exists x \\in D,\\ |x - a| \\leq \\eta$ et $|f(x) - \\ell| > \\varepsilon$."
         },
         {
           "type": "definition",
           "titre": "Limites à gauche et à droite",
-          "texte": "Limite à droite : $\\lim_{x \\to a^+} f(x) = \\ell$ si la définition est vraie pour les $x > a$ seulement. $f$ a une limite en $a$ (où elle n'est pas définie) ssi les limites à gauche et à droite existent et sont égales."
+          "texte": "Limite à droite : $\\lim_{x \\to a^+} f(x) = \\ell$ si $\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ a < x \\leq a + \\eta \\Rightarrow |f(x) - \\ell| \\leq \\varepsilon$.\nLimite à gauche : même chose avec $a - \\eta \\leq x < a$. Les limites infinies à gauche et à droite s'écrivent de même (avec $f(x) \\geq A$ ou $f(x) \\leq A$). Ex. : $\\lim_{x \\to 0^+} \\frac1x = +\\infty$ et $\\lim_{x \\to 0^-} \\frac1x = -\\infty$.\n$f$ a une limite en $a$ (où elle n'est pas définie) ssi les limites à gauche et à droite existent et sont égales."
+        },
+        {
+          "type": "propriete",
+          "titre": "Unicité, caractère borné",
+          "texte": "Si $f$ admet une limite en $a$, elle est **unique**. Si $f$ a une limite **finie** en $a$, elle est bornée au voisinage de $a$."
         },
         {
           "type": "theoreme",
@@ -47,7 +78,28 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$f$ est continue en $a$ si $f(x) \\to f(a)$ quand $x \\to a$. Si $f$ est définie sur $I \\setminus \\{a\\}$ et $f(x) \\to \\ell$, on la **prolonge par continuité** en posant $f(a) = \\ell$."
+          "titre": "Continuité en un point",
+          "texte": "Soit $a \\in D$. $f$ est **continue en $a$** si $\\lim_{x \\to a} f(x) = f(a)$, c'est-à-dire $\\forall \\varepsilon > 0,\\ \\exists \\eta > 0,\\ \\forall x \\in D,\\ |x - a| \\leq \\eta \\Rightarrow |f(x) - f(a)| \\leq \\varepsilon$."
+        },
+        {
+          "type": "definition",
+          "titre": "Continuité à gauche, à droite",
+          "texte": "$f$ est **continue à droite** en $a$ si $\\lim_{x \\to a^+} f(x) = f(a)$, **à gauche** si $\\lim_{x \\to a^-} f(x) = f(a)$. $f$ est continue en $a$ ssi elle est continue à gauche et à droite en $a$. Ex. : la partie entière est continue à droite mais pas à gauche en tout entier."
+        },
+        {
+          "type": "definition",
+          "titre": "Continuité sur un intervalle",
+          "texte": "$f$ est **continue sur $I$** si elle est continue en tout point de $I$. On note $\\mathcal{C}(I, \\mathbb{R})$ (ou $\\mathcal{C}^0(I)$) l'ensemble de ces fonctions. Sommes, produits, quotients (dénominateur non nul) et composées de fonctions continues sont continus."
+        },
+        {
+          "type": "definition",
+          "titre": "Prolongement par continuité",
+          "texte": "Si $f$ est définie sur $I \\setminus \\{a\\}$ et $\\lim_{x \\to a} f(x) = \\ell$ (finie), on la **prolonge par continuité** en $a$ en posant $f(a) = \\ell$. Ex. : $\\frac{\\sin x}{x}$ se prolonge en $0$ par $1$."
+        },
+        {
+          "type": "definition",
+          "titre": "Fonction lipschitzienne",
+          "texte": "$f$ est **$k$-lipschitzienne** sur $I$ si $\\forall x, y \\in I,\\ |f(x) - f(y)| \\leq k|x - y|$. Une fonction lipschitzienne est continue (prendre $\\eta = \\frac{\\varepsilon}{k}$ si $k > 0$)."
         },
         {
           "type": "theoreme",

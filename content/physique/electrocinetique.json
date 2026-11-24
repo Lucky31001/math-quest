@@ -13,8 +13,23 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Vocabulaire des circuits",
+          "texte": "Un **dipôle** est un composant à deux bornes. Un **nœud** relie au moins trois fils ; une **branche** est une portion de circuit entre deux nœuds ; une **maille** est un chemin fermé. Deux dipôles sont **en série** s'ils sont traversés par le même courant, **en parallèle** (dérivation) s'ils ont la même tension à leurs bornes."
+        },
+        {
+          "type": "definition",
           "titre": "Intensité, tension, puissance",
           "texte": "Intensité $i = \\dfrac{\\mathrm dq}{\\mathrm dt}$ (A), tension $u_{AB} = V_A - V_B$ (V). En convention récepteur, la puissance reçue par un dipôle est $\\mathcal P = u\\,i$ (W)."
+        },
+        {
+          "type": "definition",
+          "titre": "Conventions récepteur et générateur",
+          "texte": "En **convention récepteur**, les flèches de $u$ et de $i$ sont de sens opposés : $\\mathcal P = ui$ est la puissance **reçue**. En **convention générateur**, elles sont de même sens : $ui$ est la puissance **fournie**."
+        },
+        {
+          "type": "definition",
+          "titre": "Régimes",
+          "texte": "Le **régime permanent** (continu) est atteint quand les grandeurs ne varient plus ; le **régime transitoire** est l'évolution entre deux régimes permanents, de durée de l'ordre de quelques constantes de temps $\\tau$."
         },
         {
           "type": "theoreme",

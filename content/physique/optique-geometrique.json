@@ -22,6 +22,11 @@
           "texte": "Dans un milieu transparent, la vitesse de la lumière dépend de sa fréquence : le milieu est **dispersif**. Loi de **Cauchy** : $n(\\lambda) = A + \\dfrac{B}{\\lambda^2}$ ($A, B > 0$) : l'indice est plus grand pour le bleu que pour le rouge. **Nombre d'Abbe** : $\\eta = \\dfrac{n_D - 1}{n_F - n_C}$ (raies jaune $D$, bleue $F$, rouge $C$) ; plus il est élevé, **moins** le verre est dispersif."
         },
         {
+          "type": "definition",
+          "titre": "Rayon lumineux, milieu",
+          "texte": "Un **rayon lumineux** est une ligne selon laquelle se propage la lumière (modèle de l'optique géométrique). Un milieu est **homogène** si ses propriétés sont les mêmes en tout point, **isotrope** si elles sont les mêmes dans toutes les directions, **transparent** s'il laisse passer la lumière."
+        },
+        {
           "type": "theoreme",
           "titre": "Propagation rectiligne",
           "texte": "Dans un milieu **homogène, transparent et isotrope** (M.H.T.I.), la lumière se propage en ligne droite. L'optique géométrique (rayons lumineux) est valable quand les obstacles sont grands devant la longueur d'onde. **Retour inverse** : le trajet suivi par la lumière ne dépend pas du sens de parcours."
@@ -30,6 +35,11 @@
           "type": "definition",
           "titre": "Indice de réfraction",
           "texte": "Dans un milieu transparent homogène, la lumière se propage en ligne droite (rayons lumineux) à la vitesse $v = c / n$, où $n \\ge 1$ est l'**indice** du milieu ($n_{\\text{air}} \\approx 1$, $n_{\\text{eau}} \\approx 1{,}33$, $n_{\\text{verre}} \\approx 1{,}5$) et $c \\approx 3{,}00 \\times 10^8\\ \\mathrm{m/s}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Dioptre, angles",
+          "texte": "Un **dioptre** est la surface qui sépare deux milieux transparents d'indices différents. Au point d'incidence $I$, la **normale** est la droite perpendiculaire au dioptre ; le **plan d'incidence** contient le rayon incident et la normale. Les angles d'incidence $i_1$, de réflexion $i'$ et de réfraction $i_2$ se mesurent **par rapport à la normale**."
         },
         {
           "type": "theoreme",
@@ -51,6 +61,11 @@
     {
       "titre": "Stigmatisme et conditions de Gauss",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Système optique centré",
+          "texte": "Un **système optique** est une suite de dioptres et de miroirs. Il est **centré** s'il admet un axe de symétrie de révolution, l'**axe optique**. Un **objet** est ce qui envoie de la lumière vers le système, l'**image** ce qu'il en forme."
+        },
         {
           "type": "definition",
           "titre": "Stigmatisme",
@@ -79,7 +94,17 @@
         {
           "type": "definition",
           "titre": "Lentilles minces",
-          "texte": "Une lentille mince de centre $O$ a un foyer objet $F$ et un foyer image $F'$, symétriques par rapport à $O$. Distance focale $f' = \\overline{OF'}$, vergence $V = 1 / f'$ (en dioptries $\\delta$, $f'$ en mètres). **Convergente** : $f' > 0$ ; **divergente** : $f' < 0$. On travaille dans les **conditions de Gauss** (rayons peu inclinés, proches de l'axe)."
+          "texte": "Une **lentille mince** est un milieu transparent limité par deux dioptres (dont l'un au moins est sphérique) d'épaisseur faible devant les rayons de courbure ; son **centre optique** $O$ est sur l'axe. Une lentille **convergente** a les bords minces, une **divergente** les bords épais. On travaille dans les **conditions de Gauss** (rayons peu inclinés, proches de l'axe)."
+        },
+        {
+          "type": "definition",
+          "titre": "Foyers, distance focale, vergence",
+          "texte": "Le **foyer image** $F'$ est l'image d'un point à l'infini sur l'axe (les rayons parallèles à l'axe convergent en $F'$) ; le **foyer objet** $F$ a son image à l'infini. $F$ et $F'$ sont symétriques par rapport à $O$. **Distance focale** $f' = \\overline{OF'}$, **vergence** $V = 1 / f'$ (en dioptries $\\delta$, $f'$ en mètres). **Convergente** : $f' > 0$ ; **divergente** : $f' < 0$. Les **plans focaux** sont les plans perpendiculaires à l'axe passant par $F$ et $F'$."
+        },
+        {
+          "type": "definition",
+          "titre": "Grandissement",
+          "texte": "Pour un objet $AB$ perpendiculaire à l'axe ($A$ sur l'axe) d'image $A'B'$, le **grandissement** est $\\gamma = \\dfrac{\\overline{A'B'}}{\\overline{AB}}$ : $|\\gamma| > 1$ image agrandie, $\\gamma < 0$ image renversée."
         },
         {
           "type": "methode",

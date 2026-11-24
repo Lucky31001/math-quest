@@ -13,6 +13,11 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Grandeur physique",
+          "texte": "Une **grandeur physique** est une propriété **mesurable** (longueur, masse, durée…). Sa valeur s'écrit **nombre × unité** : $\\ell = 2{,}5\\ \\mathrm m$. Une **unité** est une grandeur de référence choisie par convention ; un résultat sans unité n'a pas de sens (sauf grandeur sans dimension)."
+        },
+        {
+          "type": "definition",
           "titre": "Unités de base",
           "texte": "Le SI repose sur 7 unités de base : mètre (m), kilogramme (kg), seconde (s), ampère (A), kelvin (K), mole (mol), candela (cd). Toutes les autres unités en dérivent."
         },
@@ -40,6 +45,11 @@
           "type": "definition",
           "titre": "Dimension",
           "texte": "La dimension d'une grandeur $G$, notée $[G]$, s'exprime avec les dimensions de base : longueur $\\mathsf{L}$, masse $\\mathsf{M}$, temps $\\mathsf{T}$, intensité $\\mathsf{I}$, température $\\Theta$… Par exemple $[v] = \\mathsf{L\\,T^{-1}}$ et $[F] = \\mathsf{M\\,L\\,T^{-2}}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Grandeur sans dimension",
+          "texte": "Une grandeur est **sans dimension** si $[G] = 1$ : un rapport de deux grandeurs de même nature (indice $n = c / v$, rendement, angle en radians, incertitude relative). Sa valeur ne dépend pas du système d'unités."
         },
         {
           "type": "theoreme",

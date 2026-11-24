@@ -13,7 +13,13 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$f$ admet un DL à l'ordre $n$ en 0 si $f(x) = a_0 + a_1x + \\dots + a_nx^n + o(x^n)$, où $o(x^n) = x^n\\varepsilon(x)$ avec $\\varepsilon(x) \\to 0$. La partie régulière est **unique**."
+          "titre": "Négligeabilité",
+          "texte": "Au voisinage de $a$ ($a$ réel ou $\\pm\\infty$), $f$ est **négligeable** devant $g$, noté $f = o(g)$, s'il existe une fonction $\\varepsilon$ telle que $f = g\\,\\varepsilon$ près de $a$ et $\\varepsilon(x) \\to 0$. Si $g$ ne s'annule pas près de $a$ : $f = o(g) \\iff \\frac{f}{g} \\to 0$. Ex. : $x^2 = o(x)$ en $0$, $x = o(x^2)$ en $+\\infty$."
+        },
+        {
+          "type": "definition",
+          "titre": "Développement limité",
+          "texte": "$f$ admet un **DL à l'ordre $n$ en 0** si $f(x) = a_0 + a_1x + \\dots + a_nx^n + o(x^n)$, où $o(x^n) = x^n\\varepsilon(x)$ avec $\\varepsilon(x) \\to 0$. Le polynôme $a_0 + \\dots + a_nx^n$ est la **partie régulière** ; elle est **unique**. En $a$ : $f(x) = \\sum_{k=0}^{n} a_k(x - a)^k + o((x - a)^n)$, ce qui revient à un DL en $0$ de $h \\mapsto f(a + h)$."
         },
         {
           "type": "theoreme",
@@ -64,7 +70,8 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$f \\sim g$ en 0 si $\\frac{f}{g} \\to 1$. Le premier terme non nul d'un DL donne un équivalent."
+          "titre": "Équivalence",
+          "texte": "Au voisinage de $a$, $f$ est **équivalente** à $g$, noté $f \\sim g$, si $f - g = o(g)$, soit $f = g(1 + \\varepsilon)$ avec $\\varepsilon \\to 0$. Si $g$ ne s'annule pas près de $a$ : $f \\sim g \\iff \\frac{f}{g} \\to 1$. Le premier terme non nul d'un DL donne un équivalent."
         },
         {
           "type": "propriete",

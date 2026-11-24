@@ -12,6 +12,11 @@
       "titre": "Ordre 1 : $y' + a(x)y = b(x)$",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Équation linéaire du premier ordre",
+          "texte": "Soient $a, b$ continues sur un intervalle $I$. Une **solution** de $(E) : y' + a(x)y = b(x)$ est une fonction $y$ dérivable sur $I$ telle que $\\forall x \\in I,\\ y'(x) + a(x)y(x) = b(x)$. L'**équation homogène** associée est $(H) : y' + a(x)y = 0$ ; $b$ est le **second membre**."
+        },
+        {
           "type": "theoreme",
           "titre": "Équation homogène",
           "texte": "Si $a$ est continue sur $I$ et $A$ est une primitive de $a$, les solutions de $y' + a(x)y = 0$ sont $x \\mapsto Ce^{-A(x)}$, $C \\in \\mathbb{R}$."
@@ -36,6 +41,11 @@
     {
       "titre": "Ordre 2 : $y'' + ay' + by = f(x)$",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Équation linéaire du second ordre à coefficients constants",
+          "texte": "Soient $a, b \\in \\mathbb{R}$ et $f$ continue sur $I$. Une **solution** de $y'' + ay' + by = f(x)$ est une fonction $y$ deux fois dérivable sur $I$ qui vérifie l'équation en tout $x \\in I$. Son **équation caractéristique** est $r^2 + ar + b = 0$ (on cherche les solutions $e^{rx}$ de l'équation homogène)."
+        },
         {
           "type": "theoreme",
           "titre": "Équation homogène",

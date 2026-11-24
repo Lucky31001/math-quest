@@ -13,7 +13,18 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$F \\subset E$ est un sous-espace vectoriel si $0_E \\in F$ et $F$ est stable par combinaison linéaire : $\\forall u, v \\in F,\\ \\forall \\lambda \\in \\mathbb{K},\\ \\lambda u + v \\in F$."
+          "titre": "Espace vectoriel",
+          "texte": "Un **$\\mathbb{K}$-espace vectoriel** est un ensemble $E$ muni d'une addition et d'une multiplication par les scalaires de $\\mathbb{K}$, qui vérifient les règles de calcul usuelles (addition associative et commutative, vecteur nul $0_E$, opposés, $\\lambda(u + v) = \\lambda u + \\lambda v$, $(\\lambda + \\mu)u = \\lambda u + \\mu u$, $\\lambda(\\mu u) = (\\lambda\\mu)u$, $1 \\cdot u = u$). Ex. : $\\mathbb{K}^n$, $\\mathbb{K}[X]$, $\\mathcal{M}_{n,p}(\\mathbb{K})$, les fonctions de $\\mathbb{R}$ dans $\\mathbb{R}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Combinaison linéaire, Vect",
+          "texte": "Une **combinaison linéaire** de $v_1, \\dots, v_p$ est un vecteur $\\lambda_1v_1 + \\dots + \\lambda_pv_p$ ($\\lambda_i \\in \\mathbb{K}$). $\\mathrm{Vect}(v_1, \\dots, v_p)$ est l'ensemble de ces combinaisons : c'est le plus petit sous-espace qui contient les $v_i$."
+        },
+        {
+          "type": "definition",
+          "titre": "Sous-espace vectoriel",
+          "texte": "$F \\subset E$ est un **sous-espace vectoriel** si $0_E \\in F$ et $F$ est stable par combinaison linéaire : $\\forall u, v \\in F,\\ \\forall \\lambda \\in \\mathbb{K},\\ \\lambda u + v \\in F$."
         },
         {
           "type": "propriete",
@@ -21,8 +32,8 @@
         },
         {
           "type": "definition",
-          "titre": "Somme directe, supplémentaires",
-          "texte": "La somme $F + G$ est directe ($F \\oplus G$) si $F \\cap G = \\{0\\}$. $F$ et $G$ sont supplémentaires dans $E$ si $F \\oplus G = E$."
+          "titre": "Somme, somme directe, supplémentaires",
+          "texte": "$F + G = \\{u + v : u \\in F,\\ v \\in G\\}$. La somme est **directe** ($F \\oplus G$) si $F \\cap G = \\{0\\}$ : chaque vecteur de $F + G$ s'écrit alors de façon **unique** $u + v$. $F$ et $G$ sont **supplémentaires** dans $E$ si $F \\oplus G = E$."
         },
         {
           "type": "methode",
@@ -35,7 +46,18 @@
       "blocs": [
         {
           "type": "definition",
-          "texte": "$(v_1, \\dots, v_p)$ est **libre** si $\\sum \\lambda_i v_i = 0 \\Rightarrow$ tous les $\\lambda_i$ sont nuls ; **génératrice** de $E$ si tout vecteur de $E$ est combinaison linéaire des $v_i$ ; une **base** si elle est libre et génératrice."
+          "titre": "Famille libre, liée",
+          "texte": "$(v_1, \\dots, v_p)$ est **libre** si $\\lambda_1v_1 + \\dots + \\lambda_pv_p = 0 \\Rightarrow \\lambda_1 = \\dots = \\lambda_p = 0$. Sinon elle est **liée** : l'un des vecteurs est combinaison linéaire des autres."
+        },
+        {
+          "type": "definition",
+          "titre": "Famille génératrice",
+          "texte": "$(v_1, \\dots, v_p)$ est **génératrice** de $E$ si tout vecteur de $E$ est combinaison linéaire des $v_i$, c'est-à-dire $E = \\mathrm{Vect}(v_1, \\dots, v_p)$."
+        },
+        {
+          "type": "definition",
+          "titre": "Base, coordonnées",
+          "texte": "Une **base** est une famille libre et génératrice. Dans une base $(e_1, \\dots, e_n)$, tout $u$ s'écrit de façon unique $u = x_1e_1 + \\dots + x_ne_n$ : $(x_1, \\dots, x_n)$ sont ses **coordonnées**. Base canonique de $\\mathbb{K}^n$ : $e_i = (0, \\dots, 1, \\dots, 0)$."
         },
         {
           "type": "propriete",
@@ -46,6 +68,11 @@
     {
       "titre": "Dimension",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Dimension, rang",
+          "texte": "$E$ est de **dimension finie** s'il admet une famille génératrice finie. Sa **dimension** $\\dim E$ est le nombre de vecteurs d'une base (avec $\\dim\\{0\\} = 0$). Le **rang** d'une famille est la dimension du sous-espace qu'elle engendre."
+        },
         {
           "type": "theoreme",
           "texte": "Toutes les bases d'un espace de dimension finie ont le même cardinal : la dimension. $\\dim \\mathbb{K}^n = n$, $\\dim \\mathbb{K}_n[X] = n + 1$, $\\dim \\mathcal{M}_{n,p}(\\mathbb{K}) = np$."
