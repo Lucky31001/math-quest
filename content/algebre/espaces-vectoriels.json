@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "espaces-vectoriels",
   "monde": "algebre",
-  "ordre": 7,
+  "ordre": 9,
   "semestre": 2,
   "titre": "Espaces vectoriels",
   "icone": "📐",

@@ -1,0 +1,521 @@
+{
+  "$schema": "../schema.json",
+  "id": "fractions-rationnelles",
+  "monde": "algebre",
+  "ordre": 6,
+  "semestre": 1,
+  "titre": "Fractions rationnelles",
+  "icone": "➗",
+  "resume": "Forme irréductible, degré, pôles et zéros, partie entière, décomposition en éléments simples dans $\\mathbb{C}(X)$ et $\\mathbb{R}(X)$.",
+  "cours": [
+    {
+      "titre": "Définitions",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Fraction rationnelle",
+          "texte": "Une **fraction rationnelle** est un quotient $R = \\frac PQ$ de polynômes, $Q \\neq 0$. On note $\\mathbb{K}(X)$ leur ensemble ($\\mathbb{K} = \\mathbb{R}$ ou $\\mathbb{C}$). $\\frac AB = \\frac CD \\iff AD = BC$ : une fraction a plusieurs représentants, par exemple $\\frac1X = \\frac{X + 1}{X(X + 1)}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Forme irréductible",
+          "texte": "$\\frac PQ$ est **irréductible** si $P$ et $Q$ sont **premiers entre eux** (seuls diviseurs communs : les constantes non nulles). Elle existe toujours, unique si on impose $Q$ unitaire. Ex. : $\\frac{2X^2 + 2X - 4}{X^3 - 1} = \\frac{(X - 1)(2X + 4)}{(X - 1)(X^2 + X + 1)} = \\frac{2X + 4}{X^2 + X + 1}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Degré, dérivée",
+          "texte": "$\\deg\\frac PQ = \\deg P - \\deg Q \\in \\mathbb{Z} \\cup \\{-\\infty\\}$, indépendant du représentant. $\\deg(R + S) \\leq \\max(\\deg R, \\deg S)$ et $\\deg(RS) = \\deg R + \\deg S$. Dérivée : $\\left(\\frac PQ\\right)' = \\frac{P'Q - PQ'}{Q^2}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Zéros et pôles",
+          "texte": "Pour $R = \\frac PQ$ **sous forme irréductible** : les **zéros** de $R$ sont les racines de $P$, ses **pôles** les racines de $Q$, avec leurs multiplicités. Un élément ne peut pas être à la fois pôle et zéro. **Toujours simplifier avant de lire pôles et zéros.**"
+        }
+      ]
+    },
+    {
+      "titre": "Partie entière et éléments simples",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "Partie entière",
+          "texte": "Il existe un unique polynôme $E$ et une unique fraction $R_0$ de degré $< 0$ tels que $F = E + R_0$. $E$ est la **partie entière** de $F = \\frac PQ$ : c'est le **quotient de la division euclidienne** de $P$ par $Q$. Si $\\deg F < 0$, $E = 0$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Décomposition en éléments simples dans ℂ(X)",
+          "texte": "Si $F$ a pour pôles $\\lambda_1, \\dots, \\lambda_r$ de multiplicités $m_1, \\dots, m_r$ : $F = E + \\displaystyle\\sum_{i=1}^{r} \\sum_{k=1}^{m_i} \\frac{a_{ik}}{(X - \\lambda_i)^k}$, de façon unique. Un pôle d'ordre $m$ apporte $m$ termes : $\\frac{a_{i1}}{X - \\lambda_i} + \\dots + \\frac{a_{im}}{(X - \\lambda_i)^m}$ (sa **partie polaire**)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Décomposition dans ℝ(X)",
+          "texte": "Dans $\\mathbb{R}(X)$, on factorise $Q$ en irréductibles réels : $(X - \\lambda)^m$ et $(X^2 + bX + c)^n$ avec $b^2 - 4c < 0$. Les $\\frac{a}{(X - \\lambda)^k}$ sont les éléments de **première espèce** ; les $\\frac{uX + v}{(X^2 + bX + c)^k}$ ceux de **seconde espèce** (numérateur de degré $\\leq 1$)."
+        },
+        {
+          "type": "methode",
+          "titre": "Procédure (D.E.S.)",
+          "texte": "(1) Partie entière par division euclidienne si $\\deg F \\geq 0$. (2) Factoriser $Q$ pour trouver les pôles. (3) **Poser** la décomposition avec des coefficients inconnus. (4) Calculer les coefficients."
+        }
+      ]
+    },
+    {
+      "titre": "Calcul des coefficients",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Multiplication-évaluation (« cache »)",
+          "texte": "Pour un pôle **simple** $\\lambda$ : on multiplie $F$ par $X - \\lambda$, on simplifie, on remplace $X$ par $\\lambda$. En pratique, on **cache** le facteur $X - \\lambda$ dans $F$ et on évalue le reste en $\\lambda$. Ex. : $\\frac{X + 3}{(X - 1)(X + 1)} = \\frac{2}{X - 1} - \\frac{1}{X + 1}$ ($a = \\frac{1 + 3}{1 + 1}$, $b = \\frac{-1 + 3}{-1 - 1}$)."
+        },
+        {
+          "type": "methode",
+          "titre": "Formule $P(\\lambda)/Q'(\\lambda)$",
+          "texte": "Si $\\lambda$ est pôle simple de $\\frac PQ$ et $Q$ est développé, le coefficient de $\\frac{1}{X - \\lambda}$ vaut $\\dfrac{P(\\lambda)}{Q'(\\lambda)}$. Ex. : dans $\\frac{1}{X^3 - 1}$, celui de $\\frac{1}{X - 1}$ vaut $\\frac{1}{3}$."
+        },
+        {
+          "type": "methode",
+          "titre": "Pôles multiples : limite et évaluation",
+          "texte": "Pôle d'ordre $m$ : multiplier par $(X - \\lambda)^m$ et évaluer en $\\lambda$ ne donne que le coefficient de $\\frac{1}{(X - \\lambda)^m}$. Pour les autres : **limite** de $x F(x)$ en $+\\infty$ (donne la somme des coefficients des $\\frac{1}{X - \\lambda}$ quand $\\deg F < 0$), ou **évaluation** en une valeur simple (souvent $X = 0$)."
+        },
+        {
+          "type": "methode",
+          "titre": "Seconde espèce, symétries",
+          "texte": "Pour $\\frac{uX + v}{X^2 + bX + c}$ : multiplier par $X^2 + bX + c$, puis évaluer en une racine complexe $z_0$ de ce trinôme ; on identifie parties réelle et imaginaire de $u z_0 + v$ (avec $u, v$ réels). Si $F$ est réelle, les coefficients de deux pôles conjugués sont conjugués. Penser aussi à la **parité** de $F$."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-fraction-egalite",
+      "recto": "Quand a-t-on $\\frac AB = \\frac CD$ ?",
+      "verso": "Quand $AD = BC$."
+    },
+    {
+      "id": "f-fraction-irreductible",
+      "recto": "Forme irréductible de $\\frac PQ$ ?",
+      "verso": "Une écriture avec $P$ et $Q$ premiers entre eux (unique si $Q$ est unitaire)."
+    },
+    {
+      "id": "f-fraction-degre",
+      "recto": "Degré de $\\frac PQ$ ?",
+      "verso": "$\\deg P - \\deg Q$ (et $-\\infty$ si $P = 0$)."
+    },
+    {
+      "id": "f-poles-zeros",
+      "recto": "Pôles et zéros de $\\frac PQ$ ?",
+      "verso": "Sous forme **irréductible** : zéros = racines de $P$, pôles = racines de $Q$."
+    },
+    {
+      "id": "f-partie-entiere-fr",
+      "recto": "Comment calculer la partie entière de $\\frac PQ$ ?",
+      "verso": "C'est le quotient de la division euclidienne de $P$ par $Q$ (nulle si $\\deg P < \\deg Q$)."
+    },
+    {
+      "id": "f-partie-polaire",
+      "recto": "Partie polaire d'un pôle $\\lambda$ d'ordre $m$ ?",
+      "verso": "$\\frac{a_1}{X - \\lambda} + \\frac{a_2}{(X - \\lambda)^2} + \\dots + \\frac{a_m}{(X - \\lambda)^m}$."
+    },
+    {
+      "id": "f-seconde-espece",
+      "recto": "Élément simple de seconde espèce ?",
+      "verso": "$\\frac{uX + v}{(X^2 + bX + c)^k}$ avec $b^2 - 4c < 0$ et $u, v \\in \\mathbb{R}$."
+    },
+    {
+      "id": "f-cache",
+      "recto": "Coefficient de $\\frac{1}{X - \\lambda}$ pour un pôle simple (méthode du cache) ?",
+      "verso": "Cacher $X - \\lambda$ dans le dénominateur de $F$, puis remplacer $X$ par $\\lambda$."
+    },
+    {
+      "id": "f-p-qprime",
+      "recto": "Coefficient d'un pôle simple $\\lambda$ de $\\frac PQ$, avec $Q$ développé ?",
+      "verso": "$\\frac{P(\\lambda)}{Q'(\\lambda)}$."
+    },
+    {
+      "id": "f-pole-double",
+      "recto": "Pôle double $\\lambda$ : que donne « multiplier par $(X - \\lambda)^2$ et évaluer en $\\lambda$ » ?",
+      "verso": "Seulement le coefficient de $\\frac{1}{(X - \\lambda)^2}$."
+    },
+    {
+      "id": "f-limite-xf",
+      "recto": "À quoi sert la limite de $xF(x)$ en $+\\infty$ (avec $\\deg F < 0$) ?",
+      "verso": "Elle vaut la somme des coefficients des termes en $\\frac{1}{X - \\lambda}$ : on en déduit un dernier coefficient."
+    },
+    {
+      "id": "f-conjugues",
+      "recto": "$F \\in \\mathbb{R}(X)$ a deux pôles simples conjugués $z$ et $\\bar z$. Lien entre leurs coefficients ?",
+      "verso": "Ils sont conjugués : $\\frac{\\alpha}{X - z} + \\frac{\\bar\\alpha}{X - \\bar z}$."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "fr-degre",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quel est le degré de $\\dfrac{X^3 + 1}{X^5 - X}$ ?",
+      "correction": [
+        "$\\deg\\frac PQ = \\deg P - \\deg Q = 3 - 5 = -2$."
+      ],
+      "choix": [
+        {
+          "texte": "$-2$",
+          "correct": true,
+          "explication": "$\\deg = 3 - 5$."
+        },
+        {
+          "texte": "$2$",
+          "correct": false,
+          "explication": "C'est $\\deg Q - \\deg P$ : l'ordre est inversé."
+        },
+        {
+          "texte": "$8$",
+          "correct": false,
+          "explication": "Le degré d'un quotient est une différence, pas une somme."
+        },
+        {
+          "texte": "$0$",
+          "correct": false,
+          "explication": "$\\deg F = 0$ seulement si $\\deg P = \\deg Q$."
+        }
+      ]
+    },
+    {
+      "id": "fr-forme-irreductible",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la forme irréductible de $\\dfrac{2X^2 + 2X - 4}{X^3 - 1}$ ?",
+      "correction": [
+        "$2X^2 + 2X - 4 = (X - 1)(2X + 4)$ et $X^3 - 1 = (X - 1)(X^2 + X + 1)$.",
+        "$2X + 4$ et $X^2 + X + 1$ sont premiers entre eux ($-2$ n'est pas racine de $X^2 + X + 1$)."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{2X + 4}{X^2 + X + 1}$",
+          "correct": true,
+          "explication": "On simplifie par le facteur commun $X - 1$."
+        },
+        {
+          "texte": "$\\dfrac{2X + 4}{X^2 - 1}$",
+          "correct": false,
+          "explication": "$X^3 - 1 = (X - 1)(X^2 + X + 1)$, pas $(X - 1)(X^2 - 1)$."
+        },
+        {
+          "texte": "$\\dfrac{2X - 4}{X^2 + X + 1}$",
+          "correct": false,
+          "explication": "$2X^2 + 2X - 4 = 2(X - 1)(X + 2)$ : le facteur restant est $2X + 4$."
+        },
+        {
+          "texte": "Elle est déjà irréductible",
+          "correct": false,
+          "explication": "$1$ est racine du numérateur et du dénominateur."
+        }
+      ]
+    },
+    {
+      "id": "fr-poles",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $R = \\dfrac{(X - 1)(X + 2)}{X(X - 1)^2(X + 3)}$. Lesquelles de ces affirmations sont vraies ?",
+      "correction": [
+        "Forme irréductible : $R = \\frac{X + 2}{X(X - 1)(X + 3)}$.",
+        "Pôles simples $0$, $1$, $-3$ ; zéro simple $-2$."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$1$ est un pôle simple de $R$.",
+          "correct": true,
+          "explication": "Après simplification par $X - 1$, il reste $(X - 1)^1$ au dénominateur."
+        },
+        {
+          "texte": "$0$ est un pôle simple de $R$.",
+          "correct": true,
+          "explication": "$X$ apparaît à la puissance 1 au dénominateur."
+        },
+        {
+          "texte": "$-2$ est un zéro de $R$.",
+          "correct": true,
+          "explication": "$X + 2$ reste au numérateur."
+        },
+        {
+          "texte": "$1$ est un pôle double de $R$.",
+          "correct": false,
+          "explication": "On lit les pôles sur la forme **irréductible** : il faut d'abord simplifier par $X - 1$."
+        },
+        {
+          "texte": "$1$ est à la fois un zéro et un pôle de $R$.",
+          "correct": false,
+          "explication": "Sous forme irréductible, c'est impossible : on simplifie."
+        }
+      ]
+    },
+    {
+      "id": "fr-multiplicite-zero",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quelle est la multiplicité de $4$ comme zéro de $R = \\dfrac{(X - 4)^3(X + 1)}{X(X - 4)(X + 1)^2}$ ?",
+      "correction": [
+        "On simplifie : $R = \\frac{(X - 4)^2}{X(X + 1)}$, sous forme irréductible.",
+        "$4$ est racine double du numérateur : zéro de multiplicité $2$."
+      ],
+      "reponse": 2
+    },
+    {
+      "id": "fr-partie-entiere",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Donner la partie entière de $F = \\dfrac{2X^4 - X^3 - 2X^2 + 3X - 1}{X^2 - X + 1}$.",
+      "indice": "C'est le quotient de la division euclidienne du numérateur par le dénominateur.",
+      "correction": [
+        "Division euclidienne : $2X^4 - X^3 - 2X^2 + 3X - 1 = (X^2 - X + 1)(2X^2 + X - 3) + (-X + 2)$.",
+        "Donc $F = 2X^2 + X - 3 + \\frac{-X + 2}{X^2 - X + 1}$ : la partie entière est $2X^2 + X - 3$."
+      ],
+      "reponse": "2x^2 + x - 3",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "fr-cache",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "On écrit $\\dfrac{3X + 1}{(X - 1)(X + 1)} = \\dfrac{a}{X - 1} + \\dfrac{b}{X + 1}$. Calculer $a$.",
+      "indice": "Multiplier par $X - 1$, puis remplacer $X$ par $1$.",
+      "correction": [
+        "On cache $X - 1$ et on remplace $X$ par $1$ : $a = \\frac{3 + 1}{1 + 1} = 2$.",
+        "(De même $b = \\frac{-3 + 1}{-1 - 1} = 1$.)"
+      ],
+      "reponse": 2
+    },
+    {
+      "id": "fr-p-sur-q-prime",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Dans la décomposition de $\\dfrac{1}{X^3 - 1}$, quel est le coefficient de $\\dfrac{1}{X - 1}$ ?",
+      "correction": [
+        "$1$ est pôle simple de $\\frac PQ$ avec $P = 1$, $Q = X^3 - 1$, $Q' = 3X^2$.",
+        "Coefficient : $\\frac{P(1)}{Q'(1)} = \\frac13$."
+      ],
+      "reponse": "1/3"
+    },
+    {
+      "id": "fr-pole-double-haut",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "On écrit $\\dfrac{X + 1}{(X - 1)^2(X + 2)} = \\dfrac{a}{(X - 1)^2} + \\dfrac{b}{X - 1} + \\dfrac{c}{X + 2}$. Calculer $a$.",
+      "correction": [
+        "On multiplie par $(X - 1)^2$ : $\\frac{X + 1}{X + 2} = a + b(X - 1) + c\\frac{(X - 1)^2}{X + 2}$.",
+        "En $X = 1$ : $a = \\frac{2}{3}$."
+      ],
+      "reponse": "2/3"
+    },
+    {
+      "id": "fr-pole-double-bas",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Même décomposition : $\\dfrac{X + 1}{(X - 1)^2(X + 2)} = \\dfrac{a}{(X - 1)^2} + \\dfrac{b}{X - 1} + \\dfrac{c}{X + 2}$. Calculer $b$.",
+      "indice": "Calculer $c$, puis la limite de $xF(x)$ en $+\\infty$.",
+      "correction": [
+        "Cache en $-2$ : $c = \\frac{-2 + 1}{(-3)^2} = -\\frac19$.",
+        "Limite de $xF(x)$ en $+\\infty$ : à gauche $\\frac{x(x + 1)}{(x - 1)^2(x + 2)} \\to 0$ ; à droite, $b + c$.",
+        "Donc $b = -c = \\frac19$."
+      ],
+      "reponse": "1/9"
+    },
+    {
+      "id": "fr-seconde-espece",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quelle est la décomposition en éléments simples de $\\dfrac{1}{X(X^2 + 1)}$ dans $\\mathbb{R}(X)$ ?",
+      "correction": [
+        "On pose $\\frac{1}{X(X^2 + 1)} = \\frac aX + \\frac{uX + v}{X^2 + 1}$.",
+        "Cache en $0$ : $a = 1$. Multiplier par $X^2 + 1$ et remplacer $X$ par $i$ : $\\frac1i = ui + v$, soit $-i = ui + v$, donc $u = -1$, $v = 0$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac1X - \\dfrac{X}{X^2 + 1}$",
+          "correct": true,
+          "explication": "$a = 1$ par le cache en $0$ ; en $X = i$ : $\\frac1i = -i = ui + v$, donc $u = -1$, $v = 0$."
+        },
+        {
+          "texte": "$\\dfrac1X + \\dfrac{X}{X^2 + 1}$",
+          "correct": false,
+          "explication": "Erreur de signe : $\\frac1i = -i$."
+        },
+        {
+          "texte": "$\\dfrac1X - \\dfrac{1}{X^2 + 1}$",
+          "correct": false,
+          "explication": "Le numérateur d'un élément de seconde espèce est de la forme $uX + v$ : ici $u = -1$, $v = 0$."
+        },
+        {
+          "texte": "$\\dfrac1X + \\dfrac{1}{X^2 + 1}$",
+          "correct": false,
+          "explication": "En réduisant au même dénominateur, on trouve $\\frac{X^2 + X + 1}{X(X^2 + 1)}$."
+        }
+      ]
+    },
+    {
+      "id": "fr-des-dans-c",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est la décomposition de $\\dfrac{1}{X^2 + 1}$ dans $\\mathbb{C}(X)$ ?",
+      "correction": [
+        "$X^2 + 1 = (X - i)(X + i)$ : deux pôles simples.",
+        "Coefficients : $\\frac{1}{i + i} = -\\frac i2$ et $\\frac{1}{-i - i} = \\frac i2$ (conjugués, car la fraction est réelle)."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{-i/2}{X - i} + \\dfrac{i/2}{X + i}$",
+          "correct": true,
+          "explication": "Cache en $i$ : $\\frac{1}{2i} = -\\frac i2$ ; en $-i$ : $\\frac{1}{-2i} = \\frac i2$."
+        },
+        {
+          "texte": "$\\dfrac{i/2}{X - i} - \\dfrac{i/2}{X + i}$",
+          "correct": false,
+          "explication": "Erreur de signe : $\\frac{1}{2i} = -\\frac i2$."
+        },
+        {
+          "texte": "$\\dfrac{1}{X - i} + \\dfrac{1}{X + i}$",
+          "correct": false,
+          "explication": "Cela vaut $\\frac{2X}{X^2 + 1}$."
+        },
+        {
+          "texte": "Elle est déjà décomposée",
+          "correct": false,
+          "explication": "$X^2 + 1$ n'est pas irréductible dans $\\mathbb{C}[X]$ : $X^2 + 1 = (X - i)(X + i)$."
+        }
+      ]
+    },
+    {
+      "id": "fr-forme-a-poser",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle forme faut-il poser pour décomposer $\\dfrac{X^2 + 1}{(X - 1)^2(X^2 + X + 1)}$ dans $\\mathbb{R}(X)$ ?",
+      "correction": [
+        "$\\deg F < 0$ : pas de partie entière.",
+        "$(X - 1)^2$ donne $\\frac{a}{(X - 1)^2} + \\frac{b}{X - 1}$ ; $X^2 + X + 1$ ($\\Delta = -3 < 0$) donne $\\frac{cX + d}{X^2 + X + 1}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{a}{(X - 1)^2} + \\dfrac{b}{X - 1} + \\dfrac{cX + d}{X^2 + X + 1}$",
+          "correct": true,
+          "explication": "Pôle double : deux termes ; trinôme irréductible : numérateur de degré 1."
+        },
+        {
+          "texte": "$\\dfrac{a}{(X - 1)^2} + \\dfrac{cX + d}{X^2 + X + 1}$",
+          "correct": false,
+          "explication": "Un pôle double apporte **deux** termes : il manque $\\frac{b}{X - 1}$."
+        },
+        {
+          "texte": "$\\dfrac{a}{(X - 1)^2} + \\dfrac{b}{X - 1} + \\dfrac{c}{X^2 + X + 1}$",
+          "correct": false,
+          "explication": "Au-dessus d'un trinôme irréductible, le numérateur est $cX + d$, pas une constante."
+        },
+        {
+          "texte": "$X + \\dfrac{a}{(X - 1)^2} + \\dfrac{b}{X - 1} + \\dfrac{cX + d}{X^2 + X + 1}$",
+          "correct": false,
+          "explication": "$\\deg F = 2 - 4 < 0$ : la partie entière est nulle."
+        }
+      ]
+    },
+    {
+      "id": "vf-fr-pole-zero",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Une fraction rationnelle sous forme irréductible peut avoir un même $\\lambda$ comme pôle et comme zéro.",
+      "correction": [
+        "Si $\\lambda$ était racine de $P$ et de $Q$, $X - \\lambda$ serait un diviseur commun non constant : contradiction."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Sinon $X - \\lambda$ diviserait $P$ et $Q$, qui ne seraient pas premiers entre eux.",
+          "correct": true,
+          "explication": "C'est la définition de la forme irréductible."
+        },
+        {
+          "texte": "Vrai : par exemple $\\frac{X - 1}{(X - 1)^2}$.",
+          "correct": false,
+          "explication": "Cette fraction n'est pas irréductible : elle vaut $\\frac{1}{X - 1}$."
+        },
+        {
+          "texte": "Vrai si $\\lambda$ est un pôle double.",
+          "correct": false,
+          "explication": "La multiplicité ne change rien : $X - \\lambda$ serait un diviseur commun."
+        }
+      ]
+    },
+    {
+      "id": "vf-fr-partie-entiere-nulle",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si $\\deg F < 0$, la partie entière de $F$ est nulle.",
+      "correction": [
+        "$\\deg F < 0 \\iff \\deg P < \\deg Q$, et alors la division euclidienne donne $P = 0 \\cdot Q + P$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$\\deg P < \\deg Q$ : le quotient de $P$ par $Q$ est nul.",
+          "correct": true,
+          "explication": "$P = Q \\cdot 0 + P$ est déjà la division euclidienne."
+        },
+        {
+          "texte": "Faux : elle vaut $1$.",
+          "correct": false,
+          "explication": "Le quotient de $P$ par $Q$ est nul quand $\\deg P < \\deg Q$."
+        },
+        {
+          "texte": "Vrai seulement si $F$ n'a que des pôles simples.",
+          "correct": false,
+          "explication": "Les pôles n'interviennent pas dans la partie entière."
+        }
+      ]
+    },
+    {
+      "id": "fr-erreur-partie-entiere",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "Décomposition de $F = \\dfrac{X^2}{(X - 1)(X - 2)}$. Où est l'erreur ?",
+      "correction": [
+        "$X^2 = (X - 1)(X - 2) + 3X - 2$ : la partie entière vaut $1$.",
+        "$F = 1 - \\frac{1}{X - 1} + \\frac{4}{X - 2}$ (les coefficients $a$ et $b$ étaient justes)."
+      ],
+      "etapes": [
+        "$F$ a deux pôles simples, $1$ et $2$.",
+        "Donc $F = \\dfrac{a}{X - 1} + \\dfrac{b}{X - 2}$.",
+        "Cache en $1$ : $a = \\dfrac{1}{1 - 2} = -1$.",
+        "Cache en $2$ : $b = \\dfrac{4}{2 - 1} = 4$.",
+        "Conclusion : $F = -\\dfrac{1}{X - 1} + \\dfrac{4}{X - 2}$."
+      ],
+      "etapeFausse": 1,
+      "explication": "$\\deg F = 0$ : il y a une partie entière, ici $1$. La bonne forme est $F = 1 + \\frac{a}{X - 1} + \\frac{b}{X - 2}$."
+    },
+    {
+      "id": "fr-derivee",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer la dérivée de $R = \\dfrac{X}{X^2 + 1}$.",
+      "correction": [
+        "$R' = \\frac{P'Q - PQ'}{Q^2} = \\frac{(X^2 + 1) - X \\cdot 2X}{(X^2 + 1)^2}$.",
+        "$R' = \\frac{1 - X^2}{(X^2 + 1)^2}$."
+      ],
+      "reponse": "(1 - x^2)/(x^2 + 1)^2",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "fr-somme-telescopique",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "En décomposant $\\dfrac{1}{X(X + 2)}$ en éléments simples, calculer $\\displaystyle\\sum_{k=1}^{10} \\frac{1}{k(k + 2)}$.",
+      "indice": "Écrire chaque terme comme $\\frac12\\left(\\frac1k - \\frac{1}{k + 2}\\right)$.",
+      "correction": [
+        "$\\frac{1}{X(X + 2)} = \\frac12\\left(\\frac1X - \\frac{1}{X + 2}\\right)$.",
+        "La somme est télescopique (à deux pas) : $\\frac12\\left(1 + \\frac12 - \\frac{1}{11} - \\frac{1}{12}\\right)$.",
+        "$= \\frac12 \\cdot \\frac{198 - 12 - 11}{132} = \\frac{175}{264}$."
+      ],
+      "reponse": "175/264"
+    }
+  ]
+}

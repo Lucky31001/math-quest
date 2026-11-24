@@ -6,54 +6,98 @@
   "semestre": 1,
   "titre": "Logique et raisonnements",
   "icone": "🧠",
-  "resume": "Connecteurs, quantificateurs, contraposée, absurde, récurrence.",
+  "resume": "Propositions et tables de vérité, quantificateurs, contraposée, absurde, analyse-synthèse, récurrences simple, double et forte.",
   "cours": [
     {
-      "titre": "Connecteurs et quantificateurs",
+      "titre": "Propositions et connecteurs",
       "blocs": [
         {
           "type": "definition",
+          "titre": "Proposition",
+          "texte": "Une **proposition** (ou assertion) est une phrase dont on peut dire si elle est vraie (V) ou fausse (F). « $3 \\times 3 = 9$ » est vraie, « $7$ est pair » est fausse. On la décrit par sa **table de vérité**."
+        },
+        {
+          "type": "definition",
+          "titre": "Négation, conjonction, disjonction",
+          "texte": "$\\text{non}(P)$ est vraie quand $P$ est fausse. « $P$ et $Q$ » est vraie seulement si $P$ et $Q$ sont vraies. « $P$ ou $Q$ » est vraie dès que l'une au moins est vraie : c'est un **ou inclusif** (les deux peuvent être vraies)."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Double négation et lois de Morgan",
+          "texte": "$\\text{non}(\\text{non}(P)) \\iff P$ (double négation). **Lois de Morgan** : $\\text{non}(P \\text{ et } Q) \\iff \\text{non}(P) \\text{ ou } \\text{non}(Q)$ et $\\text{non}(P \\text{ ou } Q) \\iff \\text{non}(P) \\text{ et } \\text{non}(Q)$."
+        },
+        {
+          "type": "definition",
           "titre": "Implication",
-          "texte": "$P \\Rightarrow Q$ est fausse uniquement lorsque $P$ est vraie et $Q$ fausse. Elle est équivalente à $(\\text{non } P) \\text{ ou } Q$."
+          "texte": "$P \\Rightarrow Q$ est **fausse uniquement** quand $P$ est vraie et $Q$ fausse : $(P \\Rightarrow Q) \\iff (\\text{non}(P) \\text{ ou } Q)$. Si $P$ est fausse, l'implication est vraie quel que soit $Q$. Sa négation est $P \\text{ et } \\text{non}(Q)$ (ce n'est **pas** une implication)."
         },
         {
-          "type": "propriete",
-          "titre": "Négations",
-          "texte": "$\\text{non}(P \\text{ et } Q) \\equiv (\\text{non } P) \\text{ ou } (\\text{non } Q)$ ; $\\text{non}(P \\text{ ou } Q) \\equiv (\\text{non } P) \\text{ et } (\\text{non } Q)$ ; $\\text{non}(P \\Rightarrow Q) \\equiv P \\text{ et } (\\text{non } Q)$."
+          "type": "definition",
+          "titre": "Réciproque, contraposée",
+          "texte": "La **réciproque** de $P \\Rightarrow Q$ est $Q \\Rightarrow P$ ; sa **contraposée** est $\\text{non}(Q) \\Rightarrow \\text{non}(P)$. Une implication est toujours équivalente à sa contraposée, jamais (en général) à sa réciproque."
         },
         {
-          "type": "propriete",
-          "titre": "Quantificateurs",
-          "texte": "$\\text{non}(\\forall x,\\ P(x)) \\equiv \\exists x,\\ \\text{non } P(x)$ et $\\text{non}(\\exists x,\\ P(x)) \\equiv \\forall x,\\ \\text{non } P(x)$. On nie en échangeant $\\forall$ et $\\exists$ et en niant la propriété finale."
-        },
-        {
-          "type": "remarque",
-          "texte": "L'**ordre des quantificateurs** compte : $\\forall x\\ \\exists y,\\ y > x$ est vraie dans $\\mathbb{R}$, mais $\\exists y\\ \\forall x,\\ y > x$ est fausse."
+          "type": "theoreme",
+          "titre": "Équivalence et double implication",
+          "texte": "$(P \\iff Q) \\iff \\big((P \\Rightarrow Q) \\text{ et } (Q \\Rightarrow P)\\big)$. Vocabulaire : si $P \\Rightarrow Q$, $Q$ est une **condition nécessaire** pour $P$ et $P$ une **condition suffisante** pour $Q$ ; si $P \\iff Q$, on dit « $P$ si et seulement si $Q$ »."
         }
       ]
     },
     {
-      "titre": "Types de raisonnement",
+      "titre": "Quantificateurs",
       "blocs": [
         {
-          "type": "propriete",
-          "titre": "Contraposée",
-          "texte": "$P \\Rightarrow Q$ est équivalente à sa contraposée $(\\text{non } Q) \\Rightarrow (\\text{non } P)$. La **réciproque** $Q \\Rightarrow P$, elle, n'est pas équivalente."
+          "type": "definition",
+          "titre": "Quantificateurs ∀, ∃, ∃!",
+          "texte": "$\\forall x \\in E,\\ P(x)$ : « pour tout $x$ de $E$, $P(x)$ est vraie ». $\\exists x \\in E,\\ P(x)$ : « il existe **au moins** un $x$ de $E$ tel que $P(x)$ ». $\\exists!\\, x \\in E,\\ P(x)$ : il en existe **un et un seul**."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Négation des quantificateurs",
+          "texte": "$\\text{non}(\\forall x \\in E,\\ P(x)) \\iff \\exists x \\in E,\\ \\text{non}(P(x))$ et $\\text{non}(\\exists x \\in E,\\ P(x)) \\iff \\forall x \\in E,\\ \\text{non}(P(x))$. On échange $\\forall$ et $\\exists$, on garde les ensembles, et on nie la propriété finale."
+        },
+        {
+          "type": "remarque",
+          "texte": "L'**ordre des quantificateurs** compte. « $\\forall x,\\ \\exists y,\\ P(x, y)$ » : $y$ peut dépendre de $x$. « $\\exists y,\\ \\forall x,\\ P(x, y)$ » : le même $y$ convient pour tous les $x$. Avec « $x$ a vu le film $y$ » : « chacun a vu au moins un film » contre « il existe un film que tout le monde a vu »."
+        },
+        {
+          "type": "exemple",
+          "texte": "« $f$ ne s'annule pas sur $I$ » : $\\forall x \\in I,\\ f(x) \\neq 0$. « $f$ n'est pas l'application nulle » : $\\exists x \\in I,\\ f(x) \\neq 0$. « $f$ est constante » : $\\exists \\lambda \\in \\mathbb{R},\\ \\forall x \\in I,\\ f(x) = \\lambda$."
+        }
+      ]
+    },
+    {
+      "titre": "Modes de raisonnement",
+      "blocs": [
+        {
+          "type": "methode",
+          "titre": "Raisonnement direct",
+          "texte": "Pour montrer $P \\Rightarrow Q$ : on suppose $P$ vraie et on en déduit $Q$. Pour montrer $\\forall x \\in E,\\ P(x)$ : « Soit $x \\in E$ » (quelconque), puis on montre $P(x)$. Pour montrer $\\exists x,\\ P(x)$ : on **exhibe** un $x$ qui convient."
         },
         {
           "type": "methode",
-          "titre": "Raisonnement par l'absurde",
-          "texte": "Pour montrer $P$, on suppose $\\text{non } P$ et on aboutit à une contradiction. Exemple classique : l'irrationalité de $\\sqrt{2}$."
+          "titre": "Par contraposition",
+          "texte": "Pour montrer $P \\Rightarrow Q$, on montre $\\text{non}(Q) \\Rightarrow \\text{non}(P)$. Exemple : « si $n^2$ est pair, alors $n$ est pair » se prouve en supposant $n$ impair, $n = 2k + 1$, d'où $n^2 = 2(2k^2 + 2k) + 1$ impair."
+        },
+        {
+          "type": "methode",
+          "titre": "Par l'absurde",
+          "texte": "Pour montrer $P$, on suppose $\\text{non}(P)$ et on aboutit à une contradiction. Exemple : $\\sqrt 2 \\notin \\mathbb{Q}$ (si $\\sqrt 2 = \\frac pq$ irréductible, $p$ et $q$ seraient tous deux pairs)."
         },
         {
           "type": "methode",
           "titre": "Contre-exemple",
-          "texte": "Pour montrer qu'une propriété « $\\forall x,\\ P(x)$ » est fausse, il suffit d'exhiber **un** $x$ tel que $P(x)$ soit fausse."
+          "texte": "Pour montrer que « $\\forall x,\\ P(x)$ » est **fausse**, il suffit d'un $x$ tel que $P(x)$ soit fausse. Exemple : « $\\forall x \\in \\mathbb{R},\\ x > 2 \\Rightarrow x \\geq 3$ » est fausse ($x = 2{,}5$)."
         },
         {
           "type": "methode",
           "titre": "Analyse-synthèse",
-          "texte": "Analyse : on suppose qu'une solution existe et on en déduit sa forme (conditions nécessaires). Synthèse : on vérifie que les candidats trouvés conviennent."
+          "texte": "**Analyse** : on suppose qu'une solution existe et on en déduit sa forme (conditions nécessaires). **Synthèse** : on vérifie que les candidats trouvés conviennent. Exemple (TD) : toute $f : \\mathbb{R} \\to \\mathbb{R}$ s'écrit de façon unique $f = p + i$, avec $p(x) = \\frac{f(x) + f(-x)}{2}$ paire et $i(x) = \\frac{f(x) - f(-x)}{2}$ impaire."
+        },
+        {
+          "type": "methode",
+          "titre": "Équivalence, disjonction de cas",
+          "texte": "Pour montrer $P \\iff Q$ : on montre $P \\Rightarrow Q$ **puis** la réciproque $Q \\Rightarrow P$. Pour une disjonction de cas, on traite séparément chaque cas (ex. $n$ pair / $n$ impair)."
         }
       ]
     },
@@ -63,16 +107,16 @@
         {
           "type": "theoreme",
           "titre": "Récurrence simple",
-          "texte": "Si $P(n_0)$ est vraie (**initialisation**) et si, pour tout $n \\geq n_0$, $P(n) \\Rightarrow P(n+1)$ (**hérédité**), alors $P(n)$ est vraie pour tout $n \\geq n_0$."
+          "texte": "Si $P(n_0)$ est vraie (**initialisation**) et si, pour tout $n \\geq n_0$, $P(n) \\Rightarrow P(n+1)$ (**hérédité**), alors $P(n)$ est vraie pour tout $n \\geq n_0$. Exemple du cours : $2^n > n$ pour tout $n \\in \\mathbb{N}$."
         },
         {
           "type": "theoreme",
           "titre": "Récurrences double et forte",
-          "texte": "Double : on initialise $P(n_0)$ et $P(n_0 + 1)$, puis $P(n) \\text{ et } P(n+1) \\Rightarrow P(n+2)$. Forte : on suppose $P(n_0), \\dots, P(n)$ toutes vraies pour montrer $P(n+1)$."
+          "texte": "**Double** : on initialise $P(n_0)$ **et** $P(n_0 + 1)$, puis on montre $\\big(P(n) \\text{ et } P(n+1)\\big) \\Rightarrow P(n+2)$. Utile pour $u_{n+2} = a u_{n+1} + b u_n$. **Forte** : on suppose $P(n_0), \\dots, P(n)$ toutes vraies pour montrer $P(n+1)$."
         },
         {
           "type": "remarque",
-          "texte": "L'hérédité doit fonctionner pour **tout** $n \\geq n_0$, y compris le premier : c'est là que se cachent les erreurs (voir le paradoxe des chevaux)."
+          "texte": "Rédaction : on écrit la propriété $P(n)$, l'initialisation, puis « Soit $n \\geq n_0$. Supposons $P(n)$ vraie, montrons $P(n+1)$ ». L'hérédité doit marcher pour **tout** $n \\geq n_0$, y compris le premier : c'est là que se cachent les erreurs (paradoxe des chevaux)."
         }
       ]
     }
@@ -152,6 +196,31 @@
       "id": "f-disjonction",
       "recto": "Principe de la disjonction de cas ?",
       "verso": "On sépare en cas qui recouvrent toutes les possibilités (ex. $n$ pair / $n$ impair) et on conclut dans chacun."
+    },
+    {
+      "id": "f-table-implication",
+      "recto": "Dans quel(s) cas $P \\Rightarrow Q$ est-elle fausse ?",
+      "verso": "Uniquement quand $P$ est vraie et $Q$ fausse."
+    },
+    {
+      "id": "f-ou-inclusif",
+      "recto": "Le « ou » mathématique est-il exclusif ?",
+      "verso": "Non : « $P$ ou $Q$ » est vraie aussi quand $P$ et $Q$ sont vraies toutes les deux (ou inclusif)."
+    },
+    {
+      "id": "f-existe-unique",
+      "recto": "Que signifie $\\exists!\\, x \\in E,\\ P(x)$ ?",
+      "verso": "Il existe un et un seul $x \\in E$ tel que $P(x)$ : existence **et** unicité."
+    },
+    {
+      "id": "f-recurrence-double",
+      "recto": "Initialisation d'une récurrence double ?",
+      "verso": "Vérifier $P(n_0)$ **et** $P(n_0 + 1)$, car l'hérédité utilise deux rangs."
+    },
+    {
+      "id": "f-pair-impair",
+      "recto": "Décomposition de $f : \\mathbb{R} \\to \\mathbb{R}$ en partie paire et impaire ?",
+      "verso": "$f = p + i$ avec $p(x) = \\frac{f(x) + f(-x)}{2}$ et $i(x) = \\frac{f(x) - f(-x)}{2}$ (unique, par analyse-synthèse)."
     }
   ],
   "exercices": [
@@ -636,6 +705,462 @@
       ],
       "etapeFausse": 4,
       "explication": "L'hérédité n'a été prouvée que pour $n \\geq 3$ : il faut initialiser à un rang $\\geq 3$ où la propriété est vraie. Or $P(2)$, $P(3)$, $P(4)$ sont fausses ; elle est vraie à partir de $n = 5$."
+    },
+    {
+      "id": "td-films-quantificateurs",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "$P(x, y)$ : « l'individu $x$ a vu le film $y$ ». Que signifie $\\exists y,\\ \\forall x,\\ P(x, y)$ ? (TD Logique, ex. 1.4)",
+      "indice": "Le $\\exists y$ est écrit en premier : le film est choisi **avant** les personnes.",
+      "correction": [
+        "On lit de gauche à droite : « il existe un film $y$ tel que, pour toute personne $x$, $x$ a vu $y$ »."
+      ],
+      "choix": [
+        {
+          "texte": "Il existe un film que tout le monde a vu.",
+          "correct": true,
+          "explication": "Le même film $y$ convient pour tous les $x$."
+        },
+        {
+          "texte": "Tout le monde a vu au moins un film.",
+          "correct": false,
+          "explication": "C'est $\\forall x,\\ \\exists y,\\ P(x, y)$ : le film peut changer d'une personne à l'autre."
+        },
+        {
+          "texte": "Quelqu'un a vu tous les films.",
+          "correct": false,
+          "explication": "C'est $\\exists x,\\ \\forall y,\\ P(x, y)$ : les rôles de $x$ et $y$ sont inversés."
+        },
+        {
+          "texte": "Chaque film a été vu par au moins une personne.",
+          "correct": false,
+          "explication": "C'est $\\forall y,\\ \\exists x,\\ P(x, y)$."
+        }
+      ]
+    },
+    {
+      "id": "td-traduire-surjective",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $f : I \\to \\mathbb{R}$. Que signifie $\\forall y \\in \\mathbb{R},\\ \\exists x \\in I,\\ f(x) = y$ ? (TD Logique, ex. 1.5)",
+      "correction": [
+        "Pour tout $y$ réel, il existe un $x \\in I$ tel que $f(x) = y$ : tout réel est atteint par $f$."
+      ],
+      "choix": [
+        {
+          "texte": "Tout réel a au moins un antécédent par $f$ ($f$ est surjective sur $\\mathbb{R}$).",
+          "correct": true,
+          "explication": "Pour chaque $y$, on trouve un $x$ (qui dépend de $y$)."
+        },
+        {
+          "texte": "Tout réel a exactement un antécédent par $f$.",
+          "correct": false,
+          "explication": "Il faudrait $\\exists!$ : ce serait la bijectivité."
+        },
+        {
+          "texte": "$f$ est constante.",
+          "correct": false,
+          "explication": "Constante s'écrit $\\exists \\lambda,\\ \\forall x,\\ f(x) = \\lambda$."
+        },
+        {
+          "texte": "$f$ ne prend jamais deux fois la même valeur.",
+          "correct": false,
+          "explication": "C'est l'injectivité : $f(x) = f(y) \\Rightarrow x = y$."
+        }
+      ]
+    },
+    {
+      "id": "td-ne-sannule-pas",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Comment écrire « $f$ ne s'annule pas sur $I$ » avec des quantificateurs ? (TD Logique, ex. 1.6)",
+      "correction": [
+        "« $f$ s'annule » s'écrit $\\exists x \\in I,\\ f(x) = 0$ ; sa négation est $\\forall x \\in I,\\ f(x) \\neq 0$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\forall x \\in I,\\ f(x) \\neq 0$",
+          "correct": true,
+          "explication": "En aucun point, $f$ ne vaut 0."
+        },
+        {
+          "texte": "$\\exists x \\in I,\\ f(x) \\neq 0$",
+          "correct": false,
+          "explication": "Ceci dit seulement que $f$ n'est pas la fonction nulle."
+        },
+        {
+          "texte": "$\\text{non}(\\forall x \\in I,\\ f(x) = 0)$",
+          "correct": false,
+          "explication": "C'est encore « $f$ n'est pas nulle », équivalent à $\\exists x,\\ f(x) \\neq 0$."
+        },
+        {
+          "texte": "$\\exists x \\in I,\\ f(x) = 0$",
+          "correct": false,
+          "explication": "C'est « $f$ s'annule », le contraire de ce qu'on veut."
+        }
+      ]
+    },
+    {
+      "id": "td-negation-ecuries",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle est la négation de « Dans toutes les écuries, tous les chevaux sont noirs » ? (TD Logique, ex. 1.7)",
+      "correction": [
+        "On remplace chaque $\\forall$ par $\\exists$ et on nie « noir » : il existe une écurie et un cheval de cette écurie qui n'est pas noir."
+      ],
+      "choix": [
+        {
+          "texte": "Il existe une écurie dans laquelle au moins un cheval n'est pas noir.",
+          "correct": true,
+          "explication": "$\\text{non}(\\forall e,\\ \\forall c,\\ N(c)) \\iff \\exists e,\\ \\exists c,\\ \\text{non } N(c)$."
+        },
+        {
+          "texte": "Dans toutes les écuries, aucun cheval n'est noir.",
+          "correct": false,
+          "explication": "On a nié la propriété sans changer les quantificateurs."
+        },
+        {
+          "texte": "Il existe une écurie dans laquelle aucun cheval n'est noir.",
+          "correct": false,
+          "explication": "Un seul cheval non noir suffit : le second $\\forall$ devient $\\exists$."
+        },
+        {
+          "texte": "Dans toutes les écuries, au moins un cheval n'est pas noir.",
+          "correct": false,
+          "explication": "Le premier $\\forall$ doit aussi devenir $\\exists$."
+        }
+      ]
+    },
+    {
+      "id": "td-negation-epsilon",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Quelle est la négation de $\\forall \\varepsilon > 0,\\ \\exists \\alpha > 0,\\ \\left(|x - \\tfrac75| < \\alpha \\Rightarrow |5x - 7| < \\varepsilon\\right)$ ? (TD Logique, ex. 1.7)",
+      "correction": [
+        "$\\text{non}(\\forall \\varepsilon,\\ \\exists \\alpha,\\ A \\Rightarrow B) \\iff \\exists \\varepsilon,\\ \\forall \\alpha,\\ \\text{non}(A \\Rightarrow B)$.",
+        "Et $\\text{non}(A \\Rightarrow B) \\iff A \\text{ et } \\text{non}(B)$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\alpha > 0,\\ |x - \\tfrac75| < \\alpha \\text{ et } |5x - 7| \\geq \\varepsilon$",
+          "correct": true,
+          "explication": "Quantificateurs échangés, et $\\text{non}(A \\Rightarrow B) \\iff A \\text{ et non}(B)$."
+        },
+        {
+          "texte": "$\\exists \\varepsilon > 0,\\ \\forall \\alpha > 0,\\ |x - \\tfrac75| < \\alpha \\Rightarrow |5x - 7| \\geq \\varepsilon$",
+          "correct": false,
+          "explication": "La négation d'une implication n'est pas une implication."
+        },
+        {
+          "texte": "$\\exists \\varepsilon \\leq 0,\\ \\forall \\alpha \\leq 0,\\ |x - \\tfrac75| \\geq \\alpha \\text{ et } |5x - 7| \\geq \\varepsilon$",
+          "correct": false,
+          "explication": "On ne nie pas les ensembles des quantificateurs : $\\varepsilon > 0$ reste $\\varepsilon > 0$."
+        },
+        {
+          "texte": "$\\forall \\varepsilon > 0,\\ \\exists \\alpha > 0,\\ |x - \\tfrac75| \\geq \\alpha \\text{ et } |5x - 7| \\geq \\varepsilon$",
+          "correct": false,
+          "explication": "Les quantificateurs n'ont pas été échangés, et l'hypothèse a été niée à tort."
+        }
+      ]
+    },
+    {
+      "id": "td-connecteur-carre",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Pour $x \\in \\mathbb{R}$, quel connecteur compléter : $x^2 = 4 \\ \\ldots\\ x = 2$ ? (TD Logique, ex. 1.11)",
+      "correction": [
+        "$x = 2 \\Rightarrow x^2 = 4$ est vraie.",
+        "$x^2 = 4 \\Rightarrow x = 2$ est fausse : contre-exemple $x = -2$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\Leftarrow$",
+          "correct": true,
+          "explication": "Si $x = 2$, alors $x^2 = 4$ ; mais $x^2 = 4$ n'impose pas $x = 2$."
+        },
+        {
+          "texte": "$\\Rightarrow$",
+          "correct": false,
+          "explication": "$x = -2$ vérifie $x^2 = 4$ sans vérifier $x = 2$."
+        },
+        {
+          "texte": "$\\iff$",
+          "correct": false,
+          "explication": "Le sens $\\Rightarrow$ est faux ($x = -2$)."
+        },
+        {
+          "texte": "Aucun des trois",
+          "correct": false,
+          "explication": "Le sens $\\Leftarrow$ est vrai."
+        }
+      ]
+    },
+    {
+      "id": "td-connecteur-pi",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour $x \\in \\mathbb{R}$, quel connecteur compléter : $x = \\pi \\ \\ldots\\ e^{2ix} = 1$ ? (TD Logique, ex. 1.11)",
+      "correction": [
+        "Si $x = \\pi$, $e^{2i\\pi} = 1$ : le sens $\\Rightarrow$ est vrai.",
+        "$e^{2ix} = 1 \\iff 2x \\in 2\\pi\\mathbb{Z} \\iff x \\in \\pi\\mathbb{Z}$ : $x = 0$ est un contre-exemple à $\\Leftarrow$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\Rightarrow$",
+          "correct": true,
+          "explication": "$e^{2i\\pi} = 1$, mais $e^{2ix} = 1$ pour tout $x \\in \\pi\\mathbb{Z}$."
+        },
+        {
+          "texte": "$\\Leftarrow$",
+          "correct": false,
+          "explication": "$x = 0$ vérifie $e^{2ix} = 1$ sans être égal à $\\pi$."
+        },
+        {
+          "texte": "$\\iff$",
+          "correct": false,
+          "explication": "Le sens $\\Leftarrow$ est faux ($x = 0$)."
+        },
+        {
+          "texte": "Aucun des trois",
+          "correct": false,
+          "explication": "Le sens $\\Rightarrow$ est vrai."
+        }
+      ]
+    },
+    {
+      "id": "td-contraposee-8",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour $n \\geq 2$, $P$ : « si $n^2 - 1$ n'est pas divisible par $8$, alors $n$ est pair ». Quelle est la contraposée de $P$ ? (TD Logique, ex. 2.6)",
+      "correction": [
+        "Contraposée de $A \\Rightarrow B$ : $\\text{non}(B) \\Rightarrow \\text{non}(A)$.",
+        "Ici : « $n$ impair $\\Rightarrow$ $8 \\mid n^2 - 1$ », qui se montre avec $n = 4k + r$, $r \\in \\{1, 3\\}$."
+      ],
+      "choix": [
+        {
+          "texte": "Si $n$ est impair, alors $n^2 - 1$ est divisible par $8$.",
+          "correct": true,
+          "explication": "$\\text{non}(Q) \\Rightarrow \\text{non}(P)$ : « non pair » donne « impair », « non non divisible » donne « divisible »."
+        },
+        {
+          "texte": "Si $n$ est pair, alors $n^2 - 1$ n'est pas divisible par $8$.",
+          "correct": false,
+          "explication": "C'est la réciproque $Q \\Rightarrow P$."
+        },
+        {
+          "texte": "Si $n^2 - 1$ est divisible par $8$, alors $n$ est impair.",
+          "correct": false,
+          "explication": "C'est la contraposée de la réciproque, équivalente à la réciproque, pas à $P$."
+        },
+        {
+          "texte": "$n^2 - 1$ n'est pas divisible par $8$ et $n$ est impair.",
+          "correct": false,
+          "explication": "C'est la négation de $P$."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-x-sup-2",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "$\\forall x \\in \\mathbb{R},\\ x > 2 \\Rightarrow x \\geq 3$. (TD Logique, ex. 1.12)",
+      "correction": [
+        "Il suffit d'un contre-exemple : $x = 2{,}5$ vérifie $x > 2$ mais pas $x \\geq 3$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $x = 2{,}5$.",
+          "correct": true,
+          "explication": "$2{,}5 > 2$ mais $2{,}5 < 3$."
+        },
+        {
+          "texte": "Vrai : le premier entier après $2$ est $3$.",
+          "correct": false,
+          "explication": "$x$ est réel, pas forcément entier."
+        },
+        {
+          "texte": "Faux car $x = 2$ ne vérifie pas $x \\geq 3$.",
+          "correct": false,
+          "explication": "$x = 2$ ne vérifie pas l'hypothèse $x > 2$ : l'implication est vraie pour ce $x$."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-inverse",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "$\\forall (x, y) \\in (\\mathbb{R}_+^*)^2,\\ x < y \\iff \\dfrac1x > \\dfrac1y$. (TD Logique, ex. 1.12)",
+      "correction": [
+        "Pour $x, y > 0$ : $\\frac1x - \\frac1y = \\frac{y - x}{xy}$ avec $xy > 0$, donc $\\frac1x > \\frac1y \\iff y > x$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$\\frac1x - \\frac1y = \\frac{y - x}{xy}$ et $xy > 0$.",
+          "correct": true,
+          "explication": "Donc $\\frac1x - \\frac1y$ a le signe de $y - x$ : les deux sens sont vrais."
+        },
+        {
+          "texte": "Faux : l'inverse change le sens des inégalités seulement pour des négatifs.",
+          "correct": false,
+          "explication": "Sur $\\mathbb{R}_+^*$, $t \\mapsto \\frac1t$ est strictement décroissante : elle renverse l'ordre."
+        },
+        {
+          "texte": "Faux : contre-exemple $x = -1$, $y = 1$.",
+          "correct": false,
+          "explication": "$x = -1 \\notin \\mathbb{R}_+^*$ : ce n'est pas un contre-exemple."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-racine",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "$\\exists x \\in \\mathbb{R}_+^*,\\ \\sqrt x < x$. (TD Logique, ex. 1.12)",
+      "correction": [
+        "Pour un énoncé existentiel, on exhibe un exemple : $x = 4$, $\\sqrt 4 = 2 < 4$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$x = 4$ convient : $\\sqrt 4 = 2 < 4$.",
+          "correct": true,
+          "explication": "Un seul exemple suffit pour un « il existe »."
+        },
+        {
+          "texte": "Faux : $\\sqrt x \\geq x$ pour tout $x > 0$.",
+          "correct": false,
+          "explication": "C'est vrai seulement sur $]0, 1]$."
+        },
+        {
+          "texte": "Vrai : $\\sqrt x < x$ pour tout $x > 0$.",
+          "correct": false,
+          "explication": "Faux pour $x = \\frac14$ : $\\sqrt{1/4} = \\frac12 > \\frac14$. Et un « pour tout » n'est pas ce qui est demandé."
+        }
+      ]
+    },
+    {
+      "id": "td-somme-100",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quel est le plus petit entier $n$ tel que $\\displaystyle\\sum_{k=0}^{n} k \\geq 100$ ? (D'après TD Logique, ex. 1.12)",
+      "indice": "$\\sum_{k=0}^{n} k = \\frac{n(n+1)}{2}$.",
+      "correction": [
+        "$\\sum_{k=0}^{n} k = \\frac{n(n+1)}{2}$.",
+        "Pour $n = 13$ : $91 < 100$ ; pour $n = 14$ : $105 \\geq 100$.",
+        "Donc $n = 14$ (et l'énoncé « $\\exists n,\\ \\sum k \\geq 100$ » est vrai)."
+      ],
+      "reponse": 14
+    },
+    {
+      "id": "td-jeu-100",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Deux joueurs annoncent à tour de rôle un entier entre $1$ et $7$, ajouté au total. Celui qui amène le total à $100$ gagne. Quel premier nombre doit annoncer le premier joueur pour être sûr de gagner ? (TD Logique, ex. 2.9)",
+      "indice": "Si j'atteins $92$, je gagne à coup sûr. Et pour atteindre $92$ ?",
+      "correction": [
+        "Raisonnement à rebours : si j'amène le total à $92$, l'adversaire ajoute $k \\in \\{1, \\dots, 7\\}$ et je complète avec $8 - k$ pour atteindre $100$.",
+        "De même, les totaux gagnants sont $100, 92, 84, \\dots$, c'est-à-dire ceux qui valent $4$ modulo $8$.",
+        "Le plus petit est $4$ : on annonce $4$, puis on répond toujours $8 - k$."
+      ],
+      "reponse": 4
+    },
+    {
+      "id": "td-oiseaux",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Thomas, Jules et Yves observent des oiseaux. Chacun a vu un oiseau que les deux autres n'ont pas vu ; chaque paire a vu un oiseau que le troisième n'a pas vu ; un oiseau a été vu par les trois (soit 7 oiseaux, 4 vus par chacun). Thomas a vu 2 oiseaux jaunes, Jules 3 et Yves 4. Combien d'oiseaux jaunes ont été vus au total ? (TD Logique, ex. 2.11)",
+      "indice": "Faire un diagramme à 7 zones et commencer par Yves.",
+      "correction": [
+        "Yves a vu 4 oiseaux, tous jaunes : le sien, ceux partagés avec Thomas et avec Jules, et celui des trois.",
+        "Thomas a donc déjà 2 jaunes (partagé avec Yves, commun aux trois) : son oiseau propre et celui partagé avec Jules ne sont pas jaunes.",
+        "Jules a 2 jaunes communs avec Yves ; son 3e jaune ne peut être que son oiseau propre.",
+        "Jaunes : propre de Jules, propre d'Yves, Thomas–Yves, Jules–Yves, commun aux trois, soit $5$."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "td-divisibilite-7",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Quel est le plus grand entier qui divise $3^{2n+1} + 2^{n+2}$ pour tout $n \\in \\mathbb{N}$ ? (D'après TD Logique, ex. 2.14)",
+      "correction": [
+        "Pour $n = 0$ : $3 + 4 = 7$, donc le diviseur commun divise $7$.",
+        "Récurrence : si $3^{2n+1} + 2^{n+2} = 7k$, alors $3^{2n+3} + 2^{n+3} = 9 \\cdot 3^{2n+1} + 2 \\cdot 2^{n+2} = 9 \\cdot 7k - 7 \\cdot 2^{n+2}$, divisible par $7$.",
+        "La réponse est $7$."
+      ],
+      "reponse": 7
+    },
+    {
+      "id": "td-recurrence-double",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "$u_0 = 2$, $u_1 = 3$ et $u_{n+2} = 3u_{n+1} - 2u_n$. Conjecturer puis démontrer (récurrence double) une formule pour $u_n$. (TD Logique, ex. 2.15)",
+      "indice": "Calculer $u_2$, $u_3$, $u_4$ et les comparer aux puissances de 2.",
+      "correction": [
+        "$u_2 = 9 - 4 = 5$, $u_3 = 15 - 6 = 9$ : on conjecture $u_n = 2^n + 1$.",
+        "Initialisation : $u_0 = 2 = 2^0 + 1$ et $u_1 = 3 = 2^1 + 1$.",
+        "Hérédité : $u_{n+2} = 3(2^{n+1} + 1) - 2(2^n + 1) = 6 \\cdot 2^n - 2 \\cdot 2^n + 1 = 2^{n+2} + 1$."
+      ],
+      "reponse": "2^n + 1",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        0,
+        6
+      ]
+    },
+    {
+      "id": "td-somme-telescopique",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\sum_{k=1}^{n} \\frac{1}{k(k+1)}$ en fonction de $n$. (TD Logique, ex. 2.16)",
+      "correction": [
+        "$\\frac{1}{k(k+1)} = \\frac1k - \\frac{1}{k+1}$ : la somme est télescopique.",
+        "$\\sum_{k=1}^{n}\\left(\\frac1k - \\frac{1}{k+1}\\right) = 1 - \\frac{1}{n+1} = \\frac{n}{n+1}$ (ce qui se démontre aussi par récurrence)."
+      ],
+      "reponse": "n/(n+1)",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        1,
+        10
+      ]
+    },
+    {
+      "id": "td-partie-paire",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Par analyse-synthèse, toute $f : \\mathbb{R} \\to \\mathbb{R}$ s'écrit $f = p + i$, $p$ paire, $i$ impaire. Donner $p(x)$ pour $f(x) = \\dfrac{x + 1}{x^2 + x + 1}$. (TD Logique, ex. 2.4)",
+      "indice": "$p(x) = \\frac{f(x) + f(-x)}{2}$.",
+      "correction": [
+        "Analyse : $f(x) = p(x) + i(x)$ et $f(-x) = p(x) - i(x)$, donc $p(x) = \\frac{f(x) + f(-x)}{2}$.",
+        "$f(-x) = \\frac{1 - x}{x^2 - x + 1}$. Or $(x + 1)(x^2 - x + 1) = x^3 + 1$ et $(1 - x)(x^2 + x + 1) = 1 - x^3$.",
+        "Avec $(x^2 + x + 1)(x^2 - x + 1) = x^4 + x^2 + 1$ : $f(x) + f(-x) = \\frac{2}{x^4 + x^2 + 1}$, donc $p(x) = \\frac{1}{x^4 + x^2 + 1}$ (et $i(x) = \\frac{x^3}{x^4 + x^2 + 1}$)."
+      ],
+      "reponse": "1/(x^4 + x^2 + 1)",
+      "variables": [
+        "x"
+      ]
+    },
+    {
+      "id": "td-equation-fonctionnelle",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Déterminer les $f : \\mathbb{R} \\to \\mathbb{R}$ telles que $\\forall x, y \\in \\mathbb{R},\\ f(x)f(y) - f(xy) = x + y$. Donner $f(x)$. (TD Logique, ex. 2.5)",
+      "indice": "Prendre $x = y = 0$, puis $y = 0$.",
+      "correction": [
+        "Analyse. $x = y = 0$ : $f(0)^2 - f(0) = 0$, donc $f(0) \\in \\{0, 1\\}$.",
+        "$y = 0$ : $f(x)f(0) - f(0) = x$. Si $f(0) = 0$, on obtient $0 = x$ pour tout $x$ : absurde. Donc $f(0) = 1$ et $f(x) = x + 1$.",
+        "Synthèse : $(x + 1)(y + 1) - (xy + 1) = x + y$. La seule solution est $f(x) = x + 1$."
+      ],
+      "reponse": "x + 1",
+      "variables": [
+        "x"
+      ]
     }
   ]
 }

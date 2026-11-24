@@ -1,0 +1,977 @@
+{
+  "$schema": "../schema.json",
+  "id": "applications",
+  "monde": "algebre",
+  "ordre": 3,
+  "semestre": 1,
+  "titre": "Applications",
+  "icone": "🎯",
+  "resume": "Images directes et réciproques, composition, injections, surjections, bijections et application réciproque.",
+  "cours": [
+    {
+      "titre": "Applications, images",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Application",
+          "texte": "Une **application** $f : E \\to F$ associe à **chaque** $x \\in E$ un **unique** $f(x) \\in F$. $E$ est l'ensemble de départ, $F$ celui d'arrivée ; $F^E$ (ou $\\mathcal{F}(E, F)$) est l'ensemble des applications de $E$ dans $F$. Deux applications sont égales si elles ont mêmes ensembles de départ et d'arrivée et $f(x) = g(x)$ pour tout $x$."
+        },
+        {
+          "type": "definition",
+          "titre": "Image directe, image réciproque",
+          "texte": "Pour $A \\subset E$ : $f(A) = \\{f(x) : x \\in A\\}$. L'**image** de $f$ est $\\mathrm{Im} f = f(E)$, en général plus petite que $F$. Pour $B \\subset F$ : $f^{-1}(B) = \\{x \\in E : f(x) \\in B\\}$, définie **même si $f$ n'est pas bijective**."
+        },
+        {
+          "type": "propriete",
+          "texte": "$f(A \\cup B) = f(A) \\cup f(B)$ mais seulement $f(A \\cap B) \\subset f(A) \\cap f(B)$. L'image réciproque respecte tout : $f^{-1}(C \\cup D) = f^{-1}(C) \\cup f^{-1}(D)$, $f^{-1}(C \\cap D) = f^{-1}(C) \\cap f^{-1}(D)$, $f^{-1}(C^c) = f^{-1}(C)^c$. Enfin $A \\subset f^{-1}(f(A))$ et $f(f^{-1}(C)) = C \\cap f(E) \\subset C$."
+        },
+        {
+          "type": "exemple",
+          "texte": "Avec $f(x) = x^2$ : $f([-3, -1]) = [1, 9]$, $f([-2, 1]) = [0, 4]$, $f^{-1}([1, +\\infty[) = ]-\\infty, -1] \\cup [1, +\\infty[$. Avec $f(x) = e^x$ : $f(\\mathbb{R}_-) = ]0, 1]$ et $f^{-1}(\\mathbb{R}_-) = \\varnothing$."
+        }
+      ]
+    },
+    {
+      "titre": "Composition et restriction",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Composition",
+          "texte": "Pour $f : E \\to F$ et $g : F \\to G$, $g \\circ f : E \\to G$, $x \\mapsto g(f(x))$. La composition est **associative** : $h \\circ (g \\circ f) = (h \\circ g) \\circ f$, mais **pas commutative** en général. $\\mathrm{id}_F \\circ f = f \\circ \\mathrm{id}_E = f$."
+        },
+        {
+          "type": "definition",
+          "titre": "Restriction",
+          "texte": "La **restriction** de $f$ à $A \\subset E$ est $f_{|A} : A \\to F$, $x \\mapsto f(x)$. Restreindre le départ ou l'arrivée permet souvent d'obtenir une bijection : $x \\mapsto x^2$ n'est pas bijective de $\\mathbb{R}$ dans $\\mathbb{R}$, mais l'est de $\\mathbb{R}_+$ dans $\\mathbb{R}_+$."
+        }
+      ]
+    },
+    {
+      "titre": "Injections, surjections, bijections",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Définitions",
+          "texte": "$f$ est **injective** si $\\forall x, x' \\in E,\\ f(x) = f(x') \\Rightarrow x = x'$ : tout élément de $F$ a **au plus** un antécédent. $f$ est **surjective** si $\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$, c'est-à-dire $f(E) = F$ : **au moins** un antécédent. **Bijective** : injective et surjective, **exactement** un antécédent."
+        },
+        {
+          "type": "methode",
+          "titre": "Méthodes",
+          "texte": "Injectivité : prendre $x, x'$ avec $f(x) = f(x')$ et montrer $x = x'$ ; pour la nier, exhiber $x \\neq x'$ de même image. Surjectivité : prendre $y \\in F$ et **résoudre** $f(x) = y$ ; pour la nier, exhiber un $y$ sans antécédent. Une fonction réelle strictement monotone est injective."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Composition",
+          "texte": "Une composée d'injections (resp. surjections, bijections) en est une. Si $g \\circ f$ est injective, $f$ est injective. Si $g \\circ f$ est surjective, $g$ est surjective. (TD Applications, ex. 13)"
+        },
+        {
+          "type": "theoreme",
+          "titre": "Bijection réciproque",
+          "texte": "$f : E \\to F$ est bijective ssi il existe $g : F \\to E$ avec $g \\circ f = \\mathrm{id}_E$ et $f \\circ g = \\mathrm{id}_F$. Alors $g = f^{-1}$, la **réciproque** : $y = f(x) \\iff x = f^{-1}(y)$. De plus $(f^{-1})^{-1} = f$ et $(g \\circ f)^{-1} = f^{-1} \\circ g^{-1}$."
+        },
+        {
+          "type": "methode",
+          "titre": "Calculer une réciproque",
+          "texte": "Pour trouver $f^{-1}$ : résoudre $y = f(x)$ d'inconnue $x$. Ex. (TD) : $f(x) = \\frac{3x + 1}{x - 2}$ de $\\mathbb{R} \\setminus \\{2\\}$ dans $\\mathbb{R} \\setminus \\{3\\}$ ; $y(x - 2) = 3x + 1 \\iff x(y - 3) = 2y + 1$, donc $f^{-1}(y) = \\frac{2y + 1}{y - 3}$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Ensembles finis",
+          "texte": "Si $|E| = p$ et $|F| = n$ : il y a $n^p$ applications de $E$ dans $F$ et $\\frac{n!}{(n - p)!}$ injections (si $p \\leq n$). Si $|E| = |F|$ fini, $f$ injective $\\iff$ $f$ surjective $\\iff$ $f$ bijective."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-injective",
+      "recto": "Définition : $f$ injective ?",
+      "verso": "$\\forall x, x' \\in E,\\ f(x) = f(x') \\Rightarrow x = x'$ (tout élément a au plus un antécédent)."
+    },
+    {
+      "id": "f-surjective",
+      "recto": "Définition : $f$ surjective ?",
+      "verso": "$\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$ (tout élément a au moins un antécédent)."
+    },
+    {
+      "id": "f-bijective",
+      "recto": "Définition : $f$ bijective ?",
+      "verso": "Injective et surjective : tout $y \\in F$ a exactement un antécédent."
+    },
+    {
+      "id": "f-composee-inj",
+      "recto": "Si $g \\circ f$ est injective, que peut-on dire ?",
+      "verso": "$f$ est injective (mais pas forcément $g$)."
+    },
+    {
+      "id": "f-composee-surj",
+      "recto": "Si $g \\circ f$ est surjective, que peut-on dire ?",
+      "verso": "$g$ est surjective (mais pas forcément $f$)."
+    },
+    {
+      "id": "f-nb-applications",
+      "recto": "Nombre d'applications de $E$ ($p$ éléments) dans $F$ ($n$ éléments) ?",
+      "verso": "$n^p$"
+    },
+    {
+      "id": "f-nb-injections",
+      "recto": "Nombre d'injections de $E$ ($p$ éléments) dans $F$ ($n \\geq p$ éléments) ?",
+      "verso": "$n(n-1)\\cdots(n-p+1) = \\dfrac{n!}{(n-p)!}$"
+    },
+    {
+      "id": "f-image-reciproque",
+      "recto": "Définition de $f^{-1}(B)$ ?",
+      "verso": "$\\{x \\in E,\\ f(x) \\in B\\}$ — elle existe même si $f$ n'est pas bijective."
+    },
+    {
+      "id": "f-fof-1",
+      "recto": "Compare $A$ et $f^{-1}(f(A))$.",
+      "verso": "$A \\subset f^{-1}(f(A))$, avec égalité pour tout $A$ si $f$ est injective."
+    },
+    {
+      "id": "f-image-union",
+      "recto": "$f(A \\cup B) = $ ?",
+      "verso": "$f(A) \\cup f(B)$ (égalité)."
+    },
+    {
+      "id": "f-image-inter",
+      "recto": "Que dire de $f(A \\cap B)$ ?",
+      "verso": "$f(A \\cap B) \\subset f(A) \\cap f(B)$, avec égalité si $f$ est injective."
+    },
+    {
+      "id": "f-reciproque-inter",
+      "recto": "$f^{-1}(A \\cap B) = $ ?",
+      "verso": "$f^{-1}(A) \\cap f^{-1}(B)$ (toujours une égalité)."
+    },
+    {
+      "id": "f-image-application",
+      "recto": "Que vaut $\\mathrm{Im} f$ pour $f : E \\to F$ ?",
+      "verso": "$f(E) = \\{f(x) : x \\in E\\}$, une partie de $F$ (égale à $F$ ssi $f$ est surjective)."
+    },
+    {
+      "id": "f-composition-commutative",
+      "recto": "$g \\circ f = f \\circ g$ en général ?",
+      "verso": "Non : la composition est associative mais pas commutative (et $f \\circ g$ n'est pas toujours définie)."
+    },
+    {
+      "id": "f-reciproque-composee",
+      "recto": "$(g \\circ f)^{-1} = $ ? ($f$, $g$ bijectives)",
+      "verso": "$f^{-1} \\circ g^{-1}$ (on inverse l'ordre)."
+    },
+    {
+      "id": "f-f-f-moins-1",
+      "recto": "Que vaut $f(f^{-1}(C))$ ?",
+      "verso": "$C \\cap f(E)$ : inclus dans $C$, égal à $C$ si $f$ est surjective."
+    },
+    {
+      "id": "f-restriction",
+      "recto": "Rendre $x \\mapsto x^2$ bijective par restriction ?",
+      "verso": "Restreindre au départ à $\\mathbb{R}_+$ (ou $\\mathbb{R}_-$) et à l'arrivée à $\\mathbb{R}_+$."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "carre-reel",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "L'application $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$ est :",
+      "indice": "Regarde $f(-1)$ et $f(1)$, puis cherche un antécédent de $-1$.",
+      "correction": [
+        "$f(-1) = f(1) = 1$ avec $-1 \\neq 1$ : $f$ n'est pas injective.",
+        "$-1$ n'a pas d'antécédent (un carré est positif) : $f$ n'est pas surjective."
+      ],
+      "choix": [
+        {
+          "texte": "ni injective ni surjective",
+          "correct": true,
+          "explication": "$f(-1) = f(1)$ et $-1$ n'a pas d'antécédent."
+        },
+        {
+          "texte": "injective mais pas surjective",
+          "correct": false,
+          "explication": "$f(-1) = f(1)$ : deux éléments distincts ont la même image."
+        },
+        {
+          "texte": "surjective mais pas injective",
+          "correct": false,
+          "explication": "L'ensemble d'arrivée est $\\mathbb{R}$ : les négatifs n'ont pas d'antécédent."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "Ce serait vrai de $[0, +\\infty[$ dans $[0, +\\infty[$, mais pas de $\\mathbb{R}$ dans $\\mathbb{R}$."
+        }
+      ]
+    },
+    {
+      "id": "double-entier",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "L'application $f : \\mathbb{N} \\to \\mathbb{N}$, $n \\mapsto 2n$ est :",
+      "indice": "$1$ a-t-il un antécédent ?",
+      "correction": [
+        "$2n = 2m \\Rightarrow n = m$ : $f$ est injective.",
+        "$1$ (impair) n'a pas d'antécédent : $f$ n'est pas surjective."
+      ],
+      "choix": [
+        {
+          "texte": "injective mais pas surjective",
+          "correct": true,
+          "explication": "Les impairs n'ont pas d'antécédent."
+        },
+        {
+          "texte": "surjective mais pas injective",
+          "correct": false,
+          "explication": "C'est l'inverse : $2n = 2m$ donne $n = m$, et les impairs n'ont pas d'antécédent."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "$1$ n'a pas d'antécédent dans $\\mathbb{N}$."
+        },
+        {
+          "texte": "ni injective ni surjective",
+          "correct": false,
+          "explication": "Elle est injective : $2n = 2m \\Rightarrow n = m$."
+        }
+      ]
+    },
+    {
+      "id": "exponentielle-injective",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "L'application $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto e^x$ est :",
+      "correction": [
+        "$\\exp$ est strictement croissante, donc injective.",
+        "$e^x > 0$ : les réels négatifs ou nuls n'ont pas d'antécédent, donc $f$ n'est pas surjective sur $\\mathbb{R}$."
+      ],
+      "choix": [
+        {
+          "texte": "injective mais pas surjective",
+          "correct": true,
+          "explication": "$0$ et $-1$ n'ont pas d'antécédent."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "Elle l'est de $\\mathbb{R}$ dans $]0, +\\infty[$, pas dans $\\mathbb{R}$."
+        },
+        {
+          "texte": "surjective mais pas injective",
+          "correct": false,
+          "explication": "Strictement croissante, donc injective ; et pas surjective."
+        },
+        {
+          "texte": "ni injective ni surjective",
+          "correct": false,
+          "explication": "Elle est injective (strictement monotone)."
+        }
+      ]
+    },
+    {
+      "id": "composee-injective",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 2,
+      "enonce": "Soient $f : E \\to F$ et $g : F \\to G$ telles que $g \\circ f$ soit injective. Que peut-on affirmer à coup sûr ?",
+      "indice": "Si $f(x) = f(x')$, que vaut $g(f(x))$ ?",
+      "correction": [
+        "Si $f(x) = f(x')$, alors $g(f(x)) = g(f(x'))$, donc $x = x'$ par injectivité de $g \\circ f$ : $f$ est injective.",
+        "$g$ n'est pas forcément injective : $E = \\{0\\}$, $F = \\{0, 1\\}$, $G = \\{0\\}$, $f(0) = 0$ et $g$ constante.",
+        "Rien n'impose la surjectivité de $f$ ni de $g \\circ f$ (même exemple : $1 \\in F$ n'a pas d'antécédent)."
+      ],
+      "choix": [
+        {
+          "texte": "$f$ est injective",
+          "correct": true,
+          "explication": "$f(x) = f(x') \\Rightarrow g(f(x)) = g(f(x')) \\Rightarrow x = x'$."
+        },
+        {
+          "texte": "Pour $x \\neq x'$ dans $E$ : $g(f(x)) \\neq g(f(x'))$",
+          "correct": true,
+          "explication": "C'est la définition (contraposée) de l'injectivité de $g \\circ f$."
+        },
+        {
+          "texte": "$g$ est injective",
+          "correct": false,
+          "explication": "Contre-exemple : $g$ peut écraser des points de $F$ qui ne sont pas atteints par $f$."
+        },
+        {
+          "texte": "$f$ est surjective",
+          "correct": false,
+          "explication": "Aucune information sur la surjectivité : $f$ peut manquer des éléments de $F$."
+        }
+      ]
+    },
+    {
+      "id": "composee-surjective",
+      "type": "qcm",
+      "multiple": true,
+      "difficulte": 3,
+      "enonce": "Soient $f : E \\to F$ et $g : F \\to G$ avec $g \\circ f$ surjective. Que peut-on affirmer à coup sûr ?",
+      "indice": "Pour $z \\in G$, un antécédent par $g \\circ f$ donne un antécédent par $g$.",
+      "correction": [
+        "Pour $z \\in G$, il existe $x$ avec $g(f(x)) = z$ : $y = f(x)$ est un antécédent de $z$ par $g$. Donc $g$ est surjective.",
+        "$f$ n'est pas forcément surjective : $E = \\{0\\}$, $F = \\{0, 1\\}$, $G = \\{0\\}$, $f(0) = 0$, $g$ constante.",
+        "$g$ n'est pas forcément injective (même exemple)."
+      ],
+      "choix": [
+        {
+          "texte": "$g$ est surjective",
+          "correct": true,
+          "explication": "$f(x)$ est un antécédent de $z$ par $g$."
+        },
+        {
+          "texte": "Tout $z \\in G$ a un antécédent par $g \\circ f$",
+          "correct": true,
+          "explication": "C'est la définition de la surjectivité de $g \\circ f$."
+        },
+        {
+          "texte": "$f$ est surjective",
+          "correct": false,
+          "explication": "Contre-exemple : $1 \\in F$ peut ne pas être atteint par $f$."
+        },
+        {
+          "texte": "$g$ est injective",
+          "correct": false,
+          "explication": "Rien ne l'impose : $g$ constante dans le contre-exemple."
+        }
+      ]
+    },
+    {
+      "id": "image-reciproque-carre",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Soit $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$. Que vaut $f^{-1}([1, 4])$ ?",
+      "indice": "On cherche tous les $x$ tels que $1 \\leq x^2 \\leq 4$.",
+      "correction": [
+        "$1 \\leq x^2 \\leq 4 \\iff 1 \\leq |x| \\leq 2$.",
+        "$f^{-1}([1, 4]) = [-2, -1] \\cup [1, 2]$."
+      ],
+      "choix": [
+        {
+          "texte": "$[-2, -1] \\cup [1, 2]$",
+          "correct": true,
+          "explication": "$1 \\leq |x| \\leq 2$."
+        },
+        {
+          "texte": "$[1, 2]$",
+          "correct": false,
+          "explication": "Les $x$ négatifs ont aussi leur carré dans $[1, 4]$ : $(-1.5)^2 = 2.25$."
+        },
+        {
+          "texte": "$[1, 16]$",
+          "correct": false,
+          "explication": "C'est l'image directe $f([1, 4])$, pas l'image réciproque."
+        },
+        {
+          "texte": "$[-2, 2]$",
+          "correct": false,
+          "explication": "$0 \\in [-2, 2]$ mais $0^2 = 0 \\notin [1, 4]$."
+        }
+      ]
+    },
+    {
+      "id": "nombre-applications",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Combien y a-t-il d'applications d'un ensemble à 3 éléments dans un ensemble à 2 éléments ?",
+      "indice": "Chaque élément de départ choisit son image.",
+      "correction": [
+        "Chacun des 3 éléments de départ a 2 images possibles, indépendamment.",
+        "Il y a $2 \\times 2 \\times 2 = 2^3 = 8$ applications."
+      ],
+      "choix": [
+        {
+          "texte": "$8$",
+          "correct": true,
+          "explication": "$|F|^{|E|} = 2^3$."
+        },
+        {
+          "texte": "$9$",
+          "correct": false,
+          "explication": "C'est $3^2$ : on a inversé, il faut $|F|^{|E|}$."
+        },
+        {
+          "texte": "$6$",
+          "correct": false,
+          "explication": "$3 \\times 2$ : les choix se multiplient pour CHAQUE élément, d'où une puissance."
+        },
+        {
+          "texte": "$0$",
+          "correct": false,
+          "explication": "Il n'y a pas d'injection (3 > 2), mais il y a bien des applications."
+        }
+      ]
+    },
+    {
+      "id": "nombre-injections",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Combien y a-t-il d'injections d'un ensemble à 3 éléments dans un ensemble à 5 éléments ?",
+      "indice": "Le premier élément a 5 images possibles, le deuxième…",
+      "correction": [
+        "Le 1er élément a 5 images possibles, le 2e en a 4 (image différente), le 3e en a 3.",
+        "$5 \\times 4 \\times 3 = 60$ injections."
+      ],
+      "reponse": 60
+    },
+    {
+      "id": "reciproque-affine",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "$f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 3x - 5$ est bijective. Donner $f^{-1}(y)$ en fonction de $y$.",
+      "indice": "Résous $y = 3x - 5$ d'inconnue $x$.",
+      "correction": [
+        "$y = 3x - 5 \\iff x = \\dfrac{y + 5}{3}$.",
+        "Donc $f^{-1}(y) = \\dfrac{y + 5}{3}$."
+      ],
+      "reponse": "(y+5)/3",
+      "variables": [
+        "y"
+      ]
+    },
+    {
+      "id": "reciproque-carre-negatif",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "$f : \\left]-\\infty, 0\\right] \\to [1, +\\infty[$, $f(x) = x^2 + 1$ est bijective. Donner $f^{-1}(y)$ pour $y \\geq 1$.",
+      "indice": "Attention au signe : l'antécédent doit être $\\leq 0$.",
+      "correction": [
+        "$y = x^2 + 1 \\iff x^2 = y - 1 \\iff x = \\pm\\sqrt{y - 1}$.",
+        "Comme $x \\leq 0$, on garde $x = -\\sqrt{y - 1}$.",
+        "$f^{-1}(y) = -\\sqrt{y - 1}$."
+      ],
+      "reponse": "-sqrt(y-1)",
+      "variables": [
+        "y"
+      ],
+      "domaine": [
+        1,
+        6
+      ]
+    },
+    {
+      "id": "reciproque-exp-affine",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "$f : \\mathbb{R} \\to ]0, +\\infty[$, $f(x) = e^{2x+1}$ est bijective. Donner $f^{-1}(y)$ pour $y > 0$.",
+      "indice": "Résous $y = e^{2x+1}$ en prenant le logarithme.",
+      "correction": [
+        "$y = e^{2x+1} \\iff \\ln y = 2x + 1 \\iff x = \\dfrac{\\ln y - 1}{2}$.",
+        "$f^{-1}(y) = \\dfrac{\\ln y - 1}{2}$."
+      ],
+      "reponse": "(log(y) - 1)/2",
+      "variables": [
+        "y"
+      ],
+      "domaine": [
+        0.3,
+        6
+      ]
+    },
+    {
+      "id": "vf-image-reciproque-image",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Pour toute application $f : E \\to F$ et toute partie $A \\subset E$ : $f^{-1}(f(A)) = A$.",
+      "correction": [
+        "On a toujours $A \\subset f^{-1}(f(A))$, mais pas l'égalité.",
+        "Contre-exemple : $f(x) = x^2$ sur $\\mathbb{R}$ et $A = \\{1\\}$ : $f(A) = \\{1\\}$ et $f^{-1}(\\{1\\}) = \\{-1, 1\\} \\neq A$.",
+        "L'égalité est vraie pour tout $A$ si et seulement si $f$ est injective."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Avec $f(x) = x^2$ et $A = \\{1\\}$, on obtient $\\{-1, 1\\}$.",
+          "correct": true,
+          "explication": "Seule l'inclusion $A \\subset f^{-1}(f(A))$ est toujours vraie."
+        },
+        {
+          "texte": "Vrai : $f^{-1}$ annule l'effet de $f$.",
+          "correct": false,
+          "explication": "Ici $f^{-1}$ désigne l'image réciproque, définie même si $f$ n'est pas bijective : ce n'est pas une réciproque."
+        },
+        {
+          "texte": "Faux : on a seulement $f^{-1}(f(A)) \\subset A$.",
+          "correct": false,
+          "explication": "C'est l'inclusion inverse qui est vraie : $A \\subset f^{-1}(f(A))$."
+        }
+      ]
+    },
+    {
+      "id": "vf-croissante-injective",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Toute application strictement croissante de $\\mathbb{R}$ dans $\\mathbb{R}$ est injective.",
+      "correction": [
+        "Vrai : si $x \\neq x'$, disons $x < x'$, alors $f(x) < f(x')$, donc $f(x) \\neq f(x')$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$x < x' \\Rightarrow f(x) < f(x')$, donc deux points distincts ont des images distinctes.",
+          "correct": true,
+          "explication": "C'est la contraposée de l'injectivité."
+        },
+        {
+          "texte": "Faux : $x \\mapsto x^3$ est croissante mais pas injective.",
+          "correct": false,
+          "explication": "$x^3$ est injective ($x^3 = y^3 \\Rightarrow x = y$ dans $\\mathbb{R}$)."
+        },
+        {
+          "texte": "Vrai, et elle est même surjective.",
+          "correct": false,
+          "explication": "$\\arctan$ est strictement croissante mais n'est pas surjective sur $\\mathbb{R}$."
+        }
+      ]
+    },
+    {
+      "id": "erreur-injectivite",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "« Démonstration » que $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2 + x$ est injective. Où est l'erreur ?",
+      "correction": [
+        "Un produit nul a l'un de ses facteurs nul : on peut avoir $x + x' + 1 = 0$.",
+        "D'ailleurs $f(0) = f(-1) = 0$ : $f$ n'est pas injective."
+      ],
+      "etapes": [
+        "Soient $x, x'$ réels tels que $f(x) = f(x')$.",
+        "Alors $x^2 - x'^2 + x - x' = 0$.",
+        "Donc $(x - x')(x + x' + 1) = 0$.",
+        "Donc $x - x' = 0$, c'est-à-dire $x = x'$.",
+        "Donc $f$ est injective."
+      ],
+      "etapeFausse": 3,
+      "explication": "Un produit est nul si L'UN des facteurs est nul : le cas $x + x' + 1 = 0$ est oublié. Contre-exemple : $f(0) = f(-1) = 0$."
+    },
+    {
+      "id": "erreur-surjectivite-carre",
+      "type": "trouve-erreur",
+      "difficulte": 2,
+      "enonce": "« Démonstration » que $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$ est surjective. Où est l'erreur ?",
+      "correction": [
+        "$\\sqrt{y}$ n'est défini que pour $y \\geq 0$ : $y = -1$ n'a pas d'antécédent, donc $f$ n'est pas surjective."
+      ],
+      "etapes": [
+        "Soit $y \\in \\mathbb{R}$.",
+        "On pose $x = \\sqrt{y}$.",
+        "Alors $f(x) = (\\sqrt{y})^2 = y$.",
+        "Tout $y$ a donc un antécédent : $f$ est surjective."
+      ],
+      "etapeFausse": 1,
+      "explication": "$\\sqrt{y}$ n'existe pas pour $y < 0$ : on ne peut pas poser $x = \\sqrt{y}$ pour TOUT réel $y$."
+    },
+    {
+      "id": "td-image-exp",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Soit $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = e^x$. Que vaut $f(\\mathbb{R}_-)$ ? (TD Applications, ex. 1)",
+      "correction": [
+        "$x \\leq 0 \\iff 0 < e^x \\leq 1$, et toute valeur de $]0, 1]$ est atteinte ($y = e^{\\ln y}$)."
+      ],
+      "choix": [
+        {
+          "texte": "$]0, 1]$",
+          "correct": true,
+          "explication": "$\\exp$ est croissante, $e^0 = 1$ et $e^x \\to 0$ en $-\\infty$ sans l'atteindre."
+        },
+        {
+          "texte": "$[0, 1]$",
+          "correct": false,
+          "explication": "$0$ n'est jamais atteint : $e^x > 0$."
+        },
+        {
+          "texte": "$\\mathbb{R}_-$",
+          "correct": false,
+          "explication": "On confond l'ensemble de départ et son image."
+        },
+        {
+          "texte": "$\\varnothing$",
+          "correct": false,
+          "explication": "C'est $f^{-1}(\\mathbb{R}_-)$, l'image réciproque."
+        }
+      ]
+    },
+    {
+      "id": "td-reciproque-ln",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Soit $f : \\mathbb{R}_+^* \\to \\mathbb{R}$, $f(x) = \\ln x$. Que vaut $f^{-1}(\\mathbb{R}_-)$ ? (TD Applications, ex. 1)",
+      "correction": [
+        "$f^{-1}(\\mathbb{R}_-) = \\{x > 0 : \\ln x \\leq 0\\} = ]0, 1]$."
+      ],
+      "choix": [
+        {
+          "texte": "$]0, 1]$",
+          "correct": true,
+          "explication": "$\\ln x \\leq 0 \\iff 0 < x \\leq 1$."
+        },
+        {
+          "texte": "$]-\\infty, 1]$",
+          "correct": false,
+          "explication": "$\\ln$ n'est définie que sur $\\mathbb{R}_+^*$."
+        },
+        {
+          "texte": "$[1, +\\infty[$",
+          "correct": false,
+          "explication": "Ce sont les $x$ tels que $\\ln x \\geq 0$."
+        },
+        {
+          "texte": "$\\varnothing$",
+          "correct": false,
+          "explication": "$\\ln x$ prend bien des valeurs négatives."
+        }
+      ]
+    },
+    {
+      "id": "td-image-carre-union",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $f(x) = x^2$ sur $\\mathbb{R}$. Que vaut $f([-3, -1] \\cup [-2, 1])$ ? (TD Applications, ex. 2)",
+      "correction": [
+        "$f(A \\cup B) = f(A) \\cup f(B) = [1, 9] \\cup [0, 4] = [0, 9]$."
+      ],
+      "choix": [
+        {
+          "texte": "$[0, 9]$",
+          "correct": true,
+          "explication": "$[-3, -1] \\cup [-2, 1] = [-3, 1]$, dont l'image est $[0, 9]$."
+        },
+        {
+          "texte": "$[1, 9]$",
+          "correct": false,
+          "explication": "C'est seulement $f([-3, -1])$."
+        },
+        {
+          "texte": "$[1, 4]$",
+          "correct": false,
+          "explication": "C'est l'image de l'intersection $[-2, -1]$."
+        },
+        {
+          "texte": "$]0, 9]$",
+          "correct": false,
+          "explication": "$0 = f(0)$ est atteint, car $0 \\in [-2, 1]$."
+        }
+      ]
+    },
+    {
+      "id": "td-min-image",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $f(x) = \\min(x^2, 3)$ sur $\\mathbb{R}$. Que vaut $f([1, 2])$ ? (TD Applications, ex. 3)",
+      "correction": [
+        "Sur $[1, \\sqrt3]$, $f(x) = x^2$ parcourt $[1, 3]$ ; sur $[\\sqrt3, 2]$, $f(x) = 3$.",
+        "Donc $f([1, 2]) = [1, 3]$."
+      ],
+      "choix": [
+        {
+          "texte": "$[1, 3]$",
+          "correct": true,
+          "explication": "$x^2$ parcourt $[1, 4]$, et le minimum avec $3$ coupe au-dessus de $3$."
+        },
+        {
+          "texte": "$[1, 4]$",
+          "correct": false,
+          "explication": "On oublie le $\\min$ : $f$ ne dépasse jamais $3$."
+        },
+        {
+          "texte": "$[1, \\sqrt3]$",
+          "correct": false,
+          "explication": "On confond les valeurs prises avec les $x$ tels que $x^2 \\leq 3$."
+        },
+        {
+          "texte": "$\\{3\\}$",
+          "correct": false,
+          "explication": "$f(1) = 1$ : les valeurs sous $3$ sont aussi atteintes."
+        }
+      ]
+    },
+    {
+      "id": "td-min-reciproque",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $f(x) = \\min(x^2, 3)$ sur $\\mathbb{R}$. Que vaut $f^{-1}([4, +\\infty[)$ ? (TD Applications, ex. 3)",
+      "correction": [
+        "$f$ est majorée par $3$ : aucun $x$ ne vérifie $f(x) \\geq 4$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\varnothing$",
+          "correct": true,
+          "explication": "$f(x) \\leq 3 < 4$ pour tout $x$."
+        },
+        {
+          "texte": "$]-\\infty, -2] \\cup [2, +\\infty[$",
+          "correct": false,
+          "explication": "Ce serait vrai pour $x \\mapsto x^2$, sans le $\\min$."
+        },
+        {
+          "texte": "$[2, +\\infty[$",
+          "correct": false,
+          "explication": "On oublie le $\\min$ et les $x$ négatifs."
+        },
+        {
+          "texte": "$\\mathbb{R}$",
+          "correct": false,
+          "explication": "Aucune valeur de $f$ n'atteint $4$."
+        }
+      ]
+    },
+    {
+      "id": "td-n-plus-1",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "L'application $n \\mapsto n + 1$, de $\\mathbb{N}$ dans $\\mathbb{N}$, est : (TD Applications, ex. 4)",
+      "correction": [
+        "Injective : $n + 1 = m + 1 \\Rightarrow n = m$.",
+        "Non surjective : $n + 1 = 0$ n'a pas de solution dans $\\mathbb{N}$."
+      ],
+      "choix": [
+        {
+          "texte": "injective, non surjective",
+          "correct": true,
+          "explication": "$0$ n'a pas d'antécédent dans $\\mathbb{N}$."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "C'est le cas de $\\mathbb{Z}$ dans $\\mathbb{Z}$, pas de $\\mathbb{N}$ dans $\\mathbb{N}$."
+        },
+        {
+          "texte": "surjective, non injective",
+          "correct": false,
+          "explication": "$n + 1 = m + 1 \\Rightarrow n = m$ : elle est injective."
+        },
+        {
+          "texte": "ni injective ni surjective",
+          "correct": false,
+          "explication": "Elle est injective."
+        }
+      ]
+    },
+    {
+      "id": "td-homographie-1",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "L'application $x \\mapsto \\dfrac{x + 1}{x - 1}$, de $\\mathbb{R} \\setminus \\{1\\}$ dans $\\mathbb{R}$, est : (TD Applications, ex. 4)",
+      "correction": [
+        "$y = \\frac{x + 1}{x - 1} \\iff x(y - 1) = y + 1$.",
+        "Si $y \\neq 1$ : unique solution $x = \\frac{y + 1}{y - 1}$ (injectivité). Si $y = 1$ : $0 = 2$, aucun antécédent (non surjective)."
+      ],
+      "choix": [
+        {
+          "texte": "injective, non surjective",
+          "correct": true,
+          "explication": "$1$ n'a pas d'antécédent."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "Elle l'est de $\\mathbb{R} \\setminus \\{1\\}$ dans $\\mathbb{R} \\setminus \\{1\\}$, mais $1$ n'est pas atteint."
+        },
+        {
+          "texte": "surjective, non injective",
+          "correct": false,
+          "explication": "$\\frac{x + 1}{x - 1} = 1$ donnerait $x + 1 = x - 1$ : impossible."
+        },
+        {
+          "texte": "ni injective ni surjective",
+          "correct": false,
+          "explication": "Elle est injective : on résout $y = f(x)$ de manière unique."
+        }
+      ]
+    },
+    {
+      "id": "td-somme-produit",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "L'application $(x, y) \\mapsto (x + y, xy)$, de $\\mathbb{R}^2$ dans $\\mathbb{R}^2$, est : (TD Applications, ex. 4)",
+      "correction": [
+        "Non injective : $f(1, 2) = f(2, 1) = (3, 2)$.",
+        "Non surjective : $(s, p)$ est atteint ssi $X^2 - sX + p$ a des racines réelles, ssi $s^2 \\geq 4p$ ; $(0, 1)$ ne l'est pas."
+      ],
+      "choix": [
+        {
+          "texte": "ni injective ni surjective",
+          "correct": true,
+          "explication": "$(1, 2)$ et $(2, 1)$ ont la même image, et $(0, 1)$ n'est pas atteint."
+        },
+        {
+          "texte": "injective, non surjective",
+          "correct": false,
+          "explication": "$(1, 2) \\neq (2, 1)$ ont la même image $(3, 2)$."
+        },
+        {
+          "texte": "surjective, non injective",
+          "correct": false,
+          "explication": "$x + y = 0$ et $xy = 1$ donnent $-x^2 = 1$ : impossible."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "Elle n'est ni injective ni surjective."
+        }
+      ]
+    },
+    {
+      "id": "td-composee-g-f",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "$f(n) = 2n$ et $g(n) = \\frac n2$ si $n$ est pair, $g(n) = n$ sinon ($f, g : \\mathbb{N} \\to \\mathbb{N}$). Que vaut $g \\circ f$ ? (TD Applications, ex. 7)",
+      "correction": [
+        "$g(f(n)) = g(2n) = n$ : $g \\circ f = \\mathrm{id}_{\\mathbb{N}}$.",
+        "Pourtant $f$ n'est pas surjective et $g$ n'est pas injective ($g(1) = g(2) = 1$) : aucune des deux n'est bijective."
+      ],
+      "choix": [
+        {
+          "texte": "$\\mathrm{id}_{\\mathbb{N}}$",
+          "correct": true,
+          "explication": "$2n$ est pair, donc $g(2n) = n$."
+        },
+        {
+          "texte": "$n \\mapsto 2n$",
+          "correct": false,
+          "explication": "On a appliqué $g$ avant $f$."
+        },
+        {
+          "texte": "$f \\circ g$",
+          "correct": false,
+          "explication": "$f \\circ g(3) = 6 \\neq 3 = g \\circ f(3)$."
+        },
+        {
+          "texte": "$n \\mapsto \\frac n2$",
+          "correct": false,
+          "explication": "$f(n) = 2n$ est toujours pair : on divise $2n$ par $2$."
+        }
+      ]
+    },
+    {
+      "id": "td-mere",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "À chaque être humain, on associe sa mère. Cette application, de l'ensemble des humains dans lui-même, est : (TD Applications, ex. 10)",
+      "correction": [
+        "C'est bien une application : chacun a une et une seule mère.",
+        "Non injective (frères et sœurs), non surjective (les hommes ne sont pas des mères)."
+      ],
+      "choix": [
+        {
+          "texte": "ni injective ni surjective",
+          "correct": true,
+          "explication": "Deux frères ont la même mère ; un homme n'est la mère de personne."
+        },
+        {
+          "texte": "injective, non surjective",
+          "correct": false,
+          "explication": "Deux enfants d'une même mère ont la même image."
+        },
+        {
+          "texte": "surjective, non injective",
+          "correct": false,
+          "explication": "Un homme (ou une femme sans enfant) n'a pas d'antécédent."
+        },
+        {
+          "texte": "bijective",
+          "correct": false,
+          "explication": "Elle n'est ni injective ni surjective."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-image-intersection",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour toute application $f : E \\to F$ et toutes parties $A, B \\subset E$ : $f(A \\cap B) = f(A) \\cap f(B)$. (TD Applications, ex. 11)",
+      "correction": [
+        "$f(A \\cap B) \\subset f(A) \\cap f(B)$ toujours ; l'égalité est vraie si $f$ est injective.",
+        "Avec $x^2$, $A = \\{-1\\}$, $B = \\{1\\}$ : $\\varnothing \\neq \\{1\\}$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $f(x) = x^2$, $A = \\{-1\\}$, $B = \\{1\\}$.",
+          "correct": true,
+          "explication": "$f(A \\cap B) = f(\\varnothing) = \\varnothing$, mais $f(A) \\cap f(B) = \\{1\\}$."
+        },
+        {
+          "texte": "Vrai, comme pour la réunion.",
+          "correct": false,
+          "explication": "Seule l'inclusion $f(A \\cap B) \\subset f(A) \\cap f(B)$ est vraie."
+        },
+        {
+          "texte": "Vrai si $f$ est surjective.",
+          "correct": false,
+          "explication": "Il faut l'injectivité, pas la surjectivité : $x \\mapsto x^2$ de $\\mathbb{R}$ dans $\\mathbb{R}_+$ est surjective et donne le même contre-exemple."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-gof-surjective",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Si $g \\circ f$ est surjective, alors $f$ est surjective. (TD Applications, ex. 13)",
+      "correction": [
+        "Si $g \\circ f$ est surjective, c'est $g$ qui l'est : tout $z \\in G$ s'écrit $g(f(x))$.",
+        "$f$ peut ne pas l'être (exemple $f(n) = 2n$)."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $f(n) = 2n$, $g(n) = \\frac n2$ ou $n$ (TD, ex. 7), avec $g \\circ f = \\mathrm{id}_{\\mathbb{N}}$.",
+          "correct": true,
+          "explication": "$g \\circ f$ est bijective, mais $f$ n'est pas surjective."
+        },
+        {
+          "texte": "Vrai : la surjectivité passe aux deux applications.",
+          "correct": false,
+          "explication": "Elle passe seulement à $g$ (la dernière appliquée)."
+        },
+        {
+          "texte": "Faux : c'est $g$ qui n'est jamais surjective.",
+          "correct": false,
+          "explication": "Au contraire, $g$ est forcément surjective."
+        }
+      ]
+    },
+    {
+      "id": "td-reciproque-homographie",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "$f : \\mathbb{R} \\setminus \\{2\\} \\to \\mathbb{R} \\setminus \\{3\\}$, $f(x) = \\dfrac{3x + 1}{x - 2}$ est bijective. Donner $f^{-1}(y)$. (TD Applications, ex. 9)",
+      "indice": "Résoudre $y = f(x)$ d'inconnue $x$.",
+      "correction": [
+        "On résout $y = \\frac{3x + 1}{x - 2}$ : $y(x - 2) = 3x + 1 \\iff x(y - 3) = 2y + 1$.",
+        "Pour $y \\neq 3$ : $x = \\frac{2y + 1}{y - 3}$, et $x \\neq 2$ (sinon $2y - 6 = 2y + 1$).",
+        "Donc $f^{-1}(y) = \\frac{2y + 1}{y - 3}$."
+      ],
+      "reponse": "(2*y + 1)/(y - 3)",
+      "variables": [
+        "y"
+      ],
+      "domaine": [
+        4,
+        9
+      ]
+    },
+    {
+      "id": "td-reciproque-valeurs-absolues",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "$f(x) = |1 + x| + |1 - x| - 2$, vue de $[1, +\\infty[$ dans $\\mathbb{R}_+$, est bijective. Donner $f^{-1}(y)$. (TD Applications, ex. 6)",
+      "correction": [
+        "Pour $x \\geq 1$ : $|1 + x| = 1 + x$ et $|1 - x| = x - 1$, donc $f(x) = 2x - 2$.",
+        "$y = 2x - 2 \\iff x = \\frac y2 + 1$, et $x \\geq 1 \\iff y \\geq 0$.",
+        "Donc $f^{-1}(y) = \\frac y2 + 1$."
+      ],
+      "reponse": "y/2 + 1",
+      "variables": [
+        "y"
+      ],
+      "domaine": [
+        0,
+        5
+      ]
+    }
+  ]
+}
