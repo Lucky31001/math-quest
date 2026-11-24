@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "integration",
   "monde": "analyse",
-  "ordre": 6,
+  "ordre": 8,
   "semestre": 2,
   "titre": "Intégration",
   "icone": "📏",

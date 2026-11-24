@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "fonctions-usuelles",
   "monde": "analyse",
-  "ordre": 4,
+  "ordre": 6,
   "semestre": 2,
   "titre": "Fonctions usuelles",
   "icone": "📈",
