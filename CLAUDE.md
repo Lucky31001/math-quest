@@ -59,7 +59,8 @@ src/c/           atelier C : wasi.ts (WASI en mémoire), compilateur.ts (xcc), w
                  scanf.ts (scanf/fscanf/sscanf de remplacement : celui de la libc de xcc est défaillant)
 tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifier l'affiché
   outils/        tout-verifier.ts (un test, toutes les vérifications), verification.ts, generateurs.ts
-  verifications/ maths.ts, physique.ts, informatique.ts : réponses recalculées indépendamment
+  verifications/ maths.ts, physique.ts, informatique.ts : réponses recalculées indépendamment ;
+                 generateurs.ts : une vérification par générateur de maths (VERIFICATIONS_GENERATEURS)
 ```
 
 ## Conventions et pièges
@@ -122,7 +123,7 @@ Vérifier soi-même l'exactitude mathématique de chaque réponse, correction et
 
 1. Créer `src/generators/<theme>.ts`, qui exporte un `Generateur` : `id`, `titre`, `chapitre`, `formes`, `generer(rng, difficulte, forme)`.
 2. L'enregistrer dans `GENERATEURS` (`src/generators/index.ts`).
-3. Ajouter un test mathématique dans `tests/generators.test.ts`, qui relit l'énoncé affiché. Les tests structurels s'appliquent automatiquement.
+3. Ajouter sa vérification dans `VERIFICATIONS_GENERATEURS` (`tests/verifications/generateurs.ts`) : elle reçoit une question (libre ou QCM), relit l'énoncé affiché et recalcule la réponse. Réutiliser les familles `parValeur` (réponse numérique) ou `parCritere` (fonction, matrice… testée par un critère). Le test de couverture échoue s'il en manque une ; les tests structurels s'appliquent automatiquement.
 
 Informatique : `src/generators/informatique.ts` (un extrait de code C par question, réponse = ce qu'il affiche). `tests/generators-informatique.test.ts` compile l'extrait AFFICHÉ avec gcc (via `completerExtrait`, comme l'atelier) : le code doit rester compilable avec `-Wall -Werror`.
 
