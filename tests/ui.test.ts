@@ -285,6 +285,22 @@ describe('composant question : chaque type se corrige', () => {
       }
     });
 
+  it('trouve l\'erreur : la ligne fautive en vert, un mauvais choix en rouge', () => {
+    const q = CONTENU.chapitres.flatMap((x) => x.exercices).find((x) => x.type === 'trouve-erreur')!;
+    if (q.type !== 'trouve-erreur') throw new Error('pas de question « trouve l\'erreur »');
+    for (const juste of [true, false]) {
+      const c = afficherQuestion({ question: q, surResultat: () => {}, surSuivant: () => {} });
+      document.body.append(c.el);
+      repondre(q, c.el, juste);
+      const lignes = c.el.querySelectorAll('.etape');
+      const autre = (q.etapeFausse + 1) % q.etapes.length;
+      expect(lignes[q.etapeFausse].classList.contains('juste')).toBe(true);
+      expect(lignes[q.etapeFausse].classList.contains('faux')).toBe(false);
+      expect(lignes[autre].classList.contains('faux')).toBe(!juste);
+      c.detruire();
+    }
+  });
+
   it('QCM : raccourci clavier 1–4 et indice payant', () => {
     const q = ch.exercices.find((x) => x.type === 'qcm' && !x.multiple && x.indice)!;
     let statut: string | null = null;
