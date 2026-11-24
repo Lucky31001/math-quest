@@ -1450,15 +1450,16 @@ body[data-ecran='jouer'] .hud {
   box-shadow: 0 4px 0 var(--bleu-bord);
 }
 
-.etape.faux-cible {
-  border-color: var(--rouge);
-  background: var(--rouge-clair);
-  box-shadow: 0 4px 0 var(--rouge-fonce);
+.etape.juste {
+  border-color: var(--vert);
+  background: var(--vert-clair);
+  box-shadow: 0 4px 0 var(--vert-fonce);
 }
 
 .etape.faux {
-  border-color: var(--orange);
-  border-style: dashed;
+  border-color: var(--rouge);
+  background: var(--rouge-clair);
+  box-shadow: 0 4px 0 var(--rouge-fonce);
 }
 
 .saisie {
@@ -2598,7 +2599,7 @@ a.stat-ligne:hover {
 
 /* … et la mauvaise réponse émet un halo rouge qui s'estompe. */
 .choix-item.faux,
-.etape.faux-cible,
+.etape.faux,
 .btn-vf.faux {
   animation: halo-faux 0.7s ease-out;
 }
