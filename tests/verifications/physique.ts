@@ -223,4 +223,105 @@ export const verifications: Record<string, () => void> = {
     const Qf = simpson((V) => (n * R * Tf) / V, V3, V4); // isotherme froide
     expect(attendu(question('thermodynamique', 'rendement-carnot')).re).toBeCloseTo((100 * (Qc + Qf)) / Qc, 4);
   },
+  /* ---------------- Panorama sur la Physique (CY Tech) ---------------- */
+  'pensee-scientifique/ordre-atome-noyau': () =>
+    expect(attendu(question('pensee-scientifique', 'ordre-atome-noyau')).re).toBe(Math.round(Math.log10(1e-10 / 1e-15))),
+  'pensee-scientifique/annee-lumiere': () => {
+    // Distance parcourue jour après jour pendant 365,25 jours.
+    let d = 0;
+    for (let j = 0; j < 365; j++) d += 3e8 * 86400;
+    d += 3e8 * 86400 * 0.25;
+    expect(proche(attendu(question('pensee-scientifique', 'annee-lumiere')), d, 1e-9)).toBe(true);
+  },
+  'pensee-scientifique/gravitation-double-distance': () => {
+    const F = (r: number) => (6.67e-11 * 5 * 7) / r ** 2;
+    expect(attendu(question('pensee-scientifique', 'gravitation-double-distance')).re).toBeCloseTo(F(3) / F(6), 10);
+  },
+  'optique-geometrique/cauchy-indice': () =>
+    expect(proche(attendu(question('optique-geometrique', 'cauchy-indice')), 1.5 + 4e3 / 500 ** 2)).toBe(true),
+  'optique-geometrique/nombre-abbe': () =>
+    expect(attendu(question('optique-geometrique', 'nombre-abbe')).re).toBeCloseTo((1.62 - 1) / (1.63 - 1.61), 8),
+  'optique-geometrique/rotation-miroir': () => {
+    // Réflexion d'un rayon fixe sur un miroir dont la normale tourne de 10°.
+    const reflechi = (d: number[], a: number) => {
+      const n = [Math.cos(a), Math.sin(a)];
+      const p = d[0] * n[0] + d[1] * n[1];
+      return [d[0] - 2 * p * n[0], d[1] - 2 * p * n[1]];
+    };
+    const d = [-Math.cos(0.3), -Math.sin(0.3)];
+    const [r1, r2] = [reflechi(d, 0), reflechi(d, (10 * Math.PI) / 180)];
+    const angle = (Math.acos(r1[0] * r2[0] + r1[1] * r2[1]) * 180) / Math.PI;
+    expect(attendu(question('optique-geometrique', 'rotation-miroir')).re).toBeCloseTo(angle, 8);
+  },
+  'optique-geometrique/dioptre-plan-profondeur': () => {
+    // Rayon quasi vertical issu du caillou (profondeur 2 m), réfracté eau → air, prolongé dans l'eau.
+    const i1 = 1e-4;
+    const x = 2 * Math.tan(i1);
+    const i2 = Math.asin(1.33 * Math.sin(i1));
+    expect(proche(attendu(question('optique-geometrique', 'dioptre-plan-profondeur')), x / Math.tan(i2), 1e-6)).toBe(true);
+  },
+  'optique-geometrique/relation-newton': () =>
+    // F'A' = OA' − OF' : l'image de A (OA = OF + FA = −30 cm) est obtenue par tracé de rayons.
+    expect(attendu(question('optique-geometrique', 'relation-newton')).re).toBeCloseTo(imageParRayons(-10 - 20, 10).x - 10, 8),
+  'optique-geometrique/lentilles-accolees': () => {
+    // Rayon parallèle à l'axe (hauteur h) : chaque lentille ajoute −h/f' à la pente.
+    const h = 1;
+    const pente = -h / 20 - h / 30;
+    expect(attendu(question('optique-geometrique', 'lentilles-accolees')).re).toBeCloseTo(-h / pente, 8);
+  },
+  'cinematique/produit-scalaire': () => {
+    const [u, v] = [[1, 2, 3], [4, -5, 6]];
+    expect(attendu(question('cinematique', 'produit-scalaire')).re).toBe(u.reduce((s, x, i) => s + x * v[i], 0));
+  },
+  'cinematique/norme-produit-vectoriel': () => {
+    const u = [3, 0, 0];
+    const v = [4 * Math.cos(Math.PI / 6), 4 * Math.sin(Math.PI / 6), 0];
+    const w = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+    expect(attendu(question('cinematique', 'norme-produit-vectoriel')).re).toBeCloseTo(Math.hypot(...w), 10);
+  },
+  'cinematique/helice-vitesse': () => {
+    const M = (t: number) => [2 * Math.cos(3 * t), 2 * Math.sin(3 * t), 8 * t];
+    const h = 1e-6;
+    const t = 0.37;
+    const v = M(t + h).map((x, i) => (x - M(t - h)[i]) / (2 * h));
+    expect(attendu(question('cinematique', 'helice-vitesse')).re).toBeCloseTo(Math.hypot(...v), 5);
+  },
+  'cinematique/virage-frenet': () => {
+    // Abscisse curviligne s(t) = 20t − 1,5t² sur un cercle de rayon 50 m ; accélération par différences finies en t = 0.
+    const M = (t: number) => {
+      const s = 20 * t - 1.5 * t * t;
+      return [50 * Math.cos(s / 50), 50 * Math.sin(s / 50)];
+    };
+    const h = 1e-4;
+    const a = M(h).map((x, i) => (x - 2 * M(0)[i] + M(-h)[i]) / (h * h));
+    expect(proche(attendu(question('cinematique', 'virage-frenet')), Math.hypot(...a), 1e-5)).toBe(true);
+  },
+  'dynamique/g-gravitation': () =>
+    expect(proche(attendu(question('dynamique', 'g-gravitation')), (6.67e-11 * 5.97e24) / 6.37e6 ** 2, 1e-9)).toBe(true),
+  'dynamique/g-altitude': () => {
+    const g = (h: number) => (6.67e-11 * 5.97e24) / (6.37e6 + h) ** 2;
+    expect(attendu(question('dynamique', 'g-altitude')).re).toBeCloseTo(g(0) / g(6.37e6), 10);
+  },
+  'dynamique/patineurs': () => {
+    const F = 150; // même norme pour les deux (3e loi)
+    expect(proche(attendu(question('dynamique', 'patineurs')), F / 72 / (F / 95))).toBe(true);
+  },
+  'dynamique/periode-ressort': () => {
+    // Masse lâchée en x = 0,1 sans vitesse : sa vitesse redevient positive au bout d'une demi-période.
+    const F = (_t: number, [x, v]: number[]) => [v, (-50 / 0.5) * x];
+    const demi = instant(F, [0.1, 0], ([, v]) => v > 0, 1e-5);
+    expect(Math.abs(attendu(question('dynamique', 'periode-ressort')).re - 2 * demi.t)).toBeLessThan(1e-3);
+  },
+  'dynamique/equilibre-ressort-vertical': () => {
+    // Équilibre : la force du ressort compense le poids (en m, converti en cm).
+    const dl = racine((x) => 40 * x - 0.2 * 9.81, 0, 1);
+    expect(proche(attendu(question('dynamique', 'equilibre-ressort-vertical')), dl * 100, 1e-9)).toBe(true);
+  },
+  'dynamique/solution-ressort': () => {
+    const x = fonction(question('dynamique', 'solution-ressort'));
+    for (const t of [0.2, 0.75, 1.3]) {
+      const [xt] = rk4((_t, [p, v]) => [v, -100 * p], [0.1, 0], 0, t);
+      expect(x(t)).toBeCloseTo(xt, 6);
+    }
+  },
 };

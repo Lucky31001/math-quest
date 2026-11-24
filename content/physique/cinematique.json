@@ -6,8 +6,48 @@
   "semestre": 1,
   "titre": "Cinématique du point",
   "icone": "🚀",
-  "resume": "Position, vitesse, accélération ; mouvements rectilignes, chute libre, mouvement circulaire.",
+  "resume": "Point matériel et référentiel, coordonnées cartésiennes, cylindriques, sphériques et intrinsèques, produits scalaire et vectoriel, vitesse et accélération.",
   "cours": [
+    {
+      "titre": "Repérage dans l'espace",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Point matériel, référentiel",
+          "texte": "La cinématique étudie le mouvement **sans s'occuper de ses causes**. Un solide a **6 degrés de liberté** (3 translations, 3 rotations). On le modélise par un **point matériel** (3 degrés de liberté) quand on peut négliger sa taille et sa rotation propre (ex. la Terre autour du Soleil). Un **référentiel** = un repère d'espace + une horloge ; le mouvement est **relatif** au référentiel (Galilée)."
+        },
+        {
+          "type": "definition",
+          "titre": "Systèmes de coordonnées",
+          "texte": "**Cartésiennes** $(x, y, z)$ : $\\overrightarrow{OM} = x\\vec e_x + y\\vec e_y + z\\vec e_z$. **Cylindriques** $(\\rho, \\varphi, z)$ : $\\overrightarrow{OM} = \\rho\\vec e_\\rho + z\\vec e_z$. **Sphériques** $(r, \\theta, \\varphi)$, avec $\\theta$ l'angle entre $\\vec e_z$ et $\\overrightarrow{OM}$ : $\\overrightarrow{OM} = r\\vec e_r$, $\\rho = r\\sin\\theta$, $z = r\\cos\\theta$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Déplacement élémentaire",
+          "texte": "Déplacement élémentaire : cartésiennes $d\\vec\\ell = dx\\,\\vec e_x + dy\\,\\vec e_y + dz\\,\\vec e_z$ ; cylindriques $d\\vec\\ell = d\\rho\\,\\vec e_\\rho + \\rho\\,d\\varphi\\,\\vec e_\\varphi + dz\\,\\vec e_z$ ; sphériques $d\\vec\\ell = dr\\,\\vec e_r + r\\,d\\theta\\,\\vec e_\\theta + r\\sin\\theta\\,d\\varphi\\,\\vec e_\\varphi$."
+        },
+        {
+          "type": "definition",
+          "titre": "Coordonnées intrinsèques",
+          "texte": "Le long de la trajectoire, l'**abscisse curviligne** $s$ est la longueur du chemin parcouru depuis une origine ; $v = \\frac{ds}{dt}$. Base de **Frenet** : $\\vec u_t$ tangent, $\\vec u_n$ normal (vers le centre de courbure). $\\vec v = v\\,\\vec u_t$ et $\\vec a = \\frac{dv}{dt}\\,\\vec u_t + \\frac{v^2}{R}\\,\\vec u_n$, où $R$ est le rayon de courbure."
+        }
+      ]
+    },
+    {
+      "titre": "Produits scalaire et vectoriel",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Produit scalaire",
+          "texte": "$\\vec u \\cdot \\vec v = \\|\\vec u\\|\\,\\|\\vec v\\|\\cos\\theta = u_xv_x + u_yv_y + u_zv_z$ (base orthonormée). Il est nul ssi les vecteurs sont orthogonaux ; il sert à **projeter** un vecteur sur une direction."
+        },
+        {
+          "type": "definition",
+          "titre": "Produit vectoriel",
+          "texte": "$\\vec u \\wedge \\vec v$ est orthogonal à $\\vec u$ et à $\\vec v$, de norme $\\|\\vec u\\|\\,\\|\\vec v\\|\\,|\\sin\\theta|$, orienté par la règle de la main droite. $\\vec e_x \\wedge \\vec e_y = \\vec e_z$, $\\vec e_y \\wedge \\vec e_z = \\vec e_x$, $\\vec e_z \\wedge \\vec e_x = \\vec e_y$ ; il est **antisymétrique** : $\\vec v \\wedge \\vec u = -\\vec u \\wedge \\vec v$. En composantes : $(u_yv_z - u_zv_y,\\ u_zv_x - u_xv_z,\\ u_xv_y - u_yv_x)$."
+        }
+      ]
+    },
     {
       "titre": "Vitesse et accélération",
       "blocs": [
@@ -49,6 +89,11 @@
           "type": "propriete",
           "titre": "Coordonnées polaires",
           "texte": "En polaires : $\\vec v = \\dot r\\,\\vec e_r + r\\dot\\theta\\,\\vec e_\\theta$ et $\\vec a = (\\ddot r - r\\dot\\theta^2)\\,\\vec e_r + (r\\ddot\\theta + 2\\dot r\\dot\\theta)\\,\\vec e_\\theta$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Cylindriques",
+          "texte": "En cylindriques : $\\vec v = \\dot\\rho\\,\\vec e_\\rho + \\rho\\dot\\varphi\\,\\vec e_\\varphi + \\dot z\\,\\vec e_z$ (comme en polaires, plus la composante selon $\\vec e_z$). Ex. : mouvement hélicoïdal $\\rho = R$, $\\varphi = \\omega t$, $z = ht$ : $\\vec v = R\\omega\\,\\vec e_\\varphi + h\\,\\vec e_z$."
         },
         {
           "type": "theoreme",
@@ -137,6 +182,36 @@
       "id": "portee-tir-horizontal",
       "recto": "Portée d'un tir horizontal depuis une hauteur $h$ avec la vitesse $v_0$ ?",
       "verso": "$x = v_0\\sqrt{\\dfrac{2h}{g}}$ : durée de chute × vitesse horizontale (constante)."
+    },
+    {
+      "id": "f-degres-liberte",
+      "recto": "Degrés de liberté d'un solide ? d'un point matériel ?",
+      "verso": "Solide : 6 (3 translations, 3 rotations). Point : 3."
+    },
+    {
+      "id": "f-spheriques",
+      "recto": "Coordonnées sphériques : $\\rho$ et $z$ en fonction de $r$ et $\\theta$ ?",
+      "verso": "$\\rho = r\\sin\\theta$, $z = r\\cos\\theta$ ($\\theta$ mesuré depuis l'axe $Oz$)."
+    },
+    {
+      "id": "f-dl-spheriques",
+      "recto": "Déplacement élémentaire en sphériques ?",
+      "verso": "$d\\vec\\ell = dr\\,\\vec e_r + r\\,d\\theta\\,\\vec e_\\theta + r\\sin\\theta\\,d\\varphi\\,\\vec e_\\varphi$."
+    },
+    {
+      "id": "f-frenet",
+      "recto": "Accélération dans la base de Frenet ?",
+      "verso": "$\\vec a = \\frac{dv}{dt}\\vec u_t + \\frac{v^2}{R}\\vec u_n$."
+    },
+    {
+      "id": "f-vectoriel-base",
+      "recto": "$\\vec e_x \\wedge \\vec e_y$ ? $\\vec e_y \\wedge \\vec e_x$ ?",
+      "verso": "$\\vec e_z$ et $-\\vec e_z$."
+    },
+    {
+      "id": "f-norme-vectoriel",
+      "recto": "Norme de $\\vec u \\wedge \\vec v$ ?",
+      "verso": "$\\|\\vec u\\|\\,\\|\\vec v\\|\\,|\\sin\\theta|$."
     }
   ],
   "exercices": [
@@ -557,6 +632,231 @@
           "texte": "$\\dfrac{R}{\\omega}$",
           "correct": false,
           "explication": "Pas homogène à une vitesse."
+        }
+      ]
+    },
+    {
+      "id": "degres-liberte",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Combien de degrés de liberté faut-il pour décrire la position d'un solide quelconque dans l'espace ? (Panorama, chap. 4)",
+      "correction": [
+        "Solide : 6 degrés de liberté. Le modèle du point matériel n'en garde que 3."
+      ],
+      "choix": [
+        {
+          "texte": "$6$",
+          "correct": true,
+          "explication": "3 translations (selon $x$, $y$, $z$) et 3 rotations (autour de $Ox$, $Oy$, $Oz$)."
+        },
+        {
+          "texte": "$3$",
+          "correct": false,
+          "explication": "C'est le cas d'un point matériel : on néglige les rotations."
+        },
+        {
+          "texte": "$2$",
+          "correct": false,
+          "explication": "C'est un mouvement plan d'un point."
+        },
+        {
+          "texte": "$9$",
+          "correct": false,
+          "explication": "Il n'y a que 3 translations et 3 rotations indépendantes."
+        }
+      ]
+    },
+    {
+      "id": "produit-scalaire",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Calculer $\\vec u \\cdot \\vec v$ pour $\\vec u = (1, 2, 3)$ et $\\vec v = (4, -5, 6)$ (base orthonormée). (Panorama, chap. 4)",
+      "correction": [
+        "$\\vec u \\cdot \\vec v = 1 \\times 4 + 2 \\times (-5) + 3 \\times 6 = 4 - 10 + 18 = 12$."
+      ],
+      "reponse": 12
+    },
+    {
+      "id": "produit-vectoriel-base",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Dans une base orthonormée directe, que vaut $\\vec e_y \\wedge \\vec e_x$ ? (Panorama, chap. 4)",
+      "correction": [
+        "$\\vec v \\wedge \\vec u = -\\vec u \\wedge \\vec v$, donc $\\vec e_y \\wedge \\vec e_x = -\\vec e_x \\wedge \\vec e_y = -\\vec e_z$."
+      ],
+      "choix": [
+        {
+          "texte": "$-\\vec e_z$",
+          "correct": true,
+          "explication": "$\\vec e_x \\wedge \\vec e_y = \\vec e_z$ et le produit vectoriel est antisymétrique."
+        },
+        {
+          "texte": "$\\vec e_z$",
+          "correct": false,
+          "explication": "C'est $\\vec e_x \\wedge \\vec e_y$ : l'ordre compte."
+        },
+        {
+          "texte": "$\\vec 0$",
+          "correct": false,
+          "explication": "Le produit vectoriel de deux vecteurs orthogonaux unitaires est de norme $1$."
+        },
+        {
+          "texte": "$1$",
+          "correct": false,
+          "explication": "Le produit vectoriel est un **vecteur**, pas un nombre."
+        }
+      ]
+    },
+    {
+      "id": "produit-vectoriel-calcul",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Calculer $\\vec u \\wedge \\vec v$ pour $\\vec u = (1, 2, 0)$ et $\\vec v = (3, 1, 0)$. (Panorama, chap. 4)",
+      "correction": [
+        "$\\vec u \\wedge \\vec v = (u_yv_z - u_zv_y,\\ u_zv_x - u_xv_z,\\ u_xv_y - u_yv_x) = (0, 0, 1 \\times 1 - 2 \\times 3) = (0, 0, -5)$."
+      ],
+      "choix": [
+        {
+          "texte": "$(0, 0, -5)$",
+          "correct": true,
+          "explication": "Composante $z$ : $u_xv_y - u_yv_x = 1 - 6 = -5$."
+        },
+        {
+          "texte": "$(0, 0, 5)$",
+          "correct": false,
+          "explication": "Erreur de signe : c'est $\\vec v \\wedge \\vec u$."
+        },
+        {
+          "texte": "$(3, 2, 0)$",
+          "correct": false,
+          "explication": "On a multiplié composante par composante : ce n'est pas le produit vectoriel."
+        },
+        {
+          "texte": "$5$",
+          "correct": false,
+          "explication": "Le produit scalaire vaut $3 + 2 = 5$ ; le produit vectoriel est un vecteur."
+        }
+      ]
+    },
+    {
+      "id": "norme-produit-vectoriel",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "$\\|\\vec u\\| = 3$, $\\|\\vec v\\| = 4$ et l'angle entre eux vaut $30°$. Calculer $\\|\\vec u \\wedge \\vec v\\|$. (Panorama, chap. 4)",
+      "correction": [
+        "$\\|\\vec u \\wedge \\vec v\\| = \\|\\vec u\\|\\,\\|\\vec v\\|\\sin 30° = 3 \\times 4 \\times \\frac12 = 6$."
+      ],
+      "reponse": 6
+    },
+    {
+      "id": "spheriques-z",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "En coordonnées sphériques $(r, \\theta, \\varphi)$, avec $\\theta$ l'angle entre l'axe $Oz$ et $\\overrightarrow{OM}$, que vaut la cote $z$ de $M$ ? (Panorama, chap. 4)",
+      "correction": [
+        "$\\theta$ est mesuré depuis $Oz$ : $z = r\\cos\\theta$ et $\\rho = r\\sin\\theta$, puis $x = r\\sin\\theta\\cos\\varphi$, $y = r\\sin\\theta\\sin\\varphi$."
+      ],
+      "choix": [
+        {
+          "texte": "$z = r\\cos\\theta$",
+          "correct": true,
+          "explication": "Projection de $\\overrightarrow{OM}$ sur l'axe $Oz$."
+        },
+        {
+          "texte": "$z = r\\sin\\theta$",
+          "correct": false,
+          "explication": "C'est $\\rho$, la distance à l'axe $Oz$."
+        },
+        {
+          "texte": "$z = r\\cos\\varphi$",
+          "correct": false,
+          "explication": "$\\varphi$ repère la direction dans le plan $xOy$."
+        },
+        {
+          "texte": "$z = r\\sin\\theta\\cos\\varphi$",
+          "correct": false,
+          "explication": "C'est l'abscisse $x$."
+        }
+      ]
+    },
+    {
+      "id": "dl-spheriques",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est le déplacement élémentaire $d\\vec\\ell$ en coordonnées sphériques ? (Panorama, chap. 4)",
+      "correction": [
+        "Quand $\\theta$ varie, $M$ parcourt un méridien de rayon $r$ ; quand $\\varphi$ varie, un parallèle de rayon $r\\sin\\theta$."
+      ],
+      "choix": [
+        {
+          "texte": "$dr\\,\\vec e_r + r\\,d\\theta\\,\\vec e_\\theta + r\\sin\\theta\\,d\\varphi\\,\\vec e_\\varphi$",
+          "correct": true,
+          "explication": "Le parallèle de rayon $r\\sin\\theta$ est parcouru de $r\\sin\\theta\\,d\\varphi$."
+        },
+        {
+          "texte": "$dr\\,\\vec e_r + d\\theta\\,\\vec e_\\theta + d\\varphi\\,\\vec e_\\varphi$",
+          "correct": false,
+          "explication": "Ni homogène (des angles et une longueur), ni juste."
+        },
+        {
+          "texte": "$dr\\,\\vec e_r + r\\,d\\theta\\,\\vec e_\\theta + r\\,d\\varphi\\,\\vec e_\\varphi$",
+          "correct": false,
+          "explication": "Quand $\\varphi$ varie, $M$ décrit un cercle de rayon $r\\sin\\theta$, pas $r$."
+        },
+        {
+          "texte": "$dr\\,\\vec e_r + r\\sin\\theta\\,d\\theta\\,\\vec e_\\theta + r\\,d\\varphi\\,\\vec e_\\varphi$",
+          "correct": false,
+          "explication": "Les facteurs de $d\\theta$ et $d\\varphi$ sont échangés."
+        }
+      ]
+    },
+    {
+      "id": "helice-vitesse",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un point décrit une hélice : $\\rho = 2\\ \\mathrm m$, $\\varphi = 3t$ (rad), $z = 8t$ (m). Quelle est la norme de sa vitesse, en $\\mathrm{m/s}$ ? (Panorama, chap. 4)",
+      "correction": [
+        "En cylindriques : $\\vec v = \\dot\\rho\\,\\vec e_\\rho + \\rho\\dot\\varphi\\,\\vec e_\\varphi + \\dot z\\,\\vec e_z = 0 + 2 \\times 3\\,\\vec e_\\varphi + 8\\,\\vec e_z$.",
+        "$\\|\\vec v\\| = \\sqrt{6^2 + 8^2} = 10\\ \\mathrm{m/s}$."
+      ],
+      "reponse": 10
+    },
+    {
+      "id": "virage-frenet",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Une voiture aborde un virage de rayon $R = 50\\ \\mathrm m$ à $20\\ \\mathrm{m/s}$ en freinant ($\\frac{dv}{dt} = -3\\ \\mathrm{m/s^2}$). Quelle est la norme de son accélération, en $\\mathrm{m/s^2}$ ? (Panorama, chap. 4)",
+      "correction": [
+        "Base de Frenet : $a_t = \\frac{dv}{dt} = -3\\ \\mathrm{m/s^2}$ et $a_n = \\frac{v^2}{R} = \\frac{400}{50} = 8\\ \\mathrm{m/s^2}$.",
+        "$a = \\sqrt{a_t^2 + a_n^2} = \\sqrt{9 + 64} = \\sqrt{73} \\approx 8{,}5\\ \\mathrm{m/s^2}$."
+      ],
+      "reponse": "sqrt(73)",
+      "tolerance": 0.01
+    },
+    {
+      "id": "vf-acceleration-normale",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Dans un mouvement curviligne, la composante normale de l'accélération, $\\frac{v^2}{R}$, est toujours dirigée vers le centre de courbure. (Panorama, chap. 4)",
+      "correction": [
+        "$\\vec a = \\frac{dv}{dt}\\vec u_t + \\frac{v^2}{R}\\vec u_n$, avec $\\vec u_n$ dirigé vers le centre de courbure."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$\\vec u_n$ pointe vers le centre de courbure et $\\frac{v^2}{R} \\geq 0$.",
+          "correct": true,
+          "explication": "C'est ce qui « courbe » la trajectoire."
+        },
+        {
+          "texte": "Faux : elle est dirigée vers l'extérieur du virage.",
+          "correct": false,
+          "explication": "C'est l'impression ressentie dans un référentiel non galiléen (force d'inertie), pas l'accélération."
+        },
+        {
+          "texte": "Faux : elle est nulle si la vitesse est constante.",
+          "correct": false,
+          "explication": "$\\frac{v^2}{R}$ ne dépend pas de $\\frac{dv}{dt}$ : elle est nulle seulement en ligne droite."
         }
       ]
     }

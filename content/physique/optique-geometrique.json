@@ -6,11 +6,26 @@
   "semestre": 1,
   "titre": "Optique géométrique",
   "icone": "🔦",
-  "resume": "Propagation de la lumière, lois de Snell-Descartes, réflexion totale, miroir plan et lentilles minces.",
+  "resume": "Modèles de la lumière, dispersion, lois de Descartes, réflexion totale, stigmatisme et conditions de Gauss, miroir et dioptre plans, lentilles minces et leurs associations.",
   "cours": [
     {
       "titre": "Lumière et lois de Snell-Descartes",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Modèles de la lumière",
+          "texte": "La lumière est émise par des **sources** (primaires ou secondaires), se propage dans des **milieux** et est captée par des **récepteurs** (œil, capteur). Deux modèles historiques : **corpusculaire** (Newton) et **ondulatoire** (Huygens) ; c'est une onde électromagnétique, et aussi un flux de photons."
+        },
+        {
+          "type": "propriete",
+          "titre": "Dispersion",
+          "texte": "Dans un milieu transparent, la vitesse de la lumière dépend de sa fréquence : le milieu est **dispersif**. Loi de **Cauchy** : $n(\\lambda) = A + \\dfrac{B}{\\lambda^2}$ ($A, B > 0$) : l'indice est plus grand pour le bleu que pour le rouge. **Nombre d'Abbe** : $\\eta = \\dfrac{n_D - 1}{n_F - n_C}$ (raies jaune $D$, bleue $F$, rouge $C$) ; plus il est élevé, **moins** le verre est dispersif."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Propagation rectiligne",
+          "texte": "Dans un milieu **homogène, transparent et isotrope** (M.H.T.I.), la lumière se propage en ligne droite. L'optique géométrique (rayons lumineux) est valable quand les obstacles sont grands devant la longueur d'onde. **Retour inverse** : le trajet suivi par la lumière ne dépend pas du sens de parcours."
+        },
         {
           "type": "definition",
           "titre": "Indice de réfraction",
@@ -25,6 +40,31 @@
           "type": "propriete",
           "titre": "Réflexion totale",
           "texte": "Si $n_1 > n_2$, il n'y a plus de rayon réfracté au-delà de l'**angle limite** $i_\\ell$ tel que $\\sin i_\\ell = n_2 / n_1$ : toute la lumière est réfléchie (principe des fibres optiques)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Rotation d'un miroir",
+          "texte": "Si un miroir plan tourne d'un angle $\\alpha$, le rayon réfléchi tourne de $2\\alpha$ (l'incidence change de $\\alpha$, et l'écart entre incident et réfléchi vaut $2i$)."
+        }
+      ]
+    },
+    {
+      "titre": "Stigmatisme et conditions de Gauss",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Stigmatisme",
+          "texte": "Un système est **rigoureusement stigmatique** pour un point $A$ si tous les rayons issus de $A$ passent (eux ou leurs prolongements) par un même point $A'$, son **image** : $A$ et $A'$ sont **conjugués**. Objet/image **réel** si les rayons y passent effectivement, **virtuel** si seuls leurs prolongements y passent. Le **miroir plan** est rigoureusement stigmatique pour tout point."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Conditions de Gauss",
+          "texte": "La plupart des systèmes ne sont qu'**approximativement** stigmatiques, dans les **conditions de Gauss** : rayons **peu inclinés** sur l'axe optique et **proches** de l'axe (rayons paraxiaux). On utilise alors $\\sin i \\approx \\tan i \\approx i$. Hors de ces conditions : aberrations (sphéricité, distorsion)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Dioptre plan",
+          "texte": "Un objet $A_1$ dans le milieu $n_1$, vu à travers un dioptre plan depuis le milieu $n_2$, a une image $A_2$ (dans les conditions de Gauss) telle que $\\overline{HA_2} = \\overline{HA_1}\\,\\dfrac{n_2}{n_1}$, où $H$ est le projeté de $A_1$ sur le dioptre. Ex. : un objet au fond de l'eau paraît **moins profond**."
         }
       ]
     },
@@ -52,8 +92,17 @@
           "texte": "Pour un objet $A$ sur l'axe et son image $A'$ : $$\\frac{1}{\\overline{OA'}} - \\frac{1}{\\overline{OA}} = \\frac{1}{f'}$$ et le grandissement $$\\gamma = \\frac{\\overline{A'B'}}{\\overline{AB}} = \\frac{\\overline{OA'}}{\\overline{OA}}.$$ Les distances sont **algébriques** (orientées dans le sens de la lumière) : un objet réel devant la lentille a $\\overline{OA} < 0$. Image réelle si $\\overline{OA'} > 0$, virtuelle sinon ; $\\gamma < 0$ : image renversée."
         },
         {
+          "type": "theoreme",
+          "titre": "Relation de Newton, associations",
+          "texte": "Avec origine aux foyers (**Newton**) : $\\overline{FA} \\cdot \\overline{F'A'} = -f'^2$ et $\\gamma = \\dfrac{f'}{\\overline{FA}} = -\\dfrac{\\overline{F'A'}}{f'}$. **Lentilles accolées** : les vergences s'ajoutent, $\\dfrac{1}{f'} = \\dfrac{1}{f'_1} + \\dfrac{1}{f'_2}$. Deux lentilles non accolées dont $F'_1 = F_2$ forment un système **afocal** (un faisceau parallèle ressort parallèle)."
+        },
+        {
           "type": "remarque",
           "texte": "Un objet placé entre $F$ et $O$ d'une lentille convergente donne une image **virtuelle**, droite et agrandie : c'est le principe de la loupe."
+        },
+        {
+          "type": "remarque",
+          "texte": "**Aberration chromatique** : l'indice dépend de $\\lambda$, donc la distance focale aussi ; les images de différentes couleurs ne sont pas au même endroit. On la corrige en accolant une lentille convergente et une divergente de verres différents (**doublet achromatique**)."
         }
       ]
     }
@@ -133,6 +182,46 @@
       "id": "indices-usuels",
       "recto": "Indice de l'eau ? du verre ?",
       "verso": "Environ $1{,}33$ et $1{,}5$ (l'air : $\\approx 1{,}00$)."
+    },
+    {
+      "id": "f-cauchy",
+      "recto": "Loi de Cauchy ?",
+      "verso": "$n(\\lambda) = A + \\frac{B}{\\lambda^2}$ : l'indice diminue quand la longueur d'onde augmente."
+    },
+    {
+      "id": "f-abbe",
+      "recto": "Nombre d'Abbe, et que signifie une grande valeur ?",
+      "verso": "$\\eta = \\frac{n_D - 1}{n_F - n_C}$ ; grand $\\eta$ = verre peu dispersif."
+    },
+    {
+      "id": "f-gauss",
+      "recto": "Conditions de Gauss ?",
+      "verso": "Rayons peu inclinés et proches de l'axe optique (paraxiaux) : stigmatisme approché."
+    },
+    {
+      "id": "f-rotation-miroir",
+      "recto": "Un miroir tourne de $\\alpha$ : de combien tourne le rayon réfléchi ?",
+      "verso": "De $2\\alpha$."
+    },
+    {
+      "id": "f-dioptre-plan",
+      "recto": "Image d'un objet à travers un dioptre plan (Gauss) ?",
+      "verso": "$\\overline{HA_2} = \\overline{HA_1}\\frac{n_2}{n_1}$."
+    },
+    {
+      "id": "f-newton-lentille",
+      "recto": "Relation de conjugaison de Newton ?",
+      "verso": "$\\overline{FA} \\cdot \\overline{F'A'} = -f'^2$."
+    },
+    {
+      "id": "f-accolees",
+      "recto": "Vergence de deux lentilles minces accolées ?",
+      "verso": "$V = V_1 + V_2$, soit $\\frac1{f'} = \\frac1{f'_1} + \\frac1{f'_2}$."
+    },
+    {
+      "id": "f-retour-inverse",
+      "recto": "Principe du retour inverse de la lumière ?",
+      "verso": "Le trajet de la lumière ne dépend pas du sens de parcours."
     }
   ],
   "exercices": [
@@ -563,6 +652,253 @@
           "texte": "rejetée à l'infini",
           "correct": false,
           "explication": "C'est le cas d'un objet placé au foyer objet."
+        }
+      ]
+    },
+    {
+      "id": "cauchy-indice",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un verre suit la loi de Cauchy avec $A = 1{,}500$ et $B = 4{,}00 \\times 10^{3}\\ \\mathrm{nm^2}$. Calculer son indice pour $\\lambda = 500\\ \\mathrm{nm}$. (Panorama, chap. 3)",
+      "correction": [
+        "$n = A + \\frac{B}{\\lambda^2} = 1{,}500 + \\frac{4000}{250\\,000} = 1{,}500 + 0{,}016 = 1{,}516$."
+      ],
+      "reponse": "1.5 + 4000/500^2"
+    },
+    {
+      "id": "cauchy-couleur",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "D'après la loi de Cauchy, pour quelle couleur l'indice d'un verre est-il le plus grand ? (Panorama, chap. 3)",
+      "correction": [
+        "$\\lambda_{\\text{violet}} \\approx 400\\ \\mathrm{nm} < \\lambda_{\\text{rouge}} \\approx 700\\ \\mathrm{nm}$, donc $n_{\\text{violet}} > n_{\\text{rouge}}$ : le violet est le plus dévié par un prisme."
+      ],
+      "choix": [
+        {
+          "texte": "Le violet (petite longueur d'onde)",
+          "correct": true,
+          "explication": "$n = A + \\frac{B}{\\lambda^2}$ décroît quand $\\lambda$ augmente."
+        },
+        {
+          "texte": "Le rouge (grande longueur d'onde)",
+          "correct": false,
+          "explication": "C'est l'inverse : $\\frac{B}{\\lambda^2}$ est plus petit pour le rouge."
+        },
+        {
+          "texte": "Le jaune",
+          "correct": false,
+          "explication": "Le jaune est entre les deux."
+        },
+        {
+          "texte": "Toutes les couleurs ont le même indice",
+          "correct": false,
+          "explication": "Ce serait un milieu non dispersif, comme le vide."
+        }
+      ]
+    },
+    {
+      "id": "nombre-abbe",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un verre a pour indices $n_D = 1{,}62$, $n_F = 1{,}63$ et $n_C = 1{,}61$. Calculer son nombre d'Abbe. (Panorama, chap. 3)",
+      "correction": [
+        "$\\eta = \\frac{n_D - 1}{n_F - n_C} = \\frac{0{,}62}{0{,}02} = 31$ : c'est un verre assez dispersif (type « flint »)."
+      ],
+      "reponse": 31
+    },
+    {
+      "id": "rotation-miroir",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un miroir plan tourne de $10°$ autour d'un axe de son plan, le rayon incident restant fixe. De combien de degrés tourne le rayon réfléchi ? (Panorama, chap. 3)",
+      "correction": [
+        "L'angle d'incidence change de $10°$ ; l'angle entre incident et réfléchi vaut $2i$, il change donc de $20°$.",
+        "Le rayon réfléchi tourne de $2\\alpha = 20°$."
+      ],
+      "reponse": 20
+    },
+    {
+      "id": "dioptre-plan-profondeur",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un caillou repose au fond d'une piscine de $2{,}00\\ \\mathrm m$ de profondeur ($n_{\\text{eau}} = 1{,}33$). À quelle profondeur apparente (en m) le voit-on, en regardant à la verticale ? (Panorama, chap. 3)",
+      "correction": [
+        "Dioptre plan dans les conditions de Gauss : $\\overline{HA_2} = \\overline{HA_1}\\frac{n_2}{n_1}$, avec $n_1 = 1{,}33$ (eau, objet) et $n_2 = 1$ (air).",
+        "$\\frac{2{,}00}{1{,}33} \\approx 1{,}50\\ \\mathrm m$ : le fond paraît moins profond."
+      ],
+      "reponse": "2/1.33",
+      "tolerance": 0.01
+    },
+    {
+      "id": "relation-newton",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Lentille convergente de distance focale $f' = 10\\ \\mathrm{cm}$. L'objet est tel que $\\overline{FA} = -20\\ \\mathrm{cm}$. Calculer $\\overline{F'A'}$ en cm avec la relation de Newton. (Panorama, chap. 3)",
+      "correction": [
+        "$\\overline{FA} \\cdot \\overline{F'A'} = -f'^2$, donc $\\overline{F'A'} = \\frac{-100}{-20} = 5\\ \\mathrm{cm}$.",
+        "(Vérification avec Descartes : $\\overline{OA} = -30\\ \\mathrm{cm}$ donne $\\overline{OA'} = 15\\ \\mathrm{cm} = \\overline{OF'} + 5$.)"
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "lentilles-accolees",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "On accole deux lentilles minces convergentes de distances focales $f'_1 = 20\\ \\mathrm{cm}$ et $f'_2 = 30\\ \\mathrm{cm}$. Quelle est la distance focale (en cm) de l'ensemble ? (Panorama, chap. 3)",
+      "correction": [
+        "Les vergences s'ajoutent : $\\frac{1}{f'} = \\frac{1}{20} + \\frac{1}{30} = \\frac{5}{60}$.",
+        "$f' = 12\\ \\mathrm{cm}$."
+      ],
+      "reponse": 12
+    },
+    {
+      "id": "conditions-gauss",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que sont les conditions de Gauss ? (Panorama, chap. 3)",
+      "correction": [
+        "Rayons paraxiaux : $\\sin i \\approx \\tan i \\approx i$, ce qui rend les relations de conjugaison valables."
+      ],
+      "choix": [
+        {
+          "texte": "Des rayons peu inclinés sur l'axe optique et proches de celui-ci",
+          "correct": true,
+          "explication": "Rayons paraxiaux : stigmatisme et aplanétisme approchés."
+        },
+        {
+          "texte": "Des rayons parallèles à l'axe optique uniquement",
+          "correct": false,
+          "explication": "Ils peuvent être (un peu) inclinés."
+        },
+        {
+          "texte": "Une lumière monochromatique",
+          "correct": false,
+          "explication": "Cela supprime l'aberration chromatique, pas les aberrations géométriques."
+        },
+        {
+          "texte": "Des lentilles de grand diamètre",
+          "correct": false,
+          "explication": "Au contraire : on diaphragme pour garder les rayons proches de l'axe."
+        }
+      ]
+    },
+    {
+      "id": "stigmatisme-rigoureux",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel système est rigoureusement stigmatique pour **tout** point objet ? (Panorama, chap. 3)",
+      "correction": [
+        "Pour le miroir plan, tous les rayons réfléchis semblent venir du symétrique $A'$ de $A$ : stigmatisme rigoureux."
+      ],
+      "choix": [
+        {
+          "texte": "Le miroir plan",
+          "correct": true,
+          "explication": "L'image est le symétrique de l'objet, pour tous les rayons."
+        },
+        {
+          "texte": "Une lentille mince",
+          "correct": false,
+          "explication": "Elle n'est qu'approximativement stigmatique (conditions de Gauss)."
+        },
+        {
+          "texte": "Le dioptre plan",
+          "correct": false,
+          "explication": "La position de l'image dépend de l'incidence : stigmatisme seulement approché."
+        },
+        {
+          "texte": "Une lentille épaisse",
+          "correct": false,
+          "explication": "Elle présente des aberrations de sphéricité."
+        }
+      ]
+    },
+    {
+      "id": "achromat",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Comment corrige-t-on l'aberration chromatique d'une lentille ? (Panorama, chap. 3)",
+      "correction": [
+        "L'indice, donc la focale, dépend de $\\lambda$. On associe deux verres de dispersions différentes pour que les focales du bleu et du rouge coïncident."
+      ],
+      "choix": [
+        {
+          "texte": "En l'accolant à une lentille divergente d'un verre différent (doublet achromatique)",
+          "correct": true,
+          "explication": "Les dispersions des deux verres se compensent."
+        },
+        {
+          "texte": "En se plaçant dans les conditions de Gauss",
+          "correct": false,
+          "explication": "Cela réduit les aberrations géométriques, pas chromatiques."
+        },
+        {
+          "texte": "En augmentant la vergence",
+          "correct": false,
+          "explication": "La focale dépend toujours de la couleur."
+        },
+        {
+          "texte": "En utilisant un verre de nombre d'Abbe très faible",
+          "correct": false,
+          "explication": "Un petit nombre d'Abbe signifie un verre **plus** dispersif."
+        }
+      ]
+    },
+    {
+      "id": "vf-retour-inverse",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Si un rayon lumineux va de $A$ à $B$ en suivant un certain trajet, un rayon issu de $B$ peut revenir en $A$ par le même trajet. (Panorama, chap. 3)",
+      "correction": [
+        "Le trajet suivi par la lumière ne dépend pas du sens de parcours."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "C'est le principe du retour inverse de la lumière.",
+          "correct": true,
+          "explication": "Les lois de Descartes sont symétriques entre incident et réfracté."
+        },
+        {
+          "texte": "Faux : la réfraction n'est pas réversible.",
+          "correct": false,
+          "explication": "$n_1 \\sin i_1 = n_2 \\sin i_2$ se lit dans les deux sens."
+        },
+        {
+          "texte": "Vrai seulement dans le vide.",
+          "correct": false,
+          "explication": "Le principe vaut aussi à travers les dioptres et les miroirs."
+        }
+      ]
+    },
+    {
+      "id": "systeme-afocal",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Deux lentilles convergentes de focales $f'_1$ et $f'_2$ sont séparées d'une distance $d$. Pour quelle valeur de $d$ le système est-il afocal ? (Panorama, chap. 3)",
+      "correction": [
+        "Un faisceau parallèle converge en $F'_1$ ; s'il ressort parallèle, c'est que $F'_1 = F_2$, soit $d = \\overline{O_1F'_1} + \\overline{F_2O_2} = f'_1 + f'_2$ (lunette astronomique)."
+      ],
+      "choix": [
+        {
+          "texte": "$d = f'_1 + f'_2$",
+          "correct": true,
+          "explication": "Le foyer image de la première est confondu avec le foyer objet de la seconde."
+        },
+        {
+          "texte": "$d = 0$",
+          "correct": false,
+          "explication": "Accolées, elles forment une lentille de vergence $V_1 + V_2 \\neq 0$."
+        },
+        {
+          "texte": "$d = |f'_1 - f'_2|$",
+          "correct": false,
+          "explication": "C'est la condition avec une lentille divergente ($f'_2 < 0$) : $d = f'_1 + f'_2$ reste la règle générale."
+        },
+        {
+          "texte": "$d = f'_1 f'_2$",
+          "correct": false,
+          "explication": "Ce n'est même pas homogène à une longueur."
         }
       ]
     }
