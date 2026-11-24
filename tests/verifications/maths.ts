@@ -13,6 +13,7 @@ import {
   proche,
   question,
   rang,
+  resoudre,
   rk4,
   simpson,
 } from '../outils/verification';
@@ -40,24 +41,24 @@ export const verifications: Record<string, () => void> = {
     }
   },
   /* ---------------- Ensembles ---------------- */
-  'ensembles/nombre-injections': () => {
+  'applications/nombre-injections': () => {
     let n = 0;
     for (let a = 0; a < 5; a++) for (let b = 0; b < 5; b++) for (let c = 0; c < 5; c++) if (a !== b && b !== c && a !== c) n++;
-    expect(attendu(question('ensembles', 'nombre-injections')).re).toBe(n);
+    expect(attendu(question('applications', 'nombre-injections')).re).toBe(n);
   },
   'ensembles/cardinal-union': () => {
     const A = new Set([1, 2, 3, 4, 5, 6, 7]);
     const B = new Set([5, 6, 7, 8, 9]); // |A ∩ B| = 3
     expect(attendu(question('ensembles', 'cardinal-union')).re).toBe(new Set([...A, ...B]).size);
   },
-  'ensembles/nombre-applications': () => expect(bonChoix(question('ensembles', 'nombre-applications'))).toBe(2 ** 3),
+  'applications/nombre-applications': () => expect(bonChoix(question('applications', 'nombre-applications'))).toBe(2 ** 3),
   'ensembles/cardinal-parties': () => expect(bonChoix(question('ensembles', 'cardinal-parties'))).toBe(2 ** 3),
-  'ensembles/reciproque-affine': () => {
-    const g = fonction(question('ensembles', 'reciproque-affine'));
+  'applications/reciproque-affine': () => {
+    const g = fonction(question('applications', 'reciproque-affine'));
     for (const y of [-3, 0.5, 7]) expect(3 * g(y) - 5).toBeCloseTo(y, 10);
   },
-  'ensembles/reciproque-carre-negatif': () => {
-    const g = fonction(question('ensembles', 'reciproque-carre-negatif'));
+  'applications/reciproque-carre-negatif': () => {
+    const g = fonction(question('applications', 'reciproque-carre-negatif'));
     for (const y of [1, 2.5, 10]) {
       expect(g(y) ** 2 + 1).toBeCloseTo(y, 10);
       expect(g(y)).toBeLessThanOrEqual(0);
@@ -371,8 +372,8 @@ export const verifications: Record<string, () => void> = {
     expect(attendu(question('logique', 'recurrence-forte-somme')).re).toBe(u[6]);
   },
   'ensembles/parties-produit': () => expect(attendu(question('ensembles', 'parties-produit')).re).toBe(2 ** (2 * 3)),
-  'ensembles/reciproque-exp-affine': () => {
-    const g = fonction(question('ensembles', 'reciproque-exp-affine'));
+  'applications/reciproque-exp-affine': () => {
+    const g = fonction(question('applications', 'reciproque-exp-affine'));
     for (const y of [0.5, 1, 7]) expect(Math.exp(2 * g(y) + 1)).toBeCloseTo(y, 10);
   },
   'complexes/argument-quotient': () => {
@@ -481,4 +482,240 @@ export const verifications: Record<string, () => void> = {
     const [y1] = rk4((_x, [v, vp]) => [vp, 2 + 3 * vp - 2 * v], [2, 0], 0, 0.9);
     expect(y(0.9)).toBeCloseTo(y1, 6);
   },
+  /* ---------------- Algèbre 1 (CY Tech) : exercices des TD ---------------- */
+  'logique/td-somme-100': () => {
+    let n = 0;
+    while ((n * (n + 1)) / 2 < 100) n++;
+    expect(attendu(question('logique', 'td-somme-100')).re).toBe(n);
+  },
+  'logique/td-jeu-100': () => {
+    // gagne[t] : le joueur qui doit jouer quand le total vaut t peut forcer la victoire.
+    const gagne: boolean[] = [];
+    for (let t = 99; t >= 0; t--) {
+      gagne[t] = false;
+      for (let k = 1; k <= 7 && t + k <= 100; k++) if (t + k === 100 || !gagne[t + k]) gagne[t] = true;
+    }
+    const coups = [1, 2, 3, 4, 5, 6, 7].filter((k) => !gagne[k]);
+    expect(coups).toEqual([attendu(question('logique', 'td-jeu-100')).re]);
+  },
+  'logique/td-oiseaux': () => {
+    // 7 zones du diagramme : bit 1 = Thomas, 2 = Jules, 4 = Yves.
+    const zones = [1, 2, 4, 3, 6, 5, 7];
+    const totaux = new Set<number>();
+    for (let jaunes = 0; jaunes < 128; jaunes++) {
+      const vus = (bit: number) => zones.filter((z, i) => z & bit && jaunes & (1 << i)).length;
+      if (vus(1) === 2 && vus(2) === 3 && vus(4) === 4) totaux.add(zones.filter((_z, i) => jaunes & (1 << i)).length);
+    }
+    expect([...totaux]).toEqual([attendu(question('logique', 'td-oiseaux')).re]);
+  },
+  'logique/td-divisibilite-7': () => {
+    const pgcd = (a: bigint, b: bigint): bigint => (b === 0n ? a : pgcd(b, a % b));
+    let g = 0n;
+    for (let n = 0n; n < 30n; n++) g = pgcd(g, 3n ** (2n * n + 1n) + 2n ** (n + 2n));
+    expect(BigInt(attendu(question('logique', 'td-divisibilite-7')).re)).toBe(g);
+  },
+  'logique/td-recurrence-double': () => {
+    const f = fonction(question('logique', 'td-recurrence-double'));
+    const u = [2, 3];
+    for (let n = 2; n <= 20; n++) u.push(3 * u[n - 1] - 2 * u[n - 2]);
+    u.forEach((v, n) => expect(f(n)).toBeCloseTo(v, 6));
+  },
+  'logique/td-somme-telescopique': () => {
+    const f = fonction(question('logique', 'td-somme-telescopique'));
+    let s = 0;
+    for (let n = 1; n <= 20; n++) {
+      s += 1 / (n * (n + 1));
+      expect(f(n)).toBeCloseTo(s, 10);
+    }
+  },
+  'logique/td-partie-paire': () => {
+    const p = fonction(question('logique', 'td-partie-paire'));
+    const f = (x: number) => (x + 1) / (x * x + x + 1);
+    for (const x of [-2.5, -0.7, 0, 0.3, 1.9]) expect(p(x)).toBeCloseTo((f(x) + f(-x)) / 2, 10);
+  },
+  'logique/td-equation-fonctionnelle': () => {
+    const f = fonction(question('logique', 'td-equation-fonctionnelle'));
+    for (const [x, y] of [[0, 0], [1.5, -2], [-0.3, 2.7], [4, 4]]) expect(f(x) * f(y) - f(x * y)).toBeCloseTo(x + y, 10);
+  },
+  'ensembles/td-parties-produit': () => expect(attendu(question('ensembles', 'td-parties-produit')).re).toBe(2 ** (4 * 5)),
+  'ensembles/partitions-123': () => {
+    // Partitions de {0, 1, 2} : codes « à croissance restreinte » (bloc de chaque élément).
+    let n = 0;
+    for (let b = 0; b <= 1; b++) for (let c = 0; c <= Math.max(0, b) + 1; c++) n++;
+    expect(attendu(question('ensembles', 'partitions-123')).re).toBe(n);
+  },
+  'ensembles/classes-modulo-5': () => {
+    const classes = new Set<number>();
+    for (let a = -50; a <= 50; a++) classes.add(((a % 5) + 5) % 5);
+    expect(attendu(question('ensembles', 'classes-modulo-5')).re).toBe(classes.size);
+  },
+  'applications/td-reciproque-homographie': () => {
+    const g = fonction(question('applications', 'td-reciproque-homographie'));
+    const f = (x: number) => (3 * x + 1) / (x - 2);
+    for (const y of [-4, 0, 2.5, 7]) expect(f(g(y))).toBeCloseTo(y, 9);
+    for (const x of [-1, 0, 3, 10]) expect(g(f(x))).toBeCloseTo(x, 9);
+  },
+  'applications/td-reciproque-valeurs-absolues': () => {
+    const g = fonction(question('applications', 'td-reciproque-valeurs-absolues'));
+    const f = (x: number) => Math.abs(1 + x) + Math.abs(1 - x) - 2;
+    for (const y of [0, 0.4, 3, 11]) {
+      expect(g(y)).toBeGreaterThanOrEqual(1);
+      expect(f(g(y))).toBeCloseTo(y, 10);
+    }
+  },
+  'complexes/td-forme-algebrique': () => {
+    const z = math.divide(math.complex(3, 6), math.complex(3, -4)) as unknown as C;
+    expect(proche(attendu(question('complexes', 'td-forme-algebrique')), z)).toBe(true);
+  },
+  'complexes/td-produit-forme-exp': () => {
+    const z = math.multiply(math.multiply(math.complex(0, 1), math.complex(-1, Math.sqrt(3))), math.complex(Math.sqrt(3), -1)) as unknown as C;
+    expect(proche(attendu(question('complexes', 'td-produit-forme-exp')), z)).toBe(true);
+  },
+  'complexes/td-puissance-1995': () => {
+    let z = math.complex(1, 0);
+    for (let k = 0; k < 1995; k++) z = math.multiply(z, math.complex(Math.sqrt(3) / 2, -1 / 2)) as typeof z;
+    expect(proche(attendu(question('complexes', 'td-puissance-1995')), z as unknown as C, 1e-9)).toBe(true);
+  },
+  'complexes/td-puissance-20': () => {
+    const q = math.divide(math.complex(1, Math.sqrt(3)), math.complex(1, -1));
+    let z = math.complex(1, 0);
+    for (let k = 0; k < 20; k++) z = math.multiply(z, q) as typeof z;
+    expect(proche(attendu(question('complexes', 'td-puissance-20')), z as unknown as C)).toBe(true);
+  },
+  'complexes/td-racines-carrees-5-12i': () => {
+    const r = attendus(question('complexes', 'td-racines-carrees-5-12i'));
+    expect(r).toHaveLength(2);
+    expect(proche(r[0], r[1])).toBe(false);
+    for (const z of r) expect(proche(math.multiply(math.complex(z.re, z.im), math.complex(z.re, z.im)) as unknown as C, { re: 5, im: -12 })).toBe(true);
+  },
+  'complexes/td-racines-carrees-3-4i': () => {
+    const r = attendus(question('complexes', 'td-racines-carrees-3-4i'));
+    expect(r).toHaveLength(2);
+    expect(proche(r[0], r[1])).toBe(false);
+    for (const z of r) expect(proche(math.multiply(math.complex(z.re, z.im), math.complex(z.re, z.im)) as unknown as C, { re: -3, im: -4 })).toBe(true);
+  },
+  'complexes/td-second-degre-complexe': () => {
+    const r = attendus(question('complexes', 'td-second-degre-complexe'));
+    expect(r).toHaveLength(2);
+    expect(proche(r[0], r[1])).toBe(false);
+    for (const { re, im } of r) {
+      const z = math.complex(re, im);
+      const v = math.add(math.subtract(math.multiply(z, z), math.multiply(math.complex(4, 2), z)), math.complex(6, 8)) as unknown as C;
+      expect(Math.hypot(v.re, v.im)).toBeLessThan(1e-12);
+    }
+  },
+  'complexes/td-cos-2pi-5': () => expect(proche(attendu(question('complexes', 'td-cos-2pi-5')), Math.cos((2 * Math.PI) / 5))).toBe(true),
+  'polynomes/td-division-reste': () => {
+    // Division euclidienne « à la main » sur les coefficients (degrés décroissants).
+    const [, R] = diviser([1, -1, 0, 1, -2], [1, -2, 4]);
+    const f = fonction(question('polynomes', 'td-division-reste'));
+    for (const x of POINTS) expect(f(x)).toBeCloseTo(evaluer(R, x), 10);
+  },
+  'polynomes/td-division-quotient': () => {
+    const [Q] = diviser([3, 2, 0, -1, 0, 1], [1, 0, 1, 2]);
+    const f = fonction(question('polynomes', 'td-division-quotient'));
+    for (const x of POINTS) expect(f(x)).toBeCloseTo(evaluer(Q, x), 10);
+  },
+  'polynomes/td-multiplicite-j': () => {
+    let P = [1, 0, 2, 0, 3, 0, 2, 0, 1];
+    const j = math.complex(-0.5, Math.sqrt(3) / 2);
+    let m = 0;
+    while (Math.abs(math.abs(evaluerC(P, j) as never)) < 1e-9) {
+      m++;
+      P = deriver(P);
+    }
+    expect(attendu(question('polynomes', 'td-multiplicite-j')).re).toBe(m);
+  },
+  'polynomes/td-somme-cubes-racines': () => {
+    const racines = math.polynomialRoot(3, 1, -2, 1) as unknown as (number | C)[];
+    let s = 0;
+    for (const r of racines) s += Math.pow(enC(r).re, 3) - 3 * enC(r).re * enC(r).im ** 2; // Re(z³)
+    expect(racines).toHaveLength(3);
+    expect(proche(attendu(question('polynomes', 'td-somme-cubes-racines')), s)).toBe(true);
+  },
+  'polynomes/td-racines-produit-6': () => {
+    const r = attendus(question('polynomes', 'td-racines-produit-6'));
+    expect(r).toHaveLength(4);
+    for (const z of r) expect(Math.abs(math.abs(evaluerC([1, -5, 9, -15, 18], math.complex(z.re, z.im)) as never))).toBeLessThan(1e-9);
+    for (let i = 0; i < 4; i++) for (let k = i + 1; k < 4; k++) expect(proche(r[i], r[k])).toBe(false);
+  },
+  'polynomes/td-facteurs-x6-plus-1': () => {
+    // Racines sixièmes de -1 : chaque racine réelle donne un facteur de degré 1, chaque paire conjuguée un trinôme.
+    const racines = [0, 1, 2, 3, 4, 5].map((k) => ((2 * k + 1) * Math.PI) / 6);
+    const reelles = racines.filter((t) => Math.abs(Math.sin(t)) < 1e-12).length;
+    expect(attendu(question('polynomes', 'td-facteurs-x6-plus-1')).re).toBe(reelles + (6 - reelles) / 2);
+  },
+  'polynomes/td-hermite': () => {
+    const P = fonction(question('polynomes', 'td-hermite'));
+    expect(P(1)).toBeCloseTo(1, 10);
+    expect(P(-1)).toBeCloseTo(-1, 10);
+    expect(derivee(P, 1)).toBeCloseTo(0, 6);
+    expect(derivee(P, -1)).toBeCloseTo(0, 6);
+    // Degré ≤ 3 : la dérivée quatrième (différences finies) est nulle.
+    const d4 = (x: number, h = 0.5) => P(x + 2 * h) - 4 * P(x + h) + 6 * P(x) - 4 * P(x - h) + P(x - 2 * h);
+    expect(d4(0.3)).toBeCloseTo(0, 8);
+  },
+  'fractions-rationnelles/fr-multiplicite-zero': () => {
+    const R = (x: number) => ((x - 4) ** 3 * (x + 1)) / (x * (x - 4) * (x + 1) ** 2);
+    // R(4 + h) ≈ c·h^m : le rapport R(4 + 10h)/R(4 + h) tend vers 10^m.
+    const m = Math.log10(R(4 + 1e-4) / R(4 + 1e-5));
+    expect(attendu(question('fractions-rationnelles', 'fr-multiplicite-zero')).re).toBe(Math.round(m));
+  },
+  'fractions-rationnelles/fr-partie-entiere': () => {
+    const E = fonction(question('fractions-rationnelles', 'fr-partie-entiere'));
+    const F = (x: number) => (2 * x ** 4 - x ** 3 - 2 * x ** 2 + 3 * x - 1) / (x * x - x + 1);
+    for (const x of [1e4, -1e4, 3e4]) expect(Math.abs(F(x) - E(x))).toBeLessThan(1e-3);
+  },
+  'fractions-rationnelles/fr-cache': () => {
+    const x = 1 + 1e-8;
+    expect(proche(attendu(question('fractions-rationnelles', 'fr-cache')), ((x - 1) * (3 * x + 1)) / ((x - 1) * (x + 1)), 1e-6)).toBe(true);
+  },
+  'fractions-rationnelles/fr-p-sur-q-prime': () => {
+    const x = 1 + 1e-7;
+    expect(proche(attendu(question('fractions-rationnelles', 'fr-p-sur-q-prime')), (x - 1) / (x ** 3 - 1), 1e-5)).toBe(true);
+  },
+  'fractions-rationnelles/fr-pole-double-haut': () => {
+    const F = (x: number) => (x + 1) / ((x - 1) ** 2 * (x + 2));
+    const x = 1 + 1e-7;
+    expect(proche(attendu(question('fractions-rationnelles', 'fr-pole-double-haut')), (x - 1) ** 2 * F(x), 1e-5)).toBe(true);
+  },
+  'fractions-rationnelles/fr-pole-double-bas': () => {
+    // On résout le système des coefficients en évaluant en trois points.
+    const F = (x: number) => (x + 1) / ((x - 1) ** 2 * (x + 2));
+    const pts = [0, 2, 3];
+    const [a, b, c] = resoudre(
+      pts.map((x) => [1 / (x - 1) ** 2, 1 / (x - 1), 1 / (x + 2)]),
+      pts.map(F),
+    );
+    expect(proche(a, 2 / 3)).toBe(true);
+    expect(proche(c, -1 / 9)).toBe(true);
+    expect(proche(attendu(question('fractions-rationnelles', 'fr-pole-double-bas')), b)).toBe(true);
+  },
+  'fractions-rationnelles/fr-derivee': () => {
+    const d = fonction(question('fractions-rationnelles', 'fr-derivee'));
+    const R = (x: number) => x / (x * x + 1);
+    for (const x of POINTS) expect(d(x)).toBeCloseTo(derivee(R, x), 6);
+  },
+  'fractions-rationnelles/fr-somme-telescopique': () => {
+    let s = 0;
+    for (let k = 1; k <= 10; k++) s += 1 / (k * (k + 2));
+    expect(proche(attendu(question('fractions-rationnelles', 'fr-somme-telescopique')), s)).toBe(true);
+  },
 };
+
+/* --------- Polynômes : coefficients par degrés décroissants --------- */
+const evaluer = (P: number[], x: number): number => P.reduce((acc, a) => acc * x + a, 0);
+const evaluerC = (P: number[], z: ReturnType<typeof math.complex>) =>
+  P.reduce((acc, a) => math.add(math.multiply(acc, z), a) as typeof z, math.complex(0, 0));
+const deriver = (P: number[]): number[] => P.slice(0, -1).map((a, i) => a * (P.length - 1 - i));
+function diviser(A: number[], B: number[]): [number[], number[]] {
+  const R = [...A];
+  const Q: number[] = [];
+  while (R.length >= B.length) {
+    const c = R[0] / B[0];
+    Q.push(c);
+    B.forEach((b, i) => (R[i] -= c * b));
+    R.shift();
+  }
+  return [Q, R];
+}

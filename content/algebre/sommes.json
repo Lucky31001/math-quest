@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "sommes",
   "monde": "algebre",
-  "ordre": 4,
+  "ordre": 7,
   "semestre": 1,
   "titre": "Sommes et produits",
   "icone": "🧮",

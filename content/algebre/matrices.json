@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "matrices",
   "monde": "algebre",
-  "ordre": 6,
+  "ordre": 8,
   "semestre": 2,
   "titre": "Systèmes linéaires et matrices",
   "icone": "🔢",

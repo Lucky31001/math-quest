@@ -2,11 +2,11 @@
   "$schema": "../schema.json",
   "id": "complexes",
   "monde": "algebre",
-  "ordre": 3,
+  "ordre": 4,
   "semestre": 1,
   "titre": "Nombres complexes",
   "icone": "🌀",
-  "resume": "Forme algébrique, module, forme exponentielle, racines $n$-ièmes et trigonométrie.",
+  "resume": "Forme algébrique, conjugué et module, formes trigonométrique et exponentielle, racines carrées et $n$-ièmes, équations du second degré, trigonométrie.",
   "cours": [
     {
       "titre": "Forme algébrique",
@@ -65,6 +65,11 @@
           "texte": "Les solutions de $z^n = a$ sont les $n$ nombres $\\rho^{1/n} e^{i(\\alpha + 2k\\pi)/n}$, $k \\in \\{0, \\dots, n-1\\}$."
         },
         {
+          "type": "definition",
+          "titre": "Le nombre $j$",
+          "texte": "On note $j = e^{2i\\pi/3} = -\\frac12 + i\\frac{\\sqrt3}{2}$. Les racines cubiques de l'unité sont $1, j, j^2 = \\bar j$, et $1 + j + j^2 = 0$, $j^3 = 1$. Plus généralement, pour $n \\geq 2$, la somme des racines $n$-ièmes de l'unité est nulle."
+        },
+        {
           "type": "methode",
           "titre": "Racines carrées sous forme algébrique",
           "texte": "Pour $z^2 = w$ avec $z = x + iy$ : identifier $x^2 - y^2 = \\mathrm{Re}(w)$, $2xy = \\mathrm{Im}(w)$, et utiliser $x^2 + y^2 = |w|$."
@@ -73,6 +78,11 @@
           "type": "theoreme",
           "titre": "Équation du second degré",
           "texte": "$az^2 + bz + c = 0$ ($a \\neq 0$, coefficients complexes) : si $\\delta^2 = \\Delta = b^2 - 4ac$, les solutions sont $\\dfrac{-b \\pm \\delta}{2a}$. Si les coefficients sont réels et $\\Delta < 0$ : $\\delta = i\\sqrt{-\\Delta}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Exponentielle complexe",
+          "texte": "Pour $z = x + iy$, $e^z = e^x e^{iy}$ : $|e^z| = e^x$ et $\\arg(e^z) \\equiv y\\ [2\\pi]$. $e^{z + z'} = e^z e^{z'}$. Pour $Z \\neq 0$ de module $r$ et d'argument $\\alpha$ : $e^z = Z \\iff z = \\ln r + i(\\alpha + 2k\\pi)$, $k \\in \\mathbb{Z}$."
         }
       ]
     },
@@ -167,6 +177,16 @@
       "id": "f-module-exp",
       "recto": "$|e^{i\\theta}|$ pour $\\theta \\in \\mathbb{R}$ ?",
       "verso": "$1$"
+    },
+    {
+      "id": "f-exp-complexe",
+      "recto": "Module et argument de $e^{x + iy}$ ?",
+      "verso": "Module $e^x$, argument $y$ (modulo $2\\pi$)."
+    },
+    {
+      "id": "f-racine-carree-algebrique",
+      "recto": "Méthode pour les racines carrées de $w = a + ib$ ?",
+      "verso": "$(x + iy)^2 = w$ : $x^2 - y^2 = a$, $x^2 + y^2 = |w|$, et le signe de $xy$ est celui de $b$."
     }
   ],
   "exercices": [
@@ -696,6 +716,178 @@
       ],
       "etapeFausse": 2,
       "explication": "Le facteur $z + 2i$ peut aussi être nul : il y a deux solutions, $2i$ et $-2i$."
+    },
+    {
+      "id": "td-forme-algebrique",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Mettre sous forme algébrique $\\dfrac{3 + 6i}{3 - 4i}$. (TD Complexes, ex. 1)",
+      "indice": "Multiplier numérateur et dénominateur par $3 + 4i$.",
+      "correction": [
+        "On multiplie par le conjugué du dénominateur : $\\frac{(3 + 6i)(3 + 4i)}{9 + 16}$.",
+        "$(3 + 6i)(3 + 4i) = 9 + 12i + 18i - 24 = -15 + 30i$.",
+        "Donc $\\frac{-15 + 30i}{25} = -\\frac35 + \\frac65 i$."
+      ],
+      "reponse": "-3/5 + 6/5*i"
+    },
+    {
+      "id": "td-produit-forme-exp",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $z = i(-1 + i\\sqrt3)(\\sqrt3 - i)$ en passant par les formes exponentielles. (TD Complexes, ex. 3)",
+      "correction": [
+        "$i = e^{i\\pi/2}$, $-1 + i\\sqrt3 = 2e^{2i\\pi/3}$, $\\sqrt3 - i = 2e^{-i\\pi/6}$.",
+        "Module : $1 \\cdot 2 \\cdot 2 = 4$. Argument : $\\frac\\pi2 + \\frac{2\\pi}3 - \\frac\\pi6 = \\pi$.",
+        "$z = 4e^{i\\pi} = -4$."
+      ],
+      "reponse": -4
+    },
+    {
+      "id": "td-puissance-1995",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Simplifier $\\left(\\dfrac{\\sqrt3 - i}{2}\\right)^{1995}$. (TD Complexes, ex. 4)",
+      "indice": "Écrire $\\frac{\\sqrt3 - i}{2}$ sous forme exponentielle, puis réduire l'argument modulo $2\\pi$.",
+      "correction": [
+        "$\\frac{\\sqrt3 - i}{2} = e^{-i\\pi/6}$, donc la puissance vaut $e^{-1995i\\pi/6}$.",
+        "$\\frac{1995}{6} = 332{,}5$ et $-332{,}5\\pi = -\\frac\\pi2 - 166 \\times 2\\pi$.",
+        "Donc $e^{-i\\pi/2} = -i$."
+      ],
+      "reponse": "-i"
+    },
+    {
+      "id": "td-puissance-20",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Simplifier $\\left(\\dfrac{1 + i\\sqrt3}{1 - i}\\right)^{20}$. (TD Complexes, ex. 4)",
+      "correction": [
+        "$1 + i\\sqrt3 = 2e^{i\\pi/3}$ et $1 - i = \\sqrt2 e^{-i\\pi/4}$, donc le quotient vaut $\\sqrt2 e^{7i\\pi/12}$.",
+        "Puissance 20 : $(\\sqrt2)^{20} e^{140i\\pi/12} = 1024\\, e^{35i\\pi/3}$, et $\\frac{35\\pi}{3} = 12\\pi - \\frac\\pi3$.",
+        "$1024\\, e^{-i\\pi/3} = 1024\\left(\\frac12 - i\\frac{\\sqrt3}{2}\\right) = 512 - 512\\sqrt3\\, i$."
+      ],
+      "reponse": "512 - 512*sqrt(3)*i"
+    },
+    {
+      "id": "td-racines-carrees-5-12i",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Déterminer les racines carrées complexes de $5 - 12i$ (les deux, séparées par « ; »). (TD Complexes, ex. 15)",
+      "indice": "Utiliser $x^2 - y^2 = \\mathrm{Re}(w)$, $x^2 + y^2 = |w|$ et le signe de $xy$.",
+      "correction": [
+        "On cherche $(x + iy)^2 = 5 - 12i$ : $x^2 - y^2 = 5$ et $2xy = -12$.",
+        "Module : $x^2 + y^2 = |5 - 12i| = 13$. Donc $x^2 = 9$, $y^2 = 4$.",
+        "$xy < 0$ : les racines sont $3 - 2i$ et $-3 + 2i$."
+      ],
+      "reponse": [
+        "3 - 2i",
+        "-3 + 2i"
+      ]
+    },
+    {
+      "id": "td-racines-carrees-3-4i",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Déterminer les racines carrées complexes de $-3 - 4i$ (les deux, séparées par « ; »). (TD Complexes, ex. 15)",
+      "correction": [
+        "$x^2 - y^2 = -3$, $x^2 + y^2 = |-3 - 4i| = 5$, donc $x^2 = 1$ et $y^2 = 4$.",
+        "$2xy = -4 < 0$ : les racines sont $1 - 2i$ et $-1 + 2i$."
+      ],
+      "reponse": [
+        "1 - 2i",
+        "-1 + 2i"
+      ]
+    },
+    {
+      "id": "td-second-degre-complexe",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Résoudre dans $\\mathbb{C}$ : $z^2 - 2(2 + i)z + 6 + 8i = 0$ (deux solutions, séparées par « ; »). (TD Complexes, ex. 16)",
+      "correction": [
+        "Discriminant réduit : $\\Delta' = (2 + i)^2 - (6 + 8i) = 3 + 4i - 6 - 8i = -3 - 4i$.",
+        "Ses racines carrées sont $\\pm(1 - 2i)$.",
+        "$z = (2 + i) \\pm (1 - 2i)$, soit $3 - i$ et $1 + 3i$. Vérification : somme $4 + 2i$, produit $6 + 8i$."
+      ],
+      "reponse": [
+        "3 - i",
+        "1 + 3i"
+      ]
+    },
+    {
+      "id": "td-cos-2pi-5",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Avec $u = e^{2i\\pi/5}$, on a $1 + u + u^2 + u^3 + u^4 = 0$ et $u + u^4 = 2\\cos\\frac{2\\pi}5$. En déduire la valeur exacte de $\\cos\\dfrac{2\\pi}{5}$. (TD Complexes, ex. 18)",
+      "indice": "Calculer la somme et le produit de $u + u^4$ et $u^2 + u^3$.",
+      "correction": [
+        "Posons $a = u + u^4 = 2\\cos\\frac{2\\pi}5$ et $b = u^2 + u^3 = 2\\cos\\frac{4\\pi}5$ : $a + b = -1$ et $ab = u^3 + u^4 + u^6 + u^7 = u^3 + u^4 + u + u^2 = -1$.",
+        "$a$ et $b$ sont racines de $X^2 + X - 1$, soit $\\frac{-1 \\pm \\sqrt5}{2}$.",
+        "$\\cos\\frac{2\\pi}5 > 0$ donc $a = \\frac{\\sqrt5 - 1}{2}$ et $\\cos\\frac{2\\pi}5 = \\frac{\\sqrt5 - 1}{4}$."
+      ],
+      "reponse": "(sqrt(5) - 1)/4"
+    },
+    {
+      "id": "td-exp-z",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelles sont les solutions de $e^z = 1 + i$ dans $\\mathbb{C}$ ? (TD Complexes, ex. 14)",
+      "correction": [
+        "$1 + i = \\sqrt2\\, e^{i\\pi/4}$. Avec $z = x + iy$ : $e^x e^{iy} = \\sqrt2\\, e^{i\\pi/4}$.",
+        "Donc $e^x = \\sqrt2$, $x = \\ln\\sqrt2$, et $y \\equiv \\frac\\pi4\\ [2\\pi]$."
+      ],
+      "choix": [
+        {
+          "texte": "$z = \\ln\\sqrt2 + i\\left(\\frac\\pi4 + 2k\\pi\\right)$, $k \\in \\mathbb{Z}$",
+          "correct": true,
+          "explication": "$|e^z| = e^{\\mathrm{Re}\\, z} = \\sqrt2$ et $\\mathrm{Im}\\, z$ est un argument de $1 + i$."
+        },
+        {
+          "texte": "$z = \\ln 2 + i\\left(\\frac\\pi4 + 2k\\pi\\right)$, $k \\in \\mathbb{Z}$",
+          "correct": false,
+          "explication": "Le module de $1 + i$ est $\\sqrt2$, pas $2$."
+        },
+        {
+          "texte": "$z = \\ln\\sqrt2 + i\\frac\\pi4$ seulement",
+          "correct": false,
+          "explication": "L'exponentielle complexe est $2i\\pi$-périodique : il y a une infinité de solutions."
+        },
+        {
+          "texte": "$z = \\sqrt2 + i\\frac\\pi4$",
+          "correct": false,
+          "explication": "La partie réelle est le **logarithme** du module."
+        }
+      ]
+    },
+    {
+      "id": "td-ensemble-imaginaire-pur",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Pour $z \\neq 2i$, on pose $Z = \\dfrac{z + i}{z - 2i}$. Quel est l'ensemble des $z$ tels que $Z$ soit imaginaire pur ? (TD Complexes, ex. 6)",
+      "correction": [
+        "$\\arg Z \\equiv (\\overrightarrow{MB}, \\overrightarrow{MA})$ pour $M \\neq A, B$.",
+        "$Z$ imaginaire pur non nul $\\iff$ angle droit en $M$ $\\iff$ $M$ sur le cercle de diamètre $[AB]$. On ajoute $A$ ($Z = 0$) et on retire $B$."
+      ],
+      "choix": [
+        {
+          "texte": "Le cercle de diamètre $[AB]$, avec $A(-i)$ et $B(2i)$, privé de $B$",
+          "correct": true,
+          "explication": "$Z \\in i\\mathbb{R}$ ssi $z = -i$ ou $(\\overrightarrow{MB}, \\overrightarrow{MA}) \\equiv \\pm\\frac\\pi2$ : l'angle $\\widehat{AMB}$ est droit."
+        },
+        {
+          "texte": "L'axe imaginaire privé de $2i$",
+          "correct": false,
+          "explication": "C'est l'ensemble des $z$ tels que $Z$ soit **réel** ($A$, $B$, $M$ alignés)."
+        },
+        {
+          "texte": "La médiatrice de $[AB]$",
+          "correct": false,
+          "explication": "C'est l'ensemble des $z$ tels que $|Z| = 1$."
+        },
+        {
+          "texte": "L'axe réel",
+          "correct": false,
+          "explication": "$Z(0) = -\\frac12$ est réel, pas imaginaire pur."
+        }
+      ]
     }
   ]
 }

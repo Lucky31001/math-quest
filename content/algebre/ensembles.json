@@ -4,91 +4,96 @@
   "monde": "algebre",
   "ordre": 2,
   "semestre": 1,
-  "titre": "Ensembles et applications",
+  "titre": "Ensembles et relations",
   "icone": "🔗",
-  "resume": "Opérations sur les ensembles, images directes et réciproques, injections, surjections, bijections.",
+  "resume": "Inclusion, double inclusion, parties, opérations et lois de Morgan, produit cartésien, partitions, relations d'équivalence et d'ordre.",
   "cours": [
     {
-      "titre": "Ensembles",
+      "titre": "Ensembles et inclusion",
       "blocs": [
         {
           "type": "definition",
-          "texte": "$A \\subset B$ si tout élément de $A$ est dans $B$. $A \\cup B$, $A \\cap B$, $A \\setminus B$, complémentaire $\\bar A = E \\setminus A$, produit cartésien $A \\times B = \\{(a, b)\\}$."
+          "titre": "Ensemble",
+          "texte": "Un **ensemble** est une collection d'objets, ses **éléments** : $x \\in E$. On le décrit en **extension** ($\\{1, 2, 3\\}$) ou en **compréhension** ($\\{x \\in \\mathbb{R} : x^2 \\leq 2\\}$). L'ensemble vide se note $\\varnothing$."
         },
         {
-          "type": "propriete",
-          "titre": "Lois de De Morgan",
-          "texte": "$\\overline{A \\cup B} = \\bar A \\cap \\bar B$ et $\\overline{A \\cap B} = \\bar A \\cup \\bar B$."
+          "type": "definition",
+          "titre": "Inclusion",
+          "texte": "$A \\subset B$ si tout élément de $A$ est dans $B$ : $\\forall x,\\ x \\in A \\Rightarrow x \\in B$. **Ne pas confondre** : pour $E = \\{1, 2\\}$, $1 \\in E$ et $\\{1\\} \\subset E$, mais $\\{1\\} \\notin E$."
         },
         {
-          "type": "propriete",
-          "titre": "Cardinaux",
-          "texte": "$|A \\cup B| = |A| + |B| - |A \\cap B|$, $|A \\times B| = |A|\\,|B|$, $|\\mathcal{P}(E)| = 2^{|E|}$."
+          "type": "methode",
+          "titre": "Inclusion, égalité",
+          "texte": "Pour montrer $A \\subset B$ : « Soit $x \\in A$ », puis montrer $x \\in B$. Pour montrer $A = B$ : **double inclusion**, $A \\subset B$ et $B \\subset A$."
+        },
+        {
+          "type": "definition",
+          "titre": "Ensemble des parties",
+          "texte": "$\\mathcal{P}(E)$ est l'ensemble des parties de $E$ : $A \\in \\mathcal{P}(E) \\iff A \\subset E$. Toujours $\\varnothing \\in \\mathcal{P}(E)$ et $E \\in \\mathcal{P}(E)$. Si $E$ a $n$ éléments, $\\mathcal{P}(E)$ en a $2^n$. Ex. : $\\mathcal{P}(\\{a, b\\}) = \\{\\varnothing, \\{a\\}, \\{b\\}, \\{a, b\\}\\}$."
         }
       ]
     },
     {
-      "titre": "Applications",
+      "titre": "Opérations",
       "blocs": [
         {
           "type": "definition",
-          "titre": "Image directe, image réciproque",
-          "texte": "Pour $f : E \\to F$, $A \\subset E$, $B \\subset F$ : $f(A) = \\{f(x),\\ x \\in A\\}$ et $f^{-1}(B) = \\{x \\in E,\\ f(x) \\in B\\}$ (définie même si $f$ n'est pas bijective)."
+          "titre": "Intersection, union, différence",
+          "texte": "$A \\cap B = \\{x : x \\in A \\text{ et } x \\in B\\}$, $A \\cup B = \\{x : x \\in A \\text{ ou } x \\in B\\}$. $A$ et $B$ sont **disjoints** si $A \\cap B = \\varnothing$. Différence : $A \\setminus B = \\{x \\in A : x \\notin B\\}$. Complémentaire dans $E$ : $A^c = E \\setminus A$."
         },
         {
           "type": "definition",
-          "titre": "Injection, surjection, bijection",
-          "texte": "$f$ est **injective** si $f(x) = f(x') \\Rightarrow x = x'$ ; **surjective** si $\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$ ; **bijective** si elle est les deux : tout $y$ a exactement un antécédent."
+          "titre": "Différence symétrique",
+          "texte": "$A \\Delta B = (A \\cup B) \\setminus (A \\cap B) = (A \\cap B^c) \\cup (A^c \\cap B)$ : les éléments qui sont dans **un seul** des deux ensembles."
         },
         {
           "type": "theoreme",
-          "titre": "Composition",
-          "texte": "Une composée d'injections (resp. surjections, bijections) en est une. Si $g \\circ f$ est injective, $f$ est injective ; si $g \\circ f$ est surjective, $g$ est surjective."
+          "titre": "Propriétés",
+          "texte": "Distributivité : $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$ et $A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C)$. Lois de Morgan : $(A \\cap B)^c = A^c \\cup B^c$ et $(A \\cup B)^c = A^c \\cap B^c$. Et $(A^c)^c = A$, $A \\setminus B = A \\cap B^c$."
+        },
+        {
+          "type": "definition",
+          "titre": "Partition",
+          "texte": "Une **partition** de $E$ est un ensemble de parties de $E$ **non vides**, **deux à deux disjointes**, dont la réunion est $E$. Ex. : $\\{\\{1\\}, \\{2, 3\\}\\}$ est une partition de $\\{1, 2, 3\\}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Produit cartésien",
+          "texte": "$A \\times B = \\{(a, b) : a \\in A,\\ b \\in B\\}$ (couples **ordonnés**). Si $A$ et $B$ sont finis, $|A \\times B| = |A| \\cdot |B|$. Attention : une partie de $A \\times B$ n'est pas toujours de la forme $A' \\times B'$."
         },
         {
           "type": "propriete",
-          "titre": "Bijection réciproque",
-          "texte": "$f : E \\to F$ est bijective ssi il existe $g : F \\to E$ avec $g \\circ f = \\mathrm{id}_E$ et $f \\circ g = \\mathrm{id}_F$ ; alors $g = f^{-1}$."
+          "titre": "Cardinal d'une réunion",
+          "texte": "$|A \\cup B| = |A| + |B| - |A \\cap B|$ (pour des ensembles finis)."
+        }
+      ]
+    },
+    {
+      "titre": "Relations binaires",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Propriétés d'une relation",
+          "texte": "Une relation $\\mathcal{R}$ sur $E$ est **réflexive** si $\\forall x,\\ x \\mathcal{R} x$ ; **symétrique** si $x \\mathcal{R} y \\Rightarrow y \\mathcal{R} x$ ; **antisymétrique** si $(x \\mathcal{R} y \\text{ et } y \\mathcal{R} x) \\Rightarrow x = y$ ; **transitive** si $(x \\mathcal{R} y \\text{ et } y \\mathcal{R} z) \\Rightarrow x \\mathcal{R} z$."
         },
         {
-          "type": "methode",
-          "titre": "Montrer qu'une application est injective",
-          "texte": "Prendre $x, x'$ avec $f(x) = f(x')$ et montrer $x = x'$. Pour montrer qu'elle ne l'est pas : trouver $x \\neq x'$ avec $f(x) = f(x')$."
+          "type": "definition",
+          "titre": "Relation d'équivalence",
+          "texte": "Une **relation d'équivalence** est réflexive, symétrique et transitive. La **classe** de $x$ est $[x] = \\{y \\in E : x \\mathcal{R} y\\}$. Les classes forment une **partition** de $E$ : $[x] = [y] \\iff x \\mathcal{R} y$, sinon $[x] \\cap [y] = \\varnothing$."
         },
         {
-          "type": "propriete",
-          "titre": "Dénombrement",
-          "texte": "Si $|E| = p$ et $|F| = n$ : il y a $n^p$ applications de $E$ dans $F$ et $\\frac{n!}{(n-p)!}$ injections (si $p \\leq n$). Si $|E| = |F|$ finis : injective $\\iff$ surjective $\\iff$ bijective."
+          "type": "definition",
+          "titre": "Relation d'ordre",
+          "texte": "Une **relation d'ordre** est réflexive, antisymétrique et transitive. Elle est **totale** si deux éléments sont toujours comparables ($x \\preceq y$ ou $y \\preceq x$), **partielle** sinon. Ex. : $\\leq$ sur $\\mathbb{R}$ est totale ; $\\subset$ sur $\\mathcal{P}(E)$ est partielle."
+        },
+        {
+          "type": "exemple",
+          "texte": "Congruence modulo $n$ sur $\\mathbb{Z}$ : $a \\equiv b\\ [n] \\iff n \\mid a - b$. C'est une relation d'équivalence à $n$ classes, de représentants $0, 1, \\dots, n - 1$. « Avoir le même carré » sur $\\mathbb{R}$ est une équivalence de classes $\\{x, -x\\}$."
         }
       ]
     }
   ],
   "flashcards": [
-    {
-      "id": "f-injective",
-      "recto": "Définition : $f$ injective ?",
-      "verso": "$\\forall x, x' \\in E,\\ f(x) = f(x') \\Rightarrow x = x'$ (tout élément a au plus un antécédent)."
-    },
-    {
-      "id": "f-surjective",
-      "recto": "Définition : $f$ surjective ?",
-      "verso": "$\\forall y \\in F,\\ \\exists x \\in E,\\ f(x) = y$ (tout élément a au moins un antécédent)."
-    },
-    {
-      "id": "f-bijective",
-      "recto": "Définition : $f$ bijective ?",
-      "verso": "Injective et surjective : tout $y \\in F$ a exactement un antécédent."
-    },
-    {
-      "id": "f-composee-inj",
-      "recto": "Si $g \\circ f$ est injective, que peut-on dire ?",
-      "verso": "$f$ est injective (mais pas forcément $g$)."
-    },
-    {
-      "id": "f-composee-surj",
-      "recto": "Si $g \\circ f$ est surjective, que peut-on dire ?",
-      "verso": "$g$ est surjective (mais pas forcément $f$)."
-    },
     {
       "id": "f-parties",
       "recto": "Cardinal de $\\mathcal{P}(E)$ si $|E| = n$ ?",
@@ -100,80 +105,72 @@
       "verso": "$\\bar A \\cap \\bar B$ (De Morgan)."
     },
     {
-      "id": "f-nb-applications",
-      "recto": "Nombre d'applications de $E$ ($p$ éléments) dans $F$ ($n$ éléments) ?",
-      "verso": "$n^p$"
-    },
-    {
-      "id": "f-nb-injections",
-      "recto": "Nombre d'injections de $E$ ($p$ éléments) dans $F$ ($n \\geq p$ éléments) ?",
-      "verso": "$n(n-1)\\cdots(n-p+1) = \\dfrac{n!}{(n-p)!}$"
-    },
-    {
-      "id": "f-image-reciproque",
-      "recto": "Définition de $f^{-1}(B)$ ?",
-      "verso": "$\\{x \\in E,\\ f(x) \\in B\\}$ — elle existe même si $f$ n'est pas bijective."
-    },
-    {
-      "id": "f-fof-1",
-      "recto": "Compare $A$ et $f^{-1}(f(A))$.",
-      "verso": "$A \\subset f^{-1}(f(A))$, avec égalité pour tout $A$ si $f$ est injective."
-    },
-    {
       "id": "f-cardinal-union",
       "recto": "$|A \\cup B| = $ ?",
       "verso": "$|A| + |B| - |A \\cap B|$"
     },
     {
-      "id": "f-image-union",
-      "recto": "$f(A \\cup B) = $ ?",
-      "verso": "$f(A) \\cup f(B)$ (égalité)."
+      "id": "f-double-inclusion",
+      "recto": "Comment montrer que deux ensembles $A$ et $B$ sont égaux ?",
+      "verso": "Par double inclusion : $A \\subset B$ et $B \\subset A$."
     },
     {
-      "id": "f-image-inter",
-      "recto": "Que dire de $f(A \\cap B)$ ?",
-      "verso": "$f(A \\cap B) \\subset f(A) \\cap f(B)$, avec égalité si $f$ est injective."
+      "id": "f-appartenance-inclusion",
+      "recto": "$E = \\{1, 2\\}$ : $\\{1\\} \\in E$ ou $\\{1\\} \\subset E$ ?",
+      "verso": "$\\{1\\} \\subset E$ (et $1 \\in E$). $\\{1\\}$ n'est pas un élément de $E$."
     },
     {
-      "id": "f-reciproque-inter",
-      "recto": "$f^{-1}(A \\cap B) = $ ?",
-      "verso": "$f^{-1}(A) \\cap f^{-1}(B)$ (toujours une égalité)."
+      "id": "f-difference-symetrique",
+      "recto": "Définition de $A \\Delta B$ ?",
+      "verso": "$(A \\cup B) \\setminus (A \\cap B) = (A \\cap B^c) \\cup (A^c \\cap B)$."
+    },
+    {
+      "id": "f-partition",
+      "recto": "Conditions pour qu'une famille de parties soit une partition de $E$ ?",
+      "verso": "Parties non vides, deux à deux disjointes, de réunion $E$."
+    },
+    {
+      "id": "f-distributivite",
+      "recto": "$A \\cap (B \\cup C) = $ ?",
+      "verso": "$(A \\cap B) \\cup (A \\cap C)$."
+    },
+    {
+      "id": "f-equivalence",
+      "recto": "Relation d'équivalence ?",
+      "verso": "Réflexive, symétrique et transitive."
+    },
+    {
+      "id": "f-ordre",
+      "recto": "Relation d'ordre ?",
+      "verso": "Réflexive, antisymétrique et transitive."
+    },
+    {
+      "id": "f-antisymetrique",
+      "recto": "Relation antisymétrique ?",
+      "verso": "$x \\mathcal{R} y$ et $y \\mathcal{R} x$ $\\Rightarrow$ $x = y$."
+    },
+    {
+      "id": "f-classes-partition",
+      "recto": "Que forment les classes d'une relation d'équivalence ?",
+      "verso": "Une partition de $E$ : deux classes sont égales ou disjointes."
+    },
+    {
+      "id": "f-congruence",
+      "recto": "Combien de classes pour la congruence modulo $n$ sur $\\mathbb{Z}$ ?",
+      "verso": "$n$ classes, de représentants $0, 1, \\dots, n - 1$."
+    },
+    {
+      "id": "f-ordre-total",
+      "recto": "Ordre total ?",
+      "verso": "Deux éléments quelconques sont comparables : $x \\preceq y$ ou $y \\preceq x$."
+    },
+    {
+      "id": "f-difference",
+      "recto": "$A \\setminus B$ avec un complémentaire ?",
+      "verso": "$A \\setminus B = A \\cap B^c$."
     }
   ],
   "exercices": [
-    {
-      "id": "carre-reel",
-      "type": "qcm",
-      "difficulte": 1,
-      "enonce": "L'application $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$ est :",
-      "indice": "Regarde $f(-1)$ et $f(1)$, puis cherche un antécédent de $-1$.",
-      "correction": [
-        "$f(-1) = f(1) = 1$ avec $-1 \\neq 1$ : $f$ n'est pas injective.",
-        "$-1$ n'a pas d'antécédent (un carré est positif) : $f$ n'est pas surjective."
-      ],
-      "choix": [
-        {
-          "texte": "ni injective ni surjective",
-          "correct": true,
-          "explication": "$f(-1) = f(1)$ et $-1$ n'a pas d'antécédent."
-        },
-        {
-          "texte": "injective mais pas surjective",
-          "correct": false,
-          "explication": "$f(-1) = f(1)$ : deux éléments distincts ont la même image."
-        },
-        {
-          "texte": "surjective mais pas injective",
-          "correct": false,
-          "explication": "L'ensemble d'arrivée est $\\mathbb{R}$ : les négatifs n'ont pas d'antécédent."
-        },
-        {
-          "texte": "bijective",
-          "correct": false,
-          "explication": "Ce serait vrai de $[0, +\\infty[$ dans $[0, +\\infty[$, mais pas de $\\mathbb{R}$ dans $\\mathbb{R}$."
-        }
-      ]
-    },
     {
       "id": "cardinal-parties",
       "type": "qcm",
@@ -208,152 +205,6 @@
       ]
     },
     {
-      "id": "double-entier",
-      "type": "qcm",
-      "difficulte": 2,
-      "enonce": "L'application $f : \\mathbb{N} \\to \\mathbb{N}$, $n \\mapsto 2n$ est :",
-      "indice": "$1$ a-t-il un antécédent ?",
-      "correction": [
-        "$2n = 2m \\Rightarrow n = m$ : $f$ est injective.",
-        "$1$ (impair) n'a pas d'antécédent : $f$ n'est pas surjective."
-      ],
-      "choix": [
-        {
-          "texte": "injective mais pas surjective",
-          "correct": true,
-          "explication": "Les impairs n'ont pas d'antécédent."
-        },
-        {
-          "texte": "surjective mais pas injective",
-          "correct": false,
-          "explication": "C'est l'inverse : $2n = 2m$ donne $n = m$, et les impairs n'ont pas d'antécédent."
-        },
-        {
-          "texte": "bijective",
-          "correct": false,
-          "explication": "$1$ n'a pas d'antécédent dans $\\mathbb{N}$."
-        },
-        {
-          "texte": "ni injective ni surjective",
-          "correct": false,
-          "explication": "Elle est injective : $2n = 2m \\Rightarrow n = m$."
-        }
-      ]
-    },
-    {
-      "id": "composee-injective",
-      "type": "qcm",
-      "multiple": true,
-      "difficulte": 2,
-      "enonce": "Soient $f : E \\to F$ et $g : F \\to G$ telles que $g \\circ f$ soit injective. Que peut-on affirmer à coup sûr ?",
-      "indice": "Si $f(x) = f(x')$, que vaut $g(f(x))$ ?",
-      "correction": [
-        "Si $f(x) = f(x')$, alors $g(f(x)) = g(f(x'))$, donc $x = x'$ par injectivité de $g \\circ f$ : $f$ est injective.",
-        "$g$ n'est pas forcément injective : $E = \\{0\\}$, $F = \\{0, 1\\}$, $G = \\{0\\}$, $f(0) = 0$ et $g$ constante.",
-        "Rien n'impose la surjectivité de $f$ ni de $g \\circ f$ (même exemple : $1 \\in F$ n'a pas d'antécédent)."
-      ],
-      "choix": [
-        {
-          "texte": "$f$ est injective",
-          "correct": true,
-          "explication": "$f(x) = f(x') \\Rightarrow g(f(x)) = g(f(x')) \\Rightarrow x = x'$."
-        },
-        {
-          "texte": "Pour $x \\neq x'$ dans $E$ : $g(f(x)) \\neq g(f(x'))$",
-          "correct": true,
-          "explication": "C'est la définition (contraposée) de l'injectivité de $g \\circ f$."
-        },
-        {
-          "texte": "$g$ est injective",
-          "correct": false,
-          "explication": "Contre-exemple : $g$ peut écraser des points de $F$ qui ne sont pas atteints par $f$."
-        },
-        {
-          "texte": "$f$ est surjective",
-          "correct": false,
-          "explication": "Aucune information sur la surjectivité : $f$ peut manquer des éléments de $F$."
-        }
-      ]
-    },
-    {
-      "id": "image-reciproque-carre",
-      "type": "qcm",
-      "difficulte": 3,
-      "enonce": "Soit $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto x^2$. Que vaut $f^{-1}([1, 4])$ ?",
-      "indice": "On cherche tous les $x$ tels que $1 \\leq x^2 \\leq 4$.",
-      "correction": [
-        "$1 \\leq x^2 \\leq 4 \\iff 1 \\leq |x| \\leq 2$.",
-        "$f^{-1}([1, 4]) = [-2, -1] \\cup [1, 2]$."
-      ],
-      "choix": [
-        {
-          "texte": "$[-2, -1] \\cup [1, 2]$",
-          "correct": true,
-          "explication": "$1 \\leq |x| \\leq 2$."
-        },
-        {
-          "texte": "$[1, 2]$",
-          "correct": false,
-          "explication": "Les $x$ négatifs ont aussi leur carré dans $[1, 4]$ : $(-1.5)^2 = 2.25$."
-        },
-        {
-          "texte": "$[1, 16]$",
-          "correct": false,
-          "explication": "C'est l'image directe $f([1, 4])$, pas l'image réciproque."
-        },
-        {
-          "texte": "$[-2, 2]$",
-          "correct": false,
-          "explication": "$0 \\in [-2, 2]$ mais $0^2 = 0 \\notin [1, 4]$."
-        }
-      ]
-    },
-    {
-      "id": "nombre-applications",
-      "type": "qcm",
-      "difficulte": 2,
-      "enonce": "Combien y a-t-il d'applications d'un ensemble à 3 éléments dans un ensemble à 2 éléments ?",
-      "indice": "Chaque élément de départ choisit son image.",
-      "correction": [
-        "Chacun des 3 éléments de départ a 2 images possibles, indépendamment.",
-        "Il y a $2 \\times 2 \\times 2 = 2^3 = 8$ applications."
-      ],
-      "choix": [
-        {
-          "texte": "$8$",
-          "correct": true,
-          "explication": "$|F|^{|E|} = 2^3$."
-        },
-        {
-          "texte": "$9$",
-          "correct": false,
-          "explication": "C'est $3^2$ : on a inversé, il faut $|F|^{|E|}$."
-        },
-        {
-          "texte": "$6$",
-          "correct": false,
-          "explication": "$3 \\times 2$ : les choix se multiplient pour CHAQUE élément, d'où une puissance."
-        },
-        {
-          "texte": "$0$",
-          "correct": false,
-          "explication": "Il n'y a pas d'injection (3 > 2), mais il y a bien des applications."
-        }
-      ]
-    },
-    {
-      "id": "nombre-injections",
-      "type": "numerique",
-      "difficulte": 2,
-      "enonce": "Combien y a-t-il d'injections d'un ensemble à 3 éléments dans un ensemble à 5 éléments ?",
-      "indice": "Le premier élément a 5 images possibles, le deuxième…",
-      "correction": [
-        "Le 1er élément a 5 images possibles, le 2e en a 4 (image différente), le 3e en a 3.",
-        "$5 \\times 4 \\times 3 = 60$ injections."
-      ],
-      "reponse": 60
-    },
-    {
       "id": "cardinal-union",
       "type": "numerique",
       "difficulte": 1,
@@ -363,41 +214,6 @@
         "$|A \\cup B| = 7 + 5 - 3 = 9$."
       ],
       "reponse": 9
-    },
-    {
-      "id": "reciproque-affine",
-      "type": "expression",
-      "difficulte": 2,
-      "enonce": "$f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 3x - 5$ est bijective. Donner $f^{-1}(y)$ en fonction de $y$.",
-      "indice": "Résous $y = 3x - 5$ d'inconnue $x$.",
-      "correction": [
-        "$y = 3x - 5 \\iff x = \\dfrac{y + 5}{3}$.",
-        "Donc $f^{-1}(y) = \\dfrac{y + 5}{3}$."
-      ],
-      "reponse": "(y+5)/3",
-      "variables": [
-        "y"
-      ]
-    },
-    {
-      "id": "reciproque-carre-negatif",
-      "type": "expression",
-      "difficulte": 3,
-      "enonce": "$f : \\left]-\\infty, 0\\right] \\to [1, +\\infty[$, $f(x) = x^2 + 1$ est bijective. Donner $f^{-1}(y)$ pour $y \\geq 1$.",
-      "indice": "Attention au signe : l'antécédent doit être $\\leq 0$.",
-      "correction": [
-        "$y = x^2 + 1 \\iff x^2 = y - 1 \\iff x = \\pm\\sqrt{y - 1}$.",
-        "Comme $x \\leq 0$, on garde $x = -\\sqrt{y - 1}$.",
-        "$f^{-1}(y) = -\\sqrt{y - 1}$."
-      ],
-      "reponse": "-sqrt(y-1)",
-      "variables": [
-        "y"
-      ],
-      "domaine": [
-        1,
-        6
-      ]
     },
     {
       "id": "vf-de-morgan",
@@ -426,54 +242,6 @@
           "explication": "Le contre-exemple $A = \\{1\\}$, $B = \\{2\\}$ dans $\\{1, 2\\}$ le contredit."
         }
       ]
-    },
-    {
-      "id": "vf-image-reciproque-image",
-      "type": "vrai-faux",
-      "difficulte": 3,
-      "enonce": "Pour toute application $f : E \\to F$ et toute partie $A \\subset E$ : $f^{-1}(f(A)) = A$.",
-      "correction": [
-        "On a toujours $A \\subset f^{-1}(f(A))$, mais pas l'égalité.",
-        "Contre-exemple : $f(x) = x^2$ sur $\\mathbb{R}$ et $A = \\{1\\}$ : $f(A) = \\{1\\}$ et $f^{-1}(\\{1\\}) = \\{-1, 1\\} \\neq A$.",
-        "L'égalité est vraie pour tout $A$ si et seulement si $f$ est injective."
-      ],
-      "reponse": false,
-      "justifications": [
-        {
-          "texte": "Avec $f(x) = x^2$ et $A = \\{1\\}$, on obtient $\\{-1, 1\\}$.",
-          "correct": true,
-          "explication": "Seule l'inclusion $A \\subset f^{-1}(f(A))$ est toujours vraie."
-        },
-        {
-          "texte": "Vrai : $f^{-1}$ annule l'effet de $f$.",
-          "correct": false,
-          "explication": "Ici $f^{-1}$ désigne l'image réciproque, définie même si $f$ n'est pas bijective : ce n'est pas une réciproque."
-        },
-        {
-          "texte": "Faux : on a seulement $f^{-1}(f(A)) \\subset A$.",
-          "correct": false,
-          "explication": "C'est l'inclusion inverse qui est vraie : $A \\subset f^{-1}(f(A))$."
-        }
-      ]
-    },
-    {
-      "id": "erreur-injectivite",
-      "type": "trouve-erreur",
-      "difficulte": 2,
-      "enonce": "« Démonstration » que $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2 + x$ est injective. Où est l'erreur ?",
-      "correction": [
-        "Un produit nul a l'un de ses facteurs nul : on peut avoir $x + x' + 1 = 0$.",
-        "D'ailleurs $f(0) = f(-1) = 0$ : $f$ n'est pas injective."
-      ],
-      "etapes": [
-        "Soient $x, x'$ réels tels que $f(x) = f(x')$.",
-        "Alors $x^2 - x'^2 + x - x' = 0$.",
-        "Donc $(x - x')(x + x' + 1) = 0$.",
-        "Donc $x - x' = 0$, c'est-à-dire $x = x'$.",
-        "Donc $f$ est injective."
-      ],
-      "etapeFausse": 3,
-      "explication": "Un produit est nul si L'UN des facteurs est nul : le cas $x + x' + 1 = 0$ est oublié. Contre-exemple : $f(0) = f(-1) = 0$."
     },
     {
       "id": "intersection",
@@ -507,73 +275,6 @@
       ]
     },
     {
-      "id": "exponentielle-injective",
-      "type": "qcm",
-      "difficulte": 2,
-      "enonce": "L'application $f : \\mathbb{R} \\to \\mathbb{R}$, $x \\mapsto e^x$ est :",
-      "correction": [
-        "$\\exp$ est strictement croissante, donc injective.",
-        "$e^x > 0$ : les réels négatifs ou nuls n'ont pas d'antécédent, donc $f$ n'est pas surjective sur $\\mathbb{R}$."
-      ],
-      "choix": [
-        {
-          "texte": "injective mais pas surjective",
-          "correct": true,
-          "explication": "$0$ et $-1$ n'ont pas d'antécédent."
-        },
-        {
-          "texte": "bijective",
-          "correct": false,
-          "explication": "Elle l'est de $\\mathbb{R}$ dans $]0, +\\infty[$, pas dans $\\mathbb{R}$."
-        },
-        {
-          "texte": "surjective mais pas injective",
-          "correct": false,
-          "explication": "Strictement croissante, donc injective ; et pas surjective."
-        },
-        {
-          "texte": "ni injective ni surjective",
-          "correct": false,
-          "explication": "Elle est injective (strictement monotone)."
-        }
-      ]
-    },
-    {
-      "id": "composee-surjective",
-      "type": "qcm",
-      "multiple": true,
-      "difficulte": 3,
-      "enonce": "Soient $f : E \\to F$ et $g : F \\to G$ avec $g \\circ f$ surjective. Que peut-on affirmer à coup sûr ?",
-      "indice": "Pour $z \\in G$, un antécédent par $g \\circ f$ donne un antécédent par $g$.",
-      "correction": [
-        "Pour $z \\in G$, il existe $x$ avec $g(f(x)) = z$ : $y = f(x)$ est un antécédent de $z$ par $g$. Donc $g$ est surjective.",
-        "$f$ n'est pas forcément surjective : $E = \\{0\\}$, $F = \\{0, 1\\}$, $G = \\{0\\}$, $f(0) = 0$, $g$ constante.",
-        "$g$ n'est pas forcément injective (même exemple)."
-      ],
-      "choix": [
-        {
-          "texte": "$g$ est surjective",
-          "correct": true,
-          "explication": "$f(x)$ est un antécédent de $z$ par $g$."
-        },
-        {
-          "texte": "Tout $z \\in G$ a un antécédent par $g \\circ f$",
-          "correct": true,
-          "explication": "C'est la définition de la surjectivité de $g \\circ f$."
-        },
-        {
-          "texte": "$f$ est surjective",
-          "correct": false,
-          "explication": "Contre-exemple : $1 \\in F$ peut ne pas être atteint par $f$."
-        },
-        {
-          "texte": "$g$ est injective",
-          "correct": false,
-          "explication": "Rien ne l'impose : $g$ constante dans le contre-exemple."
-        }
-      ]
-    },
-    {
       "id": "parties-produit",
       "type": "numerique",
       "difficulte": 2,
@@ -585,67 +286,476 @@
       "reponse": 64
     },
     {
-      "id": "reciproque-exp-affine",
-      "type": "expression",
-      "difficulte": 3,
-      "enonce": "$f : \\mathbb{R} \\to ]0, +\\infty[$, $f(x) = e^{2x+1}$ est bijective. Donner $f^{-1}(y)$ pour $y > 0$.",
-      "indice": "Résous $y = e^{2x+1}$ en prenant le logarithme.",
-      "correction": [
-        "$y = e^{2x+1} \\iff \\ln y = 2x + 1 \\iff x = \\dfrac{\\ln y - 1}{2}$.",
-        "$f^{-1}(y) = \\dfrac{\\ln y - 1}{2}$."
-      ],
-      "reponse": "(log(y) - 1)/2",
-      "variables": [
-        "y"
-      ],
-      "domaine": [
-        0.3,
-        6
-      ]
-    },
-    {
-      "id": "vf-croissante-injective",
-      "type": "vrai-faux",
+      "id": "appartenance-inclusion",
+      "type": "qcm",
       "difficulte": 1,
-      "enonce": "Toute application strictement croissante de $\\mathbb{R}$ dans $\\mathbb{R}$ est injective.",
+      "enonce": "Soit $E = \\{1, 2\\}$. Lesquelles de ces affirmations sont vraies ?",
       "correction": [
-        "Vrai : si $x \\neq x'$, disons $x < x'$, alors $f(x) < f(x')$, donc $f(x) \\neq f(x')$."
+        "$\\in$ relie un élément à un ensemble, $\\subset$ relie deux ensembles.",
+        "$\\varnothing \\subset E$ toujours, mais $\\varnothing \\in E$ seulement si $\\varnothing$ est un élément de $E$."
       ],
-      "reponse": true,
-      "justifications": [
+      "multiple": true,
+      "choix": [
         {
-          "texte": "$x < x' \\Rightarrow f(x) < f(x')$, donc deux points distincts ont des images distinctes.",
+          "texte": "$1 \\in E$",
           "correct": true,
-          "explication": "C'est la contraposée de l'injectivité."
+          "explication": "$1$ est un élément de $E$."
         },
         {
-          "texte": "Faux : $x \\mapsto x^3$ est croissante mais pas injective.",
-          "correct": false,
-          "explication": "$x^3$ est injective ($x^3 = y^3 \\Rightarrow x = y$ dans $\\mathbb{R}$)."
+          "texte": "$\\{1\\} \\subset E$",
+          "correct": true,
+          "explication": "Tout élément de $\\{1\\}$ est dans $E$."
         },
         {
-          "texte": "Vrai, et elle est même surjective.",
+          "texte": "$\\varnothing \\subset E$",
+          "correct": true,
+          "explication": "L'ensemble vide est inclus dans tout ensemble."
+        },
+        {
+          "texte": "$\\{1\\} \\in E$",
           "correct": false,
-          "explication": "$\\arctan$ est strictement croissante mais n'est pas surjective sur $\\mathbb{R}$."
+          "explication": "Les éléments de $E$ sont $1$ et $2$, pas l'ensemble $\\{1\\}$ : on confond appartenance et inclusion."
+        },
+        {
+          "texte": "$\\varnothing \\in E$",
+          "correct": false,
+          "explication": "$\\varnothing$ n'est pas un élément de $E$ (il l'est de $\\mathcal{P}(E)$) : on confond appartenance et inclusion."
         }
       ]
     },
     {
-      "id": "erreur-surjectivite-carre",
-      "type": "trouve-erreur",
-      "difficulte": 2,
-      "enonce": "« Démonstration » que $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$ est surjective. Où est l'erreur ?",
+      "id": "parties-a-b",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que vaut $\\mathcal{P}(\\{a, b\\})$ ?",
       "correction": [
-        "$\\sqrt{y}$ n'est défini que pour $y \\geq 0$ : $y = -1$ n'a pas d'antécédent, donc $f$ n'est pas surjective."
+        "Une partie de $\\{a, b\\}$ contient $0$, $1$ ou $2$ éléments : $\\varnothing$, $\\{a\\}$, $\\{b\\}$, $\\{a, b\\}$."
       ],
-      "etapes": [
-        "Soit $y \\in \\mathbb{R}$.",
-        "On pose $x = \\sqrt{y}$.",
-        "Alors $f(x) = (\\sqrt{y})^2 = y$.",
-        "Tout $y$ a donc un antécédent : $f$ est surjective."
+      "choix": [
+        {
+          "texte": "$\\{\\varnothing, \\{a\\}, \\{b\\}, \\{a, b\\}\\}$",
+          "correct": true,
+          "explication": "Les $2^2 = 4$ parties de $\\{a, b\\}$."
+        },
+        {
+          "texte": "$\\{\\{a\\}, \\{b\\}\\}$",
+          "correct": false,
+          "explication": "Il manque $\\varnothing$ et $\\{a, b\\}$, qui sont toujours des parties."
+        },
+        {
+          "texte": "$\\{\\varnothing, \\{a\\}, \\{b\\}\\}$",
+          "correct": false,
+          "explication": "Il manque l'ensemble lui-même, $\\{a, b\\}$."
+        },
+        {
+          "texte": "$\\{a, b, \\{a, b\\}\\}$",
+          "correct": false,
+          "explication": "$a$ n'est pas une partie : c'est $\\{a\\}$ qui l'est."
+        }
+      ]
+    },
+    {
+      "id": "difference-symetrique",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "$A = \\{1, 2, 3, 4\\}$ et $B = \\{3, 4, 5\\}$. Que vaut $A \\Delta B$ ?",
+      "correction": [
+        "$A \\cup B = \\{1, 2, 3, 4, 5\\}$ et $A \\cap B = \\{3, 4\\}$.",
+        "$A \\Delta B = (A \\cup B) \\setminus (A \\cap B) = \\{1, 2, 5\\}$."
       ],
-      "etapeFausse": 1,
-      "explication": "$\\sqrt{y}$ n'existe pas pour $y < 0$ : on ne peut pas poser $x = \\sqrt{y}$ pour TOUT réel $y$."
+      "choix": [
+        {
+          "texte": "$\\{1, 2, 5\\}$",
+          "correct": true,
+          "explication": "Les éléments qui sont dans un seul des deux ensembles."
+        },
+        {
+          "texte": "$\\{3, 4\\}$",
+          "correct": false,
+          "explication": "C'est $A \\cap B$."
+        },
+        {
+          "texte": "$\\{1, 2\\}$",
+          "correct": false,
+          "explication": "C'est $A \\setminus B$ : il manque $B \\setminus A = \\{5\\}$."
+        },
+        {
+          "texte": "$\\{1, 2, 3, 4, 5\\}$",
+          "correct": false,
+          "explication": "C'est $A \\cup B$ : il faut retirer $A \\cap B$."
+        }
+      ]
+    },
+    {
+      "id": "td-simplifier-inter",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Simplifier $A \\cap (A^c \\cup B)$, où $A, B \\subset E$. (TD Ensembles, ex. 12)",
+      "correction": [
+        "$A \\cap (A^c \\cup B) = (A \\cap A^c) \\cup (A \\cap B) = A \\cap B$."
+      ],
+      "choix": [
+        {
+          "texte": "$A \\cap B$",
+          "correct": true,
+          "explication": "Par distributivité : $(A \\cap A^c) \\cup (A \\cap B) = \\varnothing \\cup (A \\cap B)$."
+        },
+        {
+          "texte": "$B$",
+          "correct": false,
+          "explication": "Les éléments de $B$ hors de $A$ ne sont pas dans $A \\cap (\\dots)$."
+        },
+        {
+          "texte": "$A$",
+          "correct": false,
+          "explication": "Un élément de $A \\setminus B$ n'est pas dans $A^c \\cup B$."
+        },
+        {
+          "texte": "$A \\cup B$",
+          "correct": false,
+          "explication": "Une intersection avec $A$ est incluse dans $A$."
+        }
+      ]
+    },
+    {
+      "id": "td-simplifier-union",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Simplifier $A \\cup (A^c \\cap B)$, où $A, B \\subset E$. (TD Ensembles, ex. 12)",
+      "correction": [
+        "$A \\cup (A^c \\cap B) = (A \\cup A^c) \\cap (A \\cup B) = E \\cap (A \\cup B) = A \\cup B$."
+      ],
+      "choix": [
+        {
+          "texte": "$A \\cup B$",
+          "correct": true,
+          "explication": "Par distributivité : $(A \\cup A^c) \\cap (A \\cup B) = E \\cap (A \\cup B)$."
+        },
+        {
+          "texte": "$A \\cap B$",
+          "correct": false,
+          "explication": "Une réunion avec $A$ contient $A$."
+        },
+        {
+          "texte": "$B$",
+          "correct": false,
+          "explication": "Un élément de $A \\setminus B$ est dans la réunion."
+        },
+        {
+          "texte": "$E$",
+          "correct": false,
+          "explication": "$A^c \\cap B$ ne contient pas tout $A^c$ : un élément hors de $A$ et de $B$ n'est pas dans l'ensemble."
+        }
+      ]
+    },
+    {
+      "id": "relation-meme-carre",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Sur $\\mathbb{R}$, la relation $x \\mathcal{R} y \\iff x^2 = y^2$ est : (TD Relations, ex. 1)",
+      "correction": [
+        "Réflexive, symétrique et transitive : c'est une relation d'équivalence, de classes $\\{x, -x\\}$.",
+        "Elle n'est pas antisymétrique : $1$ et $-1$ sont en relation dans les deux sens."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "réflexive",
+          "correct": true,
+          "explication": "$x^2 = x^2$."
+        },
+        {
+          "texte": "symétrique",
+          "correct": true,
+          "explication": "$x^2 = y^2 \\Rightarrow y^2 = x^2$."
+        },
+        {
+          "texte": "transitive",
+          "correct": true,
+          "explication": "$x^2 = y^2$ et $y^2 = z^2$ donnent $x^2 = z^2$."
+        },
+        {
+          "texte": "antisymétrique",
+          "correct": false,
+          "explication": "$1 \\mathcal{R} (-1)$ et $(-1) \\mathcal{R} 1$, mais $1 \\neq -1$."
+        }
+      ]
+    },
+    {
+      "id": "relation-ordre-strict",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Sur $\\mathbb{R}$, la relation $<$ (ordre strict) est : (TD Relations, ex. 1)",
+      "correction": [
+        "$<$ est transitive.",
+        "Antisymétrie : l'hypothèse « $x < y$ et $y < x$ » est toujours fausse, donc l'implication est vraie.",
+        "Elle n'est pas réflexive : ce n'est pas une relation d'ordre au sens du cours."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "transitive",
+          "correct": true,
+          "explication": "$x < y$ et $y < z$ donnent $x < z$."
+        },
+        {
+          "texte": "antisymétrique",
+          "correct": true,
+          "explication": "« $x < y$ et $y < x$ » n'arrive jamais : l'implication est vraie (hypothèse toujours fausse)."
+        },
+        {
+          "texte": "réflexive",
+          "correct": false,
+          "explication": "$x < x$ est faux."
+        },
+        {
+          "texte": "symétrique",
+          "correct": false,
+          "explication": "$1 < 2$ mais $2 \\not< 1$."
+        }
+      ]
+    },
+    {
+      "id": "relation-orthogonalite",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Sur l'ensemble des droites du plan, l'orthogonalité est : (TD Relations, ex. 1)",
+      "correction": [
+        "Symétrique : $D \\perp D' \\Rightarrow D' \\perp D$.",
+        "Ni réflexive ($D \\not\\perp D$) ni transitive (deux perpendiculaires à une même droite sont parallèles)."
+      ],
+      "choix": [
+        {
+          "texte": "symétrique, mais ni réflexive ni transitive",
+          "correct": true,
+          "explication": "$D \\perp D'$ et $D' \\perp D''$ donnent $D \\parallel D''$."
+        },
+        {
+          "texte": "une relation d'équivalence",
+          "correct": false,
+          "explication": "C'est le parallélisme qui en est une."
+        },
+        {
+          "texte": "réflexive et symétrique",
+          "correct": false,
+          "explication": "Une droite n'est pas orthogonale à elle-même."
+        },
+        {
+          "texte": "symétrique et transitive",
+          "correct": false,
+          "explication": "$D \\perp D'$ et $D' \\perp D$ donneraient $D \\perp D$ : faux."
+        }
+      ]
+    },
+    {
+      "id": "relation-3n",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Sur $\\mathbb{Z}$ : $a \\mathcal{R} b \\iff \\exists n \\in \\mathbb{N},\\ a - b = 3n$. Que vaut $\\mathcal{R}$ ? (TD Relations, ex. 2)",
+      "correction": [
+        "Réflexive : $a - a = 3 \\cdot 0$. Transitive : $3n + 3m = 3(n + m)$.",
+        "Antisymétrique : $a - b = 3n$ et $b - a = 3m$ avec $n, m \\geq 0$ donnent $3(n + m) = 0$, donc $n = m = 0$ et $a = b$.",
+        "Partiel : ni $0 \\mathcal{R} 1$ ni $1 \\mathcal{R} 0$."
+      ],
+      "choix": [
+        {
+          "texte": "Une relation d'ordre partiel",
+          "correct": true,
+          "explication": "Réflexive ($n = 0$), antisymétrique, transitive ; mais $0$ et $1$ ne sont pas comparables."
+        },
+        {
+          "texte": "Une relation d'équivalence",
+          "correct": false,
+          "explication": "Elle n'est pas symétrique : $3 \\mathcal{R} 0$ mais pas $0 \\mathcal{R} 3$ ($n \\in \\mathbb{N}$). La relation « $3 \\mid a - b$ », elle, en est une."
+        },
+        {
+          "texte": "Une relation d'ordre total",
+          "correct": false,
+          "explication": "$0 - 1 = -1$ n'est pas de la forme $\\pm 3n$ : $0$ et $1$ sont incomparables."
+        },
+        {
+          "texte": "Ni l'un ni l'autre",
+          "correct": false,
+          "explication": "Les trois propriétés d'un ordre sont vérifiées."
+        }
+      ]
+    },
+    {
+      "id": "relation-classe-x2-x",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Sur $\\mathbb{R}$ : $x \\mathcal{R} y \\iff x^2 - y^2 = x - y$ est une relation d'équivalence. Quelle est la classe de $0$ ? (TD Relations, ex. 2)",
+      "correction": [
+        "$x^2 - y^2 - (x - y) = (x - y)(x + y - 1)$.",
+        "Donc $y \\in [x] \\iff y = x$ ou $y = 1 - x$ : $[0] = \\{0, 1\\}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\{0, 1\\}$",
+          "correct": true,
+          "explication": "$x^2 - y^2 = x - y \\iff (x - y)(x + y - 1) = 0 \\iff y = x$ ou $y = 1 - x$."
+        },
+        {
+          "texte": "$\\{0\\}$",
+          "correct": false,
+          "explication": "On oublie le cas $x + y = 1$."
+        },
+        {
+          "texte": "$\\{0, -1\\}$",
+          "correct": false,
+          "explication": "On confond avec « avoir le même carré »."
+        },
+        {
+          "texte": "$\\{0, \\tfrac12\\}$",
+          "correct": false,
+          "explication": "$\\frac12$ est le seul réel dont la classe est un singleton."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-parties-union",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour tous ensembles $E$ et $F$ : $\\mathcal{P}(E \\cup F) = \\mathcal{P}(E) \\cup \\mathcal{P}(F)$. (TD Ensembles, ex. 5)",
+      "correction": [
+        "On a seulement $\\mathcal{P}(E) \\cup \\mathcal{P}(F) \\subset \\mathcal{P}(E \\cup F)$.",
+        "$\\{1, 2\\}$ est une partie de $\\{1\\} \\cup \\{2\\}$ qui n'est partie ni de $\\{1\\}$ ni de $\\{2\\}$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $E = \\{1\\}$, $F = \\{2\\}$ et la partie $\\{1, 2\\}$.",
+          "correct": true,
+          "explication": "$\\{1, 2\\} \\subset E \\cup F$, mais $\\{1, 2\\} \\not\\subset E$ et $\\{1, 2\\} \\not\\subset F$."
+        },
+        {
+          "texte": "Vrai, comme pour l'intersection.",
+          "correct": false,
+          "explication": "Seule l'égalité avec l'intersection est vraie."
+        },
+        {
+          "texte": "Faux, car $\\mathcal{P}(E) \\cup \\mathcal{P}(F) \\not\\subset \\mathcal{P}(E \\cup F)$.",
+          "correct": false,
+          "explication": "Cette inclusion-là est vraie : seule l'autre est fausse."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-parties-inter",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour tous ensembles $E$ et $F$ : $\\mathcal{P}(E \\cap F) = \\mathcal{P}(E) \\cap \\mathcal{P}(F)$. (TD Ensembles, ex. 5)",
+      "correction": [
+        "$A \\in \\mathcal{P}(E \\cap F) \\iff A \\subset E \\cap F \\iff A \\subset E \\text{ et } A \\subset F \\iff A \\in \\mathcal{P}(E) \\cap \\mathcal{P}(F)$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$A \\subset E \\cap F \\iff (A \\subset E \\text{ et } A \\subset F)$.",
+          "correct": true,
+          "explication": "C'est exactement la définition de l'intersection, élément par élément."
+        },
+        {
+          "texte": "Faux : contre-exemple $E = \\{1\\}$, $F = \\{2\\}$.",
+          "correct": false,
+          "explication": "Alors les deux membres valent $\\{\\varnothing\\}$ : pas de contre-exemple."
+        },
+        {
+          "texte": "Vrai car $|\\mathcal{P}(E \\cap F)| = |\\mathcal{P}(E)| \\cdot |\\mathcal{P}(F)|$.",
+          "correct": false,
+          "explication": "Cette égalité de cardinaux est fausse en général."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-produit-parties",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Toute partie de $E \\times F$ est de la forme $A \\times B$ avec $A \\subset E$ et $B \\subset F$. (TD Ensembles, ex. 7)",
+      "correction": [
+        "La « diagonale » $\\{(1, 1), (2, 2)\\}$ n'est pas un produit : un produit contenant $(1, 1)$ et $(2, 2)$ contient aussi $(1, 2)$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $\\{(1, 1), (2, 2)\\} \\subset \\{1, 2\\}^2$.",
+          "correct": true,
+          "explication": "Si c'était $A \\times B$, on aurait $1 \\in A$ et $2 \\in B$, donc $(1, 2)$ dans la partie."
+        },
+        {
+          "texte": "Vrai : il suffit de prendre $A$ et $B$ les projections.",
+          "correct": false,
+          "explication": "Avec $A = B = \\{1, 2\\}$, $A \\times B$ contient aussi $(1, 2)$ et $(2, 1)$."
+        },
+        {
+          "texte": "Faux car $\\varnothing$ n'est pas un produit.",
+          "correct": false,
+          "explication": "$\\varnothing = \\varnothing \\times F$ est bien un produit."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-inclusion-union",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour $A, B \\subset E$ : $A \\subset B \\iff A \\cup B = B$. (TD Ensembles, ex. 3)",
+      "correction": [
+        "$\\Rightarrow$ : $B \\subset A \\cup B$ toujours, et $A \\cup B \\subset B$ car $A \\subset B$.",
+        "$\\Leftarrow$ : $A \\subset A \\cup B = B$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Si $A \\subset B$, $A \\cup B \\subset B$ ; et si $A \\cup B = B$, alors $A \\subset A \\cup B = B$.",
+          "correct": true,
+          "explication": "Les deux sens se montrent directement."
+        },
+        {
+          "texte": "Faux : il faudrait $A \\cap B = B$.",
+          "correct": false,
+          "explication": "$A \\cap B = B$ signifie $B \\subset A$, l'inclusion inverse."
+        },
+        {
+          "texte": "Vrai seulement si $A$ et $B$ sont finis.",
+          "correct": false,
+          "explication": "Le raisonnement ne fait pas intervenir de cardinal."
+        }
+      ]
+    },
+    {
+      "id": "td-parties-produit",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "$A$ a $4$ éléments et $B$ en a $5$. Combien l'ensemble $A \\times B$ a-t-il de parties ? (TD Ensembles, ex. 6)",
+      "correction": [
+        "$|A \\times B| = 4 \\times 5 = 20$.",
+        "$|\\mathcal{P}(A \\times B)| = 2^{20} = 1\\,048\\,576$."
+      ],
+      "reponse": "2^20"
+    },
+    {
+      "id": "partitions-123",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Combien l'ensemble $\\{1, 2, 3\\}$ a-t-il de partitions ?",
+      "indice": "Classer selon le nombre de blocs (1, 2 ou 3).",
+      "correction": [
+        "En un bloc : $\\{\\{1, 2, 3\\}\\}$.",
+        "En deux blocs : $\\{\\{1\\}, \\{2, 3\\}\\}$, $\\{\\{2\\}, \\{1, 3\\}\\}$, $\\{\\{3\\}, \\{1, 2\\}\\}$.",
+        "En trois blocs : $\\{\\{1\\}, \\{2\\}, \\{3\\}\\}$. Total : $5$."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "classes-modulo-5",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Combien la relation de congruence modulo $5$ a-t-elle de classes d'équivalence sur $\\mathbb{Z}$ ? (TD Relations, ex. 6)",
+      "correction": [
+        "Tout entier a un unique reste $r \\in \\{0, 1, 2, 3, 4\\}$ dans la division par $5$, et $a \\equiv b\\ [5]$ ssi $a$ et $b$ ont le même reste.",
+        "Il y a donc $5$ classes, de représentants $0, 1, 2, 3, 4$."
+      ],
+      "reponse": 5
     }
   ]
 }
