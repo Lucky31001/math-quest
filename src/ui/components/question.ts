@@ -273,7 +273,8 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     afficherCorrectionSpecifique = () => {
       lignes.forEach((l, k) => {
         l.disabled = true;
-        if (k === qq.etapeFausse) l.classList.add('faux-cible');
+        // Comme pour un QCM : la ligne à trouver en vert, un mauvais choix en rouge.
+        if (k === qq.etapeFausse) l.classList.add('juste');
         else if (k === choisie) l.classList.add('faux');
       });
       lignes[qq.etapeFausse].after(h('div', { class: 'explication', html: `⚠️ ${rendreHtml(qq.explication)}` }));
