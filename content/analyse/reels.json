@@ -81,6 +81,11 @@
           "texte": "$E$ est croissante. $x - 1 < E(x) \\leq x$. $E(x + n) = E(x) + n$ pour $n \\in \\mathbb{Z}$. $E(x) + E(y) \\leq E(x + y) \\leq E(x) + E(y) + 1$. $E(x) + E(-x) = 0$ si $x \\in \\mathbb{Z}$, $-1$ sinon."
         },
         {
+          "type": "definition",
+          "titre": "Partie dense",
+          "texte": "Une partie $A$ de $\\mathbb{R}$ est **dense** dans $\\mathbb{R}$ si tout intervalle ouvert non vide $]x, y[$ ($x < y$) contient au moins un élément de $A$."
+        },
+        {
           "type": "theoreme",
           "titre": "Densité",
           "texte": "Entre deux réels distincts, il y a toujours un rationnel (et un irrationnel) : $\\mathbb{Q}$ est **dense** dans $\\mathbb{R}$. Pour $x \\in \\mathbb{R}$, $\\frac{E(10^n x)}{10^n}$ est un décimal qui approche $x$ à $10^{-n}$ près."
