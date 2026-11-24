@@ -3,6 +3,7 @@
   "id": "polynomes",
   "monde": "algebre",
   "ordre": 5,
+  "semestre": 1,
   "titre": "Polynômes",
   "icone": "🧩",
   "resume": "Degré, division euclidienne, racines et multiplicité, factorisation dans $\\mathbb{R}[X]$ et $\\mathbb{C}[X]$.",

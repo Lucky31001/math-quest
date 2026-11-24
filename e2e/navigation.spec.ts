@@ -36,6 +36,15 @@ test('accueil léger : ni chapitre complet ni math.js ; ils arrivent à la deman
   expect(fichiers).toContain('mathjs');
 });
 
+test('carte : un jalon « Semestre 2 » sépare les chapitres des deux semestres', async ({ page }) => {
+  await page.goto('./');
+  const chemin = page.locator('.diapo').first();
+  await expect(chemin).toBeVisible();
+  const jalon = page.locator('.chemin .jalon-semestre');
+  await expect(jalon).toHaveCount(1);
+  await expect(jalon).toHaveText('Semestre 2');
+});
+
 test('onglet Exercices : on répond à un QCM et la réponse est enregistrée', async ({ page }) => {
   await page.goto('./#/chapitre/c-pointeurs/exercices');
   await page.locator('.exercice-ligne', { hasText: 'QCM' }).first().click();

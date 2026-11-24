@@ -3,6 +3,7 @@
   "id": "sommes",
   "monde": "algebre",
   "ordre": 4,
+  "semestre": 1,
   "titre": "Sommes et produits",
   "icone": "🧮",
   "resume": "Notations $\\Sigma$ et $\\Pi$, sommes usuelles, télescopage, coefficients binomiaux et binôme de Newton.",

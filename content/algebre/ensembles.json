@@ -3,6 +3,7 @@
   "id": "ensembles",
   "monde": "algebre",
   "ordre": 2,
+  "semestre": 1,
   "titre": "Ensembles et applications",
   "icone": "🔗",
   "resume": "Opérations sur les ensembles, images directes et réciproques, injections, surjections, bijections.",

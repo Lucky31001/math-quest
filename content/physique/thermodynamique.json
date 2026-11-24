@@ -3,6 +3,7 @@
   "id": "thermodynamique",
   "monde": "physique",
   "ordre": 9,
+  "semestre": 2,
   "titre": "Thermodynamique",
   "icone": "🔥",
   "resume": "Gaz parfait, travail et chaleur, premier et second principes, machines thermiques.",

@@ -199,6 +199,8 @@ export const ChapitreSchema = z
     monde: id,
     /** Position du chapitre sur la carte (1 = premier). */
     ordre: z.number().int().positive(),
+    /** Semestre où le chapitre est enseigné (1 ou 2). Sur la carte, un séparateur marque le changement de semestre. */
+    semestre: z.union([z.literal(1), z.literal(2)]).optional(),
     titre: texte,
     /** Un emoji pour la carte. */
     icone: z.string().min(1),
@@ -216,7 +218,7 @@ export type Chapitre = z.infer<typeof ChapitreSchema>;
  * de quoi afficher la carte, les statistiques et les badges. Le reste (cours,
  * énoncés, flashcards) est chargé à l'ouverture du chapitre.
  */
-export type ChapitreResume = Pick<Chapitre, 'id' | 'monde' | 'ordre' | 'titre' | 'icone' | 'resume'> & {
+export type ChapitreResume = Pick<Chapitre, 'id' | 'monde' | 'ordre' | 'semestre' | 'titre' | 'icone' | 'resume'> & {
   exercices: Pick<Question, 'id' | 'type' | 'difficulte'>[];
   flashcards: Pick<Flashcard, 'id'>[];
 };

@@ -3,6 +3,7 @@
   "id": "equations-differentielles",
   "monde": "analyse",
   "ordre": 7,
+  "semestre": 2,
   "titre": "Équations différentielles linéaires",
   "icone": "🌊",
   "resume": "Équations d'ordre 1, équations d'ordre 2 à coefficients constants, problèmes de Cauchy.",

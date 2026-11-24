@@ -92,6 +92,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 
 - **Rien n'est codé en dur** : l'accueil, les statistiques, les badges « Conquérant » et la couleur des en-têtes viennent de `content/catalogue.json`. On y accède via `toutesLesMatieres()`, `matiereParId()`, `chapitresDe()` et `styleMatiere()` dans `core/loader.ts`.
 - Accueil : carrousel à points des matières (`creerCarrousel` dans `screens/accueil.ts`, scroll-snap + flèches + clavier) ; la diapo affichée devient la matière sélectionnée et seul le chemin est re-rendu.
+- **Semestres** : champ optionnel `semestre` (1 ou 2) d'un chapitre. Le contenu suit le programme de pré-ing 1 de CY Tech (polys d'Algèbre 1, Analyse 1 et « Panorama sur la Physique » au S1) ; les chapitres du S2 viennent après (`ordre`), et la carte pose un jalon « Semestre 2 » au changement.
 - La couleur d'une matière passe par les variables CSS `--couleur` et `--couleur-fonce`, posées en style inline. Aucune classe CSS n'est propre à une matière.
 - La matière affichée sur la carte est mémorisée dans `localStorage` (`ui/selection.ts`), par simple confort.
 

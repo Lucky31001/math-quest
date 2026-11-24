@@ -3,6 +3,7 @@
   "id": "matrices",
   "monde": "algebre",
   "ordre": 6,
+  "semestre": 2,
   "titre": "Systèmes linéaires et matrices",
   "icone": "🔢",
   "resume": "Pivot de Gauss, calcul matriciel, inverse, déterminants $2 \\times 2$ et $3 \\times 3$.",
