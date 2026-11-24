@@ -37,6 +37,11 @@
           "texte": "Une **notion** est une grandeur utilisée pour analyser les phénomènes (espace, temps, masse, énergie). Une **loi** est une relation entre grandeurs, tirée de l'observation ; un **principe** est une loi de portée très générale. Un **modèle** est une représentation simplifiée d'un système. Une **théorie** rassemble notions, principes et modèles : elle doit être **descriptive et prédictive**, et l'expérience décide de son acceptation."
         },
         {
+          "type": "definition",
+          "titre": "Hypothèse, expérience",
+          "texte": "Une **hypothèse** est une explication proposée, provisoire, qu'on cherche à tester. Une **expérience** est une situation contrôlée et **reproductible** dans laquelle on mesure des grandeurs pour confronter une prédiction à la réalité."
+        },
+        {
           "type": "exemple",
           "texte": "La chute des corps : pour Aristote, les corps lourds tombent plus vite ; Galilée montre que, sans air, tous les corps tombent de la même façon. Sur la Lune (sans atmosphère), un marteau et une plume lâchés ensemble touchent le sol **en même temps** (Apollo 15, 1971)."
         },
@@ -54,6 +59,11 @@
           "type": "propriete",
           "titre": "Modèles",
           "texte": "Un **modèle** est une représentation simplifiée de la réalité, valable dans un **domaine de validité**. La mécanique de Newton reste exacte à une très bonne approximation pour des vitesses petites devant celle de la lumière ($v \\ll c$) : la relativité ne la rend pas « fausse », elle en fixe les limites."
+        },
+        {
+          "type": "definition",
+          "titre": "Ordre de grandeur",
+          "texte": "L'**ordre de grandeur** d'une valeur est la puissance de $10$ la plus proche : celui de $3 \\times 10^{7}\\ \\mathrm s$ est $10^7\\ \\mathrm s$, celui de $8 \\times 10^{7}\\ \\mathrm s$ est $10^8\\ \\mathrm s$."
         },
         {
           "type": "methode",

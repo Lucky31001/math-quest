@@ -30,6 +30,11 @@
       "titre": "Énergies",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Énergie cinétique",
+          "texte": "L'**énergie cinétique** d'un point de masse $m$ et de vitesse $v$ est $E_c = \\frac12 m v^2$ (en joules). Elle dépend du référentiel."
+        },
+        {
           "type": "theoreme",
           "titre": "Théorème de l'énergie cinétique (TEC)",
           "texte": "Dans un référentiel galiléen : $\\Delta E_c = E_c(B) - E_c(A) = \\sum W_{AB}(\\vec F)$, avec $E_c = \\frac12 m v^2$."
@@ -43,6 +48,11 @@
           "type": "theoreme",
           "titre": "Énergie mécanique",
           "texte": "$E_m = E_c + E_p$. $\\Delta E_m = W(\\text{forces non conservatives})$. Si seules des forces conservatives travaillent, $E_m$ se **conserve**."
+        },
+        {
+          "type": "definition",
+          "titre": "Position d'équilibre",
+          "texte": "Une **position d'équilibre** est une position où le système, placé sans vitesse, reste immobile ($\\sum \\vec F = \\vec 0$). Elle est **stable** si, légèrement écarté, le système y revient (il oscille autour), **instable** s'il s'en éloigne."
         },
         {
           "type": "propriete",

@@ -13,8 +13,18 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Système",
+          "texte": "Le **système** est la partie de l'univers qu'on étudie, le reste est le **milieu extérieur**. Un système est **ouvert** s'il échange de la matière avec l'extérieur, **fermé** sinon, **isolé** s'il n'échange ni matière ni énergie."
+        },
+        {
+          "type": "definition",
           "titre": "Variables d'état",
           "texte": "Un système est décrit par des variables d'état : pression $P$ (Pa), volume $V$ (m³), température $T$ (K), quantité de matière $n$ (mol). $T(\\mathrm K) = \\theta(°\\mathrm C) + 273{,}15$. Variables **extensives** (proportionnelles à la taille : $V$, $n$, $U$) et **intensives** ($P$, $T$)."
+        },
+        {
+          "type": "definition",
+          "titre": "Gaz parfait",
+          "texte": "Le **gaz parfait** est un modèle de gaz où les molécules sont ponctuelles et sans interaction entre elles (hors chocs). Il décrit bien les gaz réels à faible pression."
         },
         {
           "type": "theoreme",
@@ -28,6 +38,16 @@
       "blocs": [
         {
           "type": "definition",
+          "titre": "Transformations",
+          "texte": "Une transformation est **isotherme** si $T$ est constante, **isobare** si $P$ est constante, **isochore** si $V$ est constant, **adiabatique** s'il n'y a pas de transfert thermique ($Q = 0$), **monotherme** si le système échange de la chaleur avec une seule source.\nElle est **réversible** si elle est assez lente pour que le système soit à l'équilibre à chaque instant et qu'on puisse l'inverser ; sinon elle est **irréversible**."
+        },
+        {
+          "type": "definition",
+          "titre": "Énergie interne, transfert thermique",
+          "texte": "L'**énergie interne** $U$ est l'énergie microscopique du système (agitation et interactions des particules) : c'est une **fonction d'état**. Le **transfert thermique** $Q$ (ou chaleur) est l'énergie échangée sans travail macroscopique, du fait d'une différence de température."
+        },
+        {
+          "type": "definition",
           "titre": "Travail",
           "texte": "Travail reçu par le système de la part des forces de pression : $W = -\\int P_{\\text{ext}}\\,\\mathrm dV$. Isochore : $W = 0$. Isobare ($P_{\\text{ext}} = P$ constante) : $W = -P\\,\\Delta V$. Isotherme réversible d'un gaz parfait : $W = -nRT\\ln\\dfrac{V_f}{V_i}$. Une compression ($\\mathrm dV < 0$) donne $W > 0$."
         },
@@ -35,6 +55,11 @@
           "type": "theoreme",
           "titre": "Premier principe",
           "texte": "$\\Delta U = W + Q$ : la variation d'énergie interne égale le travail **reçu** plus le transfert thermique **reçu** (convention : positif si reçu par le système). Pour un gaz parfait, $U$ ne dépend que de $T$ : $\\Delta U = C_V\\,\\Delta T$ ($C_{V,m} = \\frac32 R$ pour un gaz monoatomique)."
+        },
+        {
+          "type": "definition",
+          "titre": "Capacités thermiques",
+          "texte": "La **capacité thermique** $C$ ($\\mathrm{J \\cdot K^{-1}}$) est l'énergie à fournir pour élever la température d'un kelvin ; la capacité **massique** $c = C / m$, **molaire** $C_m = C / n$. La **chaleur latente** $L$ ($\\mathrm{J \\cdot kg^{-1}}$) est l'énergie de changement d'état par unité de masse."
         },
         {
           "type": "propriete",
@@ -46,6 +71,11 @@
     {
       "titre": "Second principe et machines thermiques",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Entropie, machine thermique",
+          "texte": "L'**entropie** $S$ ($\\mathrm{J \\cdot K^{-1}}$) est une fonction d'état qui mesure le désordre microscopique. Une **machine thermique** fait subir des **cycles** à un fluide en échangeant travail et chaleur ; elle est **ditherme** si elle échange de la chaleur avec deux sources (chaude $T_c$ et froide $T_f$)."
+        },
         {
           "type": "theoreme",
           "titre": "Second principe",

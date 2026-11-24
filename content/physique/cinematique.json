@@ -18,6 +18,11 @@
         },
         {
           "type": "definition",
+          "titre": "Trajectoire",
+          "texte": "La **trajectoire** d'un point est l'ensemble des positions qu'il occupe au cours du temps, dans un référentiel donné. Elle dépend du référentiel : la valve d'une roue de vélo décrit un cercle pour le cycliste, une cycloïde pour un piéton."
+        },
+        {
+          "type": "definition",
           "titre": "Systèmes de coordonnées",
           "texte": "**Cartésiennes** $(x, y, z)$ : $\\overrightarrow{OM} = x\\vec e_x + y\\vec e_y + z\\vec e_z$. **Cylindriques** $(\\rho, \\varphi, z)$ : $\\overrightarrow{OM} = \\rho\\vec e_\\rho + z\\vec e_z$. **Sphériques** $(r, \\theta, \\varphi)$, avec $\\theta$ l'angle entre $\\vec e_z$ et $\\overrightarrow{OM}$ : $\\overrightarrow{OM} = r\\vec e_r$, $\\rho = r\\sin\\theta$, $z = r\\cos\\theta$."
         },
@@ -57,6 +62,11 @@
           "texte": "Dans un référentiel donné, le point $M$ a pour vecteur position $\\overrightarrow{OM}(t)$. Sa vitesse est $\\vec v = \\dfrac{\\mathrm d\\overrightarrow{OM}}{\\mathrm dt}$ et son accélération $\\vec a = \\dfrac{\\mathrm d\\vec v}{\\mathrm dt}$. En cartésiennes : $\\vec v = \\dot x\\,\\vec e_x + \\dot y\\,\\vec e_y + \\dot z\\,\\vec e_z$."
         },
         {
+          "type": "definition",
+          "titre": "Types de mouvements",
+          "texte": "Un mouvement est **rectiligne** si la trajectoire est une droite, **circulaire** si c'est un cercle.\nIl est **uniforme** si la norme de la vitesse $v = \\|\\vec v\\|$ est constante, **accéléré** si $v$ augmente ($\\vec a \\cdot \\vec v > 0$), **ralenti** si $v$ diminue ($\\vec a \\cdot \\vec v < 0$).\n**Rectiligne uniforme** : $\\vec v$ constant (direction et norme), donc $\\vec a = \\vec 0$."
+        },
+        {
           "type": "remarque",
           "texte": "Sur un graphe $x(t)$, la vitesse est la pente de la tangente. Sur un graphe $v(t)$, l'accélération est la pente et l'**aire** sous la courbe entre $t_1$ et $t_2$ est le déplacement $x(t_2) - x(t_1)$."
         }
@@ -85,6 +95,11 @@
     {
       "titre": "Mouvement circulaire et coordonnées polaires",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Vitesse angulaire",
+          "texte": "Pour un point repéré par l'angle $\\theta(t)$, la **vitesse angulaire** est $\\omega = \\dot\\theta = \\dfrac{\\mathrm d\\theta}{\\mathrm dt}$ (en $\\mathrm{rad \\cdot s^{-1}}$). Le mouvement circulaire est **uniforme** si $\\omega$ est constante."
+        },
         {
           "type": "propriete",
           "titre": "Coordonnées polaires",

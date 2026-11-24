@@ -12,6 +12,21 @@
       "titre": "Référentiels",
       "blocs": [
         {
+          "type": "definition",
+          "titre": "Force",
+          "texte": "Une **force** modélise une action mécanique exercée sur un système : c'est un vecteur (point d'application, direction, sens, norme en newtons $\\mathrm N$). Les forces de **contact** (réaction, tension, frottement) s'opposent aux forces **à distance** (poids, force électrique)."
+        },
+        {
+          "type": "definition",
+          "titre": "Système isolé, référentiel galiléen",
+          "texte": "Un système est **isolé** s'il ne subit aucune force, **pseudo-isolé** si les forces qu'il subit se compensent ($\\sum \\vec F = \\vec 0$). Un référentiel est **galiléen** si le principe d'inertie y est vérifié ; le référentiel terrestre l'est approximativement pour des expériences courtes."
+        },
+        {
+          "type": "definition",
+          "titre": "Quantité de mouvement",
+          "texte": "La **quantité de mouvement** d'un point de masse $m$ et de vitesse $\\vec v$ est $\\vec p = m\\vec v$ (en $\\mathrm{kg \\cdot m \\cdot s^{-1}}$)."
+        },
+        {
           "type": "propriete",
           "titre": "Composition des vitesses",
           "texte": "Pour deux référentiels en translation l'un par rapport à l'autre : $\\vec v_{\\text{abs}} = \\vec v_{\\text{rel}} + \\vec v_{\\text{entr}}$ (composition galiléenne des vitesses). Un oiseau volant à $V$ et un avion à $v$ dans la même direction : l'oiseau voit l'avion aller à $v - V$."
