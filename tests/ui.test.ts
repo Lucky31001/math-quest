@@ -394,6 +394,10 @@ describe('rendu du texte', () => {
     expect(html).toContain('<strong>gras</strong>');
     expect(html).toContain('katex');
   });
+  it('le gras peut englober une formule ou du code', () => {
+    const html = rendreHtml('**continue en $a$** et **tableau de `char`**');
+    expect(html).toMatch(/^<strong>continue en <span class="katex">[\s\S]*<\/strong> et <strong>tableau de <code>char<\/code><\/strong>$/);
+  });
   it('rend un bloc ```python``` dans un <pre>, indentation conservée', () => {
     const html = rendreHtml('Code :\n```python\ndef f(x):\n    return x < 2 and \'$\'\n```\nFin.');
     expect(html).toContain('<pre class="code" data-langage="python"><code>def f(x):\n    return x &lt; 2 and &#39;$&#39;</code></pre>');
