@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "derivabilite",
   "monde": "analyse",
-  "ordre": 3,
+  "ordre": 5,
   "semestre": 1,
   "titre": "Dérivabilité",
   "icone": "📉",
@@ -20,6 +20,11 @@
           "texte": "Dérivable en $a$ $\\Rightarrow$ continue en $a$. La réciproque est fausse : $|x|$ est continue mais non dérivable en 0."
         },
         {
+          "type": "definition",
+          "titre": "Dérivées à gauche et à droite",
+          "texte": "$f$ est dérivable à droite en $a$ si $\\frac{f(x) - f(a)}{x - a}$ a une limite finie quand $x \\to a^+$. $f$ est dérivable en $a$ ssi elle l'est à gauche et à droite avec $f'_g(a) = f'_d(a)$. Ex. : $x \\mapsto x|x|$ est dérivable en $0$ ; $x \\mapsto |x|$ ne l'est pas."
+        },
+        {
           "type": "theoreme",
           "titre": "Opérations",
           "texte": "$(uv)' = u'v + uv'$, $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$, $(g \\circ f)' = f' \\times g' \\circ f$. Réciproque : $(f^{-1})'(y) = \\dfrac{1}{f'(f^{-1}(y))}$ si $f'(f^{-1}(y)) \\neq 0$."
@@ -28,6 +33,11 @@
           "type": "theoreme",
           "titre": "Formule de Leibniz",
           "texte": "$(uv)^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k} u^{(k)} v^{(n-k)}$."
+        },
+        {
+          "type": "definition",
+          "titre": "Classe $\\mathcal{C}^n$",
+          "texte": "$f$ est de **classe $\\mathcal{C}^n$** si elle est $n$ fois dérivable et si $f^{(n)}$ est continue. Pour un raccord en $a$ (fonction définie par morceaux), on vérifie la continuité, puis l'égalité des dérivées à gauche et à droite, ordre par ordre."
         }
       ]
     },
@@ -58,6 +68,11 @@
           "type": "theoreme",
           "titre": "Monotonie",
           "texte": "Sur un INTERVALLE : $f' \\geq 0 \\iff f$ croissante ; $f' > 0$ (sauf en un nombre fini de points) $\\Rightarrow f$ strictement croissante."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Règle de L'Hospital",
+          "texte": "Si $f(a) = g(a) = 0$, $f, g$ dérivables près de $a$, $g' \\neq 0$ près de $a$ (sauf en $a$) et $\\frac{f'(x)}{g'(x)} \\to \\ell$, alors $\\frac{f(x)}{g(x)} \\to \\ell$. Cas simple : $\\frac{f(x) - f(a)}{x - a} \\to f'(a)$ donne directement des limites comme $\\lim_{x \\to 0} \\frac{e^{3x + 2} - e^2}{x} = 3e^2$."
         }
       ]
     }
@@ -137,6 +152,26 @@
       "id": "f-derivee-racine-u",
       "recto": "$(\\sqrt{u})' = $ ?",
       "verso": "$\\dfrac{u'}{2\\sqrt u}$ (là où $u > 0$)."
+    },
+    {
+      "id": "f-derivable-gauche-droite",
+      "recto": "Dérivable en $a$ et dérivées latérales ?",
+      "verso": "Dérivable en $a$ ssi dérivable à gauche et à droite avec $f'_g(a) = f'_d(a)$."
+    },
+    {
+      "id": "f-classe-cn",
+      "recto": "$f$ de classe $\\mathcal{C}^n$ ?",
+      "verso": "$n$ fois dérivable, avec $f^{(n)}$ continue."
+    },
+    {
+      "id": "f-hospital",
+      "recto": "Règle de L'Hospital (forme $\\frac00$ en $a$) ?",
+      "verso": "Si $\\frac{f'(x)}{g'(x)} \\to \\ell$, alors $\\frac{f(x)}{g(x)} \\to \\ell$."
+    },
+    {
+      "id": "f-rolle-racines",
+      "recto": "$P$ a $n$ racines réelles distinctes : et $P'$ ?",
+      "verso": "Au moins $n - 1$ racines réelles (Rolle entre deux racines consécutives)."
     }
   ],
   "exercices": [
@@ -665,6 +700,283 @@
       ],
       "etapeFausse": 2,
       "explication": "On a composé $g'$ avec $u'$ au lieu de multiplier : $f'(x) = u'(x)\\,g'(u(x)) = 2x\\cos(x^2)$."
+    },
+    {
+      "id": "td-der-taux-exp",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to 0} \\frac{e^{3x + 2} - e^2}{x}$. (TD 3, ex. 34)",
+      "indice": "Reconnaître $\\frac{g(x) - g(0)}{x - 0}$.",
+      "correction": [
+        "C'est le taux d'accroissement de $g(x) = e^{3x + 2}$ en $0$.",
+        "La limite vaut $g'(0) = 3e^{2}$."
+      ],
+      "reponse": "3*e^2"
+    },
+    {
+      "id": "td-der-taux-cos",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\lim_{x \\to \\pi/2} \\frac{e^{\\cos x} - 1}{x - \\frac\\pi2}$. (TD 3, ex. 34)",
+      "correction": [
+        "C'est le taux d'accroissement de $g(x) = e^{\\cos x}$ en $\\frac\\pi2$, car $g\\left(\\frac\\pi2\\right) = e^0 = 1$.",
+        "$g'(x) = -\\sin x\\, e^{\\cos x}$, donc la limite vaut $g'\\left(\\frac\\pi2\\right) = -1$."
+      ],
+      "reponse": -1
+    },
+    {
+      "id": "td-der-cos-racine",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "La fonction $x \\mapsto \\cos\\sqrt x$ (définie sur $\\mathbb{R}_+$) est-elle dérivable en $0$ ? (TD 3, ex. 31)",
+      "correction": [
+        "Avec $u = \\sqrt x \\to 0^+$ : $\\frac{\\cos\\sqrt x - 1}{x} = -\\frac{1 - \\cos u}{u^2} \\to -\\frac12$.",
+        "La limite est finie : la fonction est dérivable (à droite) en $0$, de dérivée $-\\frac12$."
+      ],
+      "choix": [
+        {
+          "texte": "Oui, et sa dérivée en $0$ vaut $-\\frac12$",
+          "correct": true,
+          "explication": "$\\frac{\\cos\\sqrt x - 1}{x} = \\frac{\\cos\\sqrt x - 1}{(\\sqrt x)^2} \\to -\\frac12$."
+        },
+        {
+          "texte": "Non, car $\\sqrt x$ n'est pas dérivable en $0$",
+          "correct": false,
+          "explication": "Une composée peut être dérivable même si un facteur ne l'est pas : on revient au taux d'accroissement."
+        },
+        {
+          "texte": "Oui, et sa dérivée en $0$ vaut $0$",
+          "correct": false,
+          "explication": "$\\frac{1 - \\cos u}{u^2} \\to \\frac12$ avec $u = \\sqrt x$, pas $0$."
+        },
+        {
+          "texte": "Oui, et sa dérivée en $0$ vaut $-\\infty$",
+          "correct": false,
+          "explication": "Une dérivée infinie signifierait « non dérivable »."
+        }
+      ]
+    },
+    {
+      "id": "td-der-x-sur-1-plus-abs",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $g(x) = \\dfrac{x}{1 + |x|}$. Lesquelles de ces affirmations sont vraies ? (TD 3, ex. 30)",
+      "correction": [
+        "Pour $x > 0$ : $g'(x) = \\frac{1}{(1 + x)^2}$ ; pour $x < 0$ : $g'(x) = \\frac{1}{(1 - x)^2}$.",
+        "En $0$ : $\\frac{g(x)}{x} = \\frac{1}{1 + |x|} \\to 1$, donc $g'(0) = 1$."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$g$ est dérivable en $0$ et $g'(0) = 1$",
+          "correct": true,
+          "explication": "$\\frac{g(x) - g(0)}{x} = \\frac{1}{1 + |x|} \\to 1$."
+        },
+        {
+          "texte": "$g'(x) = \\frac{1}{(1 + |x|)^2}$ pour tout $x$",
+          "correct": true,
+          "explication": "Pour $x > 0$, $g = \\frac{x}{1 + x}$ ; pour $x < 0$, $g = \\frac{x}{1 - x}$ ; les deux formules se raccordent."
+        },
+        {
+          "texte": "$g$ n'est pas dérivable en $0$, à cause de $|x|$",
+          "correct": false,
+          "explication": "Le taux d'accroissement en $0$ a pour limite $1$ des deux côtés."
+        },
+        {
+          "texte": "$g'(0) = 0$",
+          "correct": false,
+          "explication": "$\\frac{g(x)}{x} = \\frac{1}{1 + |x|} \\to 1$."
+        }
+      ]
+    },
+    {
+      "id": "td-der-raccord",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "$f(x) = \\sqrt x$ sur $[0, 1]$ et $f(x) = ax^2 + bx + 1$ pour $x > 1$. Pour quelle valeur de $a$ (avec $b$ convenable) $f$ est-elle dérivable en $1$ ? (TD 3, ex. 35)",
+      "correction": [
+        "Continuité en $1$ : $a + b + 1 = 1$, soit $b = -a$.",
+        "Dérivées : à gauche $\\frac{1}{2\\sqrt1} = \\frac12$ ; à droite $2a + b = a$.",
+        "Donc $a = \\frac12$ et $b = -\\frac12$."
+      ],
+      "reponse": "1/2"
+    },
+    {
+      "id": "td-der-classe-c2",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "$f(x) = e^x$ si $x < 0$ et $f(x) = ax^2 + bx + c$ si $x \\geq 0$. Pour quelles valeurs $f$ est-elle de classe $\\mathcal{C}^2$, et est-elle alors $\\mathcal{C}^3$ ? (TD 3, ex. 38)",
+      "correction": [
+        "Continuité : $c = e^0 = 1$. $\\mathcal{C}^1$ : $b = 1$. $\\mathcal{C}^2$ : $2a = 1$.",
+        "Dérivée troisième : $1$ à gauche, $0$ à droite : $f$ n'est pas $\\mathcal{C}^3$."
+      ],
+      "choix": [
+        {
+          "texte": "$a = \\frac12$, $b = c = 1$ ; $f$ n'est pas $\\mathcal{C}^3$",
+          "correct": true,
+          "explication": "$f'''$ vaut $e^x \\to 1$ à gauche et $0$ à droite."
+        },
+        {
+          "texte": "$a = b = c = 1$ ; $f$ est $\\mathcal{C}^3$",
+          "correct": false,
+          "explication": "$f''(0^+) = 2a$ doit valoir $e^0 = 1$ : $a = \\frac12$."
+        },
+        {
+          "texte": "$a = \\frac12$, $b = c = 1$ ; $f$ est $\\mathcal{C}^\\infty$",
+          "correct": false,
+          "explication": "Un polynôme de degré 2 a une dérivée troisième nulle, $e^x$ non."
+        },
+        {
+          "texte": "$a = 0$, $b = c = 1$ ; $f$ n'est pas $\\mathcal{C}^3$",
+          "correct": false,
+          "explication": "Avec $a = 0$, $f$ est seulement $\\mathcal{C}^1$ ($f''$ saute de $1$ à $0$)."
+        }
+      ]
+    },
+    {
+      "id": "td-der-reciproque-valeur",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "$f(x) = x\\ln x - x$ est une bijection de $]1, +\\infty[$ sur $]-1, +\\infty[$. Calculer $f^{-1}(0)$. (TD 3, ex. 32)",
+      "correction": [
+        "On résout $x\\ln x - x = 0 \\iff x(\\ln x - 1) = 0 \\iff x = e$ (car $x > 1$).",
+        "Donc $f^{-1}(0) = e$."
+      ],
+      "reponse": "e"
+    },
+    {
+      "id": "td-der-reciproque-derivee",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Avec $f(x) = x\\ln x - x$ sur $]1, +\\infty[$, calculer $(f^{-1})'(0)$. (TD 3, ex. 32)",
+      "correction": [
+        "$f'(x) = \\ln x + 1 - 1 = \\ln x$, et $f^{-1}(0) = e$.",
+        "$(f^{-1})'(0) = \\frac{1}{f'(f^{-1}(0))} = \\frac{1}{\\ln e} = 1$."
+      ],
+      "reponse": 1
+    },
+    {
+      "id": "td-der-ordre-5",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer la dérivée cinquième de $f(x) = \\dfrac1x$. (TD 3, ex. 33)",
+      "correction": [
+        "Par récurrence : $f^{(n)}(x) = \\frac{(-1)^n n!}{x^{n+1}}$.",
+        "Pour $n = 5$ : $f^{(5)}(x) = -\\frac{120}{x^6}$."
+      ],
+      "reponse": "-120/x^6",
+      "variables": [
+        "x"
+      ],
+      "domaine": [
+        0.5,
+        3
+      ]
+    },
+    {
+      "id": "td-der-boite",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Dans un carton de $80 \\times 50$ cm, on découpe un carré de côté $x$ à chaque coin pour former une boîte ouverte de volume $V(x) = x(80 - 2x)(50 - 2x)$. Pour quelle valeur de $x$ (en cm) le volume est-il maximal ? (TD 3, ex. 46)",
+      "correction": [
+        "$x \\in ]0, 25[$ et $V'(x) = 12x^2 - 520x + 4000 = 4(3x^2 - 130x + 1000)$.",
+        "Racines : $x = \\frac{130 \\pm 70}{6}$, soit $10$ ou $\\frac{100}{3} \\notin ]0, 25[$.",
+        "$V'$ est positive puis négative autour de $10$ : maximum en $x = 10$, avec $V = 10 \\times 60 \\times 30 = 18\\,000$ cm³."
+      ],
+      "reponse": 10
+    },
+    {
+      "id": "td-der-minimum-segment",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Quel est le minimum de $f(x) = x^2 + 5x + 6$ sur $[-4, 4]$ ? (TD 3, ex. 45)",
+      "correction": [
+        "$f'(x) = 2x + 5$ s'annule en $-\\frac52 \\in [-4, 4]$.",
+        "$f\\left(-\\frac52\\right) = \\frac{25}{4} - \\frac{25}{2} + 6 = -\\frac14$, à comparer à $f(-4) = 2$ et $f(4) = 42$ : le minimum vaut $-\\frac14$."
+      ],
+      "reponse": "-1/4"
+    },
+    {
+      "id": "td-der-minimum-puissance",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Pour $n = 3$, quel est le minimum sur $\\mathbb{R}_+$ de $f(x) = \\dfrac{1 + x^n}{(1 + x)^n}$ ? (TD 3, ex. 47)",
+      "correction": [
+        "$f'(x) = \\frac{n x^{n-1}(1 + x) - n(1 + x^n)}{(1 + x)^{n+1}} = \\frac{n(x^{n-1} - 1)}{(1 + x)^{n+1}}$.",
+        "$f'$ est négative sur $[0, 1]$, positive ensuite : minimum en $x = 1$, égal à $\\frac{2}{2^n} = 2^{1-n}$.",
+        "Pour $n = 3$ : $\\frac14$. (D'où $(1 + x)^n \\leq 2^{n-1}(1 + x^n)$.)"
+      ],
+      "reponse": "1/4"
+    },
+    {
+      "id": "td-der-harmonique",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Pour $n \\geq 1$, $H_n = \\dfrac{1}{n + 1} + \\dfrac{1}{n + 2} + \\dots + \\dfrac{1}{2n}$. Grâce à l'encadrement $\\frac{1}{k + 1} \\leq \\ln(k + 1) - \\ln k \\leq \\frac1k$ (accroissements finis), déterminer $\\lim H_n$. (TD 3, ex. 40)",
+      "correction": [
+        "En sommant l'encadrement : $\\ln(2n + 1) - \\ln(n + 1) \\leq H_n \\leq \\ln(2n) - \\ln n = \\ln 2$.",
+        "$\\ln\\frac{2n + 1}{n + 1} \\to \\ln 2$ : par encadrement, $H_n \\to \\ln 2$."
+      ],
+      "reponse": "log(2)"
+    },
+    {
+      "id": "td-der-rolle-polynome",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Un polynôme réel $P$ possède $n$ racines réelles distinctes. Que peut-on dire de $P'$ ? (TD 3, ex. 41)",
+      "correction": [
+        "Si $x_1 < \\dots < x_n$ sont les racines, Rolle donne $c_i \\in ]x_i, x_{i+1}[$ avec $P'(c_i) = 0$.",
+        "Les $c_i$ sont distincts (intervalles disjoints) : au moins $n - 1$ racines."
+      ],
+      "choix": [
+        {
+          "texte": "$P'$ a au moins $n - 1$ racines réelles distinctes",
+          "correct": true,
+          "explication": "Rolle entre deux racines consécutives de $P$."
+        },
+        {
+          "texte": "$P'$ a exactement $n - 1$ racines réelles",
+          "correct": false,
+          "explication": "Il peut en avoir plus : $P'$ peut aussi s'annuler ailleurs."
+        },
+        {
+          "texte": "$P'$ a au moins $n$ racines réelles",
+          "correct": false,
+          "explication": "Il n'y a que $n - 1$ intervalles entre $n$ racines."
+        },
+        {
+          "texte": "On ne peut rien dire",
+          "correct": false,
+          "explication": "Le théorème de Rolle s'applique sur chaque $[x_i, x_{i+1}]$."
+        }
+      ]
+    },
+    {
+      "id": "vf-td-encadrement-ln",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "Pour tout $x > 0$ : $\\dfrac{1}{x + 1} \\leq \\ln(x + 1) - \\ln x \\leq \\dfrac1x$. (TD 3, ex. 40)",
+      "correction": [
+        "TAF : $\\exists c \\in ]x, x + 1[$, $\\ln(x + 1) - \\ln x = \\frac{1}{c}$, et $x < c < x + 1$ donne l'encadrement."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "TAF pour $\\ln$ sur $[x, x + 1]$ : $\\ln(x + 1) - \\ln x = \\frac1c$ avec $c \\in ]x, x + 1[$.",
+          "correct": true,
+          "explication": "Et $\\frac{1}{x + 1} < \\frac1c < \\frac1x$."
+        },
+        {
+          "texte": "Faux : l'encadrement est dans l'autre sens.",
+          "correct": false,
+          "explication": "$\\frac1c$ est entre $\\frac{1}{x + 1}$ et $\\frac1x$, qui est le plus grand."
+        },
+        {
+          "texte": "Vrai, par le théorème de Rolle.",
+          "correct": false,
+          "explication": "$\\ln(x + 1) \\neq \\ln x$ : Rolle ne s'applique pas, c'est le TAF."
+        }
+      ]
     }
   ]
 }

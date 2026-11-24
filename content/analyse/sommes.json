@@ -1,13 +1,37 @@
 {
   "$schema": "../schema.json",
   "id": "sommes",
-  "monde": "algebre",
-  "ordre": 7,
+  "monde": "analyse",
+  "ordre": 1,
   "semestre": 1,
-  "titre": "Sommes et produits",
+  "titre": "Rappels : inégalités, sommes et trigonométrie",
   "icone": "🧮",
-  "resume": "Notations $\\Sigma$ et $\\Pi$, sommes usuelles, télescopage, coefficients binomiaux et binôme de Newton.",
+  "resume": "Inégalités et valeur absolue, notations $\\Sigma$ et $\\Pi$, sommes usuelles, télescopage, binôme de Newton, formules de trigonométrie.",
   "cours": [
+    {
+      "titre": "Inégalités et valeur absolue",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Opérations sur les inégalités",
+          "texte": "On peut **ajouter** des inégalités de même sens. On peut les **multiplier** si tous les termes sont **positifs**. Multiplier par un négatif **renverse** le sens. Pour encadrer $x - y$, on encadre $-y$ d'abord : si $d \\leq y \\leq c$, alors $-c \\leq -y \\leq -d$."
+        },
+        {
+          "type": "definition",
+          "titre": "Valeur absolue",
+          "texte": "$|x| = \\max(x, -x)$, et $|x - a|$ est la distance de $x$ à $a$. Pour $r > 0$ : $|x - a| < r \\iff a - r < x < a + r$ et $|x - a| > r \\iff x < a - r$ ou $x > a + r$."
+        },
+        {
+          "type": "propriete",
+          "texte": "$|xy| = |x|\\,|y|$ ; **inégalité triangulaire** $|x + y| \\leq |x| + |y|$ et $\\big||x| - |y|\\big| \\leq |x - y|$. Pour comparer $|A|$ et $|B|$, on peut comparer $A^2$ et $B^2$ (fonction carré croissante sur $\\mathbb{R}_+$)."
+        },
+        {
+          "type": "methode",
+          "titre": "Inéquations",
+          "texte": "Pour $\\frac{A}{B} \\geq c$, ne **jamais** multiplier par $B$ sans connaître son signe : on étudie le signe de $\\frac{A - cB}{B}$ dans un tableau. Pour une inégalité du type $xy \\leq \\frac12(x^2 + y^2)$, on part de $(x - y)^2 \\geq 0$."
+        }
+      ]
+    },
     {
       "titre": "Manipuler les sommes",
       "blocs": [
@@ -67,6 +91,26 @@
           "type": "theoreme",
           "titre": "Binôme de Newton",
           "texte": "$(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^k b^{n-k}$ (dans $\\mathbb{C}$, ou pour des matrices qui commutent). Avec $a = b = 1$ : $\\sum_{k=0}^{n}\\binom{n}{k} = 2^n$."
+        }
+      ]
+    },
+    {
+      "titre": "Trigonométrie",
+      "blocs": [
+        {
+          "type": "propriete",
+          "titre": "Formules d'addition",
+          "texte": "$\\cos(a + b) = \\cos a\\cos b - \\sin a\\sin b$ ; $\\sin(a + b) = \\sin a\\cos b + \\cos a\\sin b$ ; $\\tan(a + b) = \\dfrac{\\tan a + \\tan b}{1 - \\tan a\\tan b}$. Avec $a = b$ : $\\cos 2a = \\cos^2 a - \\sin^2 a = 2\\cos^2 a - 1 = 1 - 2\\sin^2 a$, $\\sin 2a = 2\\sin a\\cos a$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Sommes et produits",
+          "texte": "$\\sin p + \\sin q = 2\\sin\\frac{p + q}{2}\\cos\\frac{p - q}{2}$ ; $\\cos p + \\cos q = 2\\cos\\frac{p + q}{2}\\cos\\frac{p - q}{2}$ ; $\\cos p - \\cos q = -2\\sin\\frac{p + q}{2}\\sin\\frac{p - q}{2}$. Avec $t = \\tan\\frac x2$ : $\\cos x = \\frac{1 - t^2}{1 + t^2}$, $\\sin x = \\frac{2t}{1 + t^2}$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Équations trigonométriques",
+          "texte": "$\\cos a = \\cos b \\iff a \\equiv b$ ou $a \\equiv -b\\ [2\\pi]$ ; $\\sin a = \\sin b \\iff a \\equiv b$ ou $a \\equiv \\pi - b\\ [2\\pi]$ ; $\\tan a = \\tan b \\iff a \\equiv b\\ [\\pi]$."
         }
       ]
     }
@@ -146,6 +190,36 @@
       "id": "f-indice-renverse",
       "recto": "Changement d'indice $j = n - k$ dans $\\sum_{k=0}^{n} a_{n-k}$ ?",
       "verso": "$\\sum_{j=0}^{n} a_j$ (on parcourt les mêmes termes à l'envers)."
+    },
+    {
+      "id": "f-abs-intervalle",
+      "recto": "$|x - a| < r$ équivaut à… ?",
+      "verso": "$a - r < x < a + r$ (distance de $x$ à $a$ inférieure à $r$)."
+    },
+    {
+      "id": "f-inegalite-triangulaire-reelle",
+      "recto": "Inégalité triangulaire et sa version « renversée » ?",
+      "verso": "$|x + y| \\leq |x| + |y|$ et $\\big||x| - |y|\\big| \\leq |x - y|$."
+    },
+    {
+      "id": "f-cos-addition",
+      "recto": "$\\cos(a + b) = $ ?",
+      "verso": "$\\cos a\\cos b - \\sin a\\sin b$."
+    },
+    {
+      "id": "f-tan-addition",
+      "recto": "$\\tan(a + b) = $ ?",
+      "verso": "$\\dfrac{\\tan a + \\tan b}{1 - \\tan a\\tan b}$."
+    },
+    {
+      "id": "f-cos-2a",
+      "recto": "Trois expressions de $\\cos 2a$ ?",
+      "verso": "$\\cos^2 a - \\sin^2 a = 2\\cos^2 a - 1 = 1 - 2\\sin^2 a$."
+    },
+    {
+      "id": "f-tan-equation",
+      "recto": "$\\tan a = \\tan b$ équivaut à… ?",
+      "verso": "$a \\equiv b \\pmod{\\pi}$."
     }
   ],
   "exercices": [
@@ -653,6 +727,376 @@
       ],
       "etapeFausse": 2,
       "explication": "Le terme restant de la 2e somme est $\\frac{1}{n+1}$ (pour $j = n + 1$), pas $\\frac1n$."
+    },
+    {
+      "id": "rappels-x-plus-inverse",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "$\\forall x \\in\\, ]0, +\\infty[,\\ x + \\dfrac1x \\geq 2$. (TD Rappels, ex. 1)",
+      "correction": [
+        "$x + \\frac1x - 2 = \\frac{x^2 - 2x + 1}{x} = \\frac{(x - 1)^2}{x} \\geq 0$, avec égalité pour $x = 1$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "$x + \\frac1x - 2 = \\frac{(x - 1)^2}{x} \\geq 0$ pour $x > 0$.",
+          "correct": true,
+          "explication": "On met au même dénominateur et on reconnaît un carré."
+        },
+        {
+          "texte": "Faux : pour $x = \\frac12$, $x + \\frac1x < 2$.",
+          "correct": false,
+          "explication": "$\\frac12 + 2 = 2{,}5 \\geq 2$."
+        },
+        {
+          "texte": "Vrai car $x \\geq 1$ et $\\frac1x \\geq 1$.",
+          "correct": false,
+          "explication": "On ne peut pas avoir les deux : $x$ et $\\frac1x$ sont de part et d'autre de $1$."
+        }
+      ]
+    },
+    {
+      "id": "rappels-encadrement",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "On suppose $0 < a \\leq x \\leq b$ et $d \\leq y \\leq c < 0$. Quel encadrement de $4x - 2y$ est correct ? (TD Rappels, ex. 3)",
+      "correction": [
+        "$d \\leq y \\leq c$ donne $-2c \\leq -2y \\leq -2d$ (multiplication par $-2$).",
+        "On additionne avec $4a \\leq 4x \\leq 4b$."
+      ],
+      "choix": [
+        {
+          "texte": "$4a - 2c \\leq 4x - 2y \\leq 4b - 2d$",
+          "correct": true,
+          "explication": "$-2c \\leq -2y \\leq -2d$, puis on ajoute $4a \\leq 4x \\leq 4b$."
+        },
+        {
+          "texte": "$4a - 2d \\leq 4x - 2y \\leq 4b - 2c$",
+          "correct": false,
+          "explication": "On ne soustrait pas des inégalités : on encadre d'abord $-2y$, ce qui renverse les bornes."
+        },
+        {
+          "texte": "$4a + 2d \\leq 4x - 2y \\leq 4b + 2c$",
+          "correct": false,
+          "explication": "Erreur de signe : c'est $-2y$ qu'il faut encadrer."
+        },
+        {
+          "texte": "$4a \\leq 4x - 2y \\leq 4b$",
+          "correct": false,
+          "explication": "$-2y > 0$ ici : la borne supérieure $4b$ peut être dépassée."
+        }
+      ]
+    },
+    {
+      "id": "rappels-abs-sup",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $|x - 2| > 10$. (TD Rappels, ex. 6)",
+      "correction": [
+        "$|x - 2| > 10 \\iff x - 2 > 10$ ou $x - 2 < -10 \\iff x > 12$ ou $x < -8$."
+      ],
+      "choix": [
+        {
+          "texte": "$]-\\infty, -8[\\, \\cup\\, ]12, +\\infty[$",
+          "correct": true,
+          "explication": "La distance de $x$ à $2$ dépasse $10$."
+        },
+        {
+          "texte": "$]-8, 12[$",
+          "correct": false,
+          "explication": "C'est l'ensemble des solutions de $|x - 2| < 10$."
+        },
+        {
+          "texte": "$]12, +\\infty[$",
+          "correct": false,
+          "explication": "On oublie le cas $x - 2 < -10$."
+        },
+        {
+          "texte": "$]-\\infty, -12[\\, \\cup\\, ]8, +\\infty[$",
+          "correct": false,
+          "explication": "C'est $|x + 2| > 10$ : le centre est $2$, pas $-2$."
+        }
+      ]
+    },
+    {
+      "id": "rappels-abs-comparaison",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $|x| < |x + 1|$. (TD Rappels, ex. 6)",
+      "correction": [
+        "Les deux membres sont positifs : $|x| < |x + 1| \\iff x^2 < x^2 + 2x + 1 \\iff x > -\\frac12$."
+      ],
+      "choix": [
+        {
+          "texte": "$]-\\frac12, +\\infty[$",
+          "correct": true,
+          "explication": "$x$ est plus proche de $0$ que de $-1$."
+        },
+        {
+          "texte": "$]0, +\\infty[$",
+          "correct": false,
+          "explication": "$x = -\\frac14$ convient : $\\frac14 < \\frac34$."
+        },
+        {
+          "texte": "$\\mathbb{R}$",
+          "correct": false,
+          "explication": "$x = -1$ donne $1 < 0$ : faux."
+        },
+        {
+          "texte": "$]-\\infty, -\\frac12[$",
+          "correct": false,
+          "explication": "C'est l'inégalité inverse $|x| > |x + 1|$."
+        }
+      ]
+    },
+    {
+      "id": "rappels-inequation-quotient",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $\\dfrac{x - 1}{x + 2} \\geq 3$. (TD Rappels, ex. 6)",
+      "correction": [
+        "$\\frac{x - 1}{x + 2} - 3 = \\frac{-2x - 7}{x + 2}$.",
+        "Le numérateur est positif pour $x \\leq -\\frac72$, le dénominateur pour $x > -2$ ; le quotient est $\\geq 0$ exactement sur $\\left[-\\frac72, -2\\right[$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\left[-\\frac72, -2\\right[$",
+          "correct": true,
+          "explication": "$\\frac{x - 1}{x + 2} - 3 = \\frac{-2x - 7}{x + 2} \\geq 0$ : tableau de signes."
+        },
+        {
+          "texte": "$\\left]-\\infty, -\\frac72\\right]$",
+          "correct": false,
+          "explication": "On a multiplié par $x + 2$ sans tenir compte de son signe."
+        },
+        {
+          "texte": "$\\left[-\\frac72, -2\\right]$",
+          "correct": false,
+          "explication": "$-2$ est une valeur interdite."
+        },
+        {
+          "texte": "$\\varnothing$",
+          "correct": false,
+          "explication": "$x = -3$ donne $\\frac{-4}{-1} = 4 \\geq 3$."
+        }
+      ]
+    },
+    {
+      "id": "rappels-domaine",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est le domaine de définition de $x \\mapsto \\sqrt{\\dfrac{\\ln|x|}{x}}$ ? (TD Rappels, ex. 4)",
+      "correction": [
+        "$x > 0$ : il faut $\\ln x \\geq 0$, soit $x \\geq 1$.",
+        "$x < 0$ : il faut $\\ln|x| \\leq 0$, soit $-1 \\leq x < 0$."
+      ],
+      "choix": [
+        {
+          "texte": "$[-1, 0[\\, \\cup\\, [1, +\\infty[$",
+          "correct": true,
+          "explication": "Il faut $x \\neq 0$ et $\\frac{\\ln|x|}{x} \\geq 0$ : $\\ln|x|$ et $x$ de même signe (ou $\\ln|x| = 0$)."
+        },
+        {
+          "texte": "$[1, +\\infty[$",
+          "correct": false,
+          "explication": "On oublie les $x < 0$ : pour $x = -\\frac12$, $\\frac{\\ln\\frac12}{-\\frac12} > 0$."
+        },
+        {
+          "texte": "$\\mathbb{R}^*$",
+          "correct": false,
+          "explication": "Pour $x = 2$ c'est bon, mais pour $x = \\frac12$, $\\frac{\\ln\\frac12}{\\frac12} < 0$."
+        },
+        {
+          "texte": "$]-\\infty, -1] \\cup [1, +\\infty[$",
+          "correct": false,
+          "explication": "Pour $x = -2$, $\\ln 2 > 0$ et $x < 0$ : le quotient est négatif."
+        }
+      ]
+    },
+    {
+      "id": "rappels-minimum-fraction",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Sans étudier les variations, trouver le minimum sur $\\mathbb{R}$ de $f(x) = \\dfrac{x^2 + 2x + 2}{x^2 + 2x + 3}$. (TD Rappels, ex. 2)",
+      "indice": "Écrire $f(x) = 1 - \\frac{1}{x^2 + 2x + 3}$ et mettre le dénominateur sous forme canonique.",
+      "correction": [
+        "$f(x) = 1 - \\frac{1}{x^2 + 2x + 3} = 1 - \\frac{1}{(x + 1)^2 + 2}$.",
+        "$(x + 1)^2 + 2 \\geq 2$, donc $\\frac{1}{(x + 1)^2 + 2} \\leq \\frac12$ et $f(x) \\geq \\frac12$, avec égalité en $x = -1$."
+      ],
+      "reponse": "1/2"
+    },
+    {
+      "id": "rappels-binome-5",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\sum_{k=1}^{n} \\binom nk 5^k$ en fonction de $n$. (TD Rappels, ex. 8)",
+      "indice": "Attention, la somme commence à $k = 1$.",
+      "correction": [
+        "Binôme : $\\sum_{k=0}^{n} \\binom nk 5^k 1^{n-k} = (5 + 1)^n = 6^n$.",
+        "On retire le terme $k = 0$, qui vaut $1$ : $6^n - 1$."
+      ],
+      "reponse": "6^n - 1",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        0,
+        6
+      ]
+    },
+    {
+      "id": "rappels-produit-quotient",
+      "type": "expression",
+      "difficulte": 3,
+      "enonce": "Calculer $\\displaystyle\\prod_{k=2}^{n} \\frac{k}{k + 2}$ en fonction de $n \\geq 2$. (TD Rappels, ex. 10)",
+      "correction": [
+        "$\\prod_{k=2}^{n} k = \\frac{n!}{1}$ et $\\prod_{k=2}^{n} (k + 2) = 4 \\times 5 \\times \\dots \\times (n + 2) = \\frac{(n + 2)!}{6}$.",
+        "Le produit vaut $\\frac{6\\, n!}{(n + 2)!} = \\frac{6}{(n + 1)(n + 2)}$ (produit télescopique)."
+      ],
+      "reponse": "6/((n + 1)*(n + 2))",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        2,
+        10
+      ]
+    },
+    {
+      "id": "rappels-produit-3k",
+      "type": "expression",
+      "difficulte": 2,
+      "enonce": "Calculer $\\displaystyle\\prod_{k=0}^{n} 3^k$ en fonction de $n$. (TD Rappels, ex. 10)",
+      "correction": [
+        "$\\prod_{k=0}^{n} 3^k = 3^{\\sum_{k=0}^{n} k} = 3^{n(n+1)/2}$."
+      ],
+      "reponse": "3^(n*(n + 1)/2)",
+      "variables": [
+        "n"
+      ],
+      "domaine": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": "rappels-produit-impairs",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Écrire $\\displaystyle\\prod_{k=2}^{n} (2k + 1) = 5 \\times 7 \\times \\dots \\times (2n + 1)$ avec des factorielles. (TD Rappels, ex. 9)",
+      "correction": [
+        "$(2n + 1)! = (\\text{produit des pairs}) \\times (\\text{produit des impairs})$, et $2 \\times 4 \\times \\dots \\times 2n = 2^n n!$.",
+        "Donc $1 \\times 3 \\times \\dots \\times (2n + 1) = \\frac{(2n + 1)!}{2^n n!}$ ; on divise par $1 \\times 3$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\dfrac{(2n + 1)!}{3 \\cdot 2^n\\, n!}$",
+          "correct": true,
+          "explication": "Produit des impairs jusqu'à $2n + 1$, divisé par $1 \\times 3$."
+        },
+        {
+          "texte": "$\\dfrac{(2n + 1)!}{2^n\\, n!}$",
+          "correct": false,
+          "explication": "C'est $1 \\times 3 \\times 5 \\times \\dots \\times (2n + 1)$ : le produit commence ici à $k = 2$."
+        },
+        {
+          "texte": "$\\dfrac{(2n + 1)!}{n!}$",
+          "correct": false,
+          "explication": "Les nombres pairs $2 \\times 4 \\times \\dots \\times 2n$ valent $2^n n!$, pas $n!$."
+        },
+        {
+          "texte": "$\\dfrac{(2n + 1)!}{(2n)!}$",
+          "correct": false,
+          "explication": "Cela vaut $2n + 1$ seulement."
+        }
+      ]
+    },
+    {
+      "id": "rappels-cos-pi-12",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\cos\\dfrac{\\pi}{12}$. (TD Rappels, ex. 13)",
+      "indice": "$\\frac{\\pi}{12} = \\frac\\pi3 - \\frac\\pi4$.",
+      "correction": [
+        "$\\frac{\\pi}{12} = \\frac\\pi3 - \\frac\\pi4$.",
+        "$\\cos\\left(\\frac\\pi3 - \\frac\\pi4\\right) = \\cos\\frac\\pi3\\cos\\frac\\pi4 + \\sin\\frac\\pi3\\sin\\frac\\pi4 = \\frac12 \\cdot \\frac{\\sqrt2}{2} + \\frac{\\sqrt3}{2} \\cdot \\frac{\\sqrt2}{2} = \\frac{\\sqrt2 + \\sqrt6}{4}$."
+      ],
+      "reponse": "(sqrt(6) + sqrt(2))/4"
+    },
+    {
+      "id": "rappels-tan-pi-12",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer $\\tan\\dfrac{\\pi}{12}$. (TD Rappels, ex. 13)",
+      "correction": [
+        "$\\tan\\left(\\frac\\pi3 - \\frac\\pi4\\right) = \\frac{\\sqrt3 - 1}{1 + \\sqrt3}$.",
+        "On multiplie par la quantité conjuguée $\\sqrt3 - 1$ : $\\frac{(\\sqrt3 - 1)^2}{2} = \\frac{4 - 2\\sqrt3}{2} = 2 - \\sqrt3$."
+      ],
+      "reponse": "2 - sqrt(3)"
+    },
+    {
+      "id": "rappels-equation-cos-sin",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $\\cos x = \\sqrt3 \\sin x$. (TD Rappels, ex. 14)",
+      "correction": [
+        "Si $\\cos x = 0$, alors $\\sin x = 0$ aussi : impossible. Donc $\\tan x = \\frac{1}{\\sqrt3} = \\tan\\frac\\pi6$.",
+        "$x \\equiv \\frac\\pi6 \\pmod\\pi$."
+      ],
+      "choix": [
+        {
+          "texte": "$x = \\frac\\pi6 + k\\pi$, $k \\in \\mathbb{Z}$",
+          "correct": true,
+          "explication": "$\\cos x \\neq 0$ ici, donc $\\tan x = \\frac{1}{\\sqrt3}$."
+        },
+        {
+          "texte": "$x = \\frac\\pi3 + k\\pi$, $k \\in \\mathbb{Z}$",
+          "correct": false,
+          "explication": "C'est $\\tan x = \\sqrt3$ : la division est faite à l'envers."
+        },
+        {
+          "texte": "$x = \\frac\\pi6 + 2k\\pi$, $k \\in \\mathbb{Z}$",
+          "correct": false,
+          "explication": "$\\tan$ est $\\pi$-périodique : $\\frac{7\\pi}{6}$ est aussi solution."
+        },
+        {
+          "texte": "$x = \\pm\\frac\\pi6 + 2k\\pi$, $k \\in \\mathbb{Z}$",
+          "correct": false,
+          "explication": "$x = -\\frac\\pi6$ donne $\\frac{\\sqrt3}{2} = -\\frac{\\sqrt3}{2}$ : faux."
+        }
+      ]
+    },
+    {
+      "id": "rappels-equation-sin-sin2x",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $\\sin x + \\sin 2x = 0$. (TD Rappels, ex. 14)",
+      "correction": [
+        "$\\sin 2x = 2\\sin x\\cos x$, donc l'équation s'écrit $\\sin x\\,(1 + 2\\cos x) = 0$.",
+        "$\\sin x = 0 \\iff x \\in \\pi\\mathbb{Z}$ ; $\\cos x = -\\frac12 \\iff x \\equiv \\pm\\frac{2\\pi}{3}\\ [2\\pi]$."
+      ],
+      "choix": [
+        {
+          "texte": "$x \\in \\pi\\mathbb{Z}$ ou $x \\equiv \\pm\\frac{2\\pi}{3}\\ [2\\pi]$",
+          "correct": true,
+          "explication": "$\\sin x(1 + 2\\cos x) = 0$."
+        },
+        {
+          "texte": "$x \\in \\pi\\mathbb{Z}$",
+          "correct": false,
+          "explication": "On a divisé par $\\sin x$ et perdu le facteur $1 + 2\\cos x$ (ou l'inverse)."
+        },
+        {
+          "texte": "$x \\equiv \\pm\\frac{2\\pi}{3}\\ [2\\pi]$",
+          "correct": false,
+          "explication": "On a divisé par $\\sin x$ sans traiter le cas $\\sin x = 0$."
+        },
+        {
+          "texte": "$x \\in \\pi\\mathbb{Z}$ ou $x \\equiv \\pm\\frac{\\pi}{3}\\ [2\\pi]$",
+          "correct": false,
+          "explication": "$1 + 2\\cos x = 0 \\iff \\cos x = -\\frac12$, soit $\\pm\\frac{2\\pi}3$."
+        }
+      ]
     }
   ]
 }

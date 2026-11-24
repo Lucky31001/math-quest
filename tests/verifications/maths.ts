@@ -10,8 +10,10 @@ import {
   enC,
   fact,
   fonction,
+  minimum,
   proche,
   question,
+  racine,
   rang,
   resoudre,
   rk4,
@@ -700,6 +702,192 @@ export const verifications: Record<string, () => void> = {
     let s = 0;
     for (let k = 1; k <= 10; k++) s += 1 / (k * (k + 2));
     expect(proche(attendu(question('fractions-rationnelles', 'fr-somme-telescopique')), s)).toBe(true);
+  },
+  /* ---------------- Analyse 1 (CY Tech) : exercices des TD ---------------- */
+  'sommes/rappels-minimum-fraction': () => {
+    const f = (x: number) => (x * x + 2 * x + 2) / (x * x + 2 * x + 3);
+    expect(proche(attendu(question('sommes', 'rappels-minimum-fraction')), f(minimum(f, -10, 10)), 1e-9)).toBe(true);
+  },
+  'sommes/rappels-binome-5': () => {
+    const f = fonction(question('sommes', 'rappels-binome-5'));
+    for (let n = 1; n <= 10; n++) {
+      let s = 0;
+      for (let k = 1; k <= n; k++) s += binom(n, k) * 5 ** k;
+      expect(proche(f(n), s)).toBe(true);
+    }
+  },
+  'sommes/rappels-produit-quotient': () => {
+    const f = fonction(question('sommes', 'rappels-produit-quotient'));
+    let p = 1;
+    for (let n = 2; n <= 15; n++) {
+      p *= n / (n + 2);
+      expect(f(n)).toBeCloseTo(p, 12);
+    }
+  },
+  'sommes/rappels-produit-3k': () => {
+    const f = fonction(question('sommes', 'rappels-produit-3k'));
+    let p = 1;
+    for (let n = 0; n <= 7; n++) {
+      p *= 3 ** n;
+      expect(proche(f(n), p)).toBe(true);
+    }
+  },
+  'sommes/rappels-cos-pi-12': () => expect(proche(attendu(question('sommes', 'rappels-cos-pi-12')), Math.cos(Math.PI / 12))).toBe(true),
+  'sommes/rappels-tan-pi-12': () => expect(proche(attendu(question('sommes', 'rappels-tan-pi-12')), Math.tan(Math.PI / 12))).toBe(true),
+  'reels/reels-periodique': () => {
+    let x = 3;
+    for (let k = 1; k <= 12; k++) x += 14 / 100 ** k;
+    expect(proche(attendu(question('reels', 'reels-periodique')), x, 1e-12)).toBe(true);
+  },
+  'reels/reels-sup-mn': () => {
+    let max = 0;
+    for (let m = 1; m <= 60; m++) for (let n = 1; n <= 60; n++) max = Math.max(max, (m * n) / (m + n) ** 2);
+    expect(proche(attendu(question('reels', 'reels-sup-mn')), max)).toBe(true);
+  },
+  'reels/reels-sup-i': () => {
+    const dans = (x: number) => x !== 0 && -2 < x + 1 / (2 * x) && x + 1 / (2 * x) <= 2;
+    let sup = -Infinity;
+    for (let x = -5; x <= 5; x += 1e-5) if (dans(x)) sup = Math.max(sup, x);
+    expect(Math.abs(attendu(question('reels', 'reels-sup-i')).re - sup)).toBeLessThan(2e-5);
+  },
+  'reels/reels-partie-entiere': () => expect(attendu(question('reels', 'reels-partie-entiere')).re).toBe(Math.floor(-2.5)),
+  'reels/reels-pieces': () => {
+    let n = 0;
+    for (let dix = 0; dix <= 100; dix++) for (let vingt = 0; vingt <= 50; vingt++) if (10 * dix + 20 * vingt === 1000) n++;
+    expect(attendu(question('reels', 'reels-pieces')).re).toBe(n);
+  },
+  'suites/td-suite-conjuguee': () => {
+    const n = 1e6;
+    expect(Math.abs(attendu(question('suites', 'td-suite-conjuguee')).re - (Math.sqrt(n * n + n + 1) - Math.sqrt(n * n + 1)))).toBeLessThan(1e-5);
+  },
+  'suites/td-suite-somme-k-n2': () => {
+    const n = 1e6;
+    let s = 0;
+    for (let k = 1; k <= n; k++) s += k / (n * n);
+    expect(Math.abs(attendu(question('suites', 'td-suite-somme-k-n2')).re - s)).toBeLessThan(1e-5);
+  },
+  'suites/td-suite-racine-n2': () => {
+    const n = 1e9;
+    expect(Math.abs(attendu(question('suites', 'td-suite-racine-n2')).re - n ** (2 / n))).toBeLessThan(1e-6);
+  },
+  'suites/td-suite-somme-e': () => {
+    const f = fonction(question('suites', 'td-suite-somme-e'));
+    const n = 2e5;
+    for (const x of [-1.7, 0.3, Math.SQRT2, 3]) {
+      let s = 0;
+      for (let k = 1; k <= n; k++) s += Math.floor(k * x);
+      expect(Math.abs(f(x) - s / (n * n))).toBeLessThan(1e-4);
+    }
+  },
+  'suites/td-suite-adjacentes-limite': () => {
+    let [u, v] = [1, 12];
+    for (let k = 0; k < 200; k++) [u, v] = [(u + 2 * v) / 3, (u + 3 * v) / 4];
+    expect(proche(attendu(question('suites', 'td-suite-adjacentes-limite')), u)).toBe(true);
+    expect(proche(u, v)).toBe(true);
+  },
+  'suites/td-suite-recurrente-racine': () => {
+    let u = 0;
+    for (let k = 0; k < 500; k++) u = Math.sqrt(3 - u / 2);
+    expect(proche(attendu(question('suites', 'td-suite-recurrente-racine')), u)).toBe(true);
+  },
+  'suites/td-suite-1-plus-2-sur-u': () => {
+    let u = 1;
+    for (let k = 0; k < 500; k++) u = 1 + 2 / u;
+    expect(proche(attendu(question('suites', 'td-suite-1-plus-2-sur-u')), u)).toBe(true);
+  },
+  'limites-continuite/td-lim-x-e': () => {
+    const f = (x: number) => x * Math.floor(1 / x);
+    for (const x of [1e-7, -1e-7, 3.3e-8]) expect(Math.abs(attendu(question('limites-continuite', 'td-lim-x-e')).re - f(x))).toBeLessThan(1e-6);
+  },
+  'limites-continuite/td-lim-x-e-infini': () => {
+    const f = (x: number) => x * Math.floor(1 / x);
+    for (const x of [10, 1e3, 1e6]) expect(attendu(question('limites-continuite', 'td-lim-x-e-infini')).re).toBe(f(x));
+  },
+  'limites-continuite/td-lim-difference-fractions': () => {
+    const f = (x: number) => 3 / (x ** 3 - 1) - 2 / (x * x - 1);
+    for (const x of [1 + 1e-5, 1 - 1e-5]) expect(Math.abs(attendu(question('limites-continuite', 'td-lim-difference-fractions')).re - f(x))).toBeLessThan(1e-4);
+  },
+  'limites-continuite/td-lim-racine-moins-x': () => {
+    const x = 1e6;
+    expect(Math.abs(attendu(question('limites-continuite', 'td-lim-racine-moins-x')).re - (Math.sqrt(x * x + 2 * x - 1) - x))).toBeLessThan(1e-5);
+  },
+  'limites-continuite/td-prolongement-parametre': () => {
+    const a = attendu(question('limites-continuite', 'td-prolongement-parametre')).re;
+    const h = 1e-7;
+    const gauche = Math.sin(a * -h) / -h;
+    const droite = Math.log(1 + 3 * h) / (2 * h);
+    expect(Math.abs(gauche - droite)).toBeLessThan(1e-5);
+  },
+  'limites-continuite/td-reciproque-logistique': () => {
+    const g = fonction(question('limites-continuite', 'td-reciproque-logistique'));
+    const f = (x: number) => Math.exp(x) / (1 + Math.exp(x));
+    for (const y of [0.1, 0.5, 0.73, 0.99]) expect(f(g(y))).toBeCloseTo(y, 10);
+  },
+  'limites-continuite/td-ln-mx': () => {
+    const h = (x: number) => Math.log(x) - x / 4;
+    let changements = 0;
+    for (let x = 1e-3; x < 200; x += 1e-3) if (h(x) * h(x + 1e-3) < 0) changements++;
+    expect(attendu(question('limites-continuite', 'td-ln-mx')).re).toBe(changements);
+  },
+  'limites-continuite/td-f-egal-f-moins-1': () => {
+    const f = (x: number) => x ** 5 + x - 1;
+    const x0 = attendu(question('limites-continuite', 'td-f-egal-f-moins-1')).re;
+    expect(f(f(x0))).toBeCloseTo(x0, 10);
+    // Unicité : f(f(x)) - x ne change de signe qu'une fois sur [-3, 3].
+    let changements = 0;
+    for (let x = -1.3; x < 1.3; x += 1e-4) if ((f(f(x)) - x) * (f(f(x + 1e-4)) - x - 1e-4) < 0) changements++;
+    expect(changements).toBe(1);
+  },
+  'derivabilite/td-der-taux-exp': () => {
+    const h = 1e-7;
+    expect(proche(attendu(question('derivabilite', 'td-der-taux-exp')), (Math.exp(3 * h + 2) - Math.exp(2)) / h, 1e-5)).toBe(true);
+  },
+  'derivabilite/td-der-taux-cos': () => {
+    const g = (x: number) => Math.exp(Math.cos(x));
+    expect(proche(attendu(question('derivabilite', 'td-der-taux-cos')), derivee(g, Math.PI / 2), 1e-6)).toBe(true);
+  },
+  'derivabilite/td-der-raccord': () => {
+    const a = attendu(question('derivabilite', 'td-der-raccord')).re;
+    const droite = (x: number) => a * x * x - a * x + 1; // b = -a (continuité)
+    expect(droite(1)).toBeCloseTo(Math.sqrt(1), 12);
+    const h = 1e-6;
+    expect(Math.abs((droite(1 + h) - droite(1)) / h - (Math.sqrt(1) - Math.sqrt(1 - h)) / h)).toBeLessThan(1e-5);
+  },
+  'derivabilite/td-der-reciproque-valeur': () => {
+    const x = attendu(question('derivabilite', 'td-der-reciproque-valeur')).re;
+    expect(x).toBeGreaterThan(1);
+    expect(x * Math.log(x) - x).toBeCloseTo(0, 12);
+  },
+  'derivabilite/td-der-reciproque-derivee': () => {
+    const f = (x: number) => x * Math.log(x) - x;
+    const inv = (y: number) => racine((x) => f(x) - y, 1.0001, 10);
+    const h = 1e-5;
+    expect(proche(attendu(question('derivabilite', 'td-der-reciproque-derivee')), (inv(h) - inv(-h)) / (2 * h), 1e-6)).toBe(true);
+  },
+  'derivabilite/td-der-ordre-5': () => {
+    const f = fonction(question('derivabilite', 'td-der-ordre-5'));
+    let d = math.parse('1/x');
+    for (let k = 0; k < 5; k++) d = math.derivative(d, 'x');
+    for (const x of [0.5, 1.2, 2.7]) expect(proche(f(x), d.evaluate({ x }) as number)).toBe(true);
+  },
+  'derivabilite/td-der-boite': () => {
+    const V = (x: number) => x * (80 - 2 * x) * (50 - 2 * x);
+    expect(Math.abs(attendu(question('derivabilite', 'td-der-boite')).re - minimum((x) => -V(x), 0, 25))).toBeLessThan(1e-6);
+  },
+  'derivabilite/td-der-minimum-segment': () => {
+    const f = (x: number) => x * x + 5 * x + 6;
+    const min = Math.min(f(minimum(f, -4, 4)), f(-4), f(4));
+    expect(proche(attendu(question('derivabilite', 'td-der-minimum-segment')), min, 1e-9)).toBe(true);
+  },
+  'derivabilite/td-der-minimum-puissance': () => {
+    const f = (x: number) => (1 + x ** 3) / (1 + x) ** 3;
+    expect(proche(attendu(question('derivabilite', 'td-der-minimum-puissance')), f(minimum(f, 0, 50)), 1e-9)).toBe(true);
+  },
+  'derivabilite/td-der-harmonique': () => {
+    const n = 1e6;
+    let H = 0;
+    for (let k = n + 1; k <= 2 * n; k++) H += 1 / k;
+    expect(Math.abs(attendu(question('derivabilite', 'td-der-harmonique')).re - H)).toBeLessThan(1e-6);
   },
 };
 

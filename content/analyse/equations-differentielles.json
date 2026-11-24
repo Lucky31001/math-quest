@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "equations-differentielles",
   "monde": "analyse",
-  "ordre": 7,
+  "ordre": 9,
   "semestre": 2,
   "titre": "Équations différentielles linéaires",
   "icone": "🌊",

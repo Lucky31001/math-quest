@@ -2,7 +2,7 @@
   "$schema": "../schema.json",
   "id": "developpements-limites",
   "monde": "analyse",
-  "ordre": 5,
+  "ordre": 7,
   "semestre": 2,
   "titre": "Développements limités et équivalents",
   "icone": "🔬",

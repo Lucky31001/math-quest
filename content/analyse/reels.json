@@ -1,0 +1,587 @@
+{
+  "$schema": "../schema.json",
+  "id": "reels",
+  "monde": "analyse",
+  "ordre": 2,
+  "semestre": 1,
+  "titre": "L'ensemble ℝ",
+  "icone": "📏",
+  "resume": "Rationnels et irrationnels, majorants, plus grand élément, bornes supérieure et inférieure, propriété d'Archimède, partie entière.",
+  "cours": [
+    {
+      "titre": "Nombres réels",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Ensembles de nombres",
+          "texte": "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{D} \\subset \\mathbb{Q} \\subset \\mathbb{R}$. Un **décimal** s'écrit $\\frac{a}{10^n}$ ($a \\in \\mathbb{Z}$) ; un **rationnel** $\\frac pq$ ($q \\neq 0$). Un réel non rationnel est **irrationnel** : $\\sqrt 2$, $\\pi$, $\\frac{\\ln 3}{\\ln 2}$. Un rationnel a un développement décimal périodique ; $0{,}999\\ldots = 1$."
+        },
+        {
+          "type": "propriete",
+          "texte": "Si $r \\in \\mathbb{Q}$ et $x \\notin \\mathbb{Q}$, alors $r + x \\notin \\mathbb{Q}$ et, si $r \\neq 0$, $rx \\notin \\mathbb{Q}$. En revanche la somme de deux irrationnels peut être rationnelle : $\\sqrt 2 + (-\\sqrt 2) = 0$."
+        },
+        {
+          "type": "definition",
+          "titre": "Intervalles",
+          "texte": "Un **intervalle** est une partie $I$ telle que $x, y \\in I$ et $x \\leq z \\leq y$ entraînent $z \\in I$. Ce sont les $[a, b]$, $[a, b[$, $]a, +\\infty[$, etc. Un **segment** est un intervalle fermé borné $[a, b]$."
+        }
+      ]
+    },
+    {
+      "titre": "Majorants et bornes",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Majorant, minorant",
+          "texte": "$M$ est un **majorant** de $A \\subset \\mathbb{R}$ si $\\forall x \\in A,\\ x \\leq M$. $A$ est **majorée** si elle admet un majorant : $\\exists M \\in \\mathbb{R},\\ \\forall x \\in A,\\ x \\leq M$. De même pour minorant, minorée. **Bornée** : majorée et minorée, soit $\\exists M,\\ \\forall x \\in A,\\ |x| \\leq M$."
+        },
+        {
+          "type": "definition",
+          "titre": "Maximum, minimum",
+          "texte": "Le **plus grand élément** (maximum) de $A$ est un majorant de $A$ **qui appartient à $A$**. Il est unique s'il existe, mais il peut ne pas exister : $[0, 1[$ n'a pas de maximum."
+        },
+        {
+          "type": "definition",
+          "titre": "Bornes supérieure et inférieure",
+          "texte": "La **borne supérieure** $\\sup A$ est le **plus petit des majorants** de $A$. La borne inférieure $\\inf A$ est le plus grand des minorants. Si $A$ a un maximum, $\\sup A = \\max A$ ; sinon $\\sup A$ peut exister sans appartenir à $A$ : $\\sup [0, 1[ = 1$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Propriété de la borne supérieure",
+          "texte": "Toute partie **non vide et majorée** de $\\mathbb{R}$ admet une borne supérieure (et toute partie non vide minorée une borne inférieure). C'est faux dans $\\mathbb{Q}$ : $\\{x \\in \\mathbb{Q} : x^2 < 2\\}$ n'a pas de borne supérieure rationnelle."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Caractérisation",
+          "texte": "$M = \\sup A$ si et seulement si (1) $M$ majore $A$ et (2) $\\forall \\varepsilon > 0,\\ \\exists x \\in A,\\ x > M - \\varepsilon$ (aucun $M - \\varepsilon$ n'est un majorant)."
+        },
+        {
+          "type": "propriete",
+          "titre": "Opérations (TD Réels)",
+          "texte": "$\\sup(-A) = -\\inf A$ ; $\\sup(A + B) = \\sup A + \\sup B$ ; si $A \\subset B$, $\\sup A \\leq \\sup B$ et $\\inf A \\geq \\inf B$ ; $\\sup(A \\cup B) = \\max(\\sup A, \\sup B)$. Mais $\\sup(A \\cdot B) \\neq \\sup A \\cdot \\sup B$ en général (vrai si $A, B \\subset \\mathbb{R}_+$)."
+        }
+      ]
+    },
+    {
+      "titre": "Archimède et partie entière",
+      "blocs": [
+        {
+          "type": "theoreme",
+          "titre": "Propriété d'Archimède",
+          "texte": "Pour tous $x \\in \\mathbb{R}$ et $y > 0$, il existe $n \\in \\mathbb{N}$ tel que $ny > x$. En particulier, $\\mathbb{N}$ n'est pas majoré."
+        },
+        {
+          "type": "definition",
+          "titre": "Partie entière",
+          "texte": "Pour $x \\in \\mathbb{R}$, la **partie entière** $E(x)$ (ou $\\lfloor x \\rfloor$) est l'unique entier tel que $E(x) \\leq x < E(x) + 1$. C'est le plus grand entier inférieur ou égal à $x$. Ex. : $E(2{,}7) = 2$, $E(-2{,}5) = -3$."
+        },
+        {
+          "type": "propriete",
+          "titre": "Propriétés",
+          "texte": "$E$ est croissante. $x - 1 < E(x) \\leq x$. $E(x + n) = E(x) + n$ pour $n \\in \\mathbb{Z}$. $E(x) + E(y) \\leq E(x + y) \\leq E(x) + E(y) + 1$. $E(x) + E(-x) = 0$ si $x \\in \\mathbb{Z}$, $-1$ sinon."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Densité",
+          "texte": "Entre deux réels distincts, il y a toujours un rationnel (et un irrationnel) : $\\mathbb{Q}$ est **dense** dans $\\mathbb{R}$. Pour $x \\in \\mathbb{R}$, $\\frac{E(10^n x)}{10^n}$ est un décimal qui approche $x$ à $10^{-n}$ près."
+        }
+      ]
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "f-majore",
+      "recto": "$A$ est majorée (avec des quantificateurs) ?",
+      "verso": "$\\exists M \\in \\mathbb{R},\\ \\forall x \\in A,\\ x \\leq M$."
+    },
+    {
+      "id": "f-non-bornee",
+      "recto": "$A$ n'est pas bornée (avec des quantificateurs) ?",
+      "verso": "$\\forall M > 0,\\ \\exists x \\in A,\\ |x| > M$."
+    },
+    {
+      "id": "f-maximum",
+      "recto": "Maximum de $A$ ?",
+      "verso": "Un majorant de $A$ qui appartient à $A$ (il n'existe pas toujours)."
+    },
+    {
+      "id": "f-sup",
+      "recto": "Borne supérieure de $A$ ?",
+      "verso": "Le plus petit des majorants de $A$."
+    },
+    {
+      "id": "f-prop-sup",
+      "recto": "Propriété de la borne supérieure ?",
+      "verso": "Toute partie non vide et majorée de $\\mathbb{R}$ admet une borne supérieure."
+    },
+    {
+      "id": "f-caracterisation-sup",
+      "recto": "Caractérisation de $M = \\sup A$ avec $\\varepsilon$ ?",
+      "verso": "$M$ majore $A$ et $\\forall \\varepsilon > 0,\\ \\exists x \\in A,\\ x > M - \\varepsilon$."
+    },
+    {
+      "id": "f-sup-max",
+      "recto": "Lien entre $\\sup A$ et $\\max A$ ?",
+      "verso": "Si $\\max A$ existe, $\\sup A = \\max A$. $\\sup A$ peut exister sans être dans $A$."
+    },
+    {
+      "id": "f-archimede",
+      "recto": "Propriété d'Archimède ?",
+      "verso": "$\\forall x \\in \\mathbb{R},\\ \\forall y > 0,\\ \\exists n \\in \\mathbb{N},\\ ny > x$."
+    },
+    {
+      "id": "f-partie-entiere",
+      "recto": "Définition de $E(x)$ ?",
+      "verso": "L'unique entier tel que $E(x) \\leq x < E(x) + 1$."
+    },
+    {
+      "id": "f-e-moins-x",
+      "recto": "$E(x) + E(-x) = $ ?",
+      "verso": "$0$ si $x \\in \\mathbb{Z}$, $-1$ sinon."
+    },
+    {
+      "id": "f-sup-somme",
+      "recto": "$\\sup(A + B) = $ ?",
+      "verso": "$\\sup A + \\sup B$ (parties non vides majorées)."
+    },
+    {
+      "id": "f-densite",
+      "recto": "Que signifie « $\\mathbb{Q}$ est dense dans $\\mathbb{R}$ » ?",
+      "verso": "Entre deux réels distincts, il existe toujours un rationnel."
+    },
+    {
+      "id": "f-rationnel-plus-irrationnel",
+      "recto": "$r \\in \\mathbb{Q}$, $x \\notin \\mathbb{Q}$ : et $r + x$ ?",
+      "verso": "Irrationnel (sinon $x = (r + x) - r$ serait rationnel)."
+    }
+  ],
+  "exercices": [
+    {
+      "id": "reels-decimaux",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Lesquels de ces nombres sont des **décimaux** ? (TD Réels, ex. 1)",
+      "correction": [
+        "$\\frac pq$ irréductible est décimal ssi $q$ n'a que $2$ et $5$ pour facteurs premiers."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$\\frac{1}{25}$",
+          "correct": true,
+          "explication": "$\\frac{1}{25} = \\frac{4}{100} = 0{,}04$."
+        },
+        {
+          "texte": "$\\frac{1}{125}$",
+          "correct": true,
+          "explication": "$\\frac{1}{125} = \\frac{8}{1000} = 0{,}008$."
+        },
+        {
+          "texte": "$\\frac{1}{15}$",
+          "correct": false,
+          "explication": "$15 = 3 \\times 5$ : le facteur $3$ empêche d'écrire $\\frac{a}{10^n}$. C'est un rationnel non décimal."
+        },
+        {
+          "texte": "$\\frac13$",
+          "correct": false,
+          "explication": "$0{,}333\\ldots$ a un développement infini : rationnel non décimal."
+        },
+        {
+          "texte": "$\\sqrt2$",
+          "correct": false,
+          "explication": "Irrationnel, donc pas décimal."
+        }
+      ]
+    },
+    {
+      "id": "reels-periodique",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Écrire $x = 3{,}141414\\ldots$ (le bloc « 14 » se répète indéfiniment) sous forme de fraction irréductible. (TD Réels, ex. 2)",
+      "indice": "Calculer $100x - x$.",
+      "correction": [
+        "$100x = 314{,}1414\\ldots$, donc $100x - x = 314 - 3 = 311$.",
+        "$x = \\frac{311}{99}$ ($311$ est premier, la fraction est irréductible)."
+      ],
+      "reponse": "311/99"
+    },
+    {
+      "id": "vf-reels-0-999",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "$0{,}999\\ldots$ (une infinité de $9$) est égal à $1$. (TD Réels, ex. 2)",
+      "correction": [
+        "$10x = 9{,}999\\ldots$, donc $9x = 9$ et $x = 1$. Un réel a parfois deux développements décimaux."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "Si $x = 0{,}999\\ldots$, alors $10x - x = 9$, donc $x = 1$.",
+          "correct": true,
+          "explication": "C'est aussi $\\sum_{k \\geq 1} \\frac{9}{10^k} = 1$ (série géométrique)."
+        },
+        {
+          "texte": "Faux : il manque toujours un petit peu pour atteindre $1$.",
+          "correct": false,
+          "explication": "Aucun réel positif n'est « l'écart » : $1 - x \\leq 10^{-n}$ pour tout $n$, donc $1 - x = 0$."
+        },
+        {
+          "texte": "Faux : $0{,}999\\ldots$ n'est pas un réel.",
+          "correct": false,
+          "explication": "C'est un développement décimal comme un autre."
+        }
+      ]
+    },
+    {
+      "id": "vf-reels-somme-irrationnels",
+      "type": "vrai-faux",
+      "difficulte": 2,
+      "enonce": "La somme de deux irrationnels est irrationnelle. (TD Réels, ex. 4)",
+      "correction": [
+        "$\\sqrt2 + (1 - \\sqrt2) = 1$ ou $\\sqrt2 - \\sqrt2 = 0$ : contre-exemples."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $\\sqrt2 + (-\\sqrt2) = 0$.",
+          "correct": true,
+          "explication": "$-\\sqrt2$ est irrationnel et la somme est rationnelle."
+        },
+        {
+          "texte": "Vrai, comme rationnel + irrationnel.",
+          "correct": false,
+          "explication": "Seul « rationnel + irrationnel » est toujours irrationnel."
+        },
+        {
+          "texte": "Faux : $\\sqrt2 + \\sqrt3$ est rationnel.",
+          "correct": false,
+          "explication": "$\\sqrt2 + \\sqrt3$ est irrationnel ; ce n'est pas un contre-exemple."
+        }
+      ]
+    },
+    {
+      "id": "reels-quantif-majoree",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Comment écrire « $A$ est majorée » ? (TD Réels, ex. 5)",
+      "correction": [
+        "Majorée : il existe un réel $M$ plus grand que tous les éléments de $A$. L'ordre $\\exists M\\ \\forall x$ est essentiel."
+      ],
+      "choix": [
+        {
+          "texte": "$\\exists M \\in \\mathbb{R},\\ \\forall x \\in A,\\ x \\leq M$",
+          "correct": true,
+          "explication": "Un même $M$ pour tous les éléments."
+        },
+        {
+          "texte": "$\\forall x \\in A,\\ \\exists M \\in \\mathbb{R},\\ x \\leq M$",
+          "correct": false,
+          "explication": "Toujours vrai (prendre $M = x$) : $M$ ne doit pas dépendre de $x$."
+        },
+        {
+          "texte": "$\\exists M \\in \\mathbb{R},\\ \\forall x \\in A,\\ x \\geq M$",
+          "correct": false,
+          "explication": "C'est « $A$ est minorée »."
+        },
+        {
+          "texte": "$\\forall M \\in \\mathbb{R},\\ \\exists x \\in A,\\ x \\leq M$",
+          "correct": false,
+          "explication": "Ce n'est pas la définition (et ce n'est pas non plus « non majorée »)."
+        }
+      ]
+    },
+    {
+      "id": "reels-non-bornee",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est la négation de « $A$ est bornée », c'est-à-dire de $\\exists M > 0,\\ \\forall x \\in A,\\ |x| \\leq M$ ? (TD Réels, ex. 5)",
+      "correction": [
+        "$\\text{non}(\\exists M > 0,\\ \\forall x,\\ |x| \\leq M) \\iff \\forall M > 0,\\ \\exists x \\in A,\\ |x| > M$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\forall M > 0,\\ \\exists x \\in A,\\ |x| > M$",
+          "correct": true,
+          "explication": "On échange les quantificateurs et on nie $|x| \\leq M$."
+        },
+        {
+          "texte": "$\\exists M > 0,\\ \\forall x \\in A,\\ |x| > M$",
+          "correct": false,
+          "explication": "Les quantificateurs n'ont pas été échangés."
+        },
+        {
+          "texte": "$\\forall M > 0,\\ \\exists x \\in A,\\ |x| \\geq M$",
+          "correct": false,
+          "explication": "La négation de $\\leq$ est $>$."
+        },
+        {
+          "texte": "$\\forall M \\leq 0,\\ \\exists x \\in A,\\ |x| > M$",
+          "correct": false,
+          "explication": "On ne nie pas la condition $M > 0$ du quantificateur."
+        }
+      ]
+    },
+    {
+      "id": "reels-sup-1-plus-1-sur-n",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $A = \\left\\{1 + \\frac1n : n \\in \\mathbb{N}^*\\right\\}$. Lesquelles de ces affirmations sont vraies ? (TD Réels, ex. 7)",
+      "correction": [
+        "$A = \\{2, \\frac32, \\frac43, \\dots\\}$ : $\\max A = \\sup A = 2$.",
+        "$\\inf A = 1$ : pour $\\varepsilon > 0$, Archimède donne $n$ avec $\\frac1n < \\varepsilon$. Mais $1 \\notin A$."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$\\max A = 2$",
+          "correct": true,
+          "explication": "Atteint pour $n = 1$, et $1 + \\frac1n \\leq 2$."
+        },
+        {
+          "texte": "$\\inf A = 1$",
+          "correct": true,
+          "explication": "$1$ minore $A$ et $1 + \\frac1n$ s'en approche autant qu'on veut."
+        },
+        {
+          "texte": "$\\min A = 1$",
+          "correct": false,
+          "explication": "$1 + \\frac1n > 1$ : $1$ n'appartient pas à $A$, il n'y a pas de minimum."
+        },
+        {
+          "texte": "$\\sup A = 1$",
+          "correct": false,
+          "explication": "$\\sup A = \\max A = 2$."
+        }
+      ]
+    },
+    {
+      "id": "reels-sup-difference",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "Soit $B = \\left\\{\\frac1n - \\frac1p : n, p \\in \\mathbb{N}^*\\right\\}$. Lesquelles de ces affirmations sont vraies ? (TD Réels, ex. 7)",
+      "correction": [
+        "Pour tous $n, p$ : $-1 < \\frac1n - \\frac1p < 1$.",
+        "$1 - \\frac1p \\in B$ tend vers $1$, donc $\\sup B = 1$, non atteint ; de même $\\inf B = -1$."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "$\\sup B = 1$",
+          "correct": true,
+          "explication": "$\\frac1n - \\frac1p < 1$, et $1 - \\frac1p \\to 1$."
+        },
+        {
+          "texte": "$\\inf B = -1$",
+          "correct": true,
+          "explication": "Par symétrie ($n \\leftrightarrow p$)."
+        },
+        {
+          "texte": "$\\max B = 1$",
+          "correct": false,
+          "explication": "$1 = \\frac1n - \\frac1p$ imposerait $\\frac1p = 0$ : $1 \\notin B$."
+        },
+        {
+          "texte": "$\\sup B = \\frac12$",
+          "correct": false,
+          "explication": "$1 - \\frac{1}{10} = 0{,}9 \\in B$ dépasse $\\frac12$."
+        }
+      ]
+    },
+    {
+      "id": "reels-x2-inf-2",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Soit $C = \\{x \\in \\mathbb{R} : x^2 < 2\\}$. Que dire de $C$ ? (TD Réels, ex. 7)",
+      "correction": [
+        "$C = ]-\\sqrt2, \\sqrt2[$ : $\\sup C = \\sqrt2$ et $\\inf C = -\\sqrt2$, aucune n'est atteinte."
+      ],
+      "choix": [
+        {
+          "texte": "$\\sup C = \\sqrt2$, et $C$ n'a pas de plus grand élément",
+          "correct": true,
+          "explication": "$C = ]-\\sqrt2, \\sqrt2[$ est ouvert."
+        },
+        {
+          "texte": "$\\max C = \\sqrt2$",
+          "correct": false,
+          "explication": "$(\\sqrt2)^2 = 2 \\not< 2$ : $\\sqrt2 \\notin C$."
+        },
+        {
+          "texte": "$\\sup C = 2$",
+          "correct": false,
+          "explication": "$2$ est un majorant de $C$, mais pas le plus petit : $\\sqrt2$ en est un plus petit."
+        },
+        {
+          "texte": "$C$ n'a pas de borne supérieure",
+          "correct": false,
+          "explication": "$C$ est non vide et majorée (par $2$) : elle a une borne supérieure dans $\\mathbb{R}$."
+        }
+      ]
+    },
+    {
+      "id": "reels-sup-mn",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Soit $A = \\left\\{\\dfrac{mn}{(m + n)^2} : m, n \\in \\mathbb{N}^*\\right\\}$. Déterminer $\\sup A$. (TD Réels, ex. 8)",
+      "indice": "Comparer $(m + n)^2$ et $4mn$.",
+      "correction": [
+        "$(m + n)^2 - 4mn = (m - n)^2 \\geq 0$, donc $\\frac{mn}{(m + n)^2} \\leq \\frac14$.",
+        "Pour $m = n$, on obtient exactement $\\frac14$ : c'est un maximum, donc $\\sup A = \\frac14$."
+      ],
+      "reponse": "1/4"
+    },
+    {
+      "id": "reels-sup-i",
+      "type": "numerique",
+      "difficulte": 3,
+      "enonce": "Soit $I = \\left\\{x \\in \\mathbb{R}^* : -2 < x + \\frac{1}{2x} \\leq 2\\right\\}$. Déterminer $\\sup I$. (TD Réels, ex. 6)",
+      "correction": [
+        "Pour $x > 0$ : $x + \\frac{1}{2x} > 0 > -2$, et $x + \\frac{1}{2x} \\leq 2 \\iff 2x^2 - 4x + 1 \\leq 0 \\iff x \\in \\left[1 - \\frac{\\sqrt2}{2}, 1 + \\frac{\\sqrt2}{2}\\right]$.",
+        "Pour $x < 0$ : l'inégalité $\\leq 2$ est automatique, et $> -2 \\iff 2x^2 + 4x + 1 < 0 \\iff x \\in \\left]-1 - \\frac{\\sqrt2}{2}, -1 + \\frac{\\sqrt2}{2}\\right[$.",
+        "$I$ est la réunion de ces deux intervalles : $\\sup I = \\max I = 1 + \\frac{\\sqrt2}{2}$."
+      ],
+      "reponse": "1 + sqrt(2)/2"
+    },
+    {
+      "id": "reels-partie-entiere",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Que vaut $E(-2{,}5)$ ?",
+      "correction": [
+        "$E(x)$ est le plus grand entier $\\leq x$.",
+        "$-3 \\leq -2{,}5 < -2$, donc $E(-2{,}5) = -3$ (et non $-2$)."
+      ],
+      "reponse": -3
+    },
+    {
+      "id": "reels-e-x-e-moins-x",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Pour $x \\in \\mathbb{R}$, que vaut $E(x) + E(-x)$ ? (TD Réels, ex. 17)",
+      "correction": [
+        "Si $x = n + t$ avec $n = E(x)$ et $0 < t < 1$ : $-x = -n - 1 + (1 - t)$ avec $0 < 1 - t < 1$, donc $E(-x) = -n - 1$.",
+        "Si $x \\in \\mathbb{Z}$, $E(-x) = -x$."
+      ],
+      "choix": [
+        {
+          "texte": "$0$ si $x \\in \\mathbb{Z}$, $-1$ sinon",
+          "correct": true,
+          "explication": "Si $x \\notin \\mathbb{Z}$, $E(-x) = -E(x) - 1$."
+        },
+        {
+          "texte": "$0$ pour tout $x$",
+          "correct": false,
+          "explication": "$E(0{,}5) + E(-0{,}5) = 0 + (-1) = -1$."
+        },
+        {
+          "texte": "$-1$ pour tout $x$",
+          "correct": false,
+          "explication": "$E(2) + E(-2) = 0$."
+        },
+        {
+          "texte": "$1$ si $x \\notin \\mathbb{Z}$",
+          "correct": false,
+          "explication": "$E(-x) \\leq -x$ : la somme est $\\leq 0$."
+        }
+      ]
+    },
+    {
+      "id": "reels-inequation-e",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Résoudre dans $\\mathbb{R}$ : $(2E(x) + 1)^2 < 4$. (TD Réels, ex. 19)",
+      "correction": [
+        "$-2 < 2E(x) + 1 < 2 \\iff -\\frac32 < E(x) < \\frac12 \\iff E(x) \\in \\{-1, 0\\}$ (entier).",
+        "$E(x) = -1 \\iff x \\in [-1, 0[$ et $E(x) = 0 \\iff x \\in [0, 1[$ : $x \\in [-1, 1[$."
+      ],
+      "choix": [
+        {
+          "texte": "$[-1, 1[$",
+          "correct": true,
+          "explication": "$E(x) \\in \\{-1, 0\\}$."
+        },
+        {
+          "texte": "$\\left]-\\frac32, \\frac12\\right[$",
+          "correct": false,
+          "explication": "Ce sont les valeurs possibles de $E(x)$, pas de $x$."
+        },
+        {
+          "texte": "$[0, 1[$",
+          "correct": false,
+          "explication": "$E(x) = -1$ convient aussi : $(-1)^2 = 1 < 4$."
+        },
+        {
+          "texte": "$[-1, 0]$",
+          "correct": false,
+          "explication": "$E(x) = 0$ pour tout $x \\in [0, 1[$, pas seulement pour $x = 0$ : il manque $]0, 1[$."
+        }
+      ]
+    },
+    {
+      "id": "vf-reels-archimede",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Pour tout réel $x$, il existe un entier naturel $n$ tel que $n > x$.",
+      "correction": [
+        "$n = \\max(0, E(x) + 1)$ convient, car $E(x) + 1 > x$."
+      ],
+      "reponse": true,
+      "justifications": [
+        {
+          "texte": "C'est la propriété d'Archimède : $\\mathbb{N}$ n'est pas majoré.",
+          "correct": true,
+          "explication": "Par exemple $n = E(x) + 1$ convient si $x \\geq 0$."
+        },
+        {
+          "texte": "Faux pour $x$ très grand.",
+          "correct": false,
+          "explication": "Aussi grand que soit $x$, $E(x) + 1 > x$."
+        },
+        {
+          "texte": "Vrai seulement si $x$ est rationnel.",
+          "correct": false,
+          "explication": "La propriété vaut pour tout réel."
+        }
+      ]
+    },
+    {
+      "id": "vf-reels-sup-produit",
+      "type": "vrai-faux",
+      "difficulte": 3,
+      "enonce": "Pour toutes parties $A, B$ non vides bornées de $\\mathbb{R}$ : $\\sup(A \\cdot B) = \\sup A \\cdot \\sup B$, où $A \\cdot B = \\{xy : x \\in A,\\ y \\in B\\}$. (TD Réels, ex. 14)",
+      "correction": [
+        "Avec $A = B = \\{-2, -1\\}$ : $\\sup(A \\cdot B) = 4 \\neq 1$.",
+        "L'égalité est vraie si $A, B \\subset \\mathbb{R}_+$."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Contre-exemple : $A = B = \\{-2, -1\\}$.",
+          "correct": true,
+          "explication": "$A \\cdot B = \\{1, 2, 4\\}$, de borne supérieure $4$, alors que $\\sup A \\cdot \\sup B = 1$."
+        },
+        {
+          "texte": "Vrai, comme pour la somme.",
+          "correct": false,
+          "explication": "La multiplication par un négatif renverse l'ordre : c'est vrai pour des parties de $\\mathbb{R}_+$."
+        },
+        {
+          "texte": "Faux car $A \\cdot B$ n'est pas bornée.",
+          "correct": false,
+          "explication": "$A \\cdot B$ est bornée quand $A$ et $B$ le sont."
+        }
+      ]
+    },
+    {
+      "id": "reels-pieces",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "De combien de façons peut-on payer $10$ € avec des pièces de $10$ et de $20$ centimes ? (TD Réels, ex. 18)",
+      "correction": [
+        "On cherche les $(x, y) \\in \\mathbb{N}^2$ avec $10x + 20y = 1000$, soit $x + 2y = 100$.",
+        "$y$ peut valoir $0, 1, \\dots, 50$ ($= E(100/2)$), et $x = 100 - 2y$ est alors déterminé : $51$ façons."
+      ],
+      "reponse": 51
+    }
+  ]
+}
