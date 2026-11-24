@@ -17,6 +17,11 @@
           "texte": "Le SI repose sur 7 unités de base : mètre (m), kilogramme (kg), seconde (s), ampère (A), kelvin (K), mole (mol), candela (cd). Toutes les autres unités en dérivent."
         },
         {
+          "type": "remarque",
+          "titre": "Histoire du SI",
+          "texte": "Fin du XVIIIe siècle : mètre, kilogramme, seconde. Ajouts : ampère (1948), kelvin et candela (1954) ; le système prend le nom de **SI** en 1960 ; mole en 1971. En **2018**, le kilogramme, l'ampère, le kelvin et la mole sont redéfinis à partir de **constantes fondamentales** fixées : $h$ (Planck), $e$ (charge élémentaire), $k_B$ (Boltzmann), $N_A$ (Avogadro). Le kilogramme n'est plus le cylindre de platine iridié de Sèvres (1889), mais se mesure avec une **balance de Kibble**."
+        },
+        {
           "type": "propriete",
           "titre": "Unités dérivées",
           "texte": "$1\\ \\mathrm{N} = 1\\ \\mathrm{kg\\cdot m\\cdot s^{-2}}$ (force), $1\\ \\mathrm{J} = 1\\ \\mathrm{N\\cdot m} = 1\\ \\mathrm{kg\\cdot m^2\\cdot s^{-2}}$ (énergie), $1\\ \\mathrm{W} = 1\\ \\mathrm{J\\cdot s^{-1}}$ (puissance), $1\\ \\mathrm{Pa} = 1\\ \\mathrm{N\\cdot m^{-2}}$ (pression), $1\\ \\mathrm{C} = 1\\ \\mathrm{A\\cdot s}$ (charge), $1\\ \\mathrm{V} = 1\\ \\mathrm{W\\cdot A^{-1}}$ (tension)."
@@ -40,6 +45,11 @@
           "type": "theoreme",
           "titre": "Principe d'homogénéité",
           "texte": "On ne peut **additionner, soustraire ou égaler** que des grandeurs de même dimension. Les arguments de $\\exp$, $\\ln$, $\\cos$, $\\sin$… sont **sans dimension**. Une formule non homogène est forcément fausse (la réciproque est fausse : une formule homogène peut être fausse d'un facteur numérique)."
+        },
+        {
+          "type": "methode",
+          "titre": "À quoi sert l'analyse dimensionnelle",
+          "texte": "Quatre intérêts : (1) **vérifier l'homogénéité** d'une formule et repérer les erreurs ; (2) trouver la **dimension** d'une grandeur inconnue (ex. $[k] = \\mathsf{M\\,T^{-2}}$ pour un ressort, car $F = k\\,\\Delta x$) ; (3) identifier une grandeur caractéristique d'un système ; (4) **deviner une loi**, à une constante sans dimension près (qu'elle ne donne jamais)."
         },
         {
           "type": "methode",
@@ -148,6 +158,21 @@
       "id": "prefixes-grands",
       "recto": "Préfixes $\\mathrm{k}$, $\\mathrm{M}$, $\\mathrm{G}$ ?",
       "verso": "$10^3$, $10^6$, $10^9$."
+    },
+    {
+      "id": "f-si-2018",
+      "recto": "Quelles unités ont été redéfinies en 2018, et à partir de quoi ?",
+      "verso": "Kilogramme ($h$), ampère ($e$), kelvin ($k_B$), mole ($N_A$) : des constantes fondamentales fixées."
+    },
+    {
+      "id": "f-dimension-k",
+      "recto": "Dimension de la raideur $k$ d'un ressort ?",
+      "verso": "$\\mathsf{M\\,T^{-2}}$ (unité $\\mathrm{N/m} = \\mathrm{kg\\cdot s^{-2}}$)."
+    },
+    {
+      "id": "f-dimension-g",
+      "recto": "Dimension de la constante de gravitation $G$ ?",
+      "verso": "$\\mathsf{M^{-1}\\,L^3\\,T^{-2}}$ (d'après $F = \\frac{Gm_1m_2}{r^2}$)."
     }
   ],
   "exercices": [
@@ -559,6 +584,198 @@
           "texte": "$mgh$",
           "correct": false,
           "explication": "Homogène à une énergie."
+        }
+      ]
+    },
+    {
+      "id": "si-redefinition-2018",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Lesquelles de ces unités ont été redéfinies en 2018 à partir de constantes fondamentales ? (Panorama, chap. 2)",
+      "correction": [
+        "En 2018 (26e CGPM), 4 unités sont redéfinies : kilogramme ($h$), ampère ($e$), kelvin ($k_B$), mole ($N_A$)."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "Le kilogramme",
+          "correct": true,
+          "explication": "Défini à partir de la constante de Planck $h$."
+        },
+        {
+          "texte": "L'ampère",
+          "correct": true,
+          "explication": "Défini à partir de la charge élémentaire $e$."
+        },
+        {
+          "texte": "Le kelvin",
+          "correct": true,
+          "explication": "Défini à partir de la constante de Boltzmann $k_B$."
+        },
+        {
+          "texte": "Le mètre",
+          "correct": false,
+          "explication": "Il est défini par la vitesse de la lumière depuis 1983 : il n'a pas changé en 2018."
+        },
+        {
+          "texte": "La seconde",
+          "correct": false,
+          "explication": "Elle repose sur une transition de l'atome de césium depuis 1967."
+        }
+      ]
+    },
+    {
+      "id": "kilogramme-definition",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Sur quoi repose la définition du kilogramme depuis la réforme du SI de 2018 ? (Panorama, chap. 2)",
+      "correction": [
+        "Depuis 2019, $h = 6{,}626\\,070\\,15 \\times 10^{-34}\\ \\mathrm{J\\cdot s}$ exactement ; la balance de Kibble compare puissances mécanique et électrique pour en déduire une masse."
+      ],
+      "choix": [
+        {
+          "texte": "Sur la valeur fixée de la constante de Planck $h$",
+          "correct": true,
+          "explication": "On la relie à une masse grâce à la balance de Kibble."
+        },
+        {
+          "texte": "Sur un cylindre de platine iridié conservé à Sèvres",
+          "correct": false,
+          "explication": "C'était la définition de 1889 à 2019."
+        },
+        {
+          "texte": "Sur la masse d'un litre d'eau",
+          "correct": false,
+          "explication": "C'était l'idée de la définition révolutionnaire (fin du XVIIIe siècle)."
+        },
+        {
+          "texte": "Sur la constante de gravitation $G$",
+          "correct": false,
+          "explication": "$G$ est mesurée avec une précision bien trop faible."
+        }
+      ]
+    },
+    {
+      "id": "dimension-raideur",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle est la dimension de la raideur $k$ d'un ressort ($F = k\\,\\Delta x$) ? (Panorama, chap. 5)",
+      "correction": [
+        "$[F] = [ma] = \\mathsf{M\\,L\\,T^{-2}}$, donc $[k] = \\mathsf{M\\,L\\,T^{-2}} / \\mathsf L = \\mathsf{M\\,T^{-2}}$ (unité $\\mathrm{N/m} = \\mathrm{kg\\cdot s^{-2}}$)."
+      ],
+      "choix": [
+        {
+          "texte": "$\\mathsf{M\\,T^{-2}}$",
+          "correct": true,
+          "explication": "$[k] = \\frac{[F]}{[\\Delta x]} = \\frac{\\mathsf{M\\,L\\,T^{-2}}}{\\mathsf L}$."
+        },
+        {
+          "texte": "$\\mathsf{M\\,L\\,T^{-2}}$",
+          "correct": false,
+          "explication": "C'est la dimension d'une force, pas de $k$."
+        },
+        {
+          "texte": "$\\mathsf{M\\,L^{-1}\\,T^{-2}}$",
+          "correct": false,
+          "explication": "On a divisé par $\\mathsf{L}^2$ au lieu de $\\mathsf L$."
+        },
+        {
+          "texte": "$\\mathsf{M\\,T^{-1}}$",
+          "correct": false,
+          "explication": "C'est la dimension d'un coefficient de frottement fluide $\\vec f = -\\lambda\\vec v$."
+        }
+      ]
+    },
+    {
+      "id": "dimension-gravitation",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "D'après $F = \\dfrac{G m_1 m_2}{r^2}$, quelle est la dimension de $G$ ?",
+      "correction": [
+        "$G = \\frac{F r^2}{m_1 m_2}$, donc $[G] = \\mathsf{M\\,L\\,T^{-2}} \\cdot \\mathsf L^2 \\cdot \\mathsf M^{-2} = \\mathsf{M^{-1}\\,L^3\\,T^{-2}}$."
+      ],
+      "choix": [
+        {
+          "texte": "$\\mathsf{M^{-1}\\,L^3\\,T^{-2}}$",
+          "correct": true,
+          "explication": "$[G] = \\frac{[F]\\,[r]^2}{[m]^2} = \\frac{\\mathsf{M\\,L\\,T^{-2}\\,L^2}}{\\mathsf{M^2}}$."
+        },
+        {
+          "texte": "$\\mathsf{M\\,L^3\\,T^{-2}}$",
+          "correct": false,
+          "explication": "On divise par $\\mathsf M^2$ : l'exposant de $\\mathsf M$ est $1 - 2 = -1$."
+        },
+        {
+          "texte": "$\\mathsf{M^{-1}\\,L\\,T^{-2}}$",
+          "correct": false,
+          "explication": "Il faut multiplier par $[r]^2 = \\mathsf L^2$."
+        },
+        {
+          "texte": "Sans dimension",
+          "correct": false,
+          "explication": "$G$ a une unité : $\\mathrm{N\\cdot m^2\\cdot kg^{-2}}$."
+        }
+      ]
+    },
+    {
+      "id": "kepler-homogene",
+      "type": "qcm",
+      "difficulte": 3,
+      "enonce": "$T$ est la période d'une planète en orbite circulaire de rayon $R$ autour d'un astre de masse $M$. Quelle formule est homogène ? (Panorama, chap. 2)",
+      "correction": [
+        "$[GM] = \\mathsf{L^3\\,T^{-2}}$, donc $\\left[\\frac{R^3}{GM}\\right] = \\mathsf T^2$ : seule $T^2 = \\frac{4\\pi^2R^3}{GM}$ (3e loi de Kepler) est homogène."
+      ],
+      "choix": [
+        {
+          "texte": "$T^2 = \\dfrac{4\\pi^2 R^3}{GM}$",
+          "correct": true,
+          "explication": "$\\frac{\\mathsf L^3}{\\mathsf{M^{-1}L^3T^{-2}} \\cdot \\mathsf M} = \\mathsf T^2$."
+        },
+        {
+          "texte": "$T^2 = \\dfrac{4\\pi^2 R^2}{GM}$",
+          "correct": false,
+          "explication": "On obtient $\\mathsf{L^{-1}\\,T^2}$."
+        },
+        {
+          "texte": "$T = \\dfrac{4\\pi^2 R^3}{GM}$",
+          "correct": false,
+          "explication": "Le membre de droite a la dimension $\\mathsf T^2$, pas $\\mathsf T$."
+        },
+        {
+          "texte": "$T^2 = \\dfrac{4\\pi^2 GM}{R^3}$",
+          "correct": false,
+          "explication": "On obtient $\\mathsf T^{-2}$ : la fraction est inversée."
+        }
+      ]
+    },
+    {
+      "id": "limite-analyse-dimensionnelle",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Que ne permet **pas** l'analyse dimensionnelle ? (Panorama, chap. 2)",
+      "correction": [
+        "L'analyse dimensionnelle donne les exposants, jamais les constantes sans dimension : il faut une théorie ou une expérience."
+      ],
+      "choix": [
+        {
+          "texte": "Trouver la valeur de la constante sans dimension d'une loi",
+          "correct": true,
+          "explication": "Par exemple le $2\\pi$ de $T = 2\\pi\\sqrt{\\ell/g}$."
+        },
+        {
+          "texte": "Vérifier l'homogénéité d'une formule",
+          "correct": false,
+          "explication": "C'est son usage le plus courant."
+        },
+        {
+          "texte": "Trouver la dimension d'une grandeur inconnue",
+          "correct": false,
+          "explication": "Ex. : $[k] = \\mathsf{M\\,T^{-2}}$."
+        },
+        {
+          "texte": "Deviner la forme d'une loi physique",
+          "correct": false,
+          "explication": "On trouve les exposants, à une constante sans dimension près."
         }
       ]
     }

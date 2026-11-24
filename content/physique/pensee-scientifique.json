@@ -4,13 +4,42 @@
   "monde": "physique",
   "ordre": 1,
   "semestre": 1,
-  "titre": "Pensée scientifique et grands scientifiques",
+  "titre": "Introduction et pensée scientifique",
   "icone": "🔭",
-  "resume": "La démarche scientifique, les modèles et leurs limites, et les grandes figures de l'histoire de la physique.",
+  "resume": "Domaines et échelles de la physique, interactions fondamentales, méthode scientifique (lois, principes, modèles, théories) et grands scientifiques.",
   "cours": [
+    {
+      "titre": "La physique et ses échelles",
+      "blocs": [
+        {
+          "type": "definition",
+          "titre": "Domaines",
+          "texte": "La physique (du grec *physiké*, « science de la nature ») étudie des phénomènes **mesurables** et les décrit par des représentations mathématiques. La **physique classique** (mécanique, optique, thermodynamique, électromagnétisme) est complétée au XXe siècle par la **physique moderne** : relativité et mécanique quantique."
+        },
+        {
+          "type": "propriete",
+          "titre": "Échelles",
+          "texte": "Ordres de grandeur des longueurs : noyau $10^{-15}\\ \\mathrm m$, atome $10^{-10}\\ \\mathrm m$, humain $1\\ \\mathrm m$, rayon terrestre $6{,}4 \\times 10^{6}\\ \\mathrm m$, distance Terre-Soleil $1{,}5 \\times 10^{11}\\ \\mathrm m$, année-lumière $\\approx 10^{16}\\ \\mathrm m$, univers observable $\\approx 10^{26}\\ \\mathrm m$."
+        },
+        {
+          "type": "theoreme",
+          "titre": "Les quatre interactions fondamentales",
+          "texte": "**Gravitationnelle** : attractive, proportionnelle aux masses, en $\\frac{1}{r^2}$, de portée infinie, notable pour les grandes masses. **Électromagnétique** : attractive ou répulsive, en $\\frac{1}{r^2}$, prédominante à l'échelle des atomes et de la matière courante. **Forte** : cohésion du noyau (portée $10^{-15}\\ \\mathrm m$). **Faible** : radioactivité (portée $10^{-17}\\ \\mathrm m$)."
+        }
+      ]
+    },
     {
       "titre": "La démarche scientifique",
       "blocs": [
+        {
+          "type": "definition",
+          "titre": "Notions, lois, principes, modèles, théories",
+          "texte": "Une **notion** est une grandeur utilisée pour analyser les phénomènes (espace, temps, masse, énergie). Une **loi** est une relation entre grandeurs, tirée de l'observation ; un **principe** est une loi de portée très générale. Un **modèle** est une représentation simplifiée d'un système. Une **théorie** rassemble notions, principes et modèles : elle doit être **descriptive et prédictive**, et l'expérience décide de son acceptation."
+        },
+        {
+          "type": "exemple",
+          "texte": "La chute des corps : pour Aristote, les corps lourds tombent plus vite ; Galilée montre que, sans air, tous les corps tombent de la même façon. Sur la Lune (sans atmosphère), un marteau et une plume lâchés ensemble touchent le sol **en même temps** (Apollo 15, 1971)."
+        },
         {
           "type": "methode",
           "titre": "Les étapes",
@@ -40,6 +69,11 @@
           "type": "exemple",
           "titre": "Antiquité et révolution scientifique",
           "texte": "**Archimède** (IIIe s. av. J.-C.) : poussée d'Archimède, levier. **Copernic** (1543) : héliocentrisme. **Galilée** (début XVIIe) : chute des corps (tous tombent de la même façon dans le vide), principe d'inertie, observations à la lunette. **Kepler** : lois du mouvement des planètes. **Snell** (1621) et **Descartes** (1637) : lois de la réfraction."
+        },
+        {
+          "type": "exemple",
+          "titre": "Deux physiciennes",
+          "texte": "**Émilie du Châtelet** (1706-1749) traduit en français les *Principia* de Newton (traduction qui fait encore autorité) et montre expérimentalement que l'énergie cinétique (« force vive ») est proportionnelle à la masse et au **carré** de la vitesse. **Emmy Noether** (1882-1935) relie symétries et lois de conservation."
         },
         {
           "type": "exemple",
@@ -129,6 +163,36 @@
       "id": "kepler",
       "recto": "Apport de Kepler ?",
       "verso": "Les trois lois du mouvement des planètes (orbites elliptiques, loi des aires, $T^2 \\propto a^3$), début du XVIIᵉ siècle."
+    },
+    {
+      "id": "f-quatre-interactions",
+      "recto": "Les quatre interactions fondamentales ?",
+      "verso": "Gravitationnelle, électromagnétique, forte (noyau), faible (radioactivité)."
+    },
+    {
+      "id": "f-interaction-forte",
+      "recto": "Rôle et portée de l'interaction forte ?",
+      "verso": "Cohésion des nucléons et du noyau ; portée $\\sim 10^{-15}\\ \\mathrm m$."
+    },
+    {
+      "id": "f-taille-atome",
+      "recto": "Ordre de grandeur de la taille d'un atome ? d'un noyau ?",
+      "verso": "Atome $10^{-10}\\ \\mathrm m$ ; noyau $10^{-15}\\ \\mathrm m$."
+    },
+    {
+      "id": "f-loi-principe",
+      "recto": "Différence entre une loi et un principe ?",
+      "verso": "Un principe est une loi de portée très générale (ex. principe d'inertie)."
+    },
+    {
+      "id": "f-theorie",
+      "recto": "Deux qualités exigées d'une théorie ?",
+      "verso": "Elle doit être descriptive et prédictive (et confrontée à l'expérience)."
+    },
+    {
+      "id": "f-du-chatelet",
+      "recto": "Apport d'Émilie du Châtelet ?",
+      "verso": "Traduction des *Principia* de Newton ; « force vive » (énergie cinétique) proportionnelle à $mv^2$."
     }
   ],
   "exercices": [
@@ -602,6 +666,283 @@
           "texte": "$10^7$",
           "correct": false,
           "explication": "C'est l'ordre de grandeur d'une année."
+        }
+      ]
+    },
+    {
+      "id": "interaction-noyau",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle interaction assure la cohésion du noyau atomique ? (Panorama, chap. 1)",
+      "correction": [
+        "Les protons se repoussent électriquement ; c'est l'interaction forte, 100 à 1000 fois plus intense à cette échelle, qui tient le noyau."
+      ],
+      "choix": [
+        {
+          "texte": "L'interaction forte",
+          "correct": true,
+          "explication": "Elle lie les nucléons, à très courte portée ($10^{-15}\\ \\mathrm m$)."
+        },
+        {
+          "texte": "L'interaction électromagnétique",
+          "correct": false,
+          "explication": "Elle est **répulsive** entre les protons du noyau."
+        },
+        {
+          "texte": "L'interaction gravitationnelle",
+          "correct": false,
+          "explication": "Bien trop faible à l'échelle des particules."
+        },
+        {
+          "texte": "L'interaction faible",
+          "correct": false,
+          "explication": "Elle intervient dans la radioactivité, pas dans la cohésion."
+        }
+      ]
+    },
+    {
+      "id": "interaction-atomes",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quelle interaction prédomine à l'échelle des atomes, des molécules et de la matière qui nous entoure ? (Panorama, chap. 1)",
+      "correction": [
+        "L'interaction électromagnétique (charges $+$ et $-$, en $\\frac1{r^2}$) explique la cohésion des atomes, des molécules et des solides."
+      ],
+      "choix": [
+        {
+          "texte": "L'interaction électromagnétique",
+          "correct": true,
+          "explication": "Elle lie électrons et noyaux, et les atomes entre eux."
+        },
+        {
+          "texte": "L'interaction gravitationnelle",
+          "correct": false,
+          "explication": "Elle ne domine qu'entre de très grandes masses (astres)."
+        },
+        {
+          "texte": "L'interaction forte",
+          "correct": false,
+          "explication": "Sa portée ($10^{-15}\\ \\mathrm m$) ne dépasse pas le noyau."
+        },
+        {
+          "texte": "L'interaction faible",
+          "correct": false,
+          "explication": "Portée $10^{-17}\\ \\mathrm m$ : elle n'agit qu'à l'intérieur des noyaux."
+        }
+      ]
+    },
+    {
+      "id": "interaction-radioactivite",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Quelle interaction intervient dans la radioactivité (bêta) ? (Panorama, chap. 1)",
+      "correction": [
+        "Portée $10^{-17}\\ \\mathrm m$, intensité $10^{-5}$ fois celle de l'interaction électromagnétique : c'est l'interaction faible."
+      ],
+      "choix": [
+        {
+          "texte": "L'interaction faible",
+          "correct": true,
+          "explication": "Elle transforme un neutron en proton (ou l'inverse)."
+        },
+        {
+          "texte": "L'interaction forte",
+          "correct": false,
+          "explication": "Elle assure la cohésion du noyau."
+        },
+        {
+          "texte": "L'interaction gravitationnelle",
+          "correct": false,
+          "explication": "Négligeable à l'échelle nucléaire."
+        },
+        {
+          "texte": "L'interaction électromagnétique",
+          "correct": false,
+          "explication": "Elle n'explique pas la transformation des nucléons."
+        }
+      ]
+    },
+    {
+      "id": "ordre-atome-noyau",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Un atome mesure environ $10^{-10}\\ \\mathrm m$ et son noyau $10^{-15}\\ \\mathrm m$. Le rapport des tailles vaut $10^{n}$ : que vaut $n$ ? (Panorama, chap. 1)",
+      "correction": [
+        "$\\frac{10^{-10}}{10^{-15}} = 10^{5}$ : l'atome est environ cent mille fois plus grand que son noyau (l'essentiel de l'atome est vide)."
+      ],
+      "reponse": 5
+    },
+    {
+      "id": "annee-lumiere",
+      "type": "numerique",
+      "difficulte": 2,
+      "enonce": "Calculer l'année-lumière en mètres, avec $c = 3{,}00 \\times 10^8\\ \\mathrm{m/s}$ et $1$ an $= 365{,}25$ jours. (Panorama, chap. 1)",
+      "correction": [
+        "C'est la distance parcourue par la lumière en un an : $d = c \\times \\Delta t$.",
+        "$\\Delta t = 365{,}25 \\times 86\\,400 = 3{,}156 \\times 10^{7}\\ \\mathrm s$, donc $d \\approx 9{,}47 \\times 10^{15}\\ \\mathrm m$."
+      ],
+      "reponse": "3e8 * 365.25 * 86400",
+      "tolerance": 0.01
+    },
+    {
+      "id": "gravitation-double-distance",
+      "type": "numerique",
+      "difficulte": 1,
+      "enonce": "Deux masses s'attirent avec une force $F$. Si l'on double leur distance, la force est divisée par… (Panorama, chap. 1)",
+      "correction": [
+        "$F = \\frac{Gm_1m_2}{r^2}$ : en remplaçant $r$ par $2r$, $F$ est divisée par $2^2 = 4$."
+      ],
+      "reponse": 4
+    },
+    {
+      "id": "physique-moderne",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Lesquelles de ces théories relèvent de la physique « moderne » (XXe-XXIe siècles) ? (Panorama, chap. 1)",
+      "correction": [
+        "Physique classique : mécanique, optique, thermodynamique, électromagnétisme. Physique moderne : relativité et mécanique quantique."
+      ],
+      "multiple": true,
+      "choix": [
+        {
+          "texte": "La relativité",
+          "correct": true,
+          "explication": "Einstein, 1905 (restreinte) et 1915 (générale)."
+        },
+        {
+          "texte": "La mécanique quantique",
+          "correct": true,
+          "explication": "Planck, Bohr, Heisenberg, Schrödinger… (1900-1930)."
+        },
+        {
+          "texte": "L'électromagnétisme de Maxwell",
+          "correct": false,
+          "explication": "Il date du XIXe siècle (1861-1865) : physique classique."
+        },
+        {
+          "texte": "La mécanique de Newton",
+          "correct": false,
+          "explication": "*Principia*, 1687 : physique classique."
+        }
+      ]
+    },
+    {
+      "id": "marteau-plume",
+      "type": "qcm",
+      "difficulte": 1,
+      "enonce": "Sur la Lune, un astronaute lâche en même temps un marteau et une plume, de la même hauteur. Que se passe-t-il ? (Panorama, chap. 2)",
+      "correction": [
+        "Sans frottement, l'accélération de chute vaut $g$ quelle que soit la masse (Galilée). L'expérience a été faite lors de la mission Apollo 15 (1971)."
+      ],
+      "choix": [
+        {
+          "texte": "Ils touchent le sol en même temps",
+          "correct": true,
+          "explication": "Sans air, tous les corps chutent avec la même accélération."
+        },
+        {
+          "texte": "Le marteau arrive le premier",
+          "correct": false,
+          "explication": "C'est le cas sur Terre, à cause de la résistance de l'air."
+        },
+        {
+          "texte": "La plume arrive la première",
+          "correct": false,
+          "explication": "Rien ne la fait tomber plus vite."
+        },
+        {
+          "texte": "Ils ne tombent pas, car il n'y a pas d'air",
+          "correct": false,
+          "explication": "La pesanteur lunaire existe ($g_{\\text{Lune}} \\approx 1{,}6\\ \\mathrm{m/s^2}$) : l'air n'y est pour rien."
+        }
+      ]
+    },
+    {
+      "id": "loi-principe",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Comment appelle-t-on une loi physique de portée très générale, qui s'applique à tout un pan de la physique ? (Panorama, chap. 2)",
+      "correction": [
+        "Loi : relation entre grandeurs tirée de l'observation. Principe : loi à portée très générale."
+      ],
+      "choix": [
+        {
+          "texte": "Un principe",
+          "correct": true,
+          "explication": "Ex. : principe d'inertie, principe de conservation de l'énergie."
+        },
+        {
+          "texte": "Un modèle",
+          "correct": false,
+          "explication": "Un modèle est une représentation simplifiée d'un système particulier."
+        },
+        {
+          "texte": "Une notion",
+          "correct": false,
+          "explication": "Une notion est une grandeur ou une idée (temps, masse…)."
+        },
+        {
+          "texte": "Un postulat mathématique",
+          "correct": false,
+          "explication": "Les principes physiques viennent de l'observation et restent confrontés à l'expérience."
+        }
+      ]
+    },
+    {
+      "id": "vf-theorie-descriptive",
+      "type": "vrai-faux",
+      "difficulte": 1,
+      "enonce": "Il suffit qu'une théorie physique décrive correctement les phénomènes connus. (Panorama, chap. 2)",
+      "correction": [
+        "Une théorie doit être descriptive **et** prédictive ; l'expérimentation dira si elle est acceptée dans son domaine."
+      ],
+      "reponse": false,
+      "justifications": [
+        {
+          "texte": "Elle doit aussi être **prédictive** : c'est l'expérience qui la valide ou la rejette.",
+          "correct": true,
+          "explication": "Une théorie qui ne prédit rien ne peut pas être testée."
+        },
+        {
+          "texte": "Vrai : décrire est le seul but de la physique.",
+          "correct": false,
+          "explication": "Prédire des phénomènes nouveaux est essentiel (ex. ondes électromagnétiques prédites par Maxwell)."
+        },
+        {
+          "texte": "Faux : une théorie doit être démontrée mathématiquement.",
+          "correct": false,
+          "explication": "Une théorie physique n'est jamais « démontrée » : elle est confrontée à l'expérience."
+        }
+      ]
+    },
+    {
+      "id": "du-chatelet",
+      "type": "qcm",
+      "difficulte": 2,
+      "enonce": "Quel est l'apport d'Émilie du Châtelet (1706-1749) ? (Panorama, chap. 1)",
+      "correction": [
+        "Émilie du Châtelet a traduit les *Principia* et diffusé en France la physique de Leibniz, en montrant que la « force vive » est proportionnelle à $mv^2$."
+      ],
+      "choix": [
+        {
+          "texte": "La traduction des *Principia* de Newton et l'énergie cinétique proportionnelle à $mv^2$",
+          "correct": true,
+          "explication": "Sa traduction fait encore autorité."
+        },
+        {
+          "texte": "La découverte de la radioactivité",
+          "correct": false,
+          "explication": "C'est Becquerel, puis Pierre et Marie Curie."
+        },
+        {
+          "texte": "Le lien entre symétries et lois de conservation",
+          "correct": false,
+          "explication": "C'est le théorème d'Emmy Noether (1918)."
+        },
+        {
+          "texte": "Les lois du mouvement des planètes",
+          "correct": false,
+          "explication": "Ce sont les lois de Kepler."
         }
       ]
     }
