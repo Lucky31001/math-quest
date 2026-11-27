@@ -344,16 +344,28 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
         ),
       ),
     );
+    const aideSaisie = h(
+      'p',
+      { class: 'aide-saisie' },
+      'Syntaxe : ',
+      ['x^2', 'sqrt(x)', 'exp(x)', 'ln(x)', 'pi', 'i'].flatMap((c) => [h('code', null, c), ' ']),
+      '— multiplication implicite acceptée : ',
+      h('code', null, '2x'),
+      '.',
+    );
     ajouter(zone, [
       liste ? h('p', { class: 'consigne' }, `${(qq.reponse as unknown[]).length} valeurs attendues, séparées par « ; ».`) : null,
       input,
       apercu,
       clav,
-      h('p', { class: 'aide-saisie' }, 'Syntaxe : ', h('code', null, 'x^2'), ' ', h('code', null, 'sqrt(x)'), ' ', h('code', null, 'exp(x)'), ' ', h('code', null, 'ln(x)'), ' ', h('code', null, 'pi'), ' ', h('code', null, 'i'), ' — multiplication implicite acceptée : ', h('code', null, '2x'), '.'),
+      aideSaisie,
     ]);
     lireReponse = () => (input.value.trim() ? { type: qq.type, saisie: input.value } : 'Écris ta réponse.') as Reponse | string;
     afficherCorrectionSpecifique = (r) => {
       input.disabled = true;
+      // Le mini-clavier et l'aide de syntaxe ne servent plus : place à la correction.
+      clav.remove();
+      aideSaisie.remove();
       if (r.statut === 'correct') return;
       const att =
         qq.type === 'numerique'
@@ -368,7 +380,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     const executeur = opts.executeur ?? executerTests;
     const source = () => `${editeur.value}\n\n${qq.harnais}`;
     const ETAPES = { chargement: '⏳ Chargement du compilateur…', compilation: '⚙️ Compilation…', execution: '▶️ Exécution des tests…' } as const;
-    const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, 'Ctrl + Entrée pour essayer sur l’exemple.');
+    const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, matchMedia('(pointer: coarse)').matches ? '' : 'Ctrl + Entrée pour essayer sur l’exemple.');
     const consoleC = h('pre', { class: 'console-c', 'aria-label': 'Sortie du programme', tabindex: '0', hidden: true });
     const ecrire = (texte: string, classe?: string) => {
       consoleC.hidden = false;
@@ -525,7 +537,8 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
       setTimeout(() => b.focus({ preventScroll: true }), 30);
     }
     retour.hidden = false;
-    if (!enRevue) retour.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Haut de la correction en vue (sous la réponse donnée), pas caché par la barre du bas.
+    if (!enRevue) retour.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   /** Examen : on verrouille la réponse et on passe à la suite, sans rien dévoiler. */

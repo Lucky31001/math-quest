@@ -144,6 +144,9 @@ function configurer(params: string[], chapitres: Chapitre[]): Config | string {
   }
 }
 
+/** Modes limités à un chapitre (son titre est dans celui de la séance). */
+const UN_CHAPITRE = new Set(['entrainement', 'infini', 'boss']);
+
 export function ecranSession(main: HTMLElement, params: string[]): () => void {
   return ecranApresChargement(main, () => chapitresNecessaires(params), (chapitres) => lancerSession(main, params, configurer(params, chapitres)));
 }
@@ -189,7 +192,11 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         { class: 'progression', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(Math.round(fait * 100)) },
         h('div', { class: 'progression-remplie', style: `width:${fait * 100}%` }),
       ),
-      h('span', { class: 'compteur' }, cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `Question ${s.rang + 1}`),
+      h(
+        'span',
+        { class: 'compteur', 'aria-label': cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)} sur ${cfg.total}` : `Question ${s.rang + 1}` },
+        cfg.total ? `${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `n° ${s.rang + 1}`,
+      ),
       cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': nombre(Math.max(0, s.vies!), 'vie') }, `❤️ ${Math.max(0, s.vies!)}`) : null,
       cfg.mode === 'eclair' ? h('span', { class: 'score' }, `⚡ ${s.score}`) : null,
       s.combo >= 2 && !cfg.differe ? h('span', { class: 'combo' }, `🔥 ×${s.combo}`) : null,
@@ -237,7 +244,12 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
     const fin = cfg.vies !== null && s.vies === 1 && cfg.mode === 'boss';
     ctrl = afficherQuestion({
       question: item.question,
-      surtitre: `${item.chapitre.icone} ${item.chapitre.titre}${item.cle ? '' : ' · 🎲 générée'}`,
+      // Séance d'un seul chapitre : il est déjà dans le titre, on ne le répète pas.
+      surtitre: UN_CHAPITRE.has(cfg.mode)
+        ? item.cle
+          ? undefined
+          : '🎲 Question générée'
+        : `${item.chapitre.icone} ${item.chapitre.titre}${item.cle ? '' : ' · 🎲 générée'}`,
       indices: !cfg.differe,
       differe: cfg.differe,
       surIndice: () => {

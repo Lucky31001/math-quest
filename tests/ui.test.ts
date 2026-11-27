@@ -82,6 +82,20 @@ describe('écrans', () => {
     expect(document.getElementById('contenu')!.querySelector('h1')).toBeTruthy();
   });
 
+  it('sans aucune réponse : stats et révision montrent un état vide avec un bouton pour commencer', async () => {
+    const { etat } = await import('../src/ui/etat');
+    const { progressionVide } = await import('../src/storage/progression');
+    const avant = structuredClone(etat.p);
+    etat.remplacer(progressionVide());
+    for (const ecran of ['#/stats', '#/revision']) {
+      await aller(ecran);
+      const vide = document.querySelector('#contenu .etat-vide')!;
+      expect(vide, ecran).toBeTruthy();
+      expect(vide.querySelector('a.btn-primaire')!.getAttribute('href')).toMatch(/^#\/chapitre\/.+\/exercices$/);
+    }
+    etat.remplacer(avant);
+  });
+
   it('statistiques : les pièges récurrents s’affichent avec leur explication', async () => {
     const { etat } = await import('../src/ui/etat');
     const avant = structuredClone(etat.p);
@@ -122,7 +136,7 @@ describe('écrans', () => {
     await attendre();
     const bloc = document.querySelector('#contenu .protection')!;
     expect(bloc).toBeTruthy();
-    expect(bloc.textContent).toContain('Dernier export');
+    expect(bloc.textContent).toContain('Dernière copie téléchargée');
   });
 
   it('transfert : lien + QR dans les réglages, puis réception et import sur « l’autre appareil »', async () => {
@@ -160,7 +174,7 @@ describe('écrans', () => {
     await aller('#/jouer/eclair');
     const main = document.getElementById('contenu')!;
     expect(main.querySelector('.question.type-qcm')).toBeTruthy();
-    expect(main.querySelector('.session-barre')!.textContent).toContain('Question 1/20');
+    expect(main.querySelector('.session-barre .compteur')!.textContent).toBe('1/20');
     touche('1');
     // QCM unique : « 1 » valide directement ; QCM multiple : « 1 » coche, Entrée valide.
     if (!main.querySelector('.pied-juste, .pied-faux')) touche('Enter');

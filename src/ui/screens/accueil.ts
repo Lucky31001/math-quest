@@ -21,14 +21,17 @@ export function ecranAccueil(main: HTMLElement): void {
   const nbQ = questionsDues(INDEX.chapitres, p, auj, 999).length;
   const nbF = flashcardsDues(INDEX.chapitres, p, auj).length;
 
-  main.append(
+  // .accueil : sur grand écran, modes et matières à gauche, chemin des chapitres à droite.
+  const accueil = h('div', { class: 'accueil' });
+  main.append(accueil);
+  accueil.append(
     h(
       'section',
       { class: 'tableau-accueil' },
       h(
         'a',
         { class: `carte-action revision ${nbQ + nbF ? 'a-faire' : ''}`, href: '#/revision' },
-        h('span', { class: 'carte-icone' }, '📅'),
+        h('span', { class: 'carte-icone' }, '📅', nbQ + nbF ? h('span', { class: 'compte', 'aria-hidden': 'true' }, String(nbQ + nbF)) : null),
         h('strong', null, 'Révision du jour'),
         h('span', null, nbQ + nbF ? `${[nbQ ? nombre(nbQ, 'question') : '', nbF ? nombre(nbF, 'flashcard') : ''].filter(Boolean).join(' et ')} à revoir` : 'Tout est à jour ✨'),
       ),
@@ -37,20 +40,20 @@ export function ecranAccueil(main: HTMLElement): void {
         { class: 'carte-action survie', href: '#/jouer/survie' },
         h('span', { class: 'carte-icone' }, '🛡️'),
         h('strong', null, 'Survie'),
-        h('span', null, `Tous chapitres, jusqu'à la 1re erreur · record ${p.records.survie}`),
+        h('span', null, `Tous chapitres, jusqu'à la 1re erreur${p.records.survie ? ` · record ${p.records.survie}` : ''}`),
       ),
       h(
         'a',
         { class: 'carte-action eclair', href: '#/jouer/eclair' },
         h('span', { class: 'carte-icone' }, '⚡'),
         h('strong', null, 'QCM éclair'),
-        h('span', null, `20 QCM en 3 min, combos · record ${p.records.eclair} pts`),
+        h('span', null, `20 QCM en 3 min, combos${p.records.eclair ? ` · record ${p.records.eclair} pts` : ''}`),
       ),
     ),
   );
 
   const parcours = h('section', { class: 'parcours', 'aria-label': 'Parcours' });
-  main.append(parcours);
+  accueil.append(parcours);
   rendreParcours(parcours);
 }
 
@@ -145,11 +148,17 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
   });
 
   const piste = h('div', { class: 'piste', tabindex: '0', 'aria-label': 'Matières (flèches gauche / droite pour changer)' }, diapos);
+  // Onglets nommés (au-dessus des diapos) : on voit d'emblée toutes les matières.
   const points = h(
     'div',
     { class: 'points', role: 'tablist', 'aria-label': 'Choisir une matière', hidden: matieres.length < 2 },
     matieres.map((m, i) =>
-      h('button', { type: 'button', role: 'tab', class: 'point', style: styleMatiere(m), 'aria-label': m.nom, title: m.nom, onclick: () => aller(i) }),
+      h(
+        'button',
+        { type: 'button', role: 'tab', class: 'point', style: styleMatiere(m), onclick: () => aller(i) },
+        h('span', { 'aria-hidden': 'true' }, m.embleme),
+        m.nom,
+      ),
     ),
   );
   const fleche = (sens: -1 | 1) =>
@@ -169,6 +178,9 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
       p.classList.toggle('actif', k === i);
       p.setAttribute('aria-selected', String(k === i));
     });
+    // Onglet actif visible dans la rangée (qui défile sur un téléphone).
+    const onglet = points.children[i] as HTMLElement | undefined;
+    points.scrollTo?.({ left: (onglet?.offsetLeft ?? 0) - points.offsetLeft - 16, behavior: 'smooth' });
     diapos.forEach((d, k) => d.classList.toggle('actif', k === i));
     precedente.disabled = i === 0;
     suivante.disabled = i === matieres.length - 1;
@@ -202,7 +214,12 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
   });
 
   activer(actif);
-  const el = h('div', { class: 'carrousel', 'aria-roledescription': 'carrousel', 'aria-label': `Matières — ${niveau.nom}` }, matieres.length > 1 ? precedente : null, piste, matieres.length > 1 ? suivante : null, points);
+  const el = h(
+    'div',
+    { class: 'matieres' },
+    points,
+    h('div', { class: 'carrousel', 'aria-roledescription': 'carrousel', 'aria-label': `Matières — ${niveau.nom}` }, matieres.length > 1 ? precedente : null, piste, matieres.length > 1 ? suivante : null),
+  );
   // Position initiale sans animation, une fois l'élément dans la page.
   return { el, placer: () => requestAnimationFrame(() => aller(actif, false)) };
 }
@@ -228,6 +245,8 @@ function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
           )
         : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
       chapitres.length ? lienExamen(idMatiere) : null,
+      // Matière avec des exercices de programmation (C) : accès direct à l'atelier.
+      chapitres.some((c) => c.exercices.some((q) => q.type === 'programme')) ? lienAtelier() : null,
     ),
   );
 }
@@ -251,6 +270,17 @@ function lienExamen(idMatiere: string): HTMLElement {
       `${EXAMEN.questions} questions, ${EXAMEN.duree / 60} min, corrigé à la fin`,
       meilleure !== undefined ? ` · meilleure note ${String(meilleure).replace('.', ',')}/20` : '',
     ),
+  );
+}
+
+/** Atelier C : écrire, compiler et exécuter du C dans le navigateur. */
+function lienAtelier(): HTMLElement {
+  return h(
+    'a',
+    { class: 'carte-action atelier', href: '#/atelier' },
+    h('span', { class: 'carte-icone' }, '🧪'),
+    h('strong', null, 'Atelier C'),
+    h('span', null, 'Écris et exécute ton propre code C, sans rien installer'),
   );
 }
 

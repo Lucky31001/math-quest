@@ -60,7 +60,7 @@ void statutStockage().then((statut) => {
   const aujourdhui = etat.aujourdhui();
   if (avertissement || !rappelExportNecessaire({ statut, xp: etat.p.xp, aujourdhui, dernierExport: dernierExport(), dernierRappel: dernierRappel() })) return;
   noterRappel(aujourdhui);
-  toast('💾 Ton navigateur peut effacer ta progression. Exporte-la dans ⚙️ Réglages.', 'info', 9000);
+  toast('💾 Ton navigateur peut effacer ta progression. Télécharge-en une copie dans ⚙️ Réglages.', 'info', 9000);
 });
 
 // Mode hors ligne : uniquement dans la version publiée (pas en dev ni dans les tests).

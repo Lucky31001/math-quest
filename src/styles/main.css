@@ -178,6 +178,15 @@ pre.code code {
   overflow: auto;
 }
 
+/* Téléphone : les lignes longues reviennent à la ligne (pas de défilement horizontal caché). */
+@media (max-width: 640px) {
+  .editeur-c {
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
 .entree-c {
   margin-top: 6px;
   padding: 8px 10px;
@@ -716,6 +725,57 @@ body[data-ecran='jouer'] .hud {
   background: #3d2c12;
 }
 
+/* Nombre d'éléments à revoir, en pastille sur l'icône de la révision */
+.carte-icone {
+  position: relative;
+}
+
+.carte-icone .compte {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 22px;
+  text-align: center;
+}
+
+/* Téléphone : les trois modes sur une seule rangée compacte, pour que la carte des chapitres arrive vite. */
+@media (max-width: 640px) {
+  .tableau-accueil {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 4px 0 20px;
+  }
+  .tableau-accueil .carte-action {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 6px;
+    padding: 10px 6px;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .tableau-accueil .carte-action .carte-icone {
+    grid-row: auto;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+  .tableau-accueil .carte-action strong {
+    font-size: 0.8rem;
+    line-height: 1.15;
+  }
+  .tableau-accueil .carte-action > span:last-child {
+    display: none;
+  }
+}
+
 .carte-action.survie .carte-icone {
   background: var(--vert-clair);
 }
@@ -730,6 +790,15 @@ body[data-ecran='jouer'] .hud {
   margin: 24px auto 0;
   border-color: var(--couleur);
   box-shadow: 0 4px 0 var(--couleur-fonce);
+}
+
+.carte-action.atelier {
+  max-width: 420px;
+  margin: 14px auto 0;
+}
+
+.carte-action.atelier .carte-icone {
+  background: color-mix(in srgb, var(--couleur) 25%, transparent);
 }
 
 .carte-action.examen .carte-icone {
@@ -1569,6 +1638,17 @@ body[data-ecran='jouer'] .hud {
   margin-top: 20px;
 }
 
+/* Après une réponse, on fait défiler jusqu'à la correction en gardant la réponse donnée en vue. */
+.retour {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 640px) {
+  .question {
+    padding-bottom: 200px; /* barre du bas plus haute sur téléphone (verdict sur deux lignes) */
+  }
+}
+
 .attendu {
   overflow-x: auto;
   font-weight: 800;
@@ -1761,12 +1841,13 @@ body[data-ecran='jouer'] .hud {
   height: 16px;
 }
 
+/* Numéro de la question, à droite de la barre de progression */
 .compteur {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
+  flex: none;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .vies {
@@ -1929,6 +2010,36 @@ body[data-ecran='jouer'] .hud {
   font-size: 0.9rem;
 }
 
+/* État vide (pas encore de données) : message centré + bouton pour démarrer */
+.etat-vide {
+  max-width: 460px;
+  margin: 24px auto;
+  padding: 28px 22px;
+  border: 2px dashed var(--bord);
+  border-radius: 24px;
+  text-align: center;
+}
+
+.etat-vide-icone {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.etat-vide h2 {
+  margin: 0.5em 0 0.4em;
+}
+
+.etat-vide p {
+  margin: 0 0 18px;
+  color: var(--texte-doux);
+  line-height: 1.5;
+}
+
+.etat-vide .actions {
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .carte-vide {
   padding: 30px;
   text-align: center;
@@ -1943,11 +2054,7 @@ body[data-ecran='jouer'] .hud {
 }
 
 .paquet .compteur {
-  position: static;
-  width: auto;
-  height: auto;
-  clip: auto;
-  color: var(--texte-doux);
+  font-size: 1rem;
 }
 
 .flashcard {
@@ -2016,6 +2123,31 @@ body[data-ecran='jouer'] .hud {
 
 .eval {
   justify-content: center;
+  margin-top: 18px;
+}
+
+/* Avant de retourner la carte : boutons invisibles, mais leur place est gardée (pas de saut). */
+.eval[hidden] {
+  display: flex;
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .eval {
+    scroll-margin-bottom: calc(90px + env(safe-area-inset-bottom));
+  }
+  .flashcard {
+    min-height: 220px;
+  }
+  .face {
+    padding: 18px;
+  }
+  .face-texte {
+    font-size: 1.1rem;
+  }
+  .paquet .compteur {
+    margin: 0 0 8px;
+  }
 }
 
 .btn-rate {
@@ -2210,6 +2342,21 @@ a.stat-ligne:hover {
   gap: 12px;
 }
 
+@media (max-width: 640px) {
+  .grille-badges {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .badge {
+    padding: 12px 8px;
+  }
+  .badge-icone {
+    width: 52px;
+    height: 52px;
+    font-size: 1.7rem;
+  }
+}
+
 .badge {
   display: flex;
   flex-direction: column;
@@ -2237,8 +2384,49 @@ a.stat-ligne:hover {
   font-size: 0.75rem;
 }
 
+/* Pas encore obtenu : icône en gris, texte atténué, mais l'avancement reste lisible. */
 .badge.verrouille {
-  opacity: 0.5;
+  color: var(--texte-doux);
+}
+
+.badge.verrouille .badge-icone {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.badge-progres {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.badge-jauge {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.badge-jauge span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--jaune);
+}
+
+.badge-compte {
+  color: var(--texte-doux);
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.famille-badges h2 small {
+  color: var(--texte-pale);
+  font-size: 0.8em;
 }
 
 .badge.obtenu {
@@ -2849,6 +3037,43 @@ body:has(.pied) .haut-de-page {
   color: var(--fond);
 }
 
+/* Accueil sur grand écran : deux colonnes (modes + matière à gauche, chemin à droite),
+   au lieu d'une colonne étroite au milieu de grandes marges vides. */
+@media (min-width: 1000px) {
+  .accueil {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    /* Le chemin (à droite) est bien plus haut : la dernière rangée absorbe l'écart. */
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 40px;
+    align-items: start;
+  }
+  .accueil .parcours {
+    display: contents;
+  }
+  /* À gauche : la matière (elle pilote le chemin de droite), puis les modes. */
+  .accueil .niveaux {
+    grid-area: 1 / 1;
+  }
+  .accueil .matieres,
+  .accueil .carrousel {
+    grid-area: 2 / 1;
+    margin-top: 8px;
+  }
+  .accueil > .tableau-accueil {
+    grid-area: 3 / 1;
+    grid-template-columns: 1fr;
+    margin: 24px 0;
+  }
+  .accueil .points {
+    flex-wrap: wrap;
+  }
+  .accueil .zone-chemin {
+    grid-column: 2;
+    grid-row: 1 / -1;
+  }
+}
+
 /* ---------------- Carrousel à points des matières ---------------- */
 
 .carrousel {
@@ -2953,31 +3178,48 @@ body:has(.pied) .haut-de-page {
   background: #fff;
 }
 
-/* Points : le point actif s'allonge et prend la couleur de la matière */
+/* Onglets des matières (au-dessus des diapos) : emblème + nom, à la couleur de la matière quand actif */
 .points {
   display: flex;
-  justify-content: center;
   gap: 8px;
-  margin: 6px 0 4px;
+  margin: 0 0 12px;
+  padding: 2px 2px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.points::-webkit-scrollbar {
+  display: none;
 }
 
 .point {
   --couleur: var(--texte-pale);
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
+  --couleur-fonce: var(--bord);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 2px solid var(--bord);
   border-radius: 999px;
-  background: var(--bord);
+  background: var(--surface);
+  box-shadow: 0 3px 0 var(--bord);
+  color: var(--texte-doux);
+  font: 800 0.9rem var(--police);
+  white-space: nowrap;
   cursor: pointer;
   transition:
-    width 0.25s,
-    background 0.25s;
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .point.actif {
-  width: 28px;
+  border-color: var(--couleur);
   background: var(--couleur);
+  box-shadow: 0 3px 0 var(--couleur-fonce);
+  color: #fff;
 }
 
 /* Flèches (souris) : posées sur les bords de la diapo, cachées sur écran tactile */
@@ -3026,7 +3268,8 @@ body:has(.pied) .haut-de-page {
     transform: scale(1.08);
   }
   .point:not(.actif):hover {
-    background: var(--texte-pale);
+    border-color: var(--couleur);
+    color: var(--texte);
   }
 }
 
@@ -3335,6 +3578,33 @@ main {
 
 .onglets::-webkit-scrollbar {
   display: none;
+}
+
+/* Onglets collés sous l'en-tête quand on fait défiler un long cours. */
+.onglets {
+  position: sticky;
+  top: var(--hauteur-hud, 0px);
+  z-index: 15;
+  margin: 12px -16px 10px;
+  padding: 10px 16px 8px;
+  background: var(--fond);
+}
+
+/* Page d'un chapitre sur téléphone : en-tête compact pour que le contenu arrive vite. */
+@media (max-width: 640px) {
+  .chapitre-entete {
+    padding: 12px 14px;
+  }
+  .chapitre-entete h1 {
+    font-size: 1.35rem;
+  }
+  .chapitre-entete .resume {
+    display: none;
+  }
+  .chapitre-stats {
+    gap: 6px;
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 640px) {

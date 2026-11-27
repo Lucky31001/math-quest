@@ -71,6 +71,8 @@ export function creerHud(): HTMLElement {
   };
   rendre();
   etat.surChangement(rendre);
+  // Hauteur de l'en-tête (collant) : les éléments collés juste dessous s'en servent (--hauteur-hud).
+  new ResizeObserver(() => document.documentElement.style.setProperty('--hauteur-hud', `${el.offsetHeight}px`)).observe(el);
   addEventListener('hashchange', majNav);
   return el;
 }
