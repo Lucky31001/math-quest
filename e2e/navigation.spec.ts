@@ -86,3 +86,17 @@ test('un même piège deux fois : il apparaît dans les statistiques avec son ex
   await expect(piege).toContainText('×2');
   await expect(piege.locator('.piege-explication')).not.toBeEmpty();
 });
+
+test('page longue : le bouton ↑ apparaît après défilement et ramène en haut', async ({ page }) => {
+  await page.goto('./#/chapitre/limites-continuite/cours');
+  await expect(page.locator('.katex').first()).toBeVisible();
+  const bouton = page.getByRole('button', { name: 'Revenir en haut de la page' });
+  await expect(bouton).toBeHidden();
+
+  await page.mouse.wheel(0, 4000);
+  await expect(bouton).toBeVisible();
+  // Vrai clic : échoue si le bouton est caché (ex. sous la barre d'onglets mobile).
+  await bouton.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(bouton).toBeHidden();
+});
