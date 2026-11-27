@@ -7,7 +7,7 @@ import { majStreak, streakActuel, enregistrerReponse, payerIndice, enregistrerFl
 import { piegesDe } from '../src/game/pieges';
 import { corriger } from '../src/core/grading';
 import { progressionVide, importer, exporter, charger } from '../src/storage/progression';
-import { listeBadges, nouveauxBadges } from '../src/game/badges';
+import { listeBadges, nouveauxBadges, CATEGORIES_BADGES } from '../src/game/badges';
 import { toutesLesMatieres } from '../src/core/loader';
 import { CONTENU } from './outils/contenu';
 import { questionsDues, noteSur20, EXAMEN } from '../src/game/modes';
@@ -175,6 +175,24 @@ describe('badges', () => {
   const badges = listeBadges(CONTENU.chapitres, toutesLesMatieres());
   it('ont des identifiants uniques', () => {
     expect(new Set(badges.map((b) => b.id)).size).toBe(badges.length);
+  });
+
+  it('ont une famille connue, et leur jauge concorde avec leur condition', () => {
+    const p = progressionVide();
+    p.compteurs.bonnes = 120;
+    p.streak.record = 5;
+    p.records.survie = 10;
+    const c = CONTENU.chapitres[0];
+    for (const q of c.exercices) p.questions[`${c.id}/${q.id}`] = { boite: 2, prochaine: '2026-01-01', vues: 1, reussites: 1, derniere: '2025-12-31' };
+    for (const prog of [progressionVide(), p]) {
+      const fautifs = badges.filter((b) => {
+        if (!CATEGORIES_BADGES.includes(b.categorie)) return true;
+        if (!b.progres) return false;
+        const [actuel, cible] = b.progres(prog);
+        return actuel > cible || (actuel >= cible) !== b.test(prog);
+      });
+      expect(fautifs.map((b) => b.id)).toEqual([]);
+    }
   });
   it('se débloquent une seule fois', () => {
     const p = progressionVide();

@@ -2324,6 +2324,21 @@ a.stat-ligne:hover {
   gap: 12px;
 }
 
+@media (max-width: 640px) {
+  .grille-badges {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .badge {
+    padding: 12px 8px;
+  }
+  .badge-icone {
+    width: 52px;
+    height: 52px;
+    font-size: 1.7rem;
+  }
+}
+
 .badge {
   display: flex;
   flex-direction: column;
@@ -2351,8 +2366,49 @@ a.stat-ligne:hover {
   font-size: 0.75rem;
 }
 
+/* Pas encore obtenu : icône en gris, texte atténué, mais l'avancement reste lisible. */
 .badge.verrouille {
-  opacity: 0.5;
+  color: var(--texte-doux);
+}
+
+.badge.verrouille .badge-icone {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.badge-progres {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.badge-jauge {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.badge-jauge span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--jaune);
+}
+
+.badge-compte {
+  color: var(--texte-doux);
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.famille-badges h2 small {
+  color: var(--texte-pale);
+  font-size: 0.8em;
 }
 
 .badge.obtenu {
