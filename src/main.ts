@@ -14,6 +14,7 @@ import { ecranTransfert } from './ui/screens/transfert';
 import { ecranDefi } from './ui/screens/defi';
 import { brancherReglages, toast } from './ui/effets';
 import { ecranApresChargement } from './ui/chargement';
+import { afficherAvertissementEvolution } from './ui/avertissement-evolution';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 import { demanderProtection, statutStockage, rappelExportNecessaire, dernierExport, dernierRappel, noterRappel } from './storage/persistance';
 
@@ -37,6 +38,7 @@ const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });
 app.append(creerHud(), main);
 demarrer(main);
+afficherAvertissementEvolution();
 
 const avertissement = avertissementChargement();
 if (avertissement) toast(`${avertissement}${rapportChargement.copie ? ' Une copie de sécurité est disponible dans les Réglages.' : ''}`, 'erreur', 9000);

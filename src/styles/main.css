@@ -2636,6 +2636,47 @@ a.stat-ligne:hover {
   }
 }
 
+/* Fenêtre modale (<dialog> ouvert par showModal : couche supérieure, fond inerte). */
+.modale {
+  width: min(92vw, 420px);
+  padding: 24px 20px 20px;
+  border: 2px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--bord);
+  color: var(--texte);
+  text-align: center;
+  animation: entree 0.3s ease-out;
+}
+
+.modale::backdrop {
+  background: rgb(0 0 0 / 0.6);
+}
+
+.modale-icone {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.modale h2 {
+  margin: 0.4em 0 0.6em;
+}
+
+.modale p {
+  margin: 0 0 0.8em;
+  line-height: 1.5;
+}
+
+.modale-note {
+  color: var(--texte-doux);
+  font-size: 0.9rem;
+}
+
+.modale .actions {
+  justify-content: center;
+  margin-top: 16px;
+}
+
 .toasts {
   position: fixed;
   left: 50%;

@@ -7,6 +7,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 4180;
+const ORIGINE = `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: 'e2e',
@@ -15,8 +16,11 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['github'], ['list']] : 'list',
   use: {
-    baseURL: `http://localhost:${PORT}/math-quest/`,
+    baseURL: `${ORIGINE}/math-quest/`,
     trace: 'retain-on-failure',
+    // Avertissement de première visite déjà vu (sa fenêtre modale bloquerait les clics) ;
+    // e2e/avertissement.spec.ts repart d'un stockage vide pour le tester.
+    storageState: { cookies: [], origins: [{ origin: ORIGINE, localStorage: [{ name: 'math-quest:avertissement-evolution:1', value: 'vu' }] }] },
   },
   projects: [
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
@@ -24,7 +28,7 @@ export default defineConfig({
   ],
   webServer: {
     command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
-    url: `http://localhost:${PORT}/math-quest/`,
+    url: `${ORIGINE}/math-quest/`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

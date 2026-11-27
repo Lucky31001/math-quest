@@ -85,7 +85,7 @@ tests/           Vitest ; tests/tex.ts convertit LaTeX → math.js pour vérifie
 - **Exercices `programme`** (C) : `code` (départ) + `harnais` (main caché) + `solution` + `tests` (entrée → sortie). Hors Boss et Survie.
 - **Libc de xcc** : `scanf` est remplacé (`src/c/scanf.ts`, testé contre la glibc dans `tests/atelier-c.test.ts`). Reste non géré : `printf("%hd")` (afficher avec `%d`).
 - **Physique** : réponses numériques avec `tolerance: 0.01` (arrondis de $g$…) et en unités où la valeur est ≥ 1 (la tolérance devient absolue sous 1).
-- **Tests de bout en bout** (`e2e/`, Playwright) : parcours réels avec de vrais clics (un bouton caché sous un autre fait échouer le test). Lancés dans la CI à chaque PR. À compléter pour toute fonctionnalité visible (nouveau mode, nouvel écran).
+- **Tests de bout en bout** (`e2e/`, Playwright) : parcours réels avec de vrais clics (un bouton caché sous un autre fait échouer le test). Lancés dans la CI à chaque PR. À compléter pour toute fonctionnalité visible (nouveau mode, nouvel écran). La config marque l'**avertissement de première visite** (`ui/avertissement-evolution.ts`, `<dialog>` modal) comme déjà vu (`storageState`) : sinon il bloquerait tous les clics.
 - **Tests : pas de test généré par élément** (un `it` par chapitre, question ou générateur). Utiliser `toutVerifier` : un seul test, qui liste les éléments fautifs.
 - CSS : un seul fichier `src/styles/main.css`, jetons de couleur sur `:root` (thème sombre unique). Mobile d'abord (360 px).
 
