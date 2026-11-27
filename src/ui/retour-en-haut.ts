@@ -4,6 +4,7 @@
  * barre du bas (.pied, Vérifier / Continuer) est affichée.
  */
 import { h } from './dom';
+import { icone } from './icones';
 
 export function creerRetourEnHaut(): HTMLButtonElement {
   const bouton = h(
@@ -20,7 +21,7 @@ export function creerRetourEnHaut(): HTMLButtonElement {
         document.getElementById('contenu')?.focus({ preventScroll: true });
       },
     },
-    h('span', { 'aria-hidden': 'true' }, '↑'),
+    icone('haut', 'haut-de-page-icone'),
   );
 
   let prevu = false;
