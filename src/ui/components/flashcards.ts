@@ -12,6 +12,10 @@ import { enregistrerFlashcard } from '../../game/progres';
 import { jouerSon, xpFlottant } from '../effets';
 import { icone } from '../icones';
 
+/** Consigne adaptée à l'appareil : pas de touche Espace sur un téléphone. */
+const AIDE = () =>
+  matchMedia('(pointer: coarse)').matches ? 'Touche la carte pour la retourner.' : 'Clique sur la carte ou appuie sur Espace pour la retourner.';
+
 export interface CarteChapitre {
   chapitre: Chapitre;
   flashcard: Flashcard;
@@ -57,9 +61,12 @@ export function paquetFlashcards(cartes: CarteChapitre[], surFin?: (connues: num
       retournee = !retournee;
       carte.classList.toggle('retournee', retournee);
       boutons.hidden = false;
+      // Petit écran : amener les boutons d'évaluation dans la vue (au-dessus de la barre d'onglets).
+      boutons.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     };
     carte.onclick = retourner;
-    el.replaceChildren(h('p', { class: 'compteur' }, `Carte ${i + 1}/${paquet.length}`), carte, h('p', { class: 'aide' }, 'Clique ou appuie sur Espace pour retourner.'), boutons);
+    // Boutons juste sous la carte (visibles sans défiler), aide en dessous.
+    el.replaceChildren(h('p', { class: 'compteur' }, `Carte ${i + 1}/${paquet.length}`), carte, boutons, h('p', { class: 'aide' }, AIDE()));
     (el as unknown as { retourner: () => void }).retourner = retourner;
     function noter(connue: boolean) {
       const gain = etat.modifier((p) => enregistrerFlashcard(p, cle(chapitre.id, flashcard.id), connue, etat.aujourdhui()));

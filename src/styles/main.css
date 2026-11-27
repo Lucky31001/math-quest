@@ -2016,6 +2016,31 @@ body[data-ecran='jouer'] .hud {
 
 .eval {
   justify-content: center;
+  margin-top: 18px;
+}
+
+/* Avant de retourner la carte : boutons invisibles, mais leur place est gardée (pas de saut). */
+.eval[hidden] {
+  display: flex;
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .eval {
+    scroll-margin-bottom: calc(90px + env(safe-area-inset-bottom));
+  }
+  .flashcard {
+    min-height: 220px;
+  }
+  .face {
+    padding: 18px;
+  }
+  .face-texte {
+    font-size: 1.1rem;
+  }
+  .paquet .compteur {
+    margin: 0 0 8px;
+  }
 }
 
 .btn-rate {
