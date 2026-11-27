@@ -2663,6 +2663,20 @@ a.stat-ligne:hover {
   -webkit-tap-highlight-color: transparent;
 }
 
+.icone.haut-de-page-icone {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+/* Trait plus épais que les autres icônes (2,6) : la flèche doit se voir de loin. */
+.icone.haut-de-page-icone svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke-width: 3.6;
+}
+
 .haut-de-page.visible {
   opacity: 1;
   visibility: visible;

@@ -6,6 +6,7 @@ import { h } from './dom';
 
 const TRACES = {
   retour: '<path d="M15 5 8 12l7 7"/>',
+  haut: '<path d="M12 19.5V5M5.5 11.5 12 5l6.5 6.5"/>',
   croix: '<path d="M6 6l12 12M18 6 6 18"/>',
   coche: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
   horloge: '<circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.5 2M9.5 3h5"/>',
