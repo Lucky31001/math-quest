@@ -122,7 +122,7 @@ describe('écrans', () => {
     await attendre();
     const bloc = document.querySelector('#contenu .protection')!;
     expect(bloc).toBeTruthy();
-    expect(bloc.textContent).toContain('Dernier export');
+    expect(bloc.textContent).toContain('Dernière copie téléchargée');
   });
 
   it('transfert : lien + QR dans les réglages, puis réception et import sur « l’autre appareil »', async () => {
