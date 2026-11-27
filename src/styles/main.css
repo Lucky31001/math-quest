@@ -178,6 +178,15 @@ pre.code code {
   overflow: auto;
 }
 
+/* Téléphone : les lignes longues reviennent à la ligne (pas de défilement horizontal caché). */
+@media (max-width: 640px) {
+  .editeur-c {
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
 .entree-c {
   margin-top: 6px;
   padding: 8px 10px;
@@ -781,6 +790,15 @@ body[data-ecran='jouer'] .hud {
   margin: 24px auto 0;
   border-color: var(--couleur);
   box-shadow: 0 4px 0 var(--couleur-fonce);
+}
+
+.carte-action.atelier {
+  max-width: 420px;
+  margin: 14px auto 0;
+}
+
+.carte-action.atelier .carte-icone {
+  background: color-mix(in srgb, var(--couleur) 25%, transparent);
 }
 
 .carte-action.examen .carte-icone {

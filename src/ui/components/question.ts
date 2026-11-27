@@ -380,7 +380,7 @@ export function afficherQuestion(opts: OptionsQuestion): ControleurQuestion {
     const executeur = opts.executeur ?? executerTests;
     const source = () => `${editeur.value}\n\n${qq.harnais}`;
     const ETAPES = { chargement: '⏳ Chargement du compilateur…', compilation: '⚙️ Compilation…', execution: '▶️ Exécution des tests…' } as const;
-    const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, 'Ctrl + Entrée pour essayer sur l’exemple.');
+    const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, matchMedia('(pointer: coarse)').matches ? '' : 'Ctrl + Entrée pour essayer sur l’exemple.');
     const consoleC = h('pre', { class: 'console-c', 'aria-label': 'Sortie du programme', tabindex: '0', hidden: true });
     const ecrire = (texte: string, classe?: string) => {
       consoleC.hidden = false;

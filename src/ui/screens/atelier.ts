@@ -172,7 +172,7 @@ export function ecranAtelier(main: HTMLElement): () => void {
   const details = h('details', { class: 'details-entree' }, h('summary', null, 'Entrée standard (pour scanf)'), entree);
   if (entree.value) details.open = true;
 
-  const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, 'Prêt. Ctrl + Entrée pour exécuter.');
+  const statut = h('p', { class: 'statut-c', role: 'status', 'aria-live': 'polite' }, matchMedia('(pointer: coarse)').matches ? 'Prêt.' : 'Prêt. Ctrl + Entrée pour exécuter.');
   const consoleC = h('pre', { class: 'console-c', 'aria-label': 'Sortie du programme', tabindex: '0' });
   const boutonExecuter = h('button', { class: 'btn btn-primaire', type: 'button' }, '▶ Exécuter');
   const boutonArreter = h('button', { class: 'btn', type: 'button', disabled: true }, '■ Arrêter');
