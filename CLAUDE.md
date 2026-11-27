@@ -15,6 +15,11 @@ npm run e2e         # Playwright : le vrai build (service worker, worker C) dans
 
 Node 24 (fichier `.nvmrc`, partagé avec la CI) : `nvm use` avant toute commande npm, le Node du système (18) est trop vieux. Zod 4 : `z.record(clé, valeur)` à deux arguments, et `.prefault({})` (pas `.default({})`) pour un objet dont les champs ont leurs propres valeurs par défaut.
 
+## Façon de travailler : une PR par modification
+
+**Toute modification, même petite, passe par une pull request** : branche depuis `main` (`contenu/…`, `ui/…`, `fix/…`), commit, push, `gh pr create`. Ne jamais pousser directement sur `main`.
+Une fois **validée** (CI verte : `tests` et `e2e`), la PR est fusionnée sans attendre de nouvelle confirmation : `gh pr merge <n> --squash --delete-branch` (un commit par modification dans l'historique de `main`), puis `git checkout main && git pull`. CI rouge : corriger sur la même branche, jamais fusionner.
+
 ## Architecture
 
 ```
