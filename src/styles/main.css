@@ -2636,6 +2636,65 @@ a.stat-ligne:hover {
   }
 }
 
+/* Bouton « retour en haut » (pages longues), au-dessus de la barre d'onglets mobile. */
+.haut-de-page {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid var(--bord);
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: 0 4px 0 var(--bord);
+  color: var(--bleu);
+  font: 900 1.5rem/1 var(--police);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.haut-de-page.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.haut-de-page:active {
+  translate: 0 4px;
+  box-shadow: 0 0 0 var(--bord);
+}
+
+.haut-de-page:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .haut-de-page:hover:not(:active) {
+    border-color: var(--bleu-bord);
+    background: var(--bleu-clair);
+  }
+}
+
+/* Ne pas couvrir la barre Vérifier / Continuer. */
+body:has(.pied) .haut-de-page {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .haut-de-page {
+    bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
 /* Fenêtre modale (<dialog> ouvert par showModal : couche supérieure, fond inerte). */
 .modale {
   width: min(92vw, 420px);

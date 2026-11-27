@@ -15,6 +15,7 @@ import { ecranDefi } from './ui/screens/defi';
 import { brancherReglages, toast } from './ui/effets';
 import { ecranApresChargement } from './ui/chargement';
 import { afficherAvertissementEvolution } from './ui/avertissement-evolution';
+import { creerRetourEnHaut } from './ui/retour-en-haut';
 import { etat, avertissementChargement, rapportChargement } from './ui/etat';
 import { demanderProtection, statutStockage, rappelExportNecessaire, dernierExport, dernierRappel, noterRappel } from './storage/persistance';
 
@@ -36,7 +37,7 @@ route('defi', ecranDefi);
 
 const app = document.getElementById('app')!;
 const main = h('main', { id: 'contenu', tabindex: '-1' });
-app.append(creerHud(), main);
+app.append(creerHud(), main, creerRetourEnHaut());
 demarrer(main);
 afficherAvertissementEvolution();
 
