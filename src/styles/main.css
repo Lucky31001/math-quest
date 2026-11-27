@@ -3065,8 +3065,14 @@ body:has(.pied) .haut-de-page {
     grid-template-columns: 1fr;
     margin: 24px 0;
   }
+  /* Quatre onglets de matières en grille 2 × 2 (sur une ligne, ils ne tiennent pas). */
   .accueil .points {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: visible;
+  }
+  .accueil .point {
+    justify-content: center;
   }
   .accueil .zone-chemin {
     grid-column: 2;
