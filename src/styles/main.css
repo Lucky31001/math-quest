@@ -1569,6 +1569,17 @@ body[data-ecran='jouer'] .hud {
   margin-top: 20px;
 }
 
+/* Après une réponse, on fait défiler jusqu'à la correction en gardant la réponse donnée en vue. */
+.retour {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 640px) {
+  .question {
+    padding-bottom: 200px; /* barre du bas plus haute sur téléphone (verdict sur deux lignes) */
+  }
+}
+
 .attendu {
   overflow-x: auto;
   font-weight: 800;
