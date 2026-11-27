@@ -2849,6 +2849,43 @@ body:has(.pied) .haut-de-page {
   color: var(--fond);
 }
 
+/* Accueil sur grand écran : deux colonnes (modes + matière à gauche, chemin à droite),
+   au lieu d'une colonne étroite au milieu de grandes marges vides. */
+@media (min-width: 1000px) {
+  .accueil {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    /* Le chemin (à droite) est bien plus haut : la dernière rangée absorbe l'écart. */
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 40px;
+    align-items: start;
+  }
+  .accueil .parcours {
+    display: contents;
+  }
+  /* À gauche : la matière (elle pilote le chemin de droite), puis les modes. */
+  .accueil .niveaux {
+    grid-area: 1 / 1;
+  }
+  .accueil .matieres,
+  .accueil .carrousel {
+    grid-area: 2 / 1;
+    margin-top: 8px;
+  }
+  .accueil > .tableau-accueil {
+    grid-area: 3 / 1;
+    grid-template-columns: 1fr;
+    margin: 24px 0;
+  }
+  .accueil .points {
+    flex-wrap: wrap;
+  }
+  .accueil .zone-chemin {
+    grid-column: 2;
+    grid-row: 1 / -1;
+  }
+}
+
 /* ---------------- Carrousel à points des matières ---------------- */
 
 .carrousel {

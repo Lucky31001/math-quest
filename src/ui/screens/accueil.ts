@@ -20,7 +20,10 @@ export function ecranAccueil(main: HTMLElement): void {
   const nbQ = questionsDues(INDEX.chapitres, p, auj, 999).length;
   const nbF = flashcardsDues(INDEX.chapitres, p, auj).length;
 
-  main.append(
+  // .accueil : sur grand écran, modes et matières à gauche, chemin des chapitres à droite.
+  const accueil = h('div', { class: 'accueil' });
+  main.append(accueil);
+  accueil.append(
     h(
       'section',
       { class: 'tableau-accueil' },
@@ -49,7 +52,7 @@ export function ecranAccueil(main: HTMLElement): void {
   );
 
   const parcours = h('section', { class: 'parcours', 'aria-label': 'Parcours' });
-  main.append(parcours);
+  accueil.append(parcours);
   rendreParcours(parcours);
 }
 
