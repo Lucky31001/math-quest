@@ -49,7 +49,7 @@ export function ecranTransfert(main: HTMLElement, params: string[]): () => void 
           recue.map(([libelle, valeur], i) => h('tr', null, h('th', null, libelle), h('td', null, valeur), h('td', null, actuelle[i][1]))),
         ),
       ),
-      h('p', { class: 'note' }, '⚠️ Importer remplace la progression de cet appareil (pense à l’exporter avant si tu veux la garder).'),
+      h('p', { class: 'note' }, '⚠️ Importer remplace la progression de cet appareil (télécharge d’abord une copie dans ⚙️ Réglages si tu veux la garder).'),
       h(
         'div',
         { class: 'actions' },

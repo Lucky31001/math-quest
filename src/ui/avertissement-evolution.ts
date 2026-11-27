@@ -32,7 +32,7 @@ export function afficherAvertissementEvolution(): void {
     h('h2', { id: 'avertissement-titre' }, 'Math Quest évolue vite'),
     h('p', null, 'Le site est en plein développement : contenu, écrans et modes de jeu changent souvent, parfois d’un jour à l’autre.'),
     h('p', null, 'Ne sois pas surpris si quelque chose bouge ou disparaît entre deux visites. C’est normal !'),
-    h('p', { class: 'modale-note' }, 'Ta progression est conservée d’une version à l’autre. Pour plus de sûreté, exporte-la de temps en temps dans ⚙️ Réglages.'),
+    h('p', { class: 'modale-note' }, 'Ta progression est conservée d’une version à l’autre. Pour plus de sûreté, télécharges-en une copie de temps en temps dans ⚙️ Réglages.'),
     h('form', { method: 'dialog', class: 'actions' }, h('button', { class: 'btn btn-primaire', type: 'submit', autofocus: true }, 'Compris !')),
   );
   // « close » couvre le bouton comme la touche Échap.

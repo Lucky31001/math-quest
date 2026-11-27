@@ -76,18 +76,18 @@ function libelleExport(): string {
 
 /** La sauvegarde est-elle à l'abri d'un effacement automatique du navigateur ? */
 function etatProtection(): HTMLElement {
-  const bloc = h('div', { class: 'protection', role: 'status' }, h('p', null, 'Vérification de la protection…'));
+  const bloc = h('div', { class: 'protection', role: 'status' }, h('p', null, 'Vérification…'));
   const rendre = (statut: StatutStockage): void => {
     const conseilIos = estIosNavigateur()
       ? h(
           'p',
           null,
-          'Sur iPhone / iPad, Safari efface les données d’un site après 7 jours sans visite. Ajoute Math Quest à l’écran d’accueil (Partager → « Sur l’écran d’accueil ») : l’app installée a son propre stockage, qui n’est pas effacé. Exporte ici puis importe dans l’app installée.',
+          'Sur iPhone / iPad, Safari efface les données d’un site après 7 jours sans visite. Ajoute Math Quest à l’écran d’accueil (Partager → « Sur l’écran d’accueil ») : l’app installée a son propre stockage, qui n’est pas effacé. Télécharge une copie ici, puis restaure-la dans l’app installée (ou utilise « Changer d’appareil » plus bas).',
         )
       : null;
-    const pied = h('p', { class: 'discret' }, `Dernier export : ${libelleExport()}.`);
+    const pied = h('p', { class: 'discret' }, `Dernière copie téléchargée : ${libelleExport()}.`);
     if (statut === 'protege') {
-      bloc.replaceChildren(h('p', null, '🔒 Sauvegarde protégée : le navigateur ne l’effacera pas pour faire de la place.'), pied);
+      bloc.replaceChildren(h('p', null, '🔒 Ton navigateur garde ta progression : il ne l’effacera pas pour faire de la place.'), pied);
       return;
     }
     const demander =
@@ -100,15 +100,15 @@ function etatProtection(): HTMLElement {
               onclick: async () => {
                 const s = await demanderProtection();
                 rendre(s);
-                if (s !== 'protege') toast('Le navigateur a refusé : pense à exporter régulièrement.', 'info');
+                if (s !== 'protege') toast('Le navigateur a refusé : télécharge une copie de temps en temps.', 'info');
               },
             },
-            '🔒 Protéger la sauvegarde',
+            '🔒 Protéger ma progression',
           )
         : null;
     bloc.replaceChildren();
     ajouter(bloc, [
-      h('p', null, '⚠️ Sauvegarde non protégée : le navigateur peut l’effacer (manque de place, longue absence). Exporte-la régulièrement.'),
+      h('p', null, '⚠️ Ton navigateur peut effacer ta progression s’il manque de place ou si tu ne reviens pas pendant longtemps. Protège-la, et télécharge une copie de temps en temps.'),
       conseilIos,
       demander ? h('div', { class: 'actions' }, demander) : null,
       pied,
@@ -192,9 +192,9 @@ export function ecranReglages(main: HTMLElement): void {
     if (!f) return;
     const res = importer(await f.text());
     if (!res.ok) return toast(`❌ ${res.message}`, 'erreur');
-    if (!confirm('Remplacer ta progression actuelle par celle du fichier ?')) return;
+    if (!confirm('Remplacer ta progression actuelle par celle de cette copie ?')) return;
     etat.remplacer(res.progression);
-    toast('✅ Progression importée.');
+    toast('✅ Progression restaurée.');
     location.hash = '#/';
   });
 
@@ -214,8 +214,8 @@ export function ecranReglages(main: HTMLElement): void {
     h(
       'section',
       { class: 'carte-info' },
-      h('h2', null, 'Sauvegarde'),
-      h('p', null, 'Ta progression est enregistrée dans ce navigateur (localStorage). Exporte-la pour la transférer sur un autre appareil (ex. du PC au téléphone).'),
+      h('h2', null, '💾 Sauvegarde de ta progression'),
+      h('p', null, 'Ta progression est enregistrée sur cet appareil, dans ce navigateur. Télécharge-en une copie (un petit fichier) : tu pourras la restaurer si elle est effacée, ou après avoir changé de navigateur.'),
       etatProtection(),
       h(
         'div',
@@ -230,9 +230,9 @@ export function ecranReglages(main: HTMLElement): void {
               noterExport(etat.aujourdhui());
             },
           },
-          '⬇️ Exporter (JSON)',
+          '⬇️ Télécharger une copie',
         ),
-        h('button', { class: 'btn', type: 'button', onclick: () => fichier.click() }, '⬆️ Importer'),
+        h('button', { class: 'btn', type: 'button', onclick: () => fichier.click() }, '⬆️ Restaurer une copie'),
         fichier,
       ),
     ),
@@ -247,7 +247,7 @@ export function ecranReglages(main: HTMLElement): void {
           class: 'btn btn-danger',
           type: 'button',
           onclick: () => {
-            if (!confirm('Effacer TOUTE ta progression (XP, badges, statistiques) ? Pense à exporter avant.')) return;
+            if (!confirm('Effacer TOUTE ta progression (XP, badges, statistiques) ? Pense à télécharger une copie avant.')) return;
             const vide = progressionVide();
             vide.reglages = { ...etat.p.reglages };
             etat.remplacer(vide);
