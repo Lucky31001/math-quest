@@ -42,7 +42,7 @@
         {
           "type": "definition",
           "titre": "Matrices particulières",
-          "texte": "**Identité** $I_n$ : des $1$ sur la diagonale, $0$ ailleurs. **Diagonale** : $a_{ij} = 0$ si $i \\neq j$. **Triangulaire supérieure** : $a_{ij} = 0$ si $i > j$ (inférieure : si $i < j$).\n**Transposée** $A^T$ : $(A^T)_{ij} = a_{ji}$ (les lignes deviennent les colonnes). $A$ est **symétrique** si $A^T = A$, **antisymétrique** si $A^T = -A$."
+          "texte": "**Identité** $I_n$ : des $1$ sur la diagonale, $0$ ailleurs. **Diagonale** : $a_{ij} = 0$ si $i \\neq j$. **Triangulaire supérieure** : $a_{ij} = 0$ si $i > j$ (inférieure : si $i < j$).\n**Transposée** $A^T$ (ou ${}^tA$) : $(A^T)_{ij} = a_{ji}$ (les lignes deviennent les colonnes). $A$ est **symétrique** si $A^T = A$, **antisymétrique** si $A^T = -A$."
         },
         {
           "type": "definition",

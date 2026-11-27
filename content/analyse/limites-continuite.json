@@ -94,7 +94,7 @@
         {
           "type": "definition",
           "titre": "Prolongement par continuité",
-          "texte": "Si $f$ est définie sur $I \\setminus \\{a\\}$ et $\\lim_{x \\to a} f(x) = \\ell$ (finie), on la **prolonge par continuité** en $a$ en posant $f(a) = \\ell$. Ex. : $\\frac{\\sin x}{x}$ se prolonge en $0$ par $1$."
+          "texte": "Si $f$ est définie sur $I \\setminus \\{a\\}$ et $\\lim_{x \\to a} f(x) = \\ell$ (finie), le **prolongement par continuité** de $f$ en $a$ est la fonction $\\tilde{f}$ définie sur $I$ par $\\tilde{f}(x) = f(x)$ si $x \\neq a$ et $\\tilde{f}(a) = \\ell$. Elle est continue en $a$ et coïncide avec $f$ ailleurs. Ex. : $\\frac{\\sin x}{x}$ se prolonge en $0$ par $\\tilde{f}(0) = 1$."
         },
         {
           "type": "definition",
@@ -172,7 +172,7 @@
     {
       "id": "f-prolongement",
       "recto": "Quand peut-on prolonger $f$ par continuité en $a$ ?",
-      "verso": "Quand $f$ a une limite FINIE $\\ell$ en $a$ ; on pose $f(a) = \\ell$."
+      "verso": "Quand $f$ a une limite FINIE $\\ell$ en $a$ ; on pose $\\tilde{f}(a) = \\ell$ (et $\\tilde{f} = f$ ailleurs)."
     },
     {
       "id": "f-sequentielle",
@@ -324,7 +324,7 @@
       "indice": "$|\\sin| \\leq 1$.",
       "correction": [
         "$|f(x)| \\leq |x| \\to 0$ : par les gendarmes, $f(x) \\to 0$.",
-        "On prolonge par continuité en posant $f(0) = 0$."
+        "On prolonge par continuité en posant $\\tilde{f}(0) = 0$ (et $\\tilde{f}(x) = f(x)$ pour $x \\neq 0$)."
       ],
       "choix": [
         {
