@@ -11,6 +11,7 @@ import { etat } from '../etat';
 import { enregistrerFlashcard } from '../../game/progres';
 import { jouerSon, xpFlottant } from '../effets';
 import { icone } from '../icones';
+import { nombre } from '../../core/francais';
 
 /** Consigne adaptée à l'appareil : pas de touche Espace sur un téléphone. */
 const AIDE = () =>
@@ -35,7 +36,7 @@ export function paquetFlashcards(cartes: CarteChapitre[], surFin?: (connues: num
           'div',
           { class: 'bilan' },
           h('h2', null, '🎴 Paquet terminé'),
-          h('p', null, `${connues}/${paquet.length} carte(s) connue(s).`),
+          h('p', null, `${nombre(connues, 'carte connue', 'cartes connues')} sur ${paquet.length}.`),
           h('p', { class: 'note' }, 'Les cartes « à revoir » reviendront dans ta révision du jour.'),
           h('button', { class: 'btn btn-primaire', type: 'button', onclick: () => ((i = 0), (connues = 0), afficher()) }, '🔁 Recommencer'),
         ),

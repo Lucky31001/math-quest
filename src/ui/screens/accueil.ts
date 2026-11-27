@@ -13,6 +13,7 @@ import { h, ajouter } from '../dom';
 import { etat } from '../etat';
 import { maitriseChapitre, questionsDues, flashcardsDues, EXAMEN } from '../../game/modes';
 import { matiereSelectionnee, selectionnerMatiere } from '../selection';
+import { nombre } from '../../core/francais';
 
 export function ecranAccueil(main: HTMLElement): void {
   const p = etat.p;
@@ -32,7 +33,7 @@ export function ecranAccueil(main: HTMLElement): void {
         { class: `carte-action revision ${nbQ + nbF ? 'a-faire' : ''}`, href: '#/revision' },
         h('span', { class: 'carte-icone' }, '📅', nbQ + nbF ? h('span', { class: 'compte', 'aria-hidden': 'true' }, String(nbQ + nbF)) : null),
         h('strong', null, 'Révision du jour'),
-        h('span', null, nbQ + nbF ? `${nbQ} question(s) et ${nbF} flashcard(s) à revoir` : 'Tout est à jour ✨'),
+        h('span', null, nbQ + nbF ? `${[nbQ ? nombre(nbQ, 'question') : '', nbF ? nombre(nbF, 'flashcard') : ''].filter(Boolean).join(' et ')} à revoir` : 'Tout est à jour ✨'),
       ),
       h(
         'a',

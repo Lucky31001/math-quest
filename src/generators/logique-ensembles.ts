@@ -2,6 +2,7 @@
 import { randInt, pick, shuffle, type Rng } from '../core/random';
 import type { Difficulte, Question } from '../core/schema';
 import { construireQcm, cleNum, fact, binom, type Generateur, type Candidat } from './outils';
+import { nombre } from '../core/francais';
 
 /* ------------------------------------------------------------------ */
 /* Tables de vérité                                                    */
@@ -68,7 +69,7 @@ export const tableVerite: Generateur = {
       'Rappels : $A \\Rightarrow B$ est fausse seulement si $A$ est vraie et $B$ fausse ; $A \\Leftrightarrow B$ est vraie si $A$ et $B$ ont la même valeur.',
       `On évalue les ${total} lignes $(${vars.join(', ')})$.`,
       c ? `Lignes vraies : ${vraies.map(ligneTex).join(', ')}.` : 'Aucune ligne n\'est vraie : la formule est une contradiction.',
-      `Il y a donc ${c} ligne(s) vraie(s).`,
+      `Il y a donc ${nombre(c, 'ligne vraie', 'lignes vraies')}.`,
     ];
     const indice = 'Écris la table colonne par colonne : d\'abord les sous-formules entre parenthèses.';
     if (forme === 'libre') return { id: '', type: 'numerique', difficulte, enonce, indice, correction, reponse: c };

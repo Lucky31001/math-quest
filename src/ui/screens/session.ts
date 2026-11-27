@@ -18,6 +18,7 @@ import { serieEntrainement, serieBoss, serieEclair, serieRevision, itemSurvie, i
 import { decoderDefi, encoderDefi, routeDefi, type Defi } from '../../game/defi';
 import { jouerSon, xpFlottant, secouer, celebrer, toast } from '../effets';
 import { aller } from '../../router';
+import { nombre } from '../../core/francais';
 
 interface Config {
   mode: Mode;
@@ -196,7 +197,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         { class: 'compteur', 'aria-label': cfg.total ? `Question ${Math.min(s.rang + 1, cfg.total)} sur ${cfg.total}` : `Question ${s.rang + 1}` },
         cfg.total ? `${Math.min(s.rang + 1, cfg.total)}/${cfg.total}` : `n° ${s.rang + 1}`,
       ),
-      cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': `${s.vies} vie(s)` }, `❤️ ${Math.max(0, s.vies!)}`) : null,
+      cfg.vies !== null ? h('span', { class: 'vies', 'aria-label': nombre(Math.max(0, s.vies!), 'vie') }, `❤️ ${Math.max(0, s.vies!)}`) : null,
       cfg.mode === 'eclair' ? h('span', { class: 'score' }, `⚡ ${s.score}`) : null,
       s.combo >= 2 && !cfg.differe ? h('span', { class: 'combo' }, `🔥 ×${s.combo}`) : null,
     ]);
@@ -316,7 +317,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
   /** Série terminée : fait avancer le streak (une fois par jour) et le signale. */
   function serieTerminee() {
     const augmente = etat.modifier((p) => validerSerie(p, etat.aujourdhui()));
-    if (augmente) toast(`🔥 Série validée : ${etat.p.streak.courant} jour(s) d'affilée !`, 'niveau');
+    if (augmente) toast(`🔥 Série validée : ${nombre(etat.p.streak.courant, 'jour')} d'affilée !`, 'niveau');
     else if (cfg.mode === 'infini') toast(`✅ Série de ${TAILLE_SERIE_INFINIE} terminée !`);
   }
 
@@ -346,7 +347,7 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
         if (vaincu) records.push('+100 XP de victoire');
       }
       if (cfg.mode === 'survie') {
-        titre = `🛡️ ${s.bonnes} bonne(s) réponse(s) d'affilée`;
+        titre = `🛡️ ${nombre(s.bonnes, 'bonne réponse', 'bonnes réponses')} d'affilée`;
         if (s.bonnes > p.records.survie) {
           p.records.survie = s.bonnes;
           records.push('🎉 Nouveau record de survie !');
@@ -402,9 +403,9 @@ function lancerSession(main: HTMLElement, params: string[], res: Config | string
           ),
           cfg.differe ? null : h('div', { class: 'tuile tuile-combo' }, h('span', null, 'Combo max'), h('strong', null, `🔥 ${s.meilleurCombo}`)),
         ),
-        h('p', { class: 'bilan-score' }, `${s.bonnes} bonne(s) réponse(s) sur ${Math.max(total, s.rang)}`),
+        h('p', { class: 'bilan-score' }, `${nombre(s.bonnes, 'bonne réponse', 'bonnes réponses')} sur ${Math.max(total, s.rang)}`),
         records.map((r) => h('p', { class: 'record' }, r)),
-        s.ratees ? h('p', { class: 'note' }, `Les ${s.ratees} question(s) ratée(s) reviendront dans ta révision du jour.`) : null,
+        s.ratees ? h('p', { class: 'note' }, s.ratees === 1 ? 'La question ratée reviendra dans ta révision du jour.' : `Les ${s.ratees} questions ratées reviendront dans ta révision du jour.`) : null,
         cfg.defi?.note !== undefined ? comparaisonDefi(noteSur20(s.points, cfg.total ?? s.rang), cfg.defi.note) : null,
         cfg.differe && copie.length ? h('a', { class: 'btn', href: '#copie', onclick: (e: Event) => (e.preventDefault(), document.getElementById('copie')?.scrollIntoView({ behavior: 'smooth' })) }, '📄 Revoir ma copie corrigée') : null,
         cfg.sujet ? boutonDefi(params[1], cfg.sujet.map(cleItem), noteSur20(s.points, cfg.total ?? s.rang)) : null,

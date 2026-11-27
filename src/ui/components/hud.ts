@@ -3,6 +3,7 @@ import { h, vider } from '../dom';
 import { etat } from '../etat';
 import { niveauDepuisXp, titre } from '../../game/xp';
 import { streakActuel } from '../../game/progres';
+import { nombre } from '../../core/francais';
 
 const ONGLETS: [string, string, string][] = [
   ['#/', '🏠', 'Accueil'],
@@ -58,7 +59,7 @@ export function creerHud(): HTMLElement {
           'span',
           {
             class: `streak${streak ? '' : ' eteint'}${aJoueAujourdhui ? ' allume' : ''}`,
-            title: streak ? `${streak} jour(s) d'affilée${aJoueAujourdhui ? '' : " — termine une série d'exercices aujourd'hui pour la prolonger !"}` : 'Termine une série d\'exercices pour lancer ta série de jours 🔥',
+            title: streak ? `${nombre(streak, 'jour')} d'affilée${aJoueAujourdhui ? '' : " — termine une série d'exercices aujourd'hui pour la prolonger !"}` : 'Termine une série d\'exercices pour lancer ta série de jours 🔥',
           },
           h('span', { class: 'flamme' }, '🔥'),
           String(streak),

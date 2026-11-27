@@ -7,6 +7,7 @@ import { questionsDues, flashcardsDues, pointsFaibles } from '../../game/modes';
 import { paquetFlashcards } from '../components/flashcards';
 import { INTERVALLES } from '../../game/leitner';
 import { icone } from '../icones';
+import { nombre } from '../../core/francais';
 import { etatVide } from '../components/etat-vide';
 
 export function ecranRevision(main: HTMLElement, params: string[]): () => void {
@@ -55,11 +56,11 @@ export function ecranRevision(main: HTMLElement, params: string[]): () => void {
       h(
         'a',
         { class: `btn carte-mode ${qs.length ? 'btn-primaire' : ''}`, href: '#/jouer/revision' },
-        h('strong', null, `✏️ ${qs.length} question(s) à revoir`),
+        h('strong', null, qs.length ? `✏️ ${nombre(qs.length, 'question')} à revoir` : '✏️ Aucune question à revoir'),
         h('span', null, qs.length ? 'Les plus fragiles en premier' : faibles.length ? `Rien de dû : entraînement sur « ${faibles[0].chapitre.titre} »` : 'Rien de dû pour l\'instant'),
       ),
       fs.length
-        ? h('a', { class: 'btn carte-mode btn-primaire', href: '#/revision/flashcards' }, h('strong', null, `🎴 ${fs.length} flashcard(s) à revoir`), h('span', null, 'Auto-évaluation'))
+        ? h('a', { class: 'btn carte-mode btn-primaire', href: '#/revision/flashcards' }, h('strong', null, `🎴 ${nombre(fs.length, 'flashcard')} à revoir`), h('span', null, 'Auto-évaluation'))
         : h('div', { class: 'btn carte-mode desactive' }, h('strong', null, '🎴 Aucune flashcard due'), h('span', null, 'Révise les flashcards d\'un chapitre pour les ajouter')),
     ),
     h(

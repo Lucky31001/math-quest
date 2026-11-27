@@ -8,6 +8,7 @@ import { listeBadges, nouveauxBadges, type Badge } from '../game/badges';
 import { niveauDepuisXp, titre } from '../game/xp';
 import { jour } from '../game/dates';
 import { toast, celebrer, jouerSon } from './effets';
+import { nombre } from '../core/francais';
 
 export const BADGES: Badge[] = listeBadges(INDEX.chapitres, toutesLesMatieres());
 
@@ -71,7 +72,7 @@ export const etat = {
 export function avertissementChargement(r: RapportChargement = rapportChargement): string | null {
   switch (r.statut) {
     case 'reparee':
-      return `⚠️ Une partie de ta sauvegarde était illisible : ${r.perdus.length} élément(s) réinitialisé(s), le reste est conservé.`;
+      return `⚠️ Une partie de ta sauvegarde était illisible : ${nombre(r.perdus.length, 'élément réinitialisé', 'éléments réinitialisés')}, le reste est conservé.`;
     case 'reinitialisee':
       return '⚠️ Ta sauvegarde était illisible : la progression repart de zéro.';
     case 'version-future':

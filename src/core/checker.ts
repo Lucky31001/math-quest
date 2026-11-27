@@ -11,6 +11,7 @@
  */
 import { create, all, type MathNode, type EvalFunction } from 'mathjs';
 import { createRng } from './random';
+import { nombre } from './francais';
 
 export const math = create(all, {});
 
@@ -184,7 +185,7 @@ export function verifierNumerique(
   if (morceaux.length !== attendu.length)
     return {
       statut: morceaux.length === 0 ? 'invalide' : 'incorrect',
-      message: `${attendu.length} valeur(s) attendue(s), séparées par « ; » — tu en as donné ${morceaux.length}.`,
+      message: `${nombre(attendu.length, 'valeur attendue', 'valeurs attendues')}, séparées par « ; » — tu en as donné ${morceaux.length}.`,
     };
   const restantes = attendu.map(valeurDe);
   for (const m of morceaux) {
