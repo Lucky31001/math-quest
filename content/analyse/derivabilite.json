@@ -23,7 +23,7 @@
         {
           "type": "definition",
           "titre": "Dérivées à gauche et à droite",
-          "texte": "$f$ est dérivable à droite en $a$ si $\\frac{f(x) - f(a)}{x - a}$ a une limite finie quand $x \\to a^+$. $f$ est dérivable en $a$ ssi elle l'est à gauche et à droite avec $f'_g(a) = f'_d(a)$. Ex. : $x \\mapsto x|x|$ est dérivable en $0$ ; $x \\mapsto |x|$ ne l'est pas."
+          "texte": "$f$ est dérivable à droite en $a$ si $\\frac{f(x) - f(a)}{x - a}$ a une limite finie quand $x \\to a^+$, notée $f'_d(a)$ ; à gauche, la limite quand $x \\to a^-$ est notée $f'_g(a)$. $f$ est dérivable en $a$ ssi elle l'est à gauche et à droite avec $f'_g(a) = f'_d(a)$. Ex. : $x \\mapsto x|x|$ est dérivable en $0$ ; $x \\mapsto |x|$ ne l'est pas."
         },
         {
           "type": "definition",

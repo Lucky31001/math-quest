@@ -19,7 +19,7 @@
         {
           "type": "definition",
           "titre": "Suite convergente",
-          "texte": "$u_n \\to \\ell \\in \\mathbb{R}$ si $\\forall \\varepsilon > 0,\\ \\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$. On dit que $(u_n)$ **converge**. La limite, si elle existe, est unique. Une suite convergente est bornée."
+          "texte": "$u_n \\to \\ell \\in \\mathbb{R}$ si $\\forall \\varepsilon > 0,\\ \\exists N \\in \\mathbb{N},\\ \\forall n \\geq N,\\ |u_n - \\ell| \\leq \\varepsilon$. On dit que $(u_n)$ **converge**, et on note $\\lim_{n \\to +\\infty} u_n = \\ell$. La limite, si elle existe, est unique. Une suite convergente est bornée."
         },
         {
           "type": "definition",

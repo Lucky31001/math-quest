@@ -14,7 +14,7 @@
         {
           "type": "definition",
           "titre": "Espace vectoriel",
-          "texte": "Un **$\\mathbb{K}$-espace vectoriel** est un ensemble $E$ muni d'une addition et d'une multiplication par les scalaires de $\\mathbb{K}$, qui vérifient les règles de calcul usuelles (addition associative et commutative, vecteur nul $0_E$, opposés, $\\lambda(u + v) = \\lambda u + \\lambda v$, $(\\lambda + \\mu)u = \\lambda u + \\mu u$, $\\lambda(\\mu u) = (\\lambda\\mu)u$, $1 \\cdot u = u$). Ex. : $\\mathbb{K}^n$, $\\mathbb{K}[X]$, $\\mathcal{M}_{n,p}(\\mathbb{K})$, les fonctions de $\\mathbb{R}$ dans $\\mathbb{R}$."
+          "texte": "Soit $\\mathbb{K} = \\mathbb{R}$ ou $\\mathbb{C}$. Un **$\\mathbb{K}$-espace vectoriel** est un ensemble $E$ muni d'une addition et d'une multiplication par les scalaires de $\\mathbb{K}$, qui vérifient les règles de calcul usuelles (addition associative et commutative, vecteur nul $0_E$, opposés, $\\lambda(u + v) = \\lambda u + \\lambda v$, $(\\lambda + \\mu)u = \\lambda u + \\mu u$, $\\lambda(\\mu u) = (\\lambda\\mu)u$, $1 \\cdot u = u$). Ex. : $\\mathbb{K}^n$, $\\mathbb{K}[X]$, $\\mathcal{M}_{n,p}(\\mathbb{K})$, les fonctions de $\\mathbb{R}$ dans $\\mathbb{R}$."
         },
         {
           "type": "definition",

@@ -19,7 +19,7 @@
         {
           "type": "definition",
           "titre": "Degré, coefficient dominant",
-          "texte": "Si $P \\neq 0$, son **degré** $\\deg P$ est le plus grand $n$ tel que $a_n \\neq 0$ ; $a_n$ est le **coefficient dominant**, et $P$ est **unitaire** si $a_n = 1$. $\\mathbb{K}_n[X]$ est l'ensemble des polynômes de degré $\\leq n$. Le **polynôme dérivé** de $P$ est $P' = \\sum_{k=1}^{n} k a_k X^{k-1}$."
+          "texte": "Si $P \\neq 0$, son **degré** $\\deg P$ est le plus grand $n$ tel que $a_n \\neq 0$ ; $a_n$ est le **coefficient dominant**, et $P$ est **unitaire** si $a_n = 1$. Par convention, $\\deg 0 = -\\infty$. $\\mathbb{K}_n[X]$ est l'ensemble des polynômes de degré $\\leq n$. Le **polynôme dérivé** de $P$ est $P' = \\sum_{k=1}^{n} k a_k X^{k-1}$."
         },
         {
           "type": "propriete",

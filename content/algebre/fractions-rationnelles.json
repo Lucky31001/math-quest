@@ -48,12 +48,12 @@
         },
         {
           "type": "theoreme",
-          "titre": "Décomposition en éléments simples dans ℂ(X)",
+          "titre": "Décomposition en éléments simples dans $\\mathbb{C}(X)$",
           "texte": "Si $F$ a pour pôles $\\lambda_1, \\dots, \\lambda_r$ de multiplicités $m_1, \\dots, m_r$ : $F = E + \\displaystyle\\sum_{i=1}^{r} \\sum_{k=1}^{m_i} \\frac{a_{ik}}{(X - \\lambda_i)^k}$, de façon unique. Un pôle d'ordre $m$ apporte $m$ termes : $\\frac{a_{i1}}{X - \\lambda_i} + \\dots + \\frac{a_{im}}{(X - \\lambda_i)^m}$ (sa **partie polaire**)."
         },
         {
           "type": "theoreme",
-          "titre": "Décomposition dans ℝ(X)",
+          "titre": "Décomposition dans $\\mathbb{R}(X)$",
           "texte": "Dans $\\mathbb{R}(X)$, on factorise $Q$ en irréductibles réels : $(X - \\lambda)^m$ et $(X^2 + bX + c)^n$ avec $b^2 - 4c < 0$. Les $\\frac{a}{(X - \\lambda)^k}$ sont les éléments de **première espèce** ; les $\\frac{uX + v}{(X^2 + bX + c)^k}$ ceux de **seconde espèce** (numérateur de degré $\\leq 1$)."
         },
         {

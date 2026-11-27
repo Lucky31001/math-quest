@@ -19,7 +19,7 @@
         {
           "type": "definition",
           "titre": "Négation, conjonction, disjonction",
-          "texte": "$\\text{non}(P)$ est vraie quand $P$ est fausse. « $P$ et $Q$ » est vraie seulement si $P$ et $Q$ sont vraies. « $P$ ou $Q$ » est vraie dès que l'une au moins est vraie : c'est un **ou inclusif** (les deux peuvent être vraies)."
+          "texte": "$\\text{non}(P)$ (noté aussi $\\neg P$ ou $\\overline{P}$) est vraie quand $P$ est fausse. « $P$ et $Q$ » ($P \\wedge Q$) est vraie seulement si $P$ et $Q$ sont vraies. « $P$ ou $Q$ » ($P \\vee Q$) est vraie dès que l'une au moins est vraie : c'est un **ou inclusif** (les deux peuvent être vraies)."
         },
         {
           "type": "theoreme",
@@ -58,7 +58,7 @@
         },
         {
           "type": "definition",
-          "titre": "Quantificateurs ∀, ∃, ∃!",
+          "titre": "Quantificateurs $\\forall$, $\\exists$, $\\exists!$",
           "texte": "$\\forall x \\in E,\\ P(x)$ : « pour tout $x$ de $E$, $P(x)$ est vraie ». $\\exists x \\in E,\\ P(x)$ : « il existe **au moins** un $x$ de $E$ tel que $P(x)$ ». $\\exists!\\, x \\in E,\\ P(x)$ : il en existe **un et un seul**."
         },
         {
