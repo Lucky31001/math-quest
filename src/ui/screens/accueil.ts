@@ -36,14 +36,14 @@ export function ecranAccueil(main: HTMLElement): void {
         { class: 'carte-action survie', href: '#/jouer/survie' },
         h('span', { class: 'carte-icone' }, '🛡️'),
         h('strong', null, 'Survie'),
-        h('span', null, `Tous chapitres, jusqu'à la 1re erreur · record ${p.records.survie}`),
+        h('span', null, `Tous chapitres, jusqu'à la 1re erreur${p.records.survie ? ` · record ${p.records.survie}` : ''}`),
       ),
       h(
         'a',
         { class: 'carte-action eclair', href: '#/jouer/eclair' },
         h('span', { class: 'carte-icone' }, '⚡'),
         h('strong', null, 'QCM éclair'),
-        h('span', null, `20 QCM en 3 min, combos · record ${p.records.eclair} pts`),
+        h('span', null, `20 QCM en 3 min, combos${p.records.eclair ? ` · record ${p.records.eclair} pts` : ''}`),
       ),
     ),
   );
