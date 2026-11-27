@@ -69,7 +69,7 @@ describe('chargement', () => {
     expect(p.journal).toEqual({ '2026-03-10': 5 });
     expect(rapport.copie).not.toBeNull();
     expect(s.m.get(rapport.copie!)).toBe(brut);
-    expect(avertissementChargement(rapport)).toContain('3 élément(s)');
+    expect(avertissementChargement(rapport)).toContain('3 éléments réinitialisés');
   });
 
   it('JSON cassé : repart de zéro mais garde une copie', () => {

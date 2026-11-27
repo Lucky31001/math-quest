@@ -2,6 +2,7 @@
 import { randInt, randNonZero, pick } from '../core/random';
 import type { Question } from '../core/schema';
 import { Q, construireQcm, cleNum, combinaisonTex, matTex, polyTex, type Generateur, type Candidat } from './outils';
+import { nombre } from '../core/francais';
 
 const candN = (v: number | Q, explication: string): Candidat => {
   const q = Q.of(v);
@@ -286,8 +287,8 @@ export const dimensionEquations: Generateur = {
     const correction = [
       `$F$ est le noyau d'un système linéaire homogène à ${n} inconnues.`,
       redondante
-        ? `La dernière équation est une combinaison des précédentes : il y a ${r} équation(s) indépendante(s).`
-        : `Les ${r} équation(s) sont indépendantes (pivot de Gauss : ${r} pivot(s)).`,
+        ? `La dernière équation est une combinaison des précédentes : il y a ${nombre(r, 'équation indépendante', 'équations indépendantes')}.`
+        : `Les ${r} équations sont indépendantes (pivot de Gauss : ${nombre(r, 'pivot')}).`,
       `$\\dim F = ${n} - ${r} = ${dim}$.`,
     ];
     const indice = '$\\dim F$ = nombre d\'inconnues − nombre d\'équations INDÉPENDANTES.';

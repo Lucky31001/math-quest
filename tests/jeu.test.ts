@@ -346,3 +346,11 @@ describe('historique des examens blancs', () => {
     expect(tendanceExamens(n(15, 12, 10, 9))).toBe(-4.7); // (12 + 10 + 9) / 3 − 15
   });
 });
+
+describe('accord en nombre', () => {
+  it('0 et 1 au singulier, à partir de 2 au pluriel', async () => {
+    const { nombre } = await import('../src/core/francais');
+    expect([0, 1, 2, 10].map((n) => nombre(n, 'question'))).toEqual(['0 question', '1 question', '2 questions', '10 questions']);
+    expect(nombre(3, 'bonne réponse', 'bonnes réponses')).toBe('3 bonnes réponses');
+  });
+});

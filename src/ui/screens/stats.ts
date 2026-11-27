@@ -10,6 +10,7 @@ import { piegesRecurrents, tendanceExamens } from '../../game/progres';
 import { courbeNotes } from '../components/courbe';
 import { toutesLesMatieres } from '../../core/loader';
 import { riche } from '../texte';
+import { nombre } from '../../core/francais';
 
 /** Pièges récurrents : la même erreur (même distracteur ou même erreur typique) commise plusieurs fois. */
 function sectionPieges(): HTMLElement | null {
@@ -63,7 +64,7 @@ function sectionExamens(): HTMLElement | null {
         h(
           'p',
           { class: 'examen-resume' },
-          `Dernière : ${note(notes[notes.length - 1].note)} · Meilleure : ${note(etat.p.records.examens[m.id] ?? Math.max(...notes.map((x) => x.note)))} · ${notes.length} examen(s)`,
+          `Dernière : ${note(notes[notes.length - 1].note)} · Meilleure : ${note(etat.p.records.examens[m.id] ?? Math.max(...notes.map((x) => x.note)))} · ${nombre(notes.length, 'examen')}`,
           tendance ? h('span', { class: 'examen-tendance' }, ` · ${tendance}`) : null,
         ),
         courbeNotes(notes),
@@ -154,7 +155,7 @@ export function ecranStats(main: HTMLElement): void {
         { class: 'activite', role: 'img', 'aria-label': 'Réponses par jour' },
         jours.map((j) => {
           const n = p.journal[j] ?? 0;
-          return h('span', { class: 'jour', title: `${j} : ${n} réponse(s)`, style: `--intensite:${n ? 0.25 + 0.75 * (n / maxJ) : 0}` });
+          return h('span', { class: 'jour', title: `${j} : ${nombre(n, 'réponse')}`, style: `--intensite:${n ? 0.25 + 0.75 * (n / maxJ) : 0}` });
         }),
       ),
     ),
