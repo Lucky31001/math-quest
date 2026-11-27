@@ -716,6 +716,57 @@ body[data-ecran='jouer'] .hud {
   background: #3d2c12;
 }
 
+/* Nombre d'éléments à revoir, en pastille sur l'icône de la révision */
+.carte-icone {
+  position: relative;
+}
+
+.carte-icone .compte {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 22px;
+  text-align: center;
+}
+
+/* Téléphone : les trois modes sur une seule rangée compacte, pour que la carte des chapitres arrive vite. */
+@media (max-width: 640px) {
+  .tableau-accueil {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 4px 0 20px;
+  }
+  .tableau-accueil .carte-action {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 6px;
+    padding: 10px 6px;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .tableau-accueil .carte-action .carte-icone {
+    grid-row: auto;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+  .tableau-accueil .carte-action strong {
+    font-size: 0.8rem;
+    line-height: 1.15;
+  }
+  .tableau-accueil .carte-action > span:last-child {
+    display: none;
+  }
+}
+
 .carte-action.survie .carte-icone {
   background: var(--vert-clair);
 }
@@ -2953,31 +3004,48 @@ body:has(.pied) .haut-de-page {
   background: #fff;
 }
 
-/* Points : le point actif s'allonge et prend la couleur de la matière */
+/* Onglets des matières (au-dessus des diapos) : emblème + nom, à la couleur de la matière quand actif */
 .points {
   display: flex;
-  justify-content: center;
   gap: 8px;
-  margin: 6px 0 4px;
+  margin: 0 0 12px;
+  padding: 2px 2px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.points::-webkit-scrollbar {
+  display: none;
 }
 
 .point {
   --couleur: var(--texte-pale);
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 0;
+  --couleur-fonce: var(--bord);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 2px solid var(--bord);
   border-radius: 999px;
-  background: var(--bord);
+  background: var(--surface);
+  box-shadow: 0 3px 0 var(--bord);
+  color: var(--texte-doux);
+  font: 800 0.9rem var(--police);
+  white-space: nowrap;
   cursor: pointer;
   transition:
-    width 0.25s,
-    background 0.25s;
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .point.actif {
-  width: 28px;
+  border-color: var(--couleur);
   background: var(--couleur);
+  box-shadow: 0 3px 0 var(--couleur-fonce);
+  color: #fff;
 }
 
 /* Flèches (souris) : posées sur les bords de la diapo, cachées sur écran tactile */
@@ -3026,7 +3094,8 @@ body:has(.pied) .haut-de-page {
     transform: scale(1.08);
   }
   .point:not(.actif):hover {
-    background: var(--texte-pale);
+    border-color: var(--couleur);
+    color: var(--texte);
   }
 }
 

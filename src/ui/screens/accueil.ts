@@ -27,7 +27,7 @@ export function ecranAccueil(main: HTMLElement): void {
       h(
         'a',
         { class: `carte-action revision ${nbQ + nbF ? 'a-faire' : ''}`, href: '#/revision' },
-        h('span', { class: 'carte-icone' }, '📅'),
+        h('span', { class: 'carte-icone' }, '📅', nbQ + nbF ? h('span', { class: 'compte', 'aria-hidden': 'true' }, String(nbQ + nbF)) : null),
         h('strong', null, 'Révision du jour'),
         h('span', null, nbQ + nbF ? `${nbQ} question(s) et ${nbF} flashcard(s) à revoir` : 'Tout est à jour ✨'),
       ),
@@ -144,11 +144,17 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
   });
 
   const piste = h('div', { class: 'piste', tabindex: '0', 'aria-label': 'Matières (flèches gauche / droite pour changer)' }, diapos);
+  // Onglets nommés (au-dessus des diapos) : on voit d'emblée toutes les matières.
   const points = h(
     'div',
     { class: 'points', role: 'tablist', 'aria-label': 'Choisir une matière', hidden: matieres.length < 2 },
     matieres.map((m, i) =>
-      h('button', { type: 'button', role: 'tab', class: 'point', style: styleMatiere(m), 'aria-label': m.nom, title: m.nom, onclick: () => aller(i) }),
+      h(
+        'button',
+        { type: 'button', role: 'tab', class: 'point', style: styleMatiere(m), onclick: () => aller(i) },
+        h('span', { 'aria-hidden': 'true' }, m.embleme),
+        m.nom,
+      ),
     ),
   );
   const fleche = (sens: -1 | 1) =>
@@ -168,6 +174,9 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
       p.classList.toggle('actif', k === i);
       p.setAttribute('aria-selected', String(k === i));
     });
+    // Onglet actif visible dans la rangée (qui défile sur un téléphone).
+    const onglet = points.children[i] as HTMLElement | undefined;
+    points.scrollTo?.({ left: (onglet?.offsetLeft ?? 0) - points.offsetLeft - 16, behavior: 'smooth' });
     diapos.forEach((d, k) => d.classList.toggle('actif', k === i));
     precedente.disabled = i === 0;
     suivante.disabled = i === matieres.length - 1;
@@ -201,7 +210,12 @@ function creerCarrousel(niveau: Niveau, initiale: string, surChoix: (id: string)
   });
 
   activer(actif);
-  const el = h('div', { class: 'carrousel', 'aria-roledescription': 'carrousel', 'aria-label': `Matières — ${niveau.nom}` }, matieres.length > 1 ? precedente : null, piste, matieres.length > 1 ? suivante : null, points);
+  const el = h(
+    'div',
+    { class: 'matieres' },
+    points,
+    h('div', { class: 'carrousel', 'aria-roledescription': 'carrousel', 'aria-label': `Matières — ${niveau.nom}` }, matieres.length > 1 ? precedente : null, piste, matieres.length > 1 ? suivante : null),
+  );
   // Position initiale sans animation, une fois l'élément dans la page.
   return { el, placer: () => requestAnimationFrame(() => aller(actif, false)) };
 }
