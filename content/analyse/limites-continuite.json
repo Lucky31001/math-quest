@@ -63,6 +63,11 @@
         },
         {
           "type": "methode",
+          "titre": "Limite d'un taux d'accroissement",
+          "texte": "Si $h$ est dérivable en $a$ : $\\displaystyle\\lim_{x \\to a} \\dfrac{h(x) - h(a)}{x - a} = h'(a)$. Reconnaître ce quotient lève une indétermination « $\\frac00$ ». Ex. : en $1$, $\\dfrac{\\ln x}{x - 1} = \\dfrac{\\ln x - \\ln 1}{x - 1} \\to \\ln'(1) = 1$. Les limites usuelles en $0$ en découlent : $\\dfrac{\\sin x}{x} = \\dfrac{\\sin x - \\sin 0}{x - 0} \\to \\cos 0 = 1$."
+        },
+        {
+          "type": "methode",
           "titre": "Lever une indétermination",
           "texte": "Factoriser par le terme dominant, multiplier par la quantité conjuguée, utiliser les limites usuelles ou les croissances comparées."
         },
