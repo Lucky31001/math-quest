@@ -2647,18 +2647,19 @@ a.stat-ligne:hover {
   width: 48px;
   height: 48px;
   padding: 0;
-  border: 2px solid var(--bord);
-  border-radius: 50%;
-  background: var(--surface-2);
-  box-shadow: 0 4px 0 var(--bord);
-  color: var(--bleu);
+  border: 0;
+  border-radius: 14px;
+  background: var(--vert);
+  box-shadow: 0 4px 0 var(--vert-fonce);
+  color: #fff;
   font: 900 1.5rem/1 var(--police);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transition:
     opacity 0.2s,
-    visibility 0.2s;
+    visibility 0.2s,
+    filter 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -2669,7 +2670,7 @@ a.stat-ligne:hover {
 
 .haut-de-page:active {
   translate: 0 4px;
-  box-shadow: 0 0 0 var(--bord);
+  box-shadow: 0 0 0 var(--vert-fonce);
 }
 
 .haut-de-page:focus-visible {
@@ -2679,8 +2680,7 @@ a.stat-ligne:hover {
 
 @media (hover: hover) and (pointer: fine) {
   .haut-de-page:hover:not(:active) {
-    border-color: var(--bleu-bord);
-    background: var(--bleu-clair);
+    filter: brightness(1.08);
   }
 }
 
