@@ -174,7 +174,7 @@ describe('écrans', () => {
     await aller('#/jouer/eclair');
     const main = document.getElementById('contenu')!;
     expect(main.querySelector('.question.type-qcm')).toBeTruthy();
-    expect(main.querySelector('.session-barre')!.textContent).toContain('Question 1/20');
+    expect(main.querySelector('.session-barre .compteur')!.textContent).toBe('1/20');
     touche('1');
     // QCM unique : « 1 » valide directement ; QCM multiple : « 1 » coche, Entrée valide.
     if (!main.querySelector('.pied-juste, .pied-faux')) touche('Enter');

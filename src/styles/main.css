@@ -1823,12 +1823,13 @@ body[data-ecran='jouer'] .hud {
   height: 16px;
 }
 
+/* Numéro de la question, à droite de la barre de progression */
 .compteur {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
+  flex: none;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .vies {
@@ -2035,11 +2036,7 @@ body[data-ecran='jouer'] .hud {
 }
 
 .paquet .compteur {
-  position: static;
-  width: auto;
-  height: auto;
-  clip: auto;
-  color: var(--texte-doux);
+  font-size: 1rem;
 }
 
 .flashcard {
