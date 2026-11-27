@@ -227,6 +227,8 @@ function rendreChemin(conteneur: HTMLElement, idMatiere: string): void {
           )
         : h('div', { class: 'carte-vide' }, h('p', null, '🚧 Les chapitres de cette matière arrivent bientôt.')),
       chapitres.length ? lienExamen(idMatiere) : null,
+      // Matière avec des exercices de programmation (C) : accès direct à l'atelier.
+      chapitres.some((c) => c.exercices.some((q) => q.type === 'programme')) ? lienAtelier() : null,
     ),
   );
 }
@@ -250,6 +252,17 @@ function lienExamen(idMatiere: string): HTMLElement {
       `${EXAMEN.questions} questions, ${EXAMEN.duree / 60} min, corrigé à la fin`,
       meilleure !== undefined ? ` · meilleure note ${String(meilleure).replace('.', ',')}/20` : '',
     ),
+  );
+}
+
+/** Atelier C : écrire, compiler et exécuter du C dans le navigateur. */
+function lienAtelier(): HTMLElement {
+  return h(
+    'a',
+    { class: 'carte-action atelier', href: '#/atelier' },
+    h('span', { class: 'carte-icone' }, '🧪'),
+    h('strong', null, 'Atelier C'),
+    h('span', null, 'Écris et exécute ton propre code C, sans rien installer'),
   );
 }
 
