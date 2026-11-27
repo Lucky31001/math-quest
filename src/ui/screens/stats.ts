@@ -121,7 +121,7 @@ export function ecranStats(main: HTMLElement): void {
   const joursActifs = Object.keys(p.journal).length;
 
   // Aucune réponse encore : un message d'accueil plutôt qu'une page de zéros.
-  if (p.compteurs.reponses === 0) {
+  if (p.compteurs.reponses === 0 && !piegesRecurrents(p).length && !Object.keys(p.records.historiqueExamens).length) {
     main.append(
       h('h1', null, '📊 Tableau de bord'),
       etatVide('📈', 'Tes statistiques apparaîtront ici', 'Réponds à tes premières questions : taux de réussite, activité, points faibles et pièges récurrents se rempliront au fil de tes séances.'),
