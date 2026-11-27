@@ -3337,6 +3337,33 @@ main {
   display: none;
 }
 
+/* Onglets collés sous l'en-tête quand on fait défiler un long cours. */
+.onglets {
+  position: sticky;
+  top: var(--hauteur-hud, 0px);
+  z-index: 15;
+  margin: 12px -16px 10px;
+  padding: 10px 16px 8px;
+  background: var(--fond);
+}
+
+/* Page d'un chapitre sur téléphone : en-tête compact pour que le contenu arrive vite. */
+@media (max-width: 640px) {
+  .chapitre-entete {
+    padding: 12px 14px;
+  }
+  .chapitre-entete h1 {
+    font-size: 1.35rem;
+  }
+  .chapitre-entete .resume {
+    display: none;
+  }
+  .chapitre-stats {
+    gap: 6px;
+    font-size: 0.75rem;
+  }
+}
+
 @media (max-width: 640px) {
   .onglets {
     gap: 6px;
