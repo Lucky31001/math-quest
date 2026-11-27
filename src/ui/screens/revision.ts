@@ -7,6 +7,7 @@ import { questionsDues, flashcardsDues, pointsFaibles } from '../../game/modes';
 import { paquetFlashcards } from '../components/flashcards';
 import { INTERVALLES } from '../../game/leitner';
 import { icone } from '../icones';
+import { etatVide } from '../components/etat-vide';
 
 export function ecranRevision(main: HTMLElement, params: string[]): () => void {
   const p = etat.p;
@@ -31,6 +32,19 @@ export function ecranRevision(main: HTMLElement, params: string[]): () => void {
     n: Object.values(p.questions).filter((e) => e.boite === b).length + Object.values(p.flashcards).filter((e) => e.boite === b).length,
   }));
   const max = Math.max(1, ...boites.map((x) => x.n));
+
+  // Rien dans les boîtes : la répétition espacée n'a pas encore commencé.
+  if (boites.every((x) => x.n === 0)) {
+    main.append(
+      h('h1', null, '📅 Révision du jour'),
+      etatVide(
+        '🗓️',
+        'Ta révision se remplira toute seule',
+        'Les questions auxquelles tu réponds et les flashcards que tu notes rejoignent tes boîtes de révision. Elles reviennent ici au bon moment : le lendemain si tu t’es trompé, de plus en plus tard si tu les sais.',
+      ),
+    );
+    return () => {};
+  }
 
   ajouter(main, [
     h('h1', null, '📅 Révision du jour'),

@@ -10,6 +10,7 @@ import { piegesRecurrents, tendanceExamens } from '../../game/progres';
 import { courbeNotes } from '../components/courbe';
 import { toutesLesMatieres } from '../../core/loader';
 import { riche } from '../texte';
+import { etatVide } from '../components/etat-vide';
 
 /** Pièges récurrents : la même erreur (même distracteur ou même erreur typique) commise plusieurs fois. */
 function sectionPieges(): HTMLElement | null {
@@ -118,6 +119,15 @@ export function ecranStats(main: HTMLElement): void {
   const jours = Array.from({ length: 28 }, (_, i) => ajouterJours(auj, i - 27));
   const maxJ = Math.max(1, ...jours.map((j) => p.journal[j] ?? 0));
   const joursActifs = Object.keys(p.journal).length;
+
+  // Aucune réponse encore : un message d'accueil plutôt qu'une page de zéros.
+  if (p.compteurs.reponses === 0 && !piegesRecurrents(p).length && !Object.keys(p.records.historiqueExamens).length) {
+    main.append(
+      h('h1', null, '📊 Tableau de bord'),
+      etatVide('📈', 'Tes statistiques apparaîtront ici', 'Réponds à tes premières questions : taux de réussite, activité, points faibles et pièges récurrents se rempliront au fil de tes séances.'),
+    );
+    return;
+  }
 
   main.append(
     h('h1', null, '📊 Tableau de bord'),
